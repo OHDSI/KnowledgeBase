@@ -1,0 +1,58 @@
+statGit workflow:
+
+1) clone a fork that I have read/write permissions on
+
+git clone http://...
+
+2) add a file to the local clone that git will track changes on
+
+git add <file/folder>
+
+3) code and then commit to the local branch
+
+git commit -m"informative message"
+
+4) determine remote and local branch names
+
+git remote
+
+git branch
+
+5) what's changed?
+
+git status
+
+6) push local changes to the remote
+
+git push origin master
+
+7) pull remote changes to the local
+
+git fetch origin
+git checkout master
+git pull
+
+(see https://help.github.com/articles/syncing-a-fork)
+
+8) whats the state of the local branches?
+
+git branch -va
+
+
+9) Get in sync with the original fork
+
+If 'git remote -v' does now show https://github.com/domeo/DomeoClient.git as upstream:
+
+$ git remote add upstream https://github.com/domeo/DomeoClient.git
+
+Otherwise:
+
+git fetch upstream
+git branch -va
+git checkout master
+git merge upstream/master
+
+10) mark local changes so that they are not committed to the remote
+
+git update-index --assume-unchanged <file or folder>
+
