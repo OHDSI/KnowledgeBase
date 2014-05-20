@@ -1,0 +1,4 @@
+The mapping from RxNorm to MeSH comes from the UMLS March 2014
+release:
+
+$ cat RXNCONSO.RRF | grep MSH | cut -f 1,14,15 -d '|' > /tmp/rxnorm-to-MeSH-mapping-03032014.txt
