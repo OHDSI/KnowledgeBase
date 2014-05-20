@@ -3,10 +3,11 @@
 v.01 EXAMPLE QUERY:
 ---
 
-SELECT DRUG_HOI_INDEX.DRUG, DRUG_HOI_INDEX.HOI, DRUG_HOI_EVIDENCE.EVIDENCE_TYPE, EVIDENCE_SOURCES.EVIDENCE_SOURCE_NAME, EVIDENCE_SOURCES.EVIDENCE_SOURCE_DESCRIPTION 
-FROM DRUG_HOI_INDEX, DRUG_HOI_EVIDENCE, EVIDENCE_SOURCES  
+SELECT drug_HOI_index.drug, drug_HOI_index.HOI, drug_HOI_evidence.evidence_type, evidence_sources.evidence_source_name, evidence_sources.evidence_source_description, evidence_targets.identifier, evidence_bodies.body_tag, evidence_bodies.body_value_as_string
+FROM drug_HOI_index, drug_HOI_evidence, evidence_sources, evidence_targets  
 WHERE 
-DRUG_HOI_EVIDENCE.DRUG_HOI_KEY = DRUG_HOI_INDEX.DRUG_HOI_PAIR AND 
-DRUG_HOI_EVIDENCE.EVIDENCE_SOURCE_CODE_ID = EVIDENCE_SOURCES.ID
-
+drug_HOI_evidence.drug_HOI_key = drug_HOI_index.drug_HOI_pair AND 
+drug_HOI_evidence.evidence_source_code_id = evidence_sources.id AND
+drug_HOI_evidence.evidence_target_id = evidence_targets.id AND
+drug_HOI_evidence.evidence_body_id = evidence_bodies.body_id
 ---
