@@ -1,7 +1,10 @@
 ## getMappingsFromBioportal.py
 #
 #
-# Python script to query  http://sparql.bioontology.org/mappings/sparql for mappings between various terminologies
+# Python script to query http://sparql.bioontology.org/mappings/sparql
+# for mappings between various terminologies. See
+# http://www.bioontology.org/wiki/index.php/BioPortal_Mappings for
+# further explanation.
 #
 # Author: Richard D Boyce - University of Pittsburgh
 

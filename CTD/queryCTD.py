@@ -35,7 +35,7 @@ CTD_SPARQL = "http://s4.semanticscience.org:14004/sparql"
 
 LOG_FILE = "ctd_gov_queryresults.log"
 OUT_FILE = "ctd__gov_queryresults.tsv"
-PICKLE_FILE = "ctd_gov_queryresults.pickle" # where a python data structure containing the results will be stored
+PICKLE_FILE = "ctd_gov_queryresults.pickle" # a python data structure containing the results will be stored
 
 
 drugsF = "drugsToSearch.txt"
@@ -146,6 +146,8 @@ if __name__ == "__main__":
 
     ctD = {}
     sparql_service = CTD_SPARQL
+
+    colLabs = ["url", "HOI_MESH", "HOI_MEDDRA", "chemical_MESH", "chemical_RXNORM", "article", "label", "dataSource"]
    
     for drugSymbol in drugD.keys():
         for HOISymbol in HOID.keys():
@@ -167,7 +169,7 @@ if __name__ == "__main__":
 
                     newCT["HOI_MEDDRA"] = HOID[newCT["HOI_MESH"]]
                     
-                    if drugD.has_key("chemical_MESH"):
+                    if drugD.has_key(newCT["chemical_MESH"]):
                         newCT["chemical_RXNORM"] = drugD[newCT["chemical_MESH"]][0]
 
                     dKey = "%s-%s" % (drugSymbol,HOISymbol)
@@ -175,13 +177,17 @@ if __name__ == "__main__":
                         ctD[dKey] = [newCT]
                     else:
                         ctD[dKey].append(newCT)
+
+                    logf.write("RESULT: %s" % dKey)
+                    for key in colLabs:
+                        logf.write("\t%s" % newCT[key])
                     
-                    if len(resultset["results"]["bindings"]) == offset:
-                        offset += offset
-                    q = getQueryString(drugSymbol, HOISymbol, offset, limit)
-                    resultset = queryEndpoint(sparql_service, q)
-                else:
-                    goFlag = False
+                    if len(resultset["results"]["bindings"]) == limit and offset < maxoffset:
+                        offset += limit
+                        q = getQueryString(drugSymbol, HOISymbol, offset, limit)
+                        resultset = queryEndpoint(sparql_service, q)
+                    else:
+                        goFlag = False
 
     # serialize the results 
     pickleF = PICKLE_FILE
@@ -196,7 +202,6 @@ if __name__ == "__main__":
     logf.write("\nmapping data saved to %s" % pickleF)
         
     # write tab delimitted output
-    colLabs = ["url", "HOI_MESH", "HOI_MEDDRA", "chemical_MESH", "chemical_RXNORM", "article", "label", "dataSource"]
     outf.write("%s\n" % "\t".join(["key"] + colLabs))
     for k,v in ctD.iteritems():
         for elt in v:
