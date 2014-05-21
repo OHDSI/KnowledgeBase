@@ -4,7 +4,7 @@ v.01 EXAMPLE QUERY:
 ---
 
 SELECT drug_HOI_index.drug, drug_HOI_index.HOI, drug_HOI_evidence.evidence_type, evidence_sources.evidence_source_name, evidence_sources.evidence_source_description, evidence_targets.identifier, evidence_bodies.body_tag, evidence_bodies.body_value_as_string
-FROM drug_HOI_index, drug_HOI_evidence, evidence_sources, evidence_targets  
+FROM drug_HOI_index, drug_HOI_evidence, evidence_sources, evidence_targets, evidence_bodies  
 WHERE 
 drug_HOI_evidence.drug_HOI_key = drug_HOI_index.drug_HOI_pair AND 
 drug_HOI_evidence.evidence_source_code_id = evidence_sources.id AND
