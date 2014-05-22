@@ -1,0 +1,4 @@
+This script extracts the PubChem substance and compound mappings found
+in DrugBank 4.0. The output is tab delimited and just pushed to
+stdout. 
+
