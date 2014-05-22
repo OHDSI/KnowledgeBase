@@ -151,12 +151,12 @@ if __name__ == "__main__":
    
     for drugSymbol in drugD.keys():
         for HOISymbol in HOID.keys():
-            logf.write("INFO: trying drug %s and HOI %s\n" % (drugSymbol,HOISymbol))
+            logf.write("\nINFO: trying drug %s and HOI %s\n" % (drugSymbol,HOISymbol))
             q = getQueryString(drugSymbol, HOISymbol, offset, limit) 
             resultset = queryEndpoint(sparql_service, q)
 
             if len(resultset["results"]["bindings"]) == 0:
-                logf.write("INFO: no results for drug %s and HOI %s\n" % (drugSymbol,HOISymbol))
+                logf.write("\nINFO: no results for drug %s and HOI %s\n" % (drugSymbol,HOISymbol))
                 continue
         
             goFlag = True
@@ -178,7 +178,7 @@ if __name__ == "__main__":
                     else:
                         ctD[dKey].append(newCT)
 
-                    logf.write("RESULT: %s" % dKey)
+                    logf.write("\nRESULT: %s" % dKey)
                     for key in colLabs:
                         logf.write("\t%s" % newCT[key])
                     

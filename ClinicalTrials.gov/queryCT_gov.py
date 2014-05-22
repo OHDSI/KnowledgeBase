@@ -45,16 +45,24 @@ PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX ct: <http://bio2rdf.org/clinicaltrials:>
 PREFIX ctv: <http://bio2rdf.org/clinicaltrials_vocabulary:>
 
-SELECT ?trialURI ?trialLabel ?completionDate ?interventionURI ?conditionURI ?conditionLabel
+SELECT ?trialURI ?trialLabel ?completionDate ?interventionURI ?interventionLabel ?conditionURI ?conditionLabel ?seURI  ?seLabel ?seGrp ?seAff ?seAtRisk
 WHERE {
-  ?interventionURI dct:title "%s"@en.
+ ?interventionURI dct:title "%s"@en.
 
-  ?trialURI a ctv:Clinical-Study;
-     ctv:intervention ?interventionURI;
-     rdfs:label ?trialLabel;
-     ctv:condition ?conditionURI; 
-     ctv:completion-date ?completionDate.
+ ?trialURI a ctv:Clinical-Study;
+   ctv:intervention ?interventionURI;
+   rdfs:label ?trialLabel;
+   ctv:condition ?conditionURI;
+   ctv:completion-date ?completionDate;
+   ctv:event-group ?seGrp .
 
+ ?seURI a ?type ;
+   rdfs:label ?seLabel;
+   ctv:group ?seGrp;
+   ctv:subjects-affected ?seAff;
+   ctv:subjects-at-risk ?seAtRisk.
+
+  ?interventionURI rdfs:label ?interventionLabel. 
   ?conditionURI rdfs:label ?conditionLabel. 
 }
 OFFSET %d
@@ -67,11 +75,16 @@ def getTrialDict():
     d = {
         "trialLabel":None,
         "trialURI":None,
-        "interventionLabel":None,
-        "interventionURI":None,
-        "conditionLabel":None,
-        "conditionURI":None,
         "completionDate":None,        
+        "interventionURI":None,
+        "interventionLabel":None,
+        "conditionURI":None,
+        "conditionLabel":None,
+        "eventURI":None,
+        "eventLabel":None,
+        "eventGroup":None,
+        "eventNumbAffected":None,
+        "eventNumbAtRisk":None,
         "dataSource":None
       }
 
@@ -79,14 +92,20 @@ def getTrialDict():
 
 def createTrialDrugIntervention(qResult, drug, sparql_service):
     newTrial = getTrialDict()
-    newTrial["dataSource"] = sparql_service
     newTrial["trialLabel"] = qResult["trialLabel"]["value"]
     newTrial["trialURI"] = qResult["trialURI"]["value"]
-    newTrial["interventionLabel"] = drug
-    newTrial["interventionURI"] = qResult["interventionURI"]["value"]
-    newTrial["conditionLabel"] = qResult["conditionLabel"]["value"]
-    newTrial["conditionURI"] = qResult["conditionURI"]["value"]
     newTrial["completionDate"] = qResult["completionDate"]["value"]
+    newTrial["interventionURI"] = qResult["interventionURI"]["value"]
+    newTrial["interventionLabel"] = drug
+    newTrial["conditionURI"] = qResult["conditionURI"]["value"]
+    newTrial["conditionLabel"] = qResult["conditionLabel"]["value"]
+    newTrial["eventURI"] = qResult["seURI"]["value"]
+    newTrial["eventLabel"] = qResult["seLabel"]["value"]
+    newTrial["eventGroup"] = qResult["seGrp"]["value"]
+    newTrial["eventNumbAffected"] = qResult["seAff"]["value"]
+    newTrial["eventNumbAtRisk"] = qResult["seAtRisk"]["value"]
+
+    newTrial["dataSource"] = sparql_service
        
     return newTrial
 
@@ -125,7 +144,7 @@ if __name__ == "__main__":
     logf = codecs.open(LOG_FILE,'w','utf-8')
     outf = codecs.open(OUT_FILE,'w','utf-8')
 
-    drugList = ["Omalizumab"]
+    drugList = ["Omalizumab","ranibizumab"]
     
     ## ALTERNATIVELY, WRITE DRUGS TO FILE
     # f = open(drugF, "r")
@@ -136,14 +155,15 @@ if __name__ == "__main__":
     ctD = {}
     sparql_service = CT_SPARQL
 
-   
+    colLabs = ["trialLabel", "trialURI", "completionDate", "interventionURI", "interventionLabel", "conditionURI", "conditionLabel", "eventURI", "eventLabel", "eventGroup", "eventNumbAffected", "eventNumbAtRisk"]
+
     for drugSymbol in drugList:
-        logf.write("INFO: trying symbol %s\n" % drugSymbol)
+        logf.write("\nINFO: trying symbol %s\n" % drugSymbol)
         q = getQueryString(drugSymbol, offset, limit) 
         resultset = queryEndpoint(sparql_service, q)
 
         if len(resultset["results"]["bindings"]) == 0:
-            logf.write("INFO: no results for drug %s" % drugSymbol)
+            logf.write("\nINFO: no results for drug %s" % drugSymbol)
             continue
         
         goFlag = True
@@ -158,9 +178,14 @@ if __name__ == "__main__":
                     ctD[drugSymbol] = [newCT]
                 else:
                     ctD[drugSymbol].append(newCT)
+
+
+                logf.write("\nRESULT: %s" % drugSymbol)
+                for key in colLabs:
+                    logf.write("\t%s" % newCT[key])
                     
-            if len(resultset["results"]["bindings"]) == offset:
-                offset += offset
+            if len(resultset["results"]["bindings"])  == limit and offset < maxoffset:
+                offset += limit
                 q = getQueryString(drugSymbol, offset, limit)
                 resultset = queryEndpoint(sparql_service, q)
             else:
