@@ -20,7 +20,8 @@ sys.path = sys.path + ['.']
 
 #############  GLOBALS ###################################################################
 
-CT_SPARQL = "http://s2.semanticscience.org:12050/sparql"
+#CT_SPARQL = "http://s2.semanticscience.org:12050/sparql"
+CT_SPARQL = "http://clinicaltrials.bio2rdf.org/sparql"
 
 LOG_FILE = "ct_gov_queryresults.log"
 OUT_FILE = "ct_gov_queryresults.tsv"
