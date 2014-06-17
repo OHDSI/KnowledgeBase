@@ -1,12 +1,93 @@
 
+v.01 
 
-v.01 EXAMPLE QUERY:
----
+Conceptually, the data model is a relational DB adaptation of the Open
+Data Annotation model: http://www.openannotation.org/spec/core/. The
+basic idea is to model evidence data sources, information items, and
+semantic qualifiers using, respectively, the 'evidence_sources',
+'evidence_targets', and 'evidence_bodies' tables. This decouples the
+data sources from varies copies of the sources that might have been
+processed in many different ways. It also decouples what can be said
+about and evidence item (i.e., the semantic tags) from the information
+artifact. All of this allows for greater flexibility wrt inclusion of
+sources and analysis. Moreover, the 'drill down' use case can be
+supported by following URIs provided by in the 'evidence target' table
+to Linked Data resources.
+
+This model will be developed to support all of the sources here:
+https://docs.google.com/document/d/13UwoqjPyqKr-MLpcflzNs8WD5Za4Ynqnue1xWU2cgaA/edit# 
+
+The OHDSI standard vocabulary may require extensions from the
+follwing terminologies:
+- http://www.openannotation.org/spec/core/#Terminology
+- http://www.openannotation.org/spec/core/#Terminology
+- http://www.openannotation.org/spec/core/#Terminology
+- http://xmlns.com/foaf/spec/
+- http://www.w3.org/TR/prov-o/
+- http://www.w3.org/TR/skos-reference/
+
+
+EXAMPLE QUERIES:
+
+-- A general query showing how to bridge all tables
 SELECT drug_HOI_index.drug, drug_HOI_index.HOI, drug_HOI_evidence.evidence_type, evidence_sources.title, evidence_sources.description, evidence_targets.uri, evidence_bodies.semantic_tag_label, evidence_bodies.value_as_string, evidence_bodies.value_as_int, evidence_bodies.value_as_double, evidence_bodies.value_as_date
 FROM drug_HOI_index, drug_HOI_evidence, evidence_sources, evidence_targets, evidence_bodies  
 WHERE 
 drug_HOI_evidence.drug_HOI_key = drug_HOI_index.drug_HOI_pair AND 
 drug_HOI_evidence.evidence_source_code_id = evidence_sources.id AND
 drug_HOI_evidence.evidence_target_id = evidence_targets.id AND
-drug_HOI_evidence.evidence_body_id = evidence_bodies.body_id
+drug_HOI_evidence.evidence_body_id = evidence_bodies.body_id 
 ---
+
+-- Get back all evidence for 'metronidazole' and 'renal failure'
+SELECT drug_HOI_evidence.evidence_type, evidence_sources.title, evidence_sources.description, evidence_targets.uri, evidence_bodies.semantic_tag_label, evidence_bodies.value_as_string, evidence_bodies.value_as_int, evidence_bodies.value_as_double, evidence_bodies.value_as_date
+FROM drug_HOI_index, drug_HOI_evidence, evidence_sources, evidence_targets, evidence_bodies  
+WHERE 
+drug_HOI_index.drug = 6944 AND
+drug_HOI_index.HOI = 10038435 AND
+drug_HOI_evidence.drug_HOI_key = drug_HOI_index.drug_HOI_pair AND 
+drug_HOI_evidence.evidence_source_code_id = evidence_sources.id AND
+drug_HOI_evidence.evidence_target_id = evidence_targets.id AND
+drug_HOI_evidence.evidence_body_id = evidence_bodies.body_id 
+
+
+
+-- Count literature evidence for 'metronidazole' and 'renal failure'
+SELECT COUNT(drug_HOI_evidence.evidence_type)
+FROM drug_HOI_index, drug_HOI_evidence
+WHERE 
+drug_HOI_index.drug = 6944 AND
+drug_HOI_index.HOI = 10038435 AND
+drug_HOI_evidence.drug_HOI_key = drug_HOI_index.drug_HOI_pair AND 
+drug_HOI_evidence.evidence_type LIKE "literature%"
+
+
+-- Count case report evidence for 'metronidazole' and 'renal failure'
+SELECT COUNT(drug_HOI_evidence.evidence_type)
+FROM drug_HOI_index, drug_HOI_evidence
+WHERE 
+drug_HOI_index.drug = 6944 AND
+drug_HOI_index.HOI = 10038435 AND
+drug_HOI_evidence.drug_HOI_key = drug_HOI_index.drug_HOI_pair AND 
+drug_HOI_evidence.evidence_type = "literature_case_report"
+
+
+-- get the target URIs for product label evidence for Simvastatin and Upper respiratory tract infection
+SELECT evidence_targets.uri
+FROM drug_HOI_index, drug_HOI_evidence, evidence_targets
+WHERE 
+drug_HOI_index.drug = 36567 AND
+drug_HOI_index.HOI = 36110715 AND
+drug_HOI_evidence.drug_HOI_key = drug_HOI_index.drug_HOI_pair AND 
+drug_HOI_evidence.evidence_type = "product_label" AND
+evidence_targets.id = drug_HOI_evidence.evidence_target_id
+
+
+----
+
+Note instructions on faceted browser installation:
+http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtFacetBrowserInstallConfig
+
+
+
+
