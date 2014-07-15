@@ -1,19 +1,30 @@
--- Converted by db_converter
+﻿-- Converted by db_converter
 START TRANSACTION;
 SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
 
 CREATE TABLE "drug_HOI_evidence" (
-    "id" integer NOT NULL, -- 'primary key',
-    "drug_HOI_key" varchar(60) NOT NULL, -- 'foreign key to drug_HOI_index',
-    "drug" varchar(40) NOT NULL, -- 'RxNorm CUI for the drug',
+	
+    "id" serial NOT NULL, -- primary key
+    "drug" integer NOT NULL, -- 'RxNorm CUI for the drug',
+    "HOI" integer NOT NULL, -- 'foreign key to the HOI',
+    "evidence_type" varchar(30) NOT NULL,
+    "evidence_source_code_id" integer NOT NULL,
+    "evidence_target_id" integer NOT NULL,
+    "evidence_body_id" integer NOT NULL,
     PRIMARY KEY ("id")
 );
 
-INSERT INTO "drug_HOI_evidence" VALUES (1,'89013-35738560','36567'),(2,'36567-36110715','6944'),(3,'6944-10038435','89013');
+
+INSERT INTO "drug_HOI_evidence"("drug", "HOI",, "evidence_type", "evidence_source_code_id", "evidence_target_id", "evidence_body_id") VALUES
+	(89013,35738560,'product_label', 1, 1, 1),
+	(36567,36110715, 'product_label',2,2,2),
+	(6944,10038435,'literature_case_report',3,3,3),
+	(6944,10038435,'literature_specific_review',4,4,4);
+	
 CREATE TABLE "evidence_bodies" (
-    "id" integer NOT NULL, -- 'primary key',
+    "id" serial NOT NULL, -- 'primary key',
     "body_id" integer NOT NULL, -- 'an id useful for retrieving all body attributes associated with an evidence item ',
     "semantic_tag_id" integer NOT NULL, -- 'The concept identifier from the OHDSI Standard Vocabulary of the semantic tag used to annotate a body resource',
     "semantic_tag_label" varchar(40) NOT NULL, -- 'the label of the semantic tag used to annotate a body resource',
@@ -27,7 +38,7 @@ CREATE TABLE "evidence_bodies" (
 
 INSERT INTO "evidence_bodies" VALUES (1,1,0,'DATE OF THE SPC',NULL,NULL,NULL,NULL,'2011-01-21'),(2,1,0,'AGE GROUP',NULL,NULL,0,NULL,NULL),(3,2,0,'SPL_DATE',NULL,NULL,NULL,NULL,'2013-08-10'),(4,2,0,'SPL_SECTION',NULL,'Adverse Reactions',NULL,NULL,NULL),(5,1,0,'MEDDRA_PT_CODE',35738560,'ABDOMINAL DISCOMFORT',NULL,NULL,NULL),(6,1,0,'MEDDRA_SOC',35700000,'Gastrointestinal disorders',NULL,NULL,NULL),(7,3,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'1994-03-01'),(8,4,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'2001-03-03');
 CREATE TABLE "evidence_sources" (
-    "id" integer NOT NULL,
+    "id" serial NOT NULL,
     "title" varchar(100) NOT NULL, -- 'a short name for the evidence source. Same as http://purl.org/dc/elements/1.1/title',
     "description" varchar(200) NOT NULL, -- 'Description of the evidence source. Same as http://purl.org/dc/elements/1.1/description',
     "contributer" varchar(100) NOT NULL, -- 'Same as http://purl.org/dc/elements/1.1/contributor',
@@ -40,7 +51,7 @@ CREATE TABLE "evidence_sources" (
 
 INSERT INTO "evidence_sources" VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','','');
 CREATE TABLE "evidence_targets" (
-    "id" integer NOT NULL, -- 'primary key',
+    "id" serial NOT NULL, -- 'primary key',
     "uri" varchar(200) NOT NULL, -- 'a unique resource identifer that can be used to retrieve the target from the RDF store',
     PRIMARY KEY ("id")
 );
