@@ -240,7 +240,8 @@ for k in commonKeys:
                     graph.add((poc[currentAnnotationBody], RDF.type, poc["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
                     if DRUGS_D.has_key(rxnormDrug) and COND_D.has_key(meshCond):
                         graph.add((poc[currentAnnotationBody], dcterms["description"], "Drug-HOI tag for %s (%s - %s)" % (k, DRUGS_D[rxnormDrug][1], COND_D[meshCond][0])))
-            
+
+                    # NOTE: to resolve using Bioportal, append these PURLS to "http://bioportal.bioontology.org/ontologies/MEDDRA?p=classes&conceptid="
                     graph.add((poc[currentAnnotationBody], poc['RxnormDrug'], rxnorm[rxnormDrug]))
                     if DRUGS_D.has_key(rxnormDrug):
                         graph.add((poc[currentAnnotationBody], poc['MeshDrug'], mesh[DRUGS_D[rxnormDrug][0]])) # TODO: consider adding the values as a collection
