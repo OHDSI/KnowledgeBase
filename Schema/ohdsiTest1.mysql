@@ -20,10 +20,8 @@ DROP TABLE IF EXISTS "drug_HOI_evidence";
 CREATE TABLE "drug_HOI_evidence" (
   "id" int(20) NOT NULL COMMENT 'primary key',
   "drug_HOI_key" varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'foreign key to drug_HOI_index',
-  "evidence_type" varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'the type of evidence (literature, product label, pharmacovigilance, EHR)',
-  "evidence_source_code_id" int(8) NOT NULL COMMENT 'a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)',
-  "evidence_target_id" int(20) NOT NULL COMMENT 'a foreign key to data about the information artifact from which this evidence was found',
-  "evidence_body_id" int(20) NOT NULL COMMENT 'a foreign key to a resource that adds additional information derived from this evidence item',
+  "drug" varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'RxNorm CUI for the drug',
+
   PRIMARY KEY ("id")
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,33 +34,6 @@ LOCK TABLES "drug_HOI_evidence" WRITE;
 /*!40000 ALTER TABLE "drug_HOI_evidence" DISABLE KEYS */;
 INSERT INTO "drug_HOI_evidence" VALUES (1,'89013-35738560','product_label',1,1,1),(2,'36567-36110715','product_label',2,2,2),(3,'6944-10038435','literature_case_report',3,3,3),(4,'6944-10038435','literature_specific_review',4,4,4);
 /*!40000 ALTER TABLE "drug_HOI_evidence" ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table "drug_HOI_index"
---
-
-DROP TABLE IF EXISTS "drug_HOI_index";
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE "drug_HOI_index" (
-  "drug_HOI_pair" varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'A key constructed from drug CUI - HOI - CUI',
-  "drug" varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'RxNorm CUI for the drug',
-  "drug_name" varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'A string nlabel for the drug',
-  "HOI" varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'MedDRA CUI for the HOI',
-  "HOI_name" varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'A string label for the HOI',
-  PRIMARY KEY ("drug_HOI_pair")
-);
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table "drug_HOI_index"
---
-
-LOCK TABLES "drug_HOI_index" WRITE;
-/*!40000 ALTER TABLE "drug_HOI_index" DISABLE KEYS */;
-INSERT INTO "drug_HOI_index" VALUES ('36567-36110715','36567','Simvastatin','36110715','Upper respiratory tract infection'),('6944-10038435','6944','Metronidazole','10038435','Renal failure'),('89013-35738560','89013','Aripiprazole','35738560','Abdominal discomfort');
-/*!40000 ALTER TABLE "drug_HOI_index" ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

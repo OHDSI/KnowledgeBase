@@ -1,0 +1,74 @@
+-- Converted by db_converter
+START TRANSACTION;
+SET standard_conforming_strings=off;
+SET escape_string_warning=off;
+SET CONSTRAINTS ALL DEFERRED;
+
+CREATE TABLE "drug_HOI_evidence" (
+    "id" integer NOT NULL COMMENT 'primary key',
+    "drug_HOI_key" varchar(60) NOT NULL COMMENT 'foreign key to drug_HOI_index',
+    "drug" varchar(40) NOT NULL COMMENT 'RxNorm CUI for the drug',
+    PRIMARY KEY ("id")
+);
+
+INSERT INTO "drug_HOI_evidence" VALUES (1,'89013-35738560','product_label',1,1,1),(2,'36567-36110715','product_label',2,2,2),(3,'6944-10038435','literature_case_report',3,3,3),(4,'6944-10038435','literature_specific_review',4,4,4);
+CREATE TABLE "evidence_bodies" (
+    "id" integer NOT NULL COMMENT 'primary key',
+    "body_id" integer NOT NULL COMMENT 'an id useful for retrieving all body attributes associated with an evidence item ',
+    "semantic_tag_id" integer NOT NULL COMMENT 'The concept identifier from the OHDSI Standard Vocabulary of the semantic tag used to annotate a body resource',
+    "semantic_tag_label" varchar(40) NOT NULL COMMENT 'the label of the semantic tag used to annotate a body resource',
+    "value_as_concept" integer DEFAULT NULL COMMENT 'The  value from the Standard Vocabulary of the tagged concept',
+    "value_as_string" varchar(1000) DEFAULT NULL COMMENT 'the string value of a body attribute',
+    "value_as_int" integer DEFAULT NULL COMMENT 'The integer value of the tagged concept',
+    "value_as_double" double precision DEFAULT NULL COMMENT 'The double precision float  value of the tagged concept',
+    "value_as_date" date DEFAULT NULL COMMENT 'The date value of the tagged concept',
+    PRIMARY KEY ("id")
+);
+
+INSERT INTO "evidence_bodies" VALUES (1,1,0,'DATE OF THE SPC',NULL,NULL,NULL,NULL,'2011-01-21'),(2,1,0,'AGE GROUP',NULL,NULL,0,NULL,NULL),(3,2,0,'SPL_DATE',NULL,NULL,NULL,NULL,'2013-08-10'),(4,2,0,'SPL_SECTION',NULL,'Adverse Reactions',NULL,NULL,NULL),(5,1,0,'MEDDRA_PT_CODE',35738560,'ABDOMINAL DISCOMFORT',NULL,NULL,NULL),(6,1,0,'MEDDRA_SOC',35700000,'Gastrointestinal disorders',NULL,NULL,NULL),(7,3,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'1994-03-01'),(8,4,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'2001-03-03');
+CREATE TABLE "evidence_sources" (
+    "id" integer NOT NULL,
+    "title" varchar(100) NOT NULL COMMENT 'a short name for the evidence source. Same as http://purl.org/dc/elements/1.1/title',
+    "description" varchar(200) NOT NULL COMMENT 'Description of the evidence source. Same as http://purl.org/dc/elements/1.1/description',
+    "contributer" varchar(100) NOT NULL COMMENT 'Same as http://purl.org/dc/elements/1.1/contributor',
+    "creator" varchar(100) NOT NULL COMMENT 'Same as http://purl.org/dc/elements/1.1/creator',
+    "creation_date" date NOT NULL COMMENT 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010',
+    "rights" varchar(400) NOT NULL COMMENT 'Same as http://purl.org/dc/elements/1.1/rights',
+    "source" varchar(200) NOT NULL COMMENT 'The source from which this data was derived. Same as http://purl.org/dc/elements/1.1/source',
+    PRIMARY KEY ("id")
+);
+
+INSERT INTO "evidence_sources" VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','','');
+CREATE TABLE "evidence_targets" (
+    "id" integer NOT NULL COMMENT 'primary key',
+    "uri" varchar(200) NOT NULL COMMENT 'a unique resource identifer that can be used to retrieve the target from the RDF store',
+    PRIMARY KEY ("id")
+);
+
+INSERT INTO "evidence_targets" VALUES (1,'http://purl.ohdsi.org/SmPC:Abilify'),(2,'http://purl.ohdsi.org/SPL:dc6c3d16-b7ab-46ee-83dc-846445beeee7'),(3,'http://purl.ohdsi.org/MEDLINE_MeSH:7817353'),(4,'http://purl.ohdsi.org/MEDLINE_SemMedDB:11085348');
+
+-- Post-data save --
+COMMIT;
+START TRANSACTION;
+
+-- Typecasts --
+
+-- Foreign keys --
+
+-- Sequences --
+CREATE SEQUENCE drug_HOI_evidence_id_seq;
+SELECT setval('drug_HOI_evidence_id_seq', max(id)) FROM drug_HOI_evidence;
+ALTER TABLE "drug_HOI_evidence" ALTER COLUMN "id" SET DEFAULT nextval('drug_HOI_evidence_id_seq');
+CREATE SEQUENCE evidence_bodies_id_seq;
+SELECT setval('evidence_bodies_id_seq', max(id)) FROM evidence_bodies;
+ALTER TABLE "evidence_bodies" ALTER COLUMN "id" SET DEFAULT nextval('evidence_bodies_id_seq');
+CREATE SEQUENCE evidence_sources_id_seq;
+SELECT setval('evidence_sources_id_seq', max(id)) FROM evidence_sources;
+ALTER TABLE "evidence_sources" ALTER COLUMN "id" SET DEFAULT nextval('evidence_sources_id_seq');
+CREATE SEQUENCE evidence_targets_id_seq;
+SELECT setval('evidence_targets_id_seq', max(id)) FROM evidence_targets;
+ALTER TABLE "evidence_targets" ALTER COLUMN "id" SET DEFAULT nextval('evidence_targets_id_seq');
+
+-- Full Text keys --
+
+COMMIT;
