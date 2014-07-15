@@ -1,0 +1,130 @@
+-- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: ohdsiTest1
+-- ------------------------------------------------------
+-- Server version	5.5.37-0ubuntu0.12.04.1
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO,POSTGRESQL' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table "drug_HOI_evidence"
+--
+
+DROP TABLE IF EXISTS "drug_HOI_evidence";
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE "drug_HOI_evidence" (
+  "id" int(20) NOT NULL COMMENT 'primary key',
+  "drug_HOI_key" varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'foreign key to drug_HOI_index',
+  "drug" varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'RxNorm CUI for the drug',
+
+  PRIMARY KEY ("id")
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table "drug_HOI_evidence"
+--
+
+LOCK TABLES "drug_HOI_evidence" WRITE;
+/*!40000 ALTER TABLE "drug_HOI_evidence" DISABLE KEYS */;
+INSERT INTO "drug_HOI_evidence" VALUES (1,'89013-35738560','product_label',1,1,1),(2,'36567-36110715','product_label',2,2,2),(3,'6944-10038435','literature_case_report',3,3,3),(4,'6944-10038435','literature_specific_review',4,4,4);
+/*!40000 ALTER TABLE "drug_HOI_evidence" ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table "evidence_bodies"
+--
+
+DROP TABLE IF EXISTS "evidence_bodies";
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE "evidence_bodies" (
+  "id" int(20) NOT NULL COMMENT 'primary key',
+  "body_id" int(20) NOT NULL COMMENT 'an id useful for retrieving all body attributes associated with an evidence item ',
+  "semantic_tag_id" int(20) NOT NULL COMMENT 'The concept identifier from the OHDSI Standard Vocabulary of the semantic tag used to annotate a body resource',
+  "semantic_tag_label" varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'the label of the semantic tag used to annotate a body resource',
+  "value_as_concept" int(20) DEFAULT NULL COMMENT 'The  value from the Standard Vocabulary of the tagged concept',
+  "value_as_string" varchar(500) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT 'the string value of a body attribute',
+  "value_as_int" int(50) DEFAULT NULL COMMENT 'The integer value of the tagged concept',
+  "value_as_double" double DEFAULT NULL COMMENT 'The double precision float  value of the tagged concept',
+  "value_as_date" date DEFAULT NULL COMMENT 'The date value of the tagged concept',
+  PRIMARY KEY ("id")
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table "evidence_bodies"
+--
+
+LOCK TABLES "evidence_bodies" WRITE;
+/*!40000 ALTER TABLE "evidence_bodies" DISABLE KEYS */;
+INSERT INTO "evidence_bodies" VALUES (1,1,0,'DATE OF THE SPC',NULL,NULL,NULL,NULL,'2011-01-21'),(2,1,0,'AGE GROUP',NULL,NULL,0,NULL,NULL),(3,2,0,'SPL_DATE',NULL,NULL,NULL,NULL,'2013-08-10'),(4,2,0,'SPL_SECTION',NULL,'Adverse Reactions',NULL,NULL,NULL),(5,1,0,'MEDDRA_PT_CODE',35738560,'ABDOMINAL DISCOMFORT',NULL,NULL,NULL),(6,1,0,'MEDDRA_SOC',35700000,'Gastrointestinal disorders',NULL,NULL,NULL),(7,3,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'1994-03-01'),(8,4,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'2001-03-03');
+/*!40000 ALTER TABLE "evidence_bodies" ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table "evidence_sources"
+--
+
+DROP TABLE IF EXISTS "evidence_sources";
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE "evidence_sources" (
+  "id" int(8) NOT NULL,
+  "title" varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'a short name for the evidence source. Same as http://purl.org/dc/elements/1.1/title',
+  "description" varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Description of the evidence source. Same as http://purl.org/dc/elements/1.1/description',
+  "contributer" varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Same as http://purl.org/dc/elements/1.1/contributor',
+  "creator" varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Same as http://purl.org/dc/elements/1.1/creator',
+  "creation_date" date NOT NULL COMMENT 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010',
+  "rights" varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Same as http://purl.org/dc/elements/1.1/rights',
+  "source" varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'The source from which this data was derived. Same as http://purl.org/dc/elements/1.1/source',
+  PRIMARY KEY ("id")
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table "evidence_sources"
+--
+
+LOCK TABLES "evidence_sources" WRITE;
+/*!40000 ALTER TABLE "evidence_sources" DISABLE KEYS */;
+INSERT INTO "evidence_sources" VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','','');
+/*!40000 ALTER TABLE "evidence_sources" ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table "evidence_targets"
+--
+
+DROP TABLE IF EXISTS "evidence_targets";
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE "evidence_targets" (
+  "id" int(20) NOT NULL COMMENT 'primary key',
+  "uri" varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'a unique resource identifer that can be used to retrieve the target from the RDF store',
+  PRIMARY KEY ("id")
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table "evidence_targets"
+--
+
+LOCK TABLES "evidence_targets" WRITE;
+/*!40000 ALTER TABLE "evidence_targets" DISABLE KEYS */;
+INSERT INTO "evidence_targets" VALUES (1,'http://purl.ohdsi.org/SmPC:Abilify'),(2,'http://purl.ohdsi.org/SPL:dc6c3d16-b7ab-46ee-83dc-846445beeee7'),(3,'http://purl.ohdsi.org/MEDLINE_MeSH:7817353'),(4,'http://purl.ohdsi.org/MEDLINE_SemMedDB:11085348');
+/*!40000 ALTER TABLE "evidence_targets" ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-07-14 15:25:30
