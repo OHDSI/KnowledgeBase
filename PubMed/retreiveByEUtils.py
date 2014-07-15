@@ -54,9 +54,16 @@ for elt in l:
     else: # create a new record
         COND_D[mesh] = [term]
 
-def retrieveByEUtils(drugD, condD, pubTypeFilter, pt):
+def retrieveByEUtils(drugD, condD, pubTypeFilter, pt, limit=None):
     rslt_D = {}
+    if limit:
+        i = 0
     for d in drugD.keys():
+        if limit:
+            if i <= limit:
+                i += 1
+            else:
+                break
         drugLabel = drugD[d][1][0]
         for cond in condD.keys():
             condLabel = condD[cond][0]
@@ -67,6 +74,8 @@ def retrieveByEUtils(drugD, condD, pubTypeFilter, pt):
 
             q = '''%s AND ("%s" [MeSH Terms]) AND ("%s" [MeSH Terms])''' % (pubTypeFilter, drugLabel, condLabel)
             rslts = client1.search(q)
+
+            print "INFO: %d results" % len(rslts)
             for i in range(0,len(rslts)):
                 rec = rslts[i].efetch(retmode = "text", rettype = "abstract").read()
                 id = re.findall("PMID: \d+",rec)
@@ -80,13 +89,13 @@ def retrieveByEUtils(drugD, condD, pubTypeFilter, pt):
     return rslt_D
 
 ### GET RCTS
-RCT_D = retrieveByEUtils(DRUGS_D, COND_D, RCT_FILTER, "RCT")
+RCT_D = retrieveByEUtils(DRUGS_D, COND_D, RCT_FILTER, "RCT", 20)
 
 ### GET CASE REPORTS
-CR_D = retrieveByEUtils(DRUGS_D, COND_D, CASE_REPORT_FILTER, "CASE REPORT")
+CR_D = retrieveByEUtils(DRUGS_D, COND_D, CASE_REPORT_FILTER, "CASE REPORT", 20)
 
 ### GET OTHER
-OTHER_D = retrieveByEUtils(DRUGS_D, COND_D, OTHER_FILTER, "OTHER")
+OTHER_D = retrieveByEUtils(DRUGS_D, COND_D, OTHER_FILTER, "OTHER", 20)
             
 results = [RCT_D, CR_D, OTHER_D]
 

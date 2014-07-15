@@ -57,6 +57,23 @@ for elt in l:
     else: # create a new record
         COND_D[mesh] = [term]
 
+COND_D_MEDDRA = {}
+f = open(MEDDRA_TO_MESH,"r")
+buf = f.read()
+f.close()
+buf = buf.replace("<http://purl.bioontology.org/ontology/MSH/","").replace(">","").replace("http://purl.bioontology.org/ontology/MDR/","")
+l = buf.split("\n")
+for elt in l:
+    if elt.strip() == "":
+        break
+
+    (mesh,meddra) = [x.strip() for x in elt.split("\t")]
+    if COND_D_MEDDRA.get(mesh): # add a synonymn
+        COND_D_MEDDRA[mesh].append(meddra)
+    else: # create a new record
+        COND_D_MEDDRA[mesh] = [meddra]
+
+
 ## set up RDF graph
 # identify namespaces for other ontologies to be used                                                                                    
 dcterms = Namespace("http://purl.org/dc/terms/")
@@ -128,6 +145,18 @@ graph.add((sio["SIO_000563"], dcterms["description"], Literal("describes is a re
 graph.add((sio["SIO_000338"], RDFS.label, Literal("specifies")))
 graph.add((sio["SIO_000338"], dcterms["description"], Literal("A relation between an information content entity and a product that it (directly/indirectly) specifies")))
 
+graph.add((poc['MeshDrug'], RDFS.label, Literal("MeSH Drug code")))
+graph.add((poc['MeshDrug'], dcterms["description"], Literal("Drug code in the MeSH vocabulary.")))
+
+graph.add((poc['RxnormDrug'], RDFS.label, Literal("Rxnorm Drug code")))
+graph.add((poc['RxnormDrug'], dcterms["description"], Literal("Drug code in the Rxnorm vocabulary.")))
+
+graph.add((poc['MeshHoi'], RDFS.label, Literal("MeSH HOI code")))
+graph.add((poc['MeshHoi'], dcterms["description"], Literal("HOI code in the MeSH vocabulary.")))
+
+graph.add((poc['MeddraHoi'], RDFS.label, Literal("Meddra HOI code")))
+graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Meddra vocabulary.")))
+
 ################################################################################
 
 # the dataset holds three dictionaries, one for RCTs, one for case
@@ -150,9 +179,12 @@ graph.add((poc[currentAnnotSet], RDF.type, oa["DataAnnotation"])) # TODO: find o
 graph.add((poc[currentAnnotSet], oa["annotatedAt"], Literal(datetime.date.today())))
 graph.add((poc[currentAnnotSet], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
 
+dataL = (rct_d, cr_d, other_d)
+(RCT,CR,OTHER) = range(0,len(dataL))
 
 for k in commonKeys:  
-
+    (rxnormDrug,meshCond) = k.split("-")
+    
     ###################################################################
     ### Each annotations holds one target that points to the source
     ### record in pubmed, and one or more bodies each of which
@@ -160,26 +192,76 @@ for k in commonKeys:
     ### some metadata
     ###################################################################
     currentAnnotItem = None
-    if rct_d[k] != []:
-        for elt in rct_d[k]:
-            if annotatedCache.has_key(elt['pmid']):
-                currentAnnotation = annotatedCache[elt['pmid']]
-                currentAnnotItem = "ohdsi-pubmed-mesh-annotation-item-%s" % currentAnnotation
-            else:
-                currentAnnotation = annotationItemCntr
-                currentAnnotItem = "ohdsi-pubmed-mesh-annotation-item-%s" % currentAnnotation
-                annotationItemCntr += 1
+    for i in range(0,len(dataL)):
+        curDict = None
+        if i == RCT:
+            curDict = rct_d
+        elif i == CR:
+            curDict = cr_d
+        elif i == OTHER:
+            curDict = other_d
 
-                graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
-                graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
-                graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
-                graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
-                graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
+        if curDict[k] != []:
+            for elt in curDict[k]:
+                if annotatedCache.has_key(elt['pmid']):
+                    currentAnnotation = annotatedCache[elt['pmid']]
+                    currentAnnotItem = "ohdsi-pubmed-mesh-annotation-item-%s" % currentAnnotation
+                else:
+                    currentAnnotation = annotationItemCntr
+                    annotatedCache[elt['pmid']] = currentAnnotation
+                    annotationItemCntr += 1
+                    
+                    currentAnnotItem = "ohdsi-pubmed-mesh-annotation-item-%s" % currentAnnotation
 
-                currentAnnotItemUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-                graph.add((poc[currentAnnotItem], oa["hasTarget"], currentAnnotItemUuid))
-                graph.add((currentAnnotItemUuid, RDF.type, oa["SpecificResource"]))
-                graph.add((currentAnnotItemUuid, oa["hasSource"], pmid[elt['pmid']]))
-                          
+                    graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
+                    graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
+                    graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
+                    graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
+                    graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
+                    
+                    currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+                    graph.add((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
+                    graph.add((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
+                    graph.add((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt['pmid']]))
+
+                    if i == RCT:
+                        graph.add((currentAnnotTargetUuid, poc["MeshStudyType"], Literal("clinical trial (publication type)")))
+                    elif i == CR:
+                        graph.add((currentAnnotTargetUuid, poc["MeshStudyType"], Literal("case reports (publication type)")))
+
+                
+                    # Specify the bodies of the annotation - for this type each
+                    # body contains the MESH drug and condition as a semantic tag
+                    currentAnnotationBody = "ohdsi-pubmed-mesh-annotation-annotation-body-%s" % annotationBodyCntr
+                    annotationBodyCntr += 1
+         
+                    graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
+                    graph.add((poc[currentAnnotationBody], RDFS.label, "Drug-HOI tag for %s" % k))
+                    graph.add((poc[currentAnnotationBody], RDF.type, poc["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
+                    if DRUGS_D.has_key(rxnormDrug) and COND_D.has_key(meshCond):
+                        graph.add((poc[currentAnnotationBody], dcterms["description"], "Drug-HOI tag for %s (%s - %s)" % (k, DRUGS_D[rxnormDrug][1], COND_D[meshCond][0])))
+            
+                    graph.add((poc[currentAnnotationBody], poc['RxnormDrug'], rxnorm[rxnormDrug]))
+                    if DRUGS_D.has_key(rxnormDrug):
+                        graph.add((poc[currentAnnotationBody], poc['MeshDrug'], mesh[DRUGS_D[rxnormDrug][0]])) # TODO: consider adding the values as a collection
+                    else:
+                        print "ERROR: no MeSH equivalent to the rxnorm drug %s" % rxnormDrug
+                        
+                    graph.add((poc[currentAnnotationBody], poc['MeshHoi'], mesh[meshCond]))
+                    if COND_D_MEDDRA.has_key(meshCond):
+                        graph.add((poc[currentAnnotationBody], poc['MeddrraHoi'], meddra[COND_D_MEDDRA[meshCond][0]])) # TODO: consider adding the values as a collection
+                    else:
+                        print "ERROR: no MedDRA equivalent to the MeSH condition %s" % meshCond
 
 
+# display the graph
+f = codecs.open(OUTPUT_FILE,"w","utf8")
+#graph.serialize(destination=f,format="xml",encoding="utf8")
+s = graph.serialize(format="xml",encoding="utf8")
+
+#f.write(graph.serialize(format="xml",encoding="utf8"))
+f.write(unicode(s,errors='replace'))
+#print graph.serialize(format="xml")
+f.close
+
+graph.close()
