@@ -230,29 +230,29 @@ for k in commonKeys:
                         graph.add((currentAnnotTargetUuid, poc["MeshStudyType"], Literal("case reports (publication type)")))
 
                 
-                    # Specify the bodies of the annotation - for this type each
-                    # body contains the MESH drug and condition as a semantic tag
-                    currentAnnotationBody = "ohdsi-pubmed-mesh-annotation-annotation-body-%s" % annotationBodyCntr
-                    annotationBodyCntr += 1
+                # Specify the bodies of the annotation - for this type each
+                # body contains the MESH drug and condition as a semantic tag
+                currentAnnotationBody = "ohdsi-pubmed-mesh-annotation-annotation-body-%s" % annotationBodyCntr
+                annotationBodyCntr += 1
          
-                    graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-                    graph.add((poc[currentAnnotationBody], RDFS.label, "Drug-HOI tag for %s" % k))
-                    graph.add((poc[currentAnnotationBody], RDF.type, poc["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
-                    if DRUGS_D.has_key(rxnormDrug) and COND_D.has_key(meshCond):
-                        graph.add((poc[currentAnnotationBody], dcterms["description"], "Drug-HOI tag for %s (%s - %s)" % (k, DRUGS_D[rxnormDrug][1], COND_D[meshCond][0])))
+                graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
+                graph.add((poc[currentAnnotationBody], RDFS.label, "Drug-HOI tag for %s" % k))
+                graph.add((poc[currentAnnotationBody], RDF.type, poc["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
+                if DRUGS_D.has_key(rxnormDrug) and COND_D.has_key(meshCond):
+                    graph.add((poc[currentAnnotationBody], dcterms["description"], "Drug-HOI tag for %s (%s - %s)" % (k, DRUGS_D[rxnormDrug][1], COND_D[meshCond][0])))
 
-                    # NOTE: to resolve using Bioportal, append these PURLS to "http://bioportal.bioontology.org/ontologies/MEDDRA?p=classes&conceptid="
-                    graph.add((poc[currentAnnotationBody], poc['RxnormDrug'], rxnorm[rxnormDrug]))
-                    if DRUGS_D.has_key(rxnormDrug):
-                        graph.add((poc[currentAnnotationBody], poc['MeshDrug'], mesh[DRUGS_D[rxnormDrug][0]])) # TODO: consider adding the values as a collection
-                    else:
-                        print "ERROR: no MeSH equivalent to the rxnorm drug %s" % rxnormDrug
+                # NOTE: to resolve using Bioportal, append these PURLS to "http://bioportal.bioontology.org/ontologies/MEDDRA?p=classes&conceptid="
+                graph.add((poc[currentAnnotationBody], poc['RxnormDrug'], rxnorm[rxnormDrug]))
+                if DRUGS_D.has_key(rxnormDrug):
+                    graph.add((poc[currentAnnotationBody], poc['MeshDrug'], mesh[DRUGS_D[rxnormDrug][0]])) # TODO: consider adding the values as a collection
+                else:
+                    print "ERROR: no MeSH equivalent to the rxnorm drug %s" % rxnormDrug
                         
-                    graph.add((poc[currentAnnotationBody], poc['MeshHoi'], mesh[meshCond]))
-                    if COND_D_MEDDRA.has_key(meshCond):
-                        graph.add((poc[currentAnnotationBody], poc['MeddrraHoi'], meddra[COND_D_MEDDRA[meshCond][0]])) # TODO: consider adding the values as a collection
-                    else:
-                        print "ERROR: no MedDRA equivalent to the MeSH condition %s" % meshCond
+                graph.add((poc[currentAnnotationBody], poc['MeshHoi'], mesh[meshCond]))
+                if COND_D_MEDDRA.has_key(meshCond):
+                    graph.add((poc[currentAnnotationBody], poc['MeddrraHoi'], meddra[COND_D_MEDDRA[meshCond][0]])) # TODO: consider adding the values as a collection
+                else:
+                    print "ERROR: no MedDRA equivalent to the MeSH condition %s" % meshCond
 
 
 # display the graph
