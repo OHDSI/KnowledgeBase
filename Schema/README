@@ -88,6 +88,11 @@ evidence_targets.id = drug_HOI_evidence.evidence_target_id
 Note instructions on faceted browser installation:
 http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtFacetBrowserInstallConfig
 
+----
 
+Jeremy Jao - epicstar
+7/14/2014
+
+ohdsiTest.sql is a dump in mysql format. I change the dump to postgres format.
 
 
