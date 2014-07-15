@@ -1,0 +1,1365 @@
+D054198|Leukemia, Lymphocytic, Acute, L1
+D054198|ALL, Childhood
+D054198|Childhood ALL
+D054198|Lymphoblastic Leukemia, Acute, Childhood
+D054198|Lymphoblastic Leukemia, Acute, L1
+D054198|Leukemia, Lymphoblastic, Acute, L1
+D054198|Lymphocytic Leukemia, L1
+D054198|L1 Lymphocytic Leukemia
+D054198|Leukemia, L1 Lymphocytic
+D054198|Leukemia, Lymphocytic, Acute, L2
+D054198|Lymphoblastic Leukemia, Acute, Adult
+D054198|Lymphoblastic Leukemia, Acute, L2
+D054198|Leukemia, Lymphoblastic, Acute, L2
+D054198|Lymphocytic Leukemia, L2
+D054198|L2 Lymphocytic Leukemia
+D054198|Leukemia, L2 Lymphocytic
+D054198|Leukemia, Lymphoblastic, Acute, Philadelphia-Positive
+D054198|Precursor Cell Lymphoblastic Leukemia-Lymphoma
+D054198|Precursor Cell Lymphoblastic Leukemia Lymphoma
+D054198|Leukemia, Lymphoid, Acute
+D054198|Acute Lymphoid Leukemia
+D054198|Leukemia, Acute Lymphoid
+D054198|Lymphoid Leukemia, Acute
+D054198|Lymphocytic Leukemia, Acute
+D054198|Leukemia, Acute Lymphocytic
+D054198|Leukemia, Lymphocytic, Acute
+D054198|Acute Lymphocytic Leukemia
+D054198|Leukemia, Lymphoblastic
+D054198|Lymphoblastic Leukemia
+D054198|Leukemia, Acute Lymphoblastic
+D054198|Leukemia, Lymphoblastic, Acute
+D054198|Lymphoblastic Leukemia, Acute
+D054198|Acute Lymphoblastic Leukemia
+D054198|Lymphoblastic Lymphoma
+D054198|Lymphoma, Lymphoblastic
+D002658|Developmental Disabilities
+D002658|Developmental Disability
+D002658|Disability, Developmental
+D002658|Disabilities, Developmental
+D002658|Child Development Disorders
+D002658|Child Development Disorder
+D002658|Development Disorder, Child
+D002658|Development Disorders, Child
+D002658|CHILD DEVELOPMENT DIS
+D002658|DEVELOPMENT DIS CHILD
+D002658|Child Development Deviations
+D002658|Child Development Deviation
+D002658|Development Deviation, Child
+D002658|Deviation, Child Development
+D002658|Development Deviations, Child
+D002658|Child Development Disorders, Specific
+D002658|Developmental Delay Disorders
+D002658|Developmental Delay Disorder
+D002658|DEVELOPMENTAL DELAY DIS
+D002658|CHILD DEVELOPMENT DIS SPECIFIC
+D003924|Diabetes Mellitus, Type 2
+D003924|Type 2 Diabetes Mellitus
+D003924|Diabetes Mellitus, Adult-Onset
+D003924|Diabetes Mellitus, Adult Onset
+D003924|Adult-Onset Diabetes Mellitus
+D003924|Diabetes Mellitus, Ketosis-Resistant
+D003924|Diabetes Mellitus, Ketosis Resistant
+D003924|Ketosis-Resistant Diabetes Mellitus
+D003924|Diabetes Mellitus, Non-Insulin-Dependent
+D003924|Diabetes Mellitus, Non Insulin Dependent
+D003924|Non-Insulin-Dependent Diabetes Mellitus
+D003924|Diabetes Mellitus, Stable
+D003924|Stable Diabetes Mellitus
+D003924|Diabetes Mellitus, Type II
+D003924|NIDDM
+D003924|Diabetes Mellitus, Noninsulin Dependent
+D003924|Diabetes Mellitus, Noninsulin-Dependent
+D003924|Noninsulin-Dependent Diabetes Mellitus
+D003924|Maturity-Onset Diabetes Mellitus
+D003924|Maturity Onset Diabetes Mellitus
+D003924|Diabetes Mellitus, Maturity Onset
+D003924|Diabetes Mellitus, Maturity-Onset
+D003924|Maturity-Onset Diabetes
+D003924|MODY
+D003924|Diabetes Mellitus, Slow-Onset
+D003924|Diabetes Mellitus, Slow Onset
+D003924|Slow-Onset Diabetes Mellitus
+D003924|DIABETES MELLITUS TYPE 02
+D020936|Benign Familial Neonatal Epilepsy
+D020936|Epilepsy, Benign Neonatal, Familial
+D020936|Familial Benign Neonatal Epilepsy
+D020936|Familial Benign Neonatal Convulsions
+D020936|Convulsions Benign Familial Neonatal
+D020936|Benign Familial Neonatal Convulsions
+D020936|Convulsions, Benign Neonatal, Familial
+D020936|Epilepsy, Benign Neonatal-Infantile
+D020936|Benign Neonatal-Infantile Epilepsies
+D020936|Epilepsies, Benign Neonatal-Infantile
+D020936|Epilepsy, Benign Neonatal Infantile
+D020936|Neonatal-Infantile Epilepsies, Benign
+D020936|Benign Neonatal-Infantile Epilepsy
+D020936|Neonatal-Infantile Epilepsy, Benign
+D020936|Convulsions, Benign Familial Infantile, 1
+D020936|Benign Familial Neonatal-Infantile Seizures
+D020936|Benign Familial Neonatal Infantile Seizures
+D020936|Seizures, Benign Familial Neonatal-Infantile
+D020936|Seizures, Benign Familial Neonatal Infantile
+D020936|Seizures, Benign Familial Infantile, 1
+D020936|Benign Familial Infantile Convulsions
+D020936|Benign Infantile Familial Convulsions
+D020936|Benign Familial Infantile Convulsions Syndrome
+D020936|Epilepsy, Benign Neonatal
+D020936|Benign Neonatal Epilepsies
+D020936|Epilepsies, Benign Neonatal
+D020936|Neonatal Epilepsies, Benign
+D020936|Benign Neonatal Epilepsy
+D020936|Neonatal Epilepsy, Benign
+D020936|Neonatal Convulsions, Benign
+D020936|Benign Neonatal Convulsion
+D020936|Convulsion, Benign Neonatal
+D020936|Neonatal Convulsion, Benign
+D020936|Benign Neonatal Convulsions
+D020936|Convulsions, Benign Neonatal
+D020936|Benign Neonatal Epilepsy, Nonfamilial
+D020936|Benign Neonatal Nonfamilial Epilepsy
+D020936|Epilepsy, Benign Neonatal, Nonfamilial
+D020936|Non-Familial Benign Neonatal Convulsions
+D020936|Non Familial Benign Neonatal Convulsions
+D020936|Benign Neonatal Non-Familial Convulsions
+D020936|Benign Non-Familial Neonatal Convulsions
+D020936|Convulsions, Benign Neonatal, Non-Familial
+D020936|Benign Neonatal Non Familial Convulsions
+D020936|Benign Non Familial Neonatal Convulsions
+D020936|Non-Familial Benign Neonatal Epilepsy
+D020936|Non Familial Benign Neonatal Epilepsy
+D020936|Epilepsy, Benign Neonatal, Non-Familial
+D020936|Convulsions, Benign Familial Infantile, 3
+D020936|Seizures, Benign Familial Infantile, 3
+D006948|Hyperkinesis
+D006948|Hyperactivity, Motor
+D006948|Motor Hyperactivity
+D006948|Hyperkinesia
+D006948|Hyperkinetic Movements
+D006948|Hyperkinetic Movement
+D006948|Movement, Hyperkinetic
+D006948|Movements, Hyperkinetic
+D006948|Hyperkinesia, Generalized
+D006948|Generalized Hyperkinesias
+D006948|Hyperkinesias, Generalized
+D006948|Generalized Hyperkinesia
+D029593|Jervell-Lange Nielsen Syndrome
+D029593|Jervell Lange Nielsen Syndrome
+D029593|Jervell and Lange Nielsen Syndrome
+D029593|Jervell and Lange-Nielsen Syndrome
+D029593|Syndrome, Jervell-Lange Nielsen
+D029593|Cardio-Auditory-Syncope Syndrome
+D029593|Deafness, Congenital, and Functional Heart Disease
+D029593|Prolonged QT Interval in EKG and Sudden Death
+D029593|Surdo-Cardiac Syndrome
+D029593|Surdo Cardiac Syndrome
+D029593|Surdo-Cardiac Syndromes
+D029593|Syndrome, Surdo-Cardiac
+D029593|Cardioauditory Syndrome of Jervell and Lange-Nielsen
+D029593|Cardioauditory Syndrome of Jervell and Lange Nielsen
+D029593|Jervell And Lange-Nielsen Syndrome 1
+D009422|Nervous System Diseases
+D009422|Nervous System Disease
+D009422|Disease, Nervous System
+D009422|Diseases, Nervous System
+D009422|Nervous System Disorders
+D009422|Disorder, Nervous System
+D009422|Nervous System Disorder
+D009422|Disorders, Nervous System
+D009422|Neurologic Disorders
+D009422|Disorder, Neurologic
+D009422|Neurologic Disorder
+D009422|Disorders, Neurologic
+D009422|Neurological Disorders
+D009422|Disorder, Neurological
+D009422|Neurological Disorder
+D009422|Disorders, Neurological
+D009422|NERVOUS SYSTEM DIS
+D009422|NEUROLOG DIS
+D009422|NEUROLOGICAL DIS
+D029597|Romano-Ward Syndrome
+D029597|Romano Ward Syndrome
+D029597|Syndrome, Romano-Ward
+D029597|Syndrome, Ward-Romano
+D029597|Ward Romano Syndrome
+D029597|Ward-Romano Syndrome
+D029597|Long QT Syndrome 1
+D029597|Ventricular Fibrillation with Prolonged QT Interval
+D029597|LONG QT SYNDROME 001
+D029597|Long QT Syndrome Type 1
+D019969|Amphetamine-Related Disorders
+D019969|Amphetamine Related Disorders
+D019969|Disorder, Amphetamine-Related
+D019969|Disorders, Amphetamine-Related
+D019969|AMPHETAMINE RELATED DIS
+D019969|Amphetamine Addiction
+D019969|Addiction, Amphetamine
+D019969|Amphetamine Dependence
+D019969|Dependence, Amphetamine
+D019969|Amphetamine Abuse
+D019969|Abuse, Amphetamine
+D002277|Carcinoma
+D002277|Carcinomas
+D002277|Epithelial Tumors, Malignant
+D002277|Malignant Epithelial Tumor
+D002277|Tumor, Malignant Epithelial
+D002277|Epithelial Tumor, Malignant
+D002277|Malignant Epithelial Tumors
+D002277|Tumors, Malignant Epithelial
+D002277|Epithelioma
+D002277|Epitheliomas
+D002277|Epithelial Neoplasms, Malignant
+D002277|Epithelial Neoplasm, Malignant
+D002277|Malignant Epithelial Neoplasm
+D002277|Neoplasm, Malignant Epithelial
+D002277|Malignant Epithelial Neoplasms
+D002277|Neoplasms, Malignant Epithelial
+D002277|EPITHELIAL NEOPL MALIGNANT
+D002277|MALIGNANT EPITHELIAL NEOPL
+D002277|NEOPL MALIGNANT EPITHELIAL
+D002277|Carcinoma, Anaplastic
+D002277|Anaplastic Carcinomas
+D002277|Carcinomas, Anaplastic
+D002277|Anaplastic Carcinoma
+D002277|Carcinoma, Spindle-Cell
+D002277|Carcinoma, Spindle Cell
+D002277|Carcinomas, Spindle-Cell
+D002277|Spindle-Cell Carcinomas
+D002277|Spindle-Cell Carcinoma
+D002277|Carcinoma, Undifferentiated
+D002277|Carcinomas, Undifferentiated
+D002277|Undifferentiated Carcinomas
+D002277|Undifferentiated Carcinoma
+D002277|Carcinomatosis
+D002277|Carcinomatoses
+D008175|Lung Neoplasms
+D008175|Lung Neoplasm
+D008175|Neoplasm, Lung
+D008175|Neoplasms, Lung
+D008175|Pulmonary Neoplasms
+D008175|Neoplasm, Pulmonary
+D008175|Pulmonary Neoplasm
+D008175|Neoplasms, Pulmonary
+D008175|LUNG NEOPL
+D008175|NEOPL LUNG
+D008175|NEOPL PULM
+D008175|PULM NEOPL
+D008175|Lung Cancer
+D008175|Cancers, Lung
+D008175|Lung Cancers
+D008175|Cancer of Lung
+D008175|Cancer of the Lung
+D008175|Cancer, Lung
+D008175|Pulmonary Cancer
+D008175|Cancers, Pulmonary
+D008175|Pulmonary Cancers
+D008175|Cancer, Pulmonary
+D008223|Lymphoma
+D008223|Lymphomas
+D008223|Germinoblastoma
+D008223|Germinoblastomas
+D008223|Lymphoma, Malignant
+D008223|Lymphomas, Malignant
+D008223|Malignant Lymphomas
+D008223|Malignant Lymphoma
+D008223|Reticulolymphosarcoma
+D008223|Reticulolymphosarcomas
+D008223|Sarcoma, Germinoblastic
+D008223|Germinoblastic Sarcomas
+D008223|Sarcomas, Germinoblastic
+D008223|Germinoblastic Sarcoma
+D015674|Mammary Neoplasms, Animal
+D015674|Animal Mammary Neoplasm
+D015674|Mammary Neoplasm, Animal
+D015674|Neoplasm, Animal Mammary
+D015674|Animal Mammary Neoplasms
+D015674|Neoplasms, Animal Mammary
+D015674|Neoplasms, Mammary
+D015674|Mammary Neoplasm
+D015674|Neoplasm, Mammary
+D015674|Mammary Neoplasms
+D015674|MAMMARY NEOPL
+D015674|NEOPL MAMMARY
+D015674|MAMMARY NEOPL ANIMAL
+D015674|Mammary Carcinoma, Animal
+D015674|Animal Mammary Carcinomas
+D015674|Carcinomas, Animal Mammary
+D015674|Mammary Carcinomas, Animal
+D015674|Animal Mammary Carcinoma
+D015674|Carcinoma, Animal Mammary
+D029424|Pulmonary Disease, Chronic Obstructive
+D029424|Chronic Obstructive Pulmonary Disease
+D029424|Chronic Obstructive Lung Disease
+D029424|COPD
+D029424|Chronic Obstructive Airway Disease
+D029424|CHRONIC OBSTRUCTIVE LUNG DIS
+D029424|COAD
+D029424|CHRONIC OBSTRUCTIVE AIRWAY DIS
+D029424|CHRONIC OBSTRUCTIVE PULM DIS
+D029424|PULM DIS CHRONIC OBSTRUCTIVE
+D029424|Airflow Obstruction, Chronic
+D029424|Airflow Obstructions, Chronic
+D029424|Chronic Airflow Obstructions
+D029424|Chronic Airflow Obstruction
+D011656|Pulmonary Emphysema
+D011656|Emphysemas, Pulmonary
+D011656|Pulmonary Emphysemas
+D011656|Emphysema, Pulmonary
+D011656|EMPHYSEMA PULM
+D011656|EMPHYSEMAS PULM
+D011656|PULM EMPHYSEMAS
+D011656|PULM EMPHYSEMA
+D011656|Centriacinar Emphysema
+D011656|Centriacinar Emphysemas
+D011656|Emphysemas, Centriacinar
+D011656|Emphysema, Centriacinar
+D011656|Centrilobular Emphysema
+D011656|Centrilobular Emphysemas
+D011656|Emphysemas, Centrilobular
+D011656|Emphysema, Centrilobular
+D011656|Panacinar Emphysema
+D011656|Emphysemas, Panacinar
+D011656|Panacinar Emphysemas
+D011656|Emphysema, Panacinar
+D011656|Panlobular Emphysema
+D011656|Emphysemas, Panlobular
+D011656|Panlobular Emphysemas
+D011656|Emphysema, Panlobular
+D011656|Focal Emphysema
+D011656|Emphysemas, Focal
+D011656|Focal Emphysemas
+D011656|Emphysema, Focal
+D058186|Kidney Failure, Acute
+D058186|Acute Kidney Failures
+D058186|Kidney Failures, Acute
+D058186|Acute Kidney Failure
+D058186|Renal Failure, Acute
+D058186|Acute Renal Failures
+D058186|Renal Failures, Acute
+D058186|Acute Renal Failure
+D058186|Renal Insufficiency, Acute
+D058186|Acute Renal Insufficiencies
+D058186|Renal Insufficiencies, Acute
+D058186|Acute Renal Insufficiency
+D058186|Acute Kidney Insufficiency
+D058186|Acute Kidney Insufficiencies
+D058186|Kidney Insufficiencies, Acute
+D058186|Kidney Insufficiency, Acute
+D058186|Acute Kidney Injury
+D058186|Acute Kidney Injuries
+D058186|Kidney Injuries, Acute
+D058186|Kidney Injury, Acute
+D058186|Acute Renal Injury
+D058186|Acute Renal Injuries
+D058186|Renal Injuries, Acute
+D058186|Renal Injury, Acute
+D001169|Arthritis, Adjuvant-Induced
+D001169|Adjuvant Arthritis
+D001169|Arthritis, Adjuvant
+D001169|Arthritis, Collagen-Induced
+D001169|Collagen-Induced Arthritides
+D001169|Collagen-Induced Arthritis
+D001169|Collagen Arthritis
+D001169|Arthritides, Collagen
+D001169|Collagen Arthritides
+D001169|Arthritis, Collagen
+D001169|Arthritis, Experimental
+D002289|Carcinoma, Non-Small-Cell Lung
+D002289|Carcinoma, Non Small Cell Lung
+D002289|Carcinoma, Non-Small Cell Lung
+D002289|Carcinomas, Non-Small-Cell Lung
+D002289|Lung Carcinomas, Non-Small-Cell
+D002289|Non-Small-Cell Lung Carcinomas
+D002289|Non Small Cell Lung Carcinoma
+D002289|Non-Small-Cell Lung Carcinoma
+D002289|Lung Carcinoma, Non-Small-Cell
+D002289|Non-Small Cell Lung Cancer
+D002289|NSCLC
+D002289|Nonsmall Cell Lung Cancer
+D002289|NONSMALL CELL LUNG CARCINOMA
+D002318|Cardiovascular Diseases
+D002318|Cardiovascular Disease
+D002318|Disease, Cardiovascular
+D002318|Diseases, Cardiovascular
+D002318|CARDIOVASC DIS
+D018450|Disease Exacerbation
+D018450|Disease Progression
+D018450|Disease Progressions
+D018450|Progressions, Disease
+D018450|Progression, Disease
+D018450|DIS PROGRESSION
+D056486|Hepatitis, Toxic
+D056486|Hepatitides, Toxic
+D056486|Toxic Hepatitides
+D056486|Toxic Hepatitis
+D056486|HEPATITIS TOX
+D056486|TOX HEPATITIS
+D056486|Drug-Induced Liver Injury
+D056486|Drug Induced Liver Injury
+D056486|Drug-Induced Liver Injuries
+D056486|Injuries, Drug-Induced Liver
+D056486|Liver Injuries, Drug-Induced
+D056486|Injury, Drug-Induced Liver
+D056486|Liver Injury, Drug Induced
+D056486|Liver Injury, Drug-Induced
+D056486|Drug-Induced Liver Disease
+D056486|Diseases, Drug-Induced Liver
+D056486|Drug Induced Liver Disease
+D056486|Drug-Induced Liver Diseases
+D056486|Liver Diseases, Drug-Induced
+D056486|Disease, Drug-Induced Liver
+D056486|Liver Disease, Drug-Induced
+D056486|Hepatitis, Drug-Induced
+D056486|Drug-Induced Hepatitides
+D056486|Hepatitides, Drug-Induced
+D056486|Hepatitis, Drug Induced
+D056486|Drug-Induced Hepatitis
+D056486|HEPATITIS DRUG IND
+D056486|Drug-Induced Acute Liver Injury
+D056486|Drug Induced Acute Liver Injury
+D056486|Acute Liver Injury, Drug Induced
+D056486|Acute Liver Injury, Drug-Induced
+D056486|Liver Injury, Drug-Induced, Acute
+D064420|Drug Toxicity
+D064420|Drug Toxicities
+D064420|Toxicities, Drug
+D064420|Toxicity, Drug
+D064420|DRUG TOX
+D064420|TOX DRUG
+D064420|Adverse Drug Reaction
+D064420|Adverse Drug Reactions
+D064420|Drug Reactions, Adverse
+D064420|Reactions, Adverse Drug
+D064420|Drug Reaction, Adverse
+D064420|Reaction, Adverse Drug
+D064420|Adverse Drug Event
+D064420|Adverse Drug Events
+D064420|Drug Events, Adverse
+D064420|Events, Adverse Drug
+D064420|Drug Event, Adverse
+D064420|Event, Adverse Drug
+D064420|Drug-Related Side Effects and Adverse Reactions
+D064420|Drug Related Side Effects and Adverse Reactions
+D004827|Epilepsy
+D004827|Epilepsies
+D004827|Seizure Disorder
+D004827|Seizure Disorders
+D004827|Epileptic Seizures
+D004827|Epileptic Seizure
+D004827|Seizure, Epileptic
+D004827|Seizures, Epileptic
+D004827|SEIZURE DIS
+D004827|Epilepsy, Cryptogenic
+D004827|Cryptogenic Epilepsies
+D004827|Epilepsies, Cryptogenic
+D004827|Cryptogenic Epilepsy
+D004827|Aura
+D004827|Auras
+D004827|Single Seizure
+D004827|Seizures, Single
+D004827|Single Seizures
+D004827|Seizure, Single
+D004827|Awakening Epilepsy
+D004827|Epilepsy, Awakening
+D007024|Hypotension, Orthostatic
+D007024|Orthostatic Hypotension
+D007024|Hypotension, Postural
+D007024|Postural Hypotension
+D007676|Kidney Failure, Chronic
+D007676|Chronic Kidney Failure
+D007676|Renal Failure, Chronic
+D007676|Chronic Renal Failure
+D007676|End-Stage Kidney Disease
+D007676|End Stage Kidney Disease
+D007676|Disease, End-Stage Kidney
+D007676|Kidney Disease, End-Stage
+D007676|ESRD
+D007676|Renal Disease, End-Stage
+D007676|Renal Disease, End Stage
+D007676|End-Stage Renal Disease
+D007676|Disease, End-Stage Renal
+D007676|End Stage Renal Disease
+D007676|Renal Failure, End-Stage
+D007676|Renal Failure, End Stage
+D007676|End-Stage Renal Failure
+D007676|END STAGE KIDNEY DIS
+D007676|END STAGE RENAL DIS
+D007676|RENAL DIS END STAGE
+D008106|Liver Cirrhosis, Experimental
+D008106|Cirrhoses, Experimental Liver
+D008106|Experimental Liver Cirrhoses
+D008106|Liver Cirrhoses, Experimental
+D008106|Cirrhosis, Experimental Liver
+D008106|Experimental Liver Cirrhosis
+D008106|Hepatic Cirrhosis, Experimental
+D008106|Experimental Hepatic Cirrhosis
+D008106|CIRRHOSES EXPER LIVER
+D008106|CIRRHOSIS EXPER LIVER
+D008106|EXPER LIVER CIRRHOSIS
+D008106|LIVER CIRRHOSIS EXPER
+D008106|EXPER LIVER CIRRHOSES
+D008106|LIVER CIRRHOSES EXPER
+D008106|HEPATIC CIRRHOSES EXPER
+D009325|Nausea
+D010149|Pain, Postoperative
+D010149|Postoperative Pains
+D010149|Postoperative Pain
+D010149|PAIN POSTOP
+D010149|POSTOP PAIN
+D014178|Translocation, Genetic
+D014178|Genetic Translocations
+D014178|Translocations, Genetic
+D014178|Genetic Translocation
+D014178|Chromosomal Translocation
+D014178|Chromosomal Translocations
+D014178|Translocations, Chromosomal
+D014178|Translocation, Chromosomal
+D014178|TRANSLOCATION GENET
+D000505|Alopecia
+D000505|Baldness
+D000505|Pseudopelade
+D000505|Alopecia Cicatrisata
+D000505|Alopecia Cicatrisatas
+D000505|Cicatrisatas, Alopecia
+D000505|Cicatrisata, Alopecia
+D000505|Androgenetic Alopecia
+D000505|Alopecia, Androgenetic
+D000505|Alopecia, Male Pattern
+D000505|Male Pattern Alopecia
+D000505|Male Pattern Baldness
+D000505|Baldness, Male Pattern
+D000505|Pattern Baldness
+D000505|Androgenic Alopecia
+D000505|Female Pattern Baldness
+D000505|ALOPECIA ANDROGENET
+D000505|ANDROGENET ALOPECIA
+D000505|Alopecia, Androgenetic, 1
+D006973|Hypertension
+D006973|Blood Pressure, High
+D006973|Blood Pressures, High
+D006973|High Blood Pressures
+D006973|High Blood Pressure
+D007938|Leukemia
+D007938|Leukemias
+D007938|Leucocythaemia
+D007938|Leucocythemia
+D007938|Leucocythemias
+D007938|Leucocythaemias
+D011471|Prostatic Neoplasms
+D011471|Neoplasm, Prostatic
+D011471|Prostatic Neoplasm
+D011471|Neoplasms, Prostatic
+D011471|Prostate Neoplasms
+D011471|Neoplasm, Prostate
+D011471|Prostate Neoplasm
+D011471|Neoplasms, Prostate
+D011471|PROSTATIC NEOPL
+D011471|NEOPL PROSTATIC
+D011471|NEOPL PROSTATE
+D011471|PROSTATE NEOPL
+D011471|Prostate Cancer
+D011471|Cancers, Prostate
+D011471|Prostate Cancers
+D011471|Cancer of Prostate
+D011471|Cancer of the Prostate
+D011471|Cancer, Prostate
+D011471|Prostatic Cancer
+D011471|Cancers, Prostatic
+D011471|Prostatic Cancers
+D011471|Cancer, Prostatic
+D006528|Carcinoma, Hepatocellular
+D006528|Carcinomas, Hepatocellular
+D006528|Hepatocellular Carcinomas
+D006528|Hepatocellular Carcinoma
+D006528|Hepatoma
+D006528|Hepatomas
+D006528|Liver Cell Carcinoma
+D006528|Carcinomas, Liver Cell
+D006528|Cell Carcinomas, Liver
+D006528|Liver Cell Carcinomas
+D006528|Carcinoma, Liver Cell
+D006528|Cell Carcinoma, Liver
+D006528|Liver Cancer, Adult
+D006528|Adult Liver Cancers
+D006528|Cancers, Adult Liver
+D006528|Liver Cancers, Adult
+D006528|Adult Liver Cancer
+D006528|Cancer, Adult Liver
+D006528|Liver Cell Carcinoma, Adult
+C535575|Carcinoma, squamous cell of head and neck
+C535575|Squamous cell carcinoma of the head and neck
+C535575|Squamous Cell Carcinoma, Head And Neck
+D002543|Cerebral Hemorrhage
+D002543|Cerebral Hemorrhages
+D002543|Hemorrhages, Cerebral
+D002543|Hemorrhage, Cerebral
+D002543|Intracerebral Hemorrhage
+D002543|Hemorrhages, Intracerebral
+D002543|Intracerebral Hemorrhages
+D002543|Hemorrhage, Intracerebral
+D002543|Hemorrhage, Cerebrum
+D002543|Cerebrum Hemorrhages
+D002543|Hemorrhages, Cerebrum
+D002543|Cerebrum Hemorrhage
+D002543|Cerebral Parenchymal Hemorrhage
+D002543|Cerebral Parenchymal Hemorrhages
+D002543|Hemorrhages, Cerebral Parenchymal
+D002543|Parenchymal Hemorrhages, Cerebral
+D002543|Hemorrhage, Cerebral Parenchymal
+D002543|Parenchymal Hemorrhage, Cerebral
+D002543|Brain Hemorrhage, Cerebral
+D002543|Brain Hemorrhages, Cerebral
+D002543|Cerebral Brain Hemorrhages
+D002543|Hemorrhages, Cerebral Brain
+D002543|Cerebral Brain Hemorrhage
+D002543|Hemorrhage, Cerebral Brain
+D015179|Colorectal Carcinoma
+D015179|Carcinomas, Colorectal
+D015179|Colorectal Carcinomas
+D015179|Carcinoma, Colorectal
+D015179|Colorectal Neoplasms
+D015179|Colorectal Neoplasm
+D015179|Neoplasm, Colorectal
+D015179|Neoplasms, Colorectal
+D015179|Colorectal Tumors
+D015179|Colorectal Tumor
+D015179|Tumor, Colorectal
+D015179|Tumors, Colorectal
+D015179|COLORECTAL NEOPL
+D015179|NEOPL COLORECTAL
+D015179|Colorectal Cancer
+D015179|Cancers, Colorectal
+D015179|Colorectal Cancers
+D015179|Cancer, Colorectal
+D017449|Dermatitis, Allergic Contact
+D017449|Allergic Contact Dermatitides
+D017449|Contact Dermatitides, Allergic
+D017449|Dermatitides, Allergic Contact
+D017449|Allergic Contact Dermatitis
+D017449|Dermatitis, Contact, Allergic
+D017449|Contact Dermatitis, Allergic
+D017449|Dermatitis, Allergic Eczematous
+D017449|Allergic Eczematous Dermatitides
+D017449|Dermatitides, Allergic Eczematous
+D017449|Eczematous Dermatitides, Allergic
+D017449|Allergic Eczematous Dermatitis
+D017449|Eczematous Dermatitis, Allergic
+D004487|Edema
+D004487|Dropsy
+D004487|Hydrops
+D004487|Anasarca
+D004938|Esophageal Neoplasms
+D004938|Esophageal Neoplasm
+D004938|Neoplasm, Esophageal
+D004938|Neoplasms, Esophageal
+D004938|Esophagus Neoplasm
+D004938|Esophagus Neoplasms
+D004938|Neoplasms, Esophagus
+D004938|Neoplasm, Esophagus
+D004938|ESOPHAGEAL NEOPL
+D004938|NEOPL ESOPHAGEAL
+D004938|ESOPHAGUS NEOPL
+D004938|Cancer of Esophagus
+D004938|Cancer of the Esophagus
+D004938|Cancers, Esophagus
+D004938|Esophagus Cancer
+D004938|Esophagus Cancers
+D004938|Cancer, Esophagus
+D004938|Esophageal Cancer
+D004938|Cancers, Esophageal
+D004938|Esophageal Cancers
+D004938|Cancer, Esophageal
+D008545|Melanoma
+D008545|Melanomas
+D008545|Malignant Melanoma
+D008545|Malignant Melanomas
+D008545|Melanomas, Malignant
+D008545|Melanoma, Malignant
+D012163|Retinal Detachment
+D012163|Detachments, Retinal
+D012163|Retinal Detachments
+D012163|Detachment, Retinal
+D012163|Retinal Pigment Epithelial Detachment
+D013226|Status Epilepticus
+D013226|Status Epilepticus, Generalized
+D013226|Generalized Status Epilepticus
+D013226|Petit Mal Status
+D013226|Status, Petit Mal
+D013226|Absence Status
+D013226|Status, Absence
+D013226|Grand Mal Status Epilepticus
+D013226|Status Epilepticus, Grand Mal
+D013226|Generalized Convulsive Status Epilepticus
+D013226|Status Epilepticus, Generalized Convulsive
+D013226|Complex Partial Status Epilepticus
+D013226|Status Epilepticus, Complex Partial
+D013226|Status Epilepticus, Subclinical
+D013226|Subclinical Status Epilepticus
+D013226|Status Epilepticus, Electrographic
+D013226|Electrographic Status Epilepticus
+D013226|Non-Convulsive Status Epilepticus
+D013226|Non Convulsive Status Epilepticus
+D013226|Status Epilepticus, Non Convulsive
+D013226|Status Epilepticus, Non-Convulsive
+D013226|NONCONVULSIVE STATUS EPILEPTICUS
+D013226|Simple Partial Status Epilepticus
+D013226|Status Epilepticus, Simple Partial
+C562942|Aortic Valve, Calcification of
+C562942|Aortic Stenosis, Calcific
+D001284|Atrophy
+D001284|Atrophies
+D001930|Injuries, Acute Brain
+D001930|Acute Brain Injury
+D001930|Brain Injury, Acute
+D001930|Injury, Acute Brain
+D001930|Acute Brain Injuries
+D001930|Brain Injuries, Acute
+D001930|INJ ACUTE BRAIN
+D001930|BRAIN INJ ACUTE
+D001930|ACUTE BRAIN INJ
+D001930|Brain Contusion
+D001930|Brain Contusions
+D001930|Contusions, Brain
+D001930|Contusion, Brain
+D001930|Brain Injuries
+D001930|Brain Injury
+D001930|Injury, Brain
+D001930|Injuries, Brain
+D001930|INJ BRAIN
+D001930|BRAIN INJ
+D001930|Brain Lacerations
+D001930|Brain Laceration
+D001930|Laceration, Brain
+D001930|Lacerations, Brain
+D001930|Brain Injuries, Diffuse
+D001930|Brain Injury, Diffuse
+D001930|Diffuse Brain Injury
+D001930|Injury, Diffuse Brain
+D001930|Diffuse Brain Injuries
+D001930|Injuries, Diffuse Brain
+D001930|BRAIN INJ DIFFUSE
+D001930|Brain Injuries, Focal
+D001930|Brain Injury, Focal
+D001930|Focal Brain Injury
+D001930|Injury, Focal Brain
+D001930|Focal Brain Injuries
+D001930|Injuries, Focal Brain
+D001930|BRAIN INJ FOCAL
+D001930|FOCAL BRAIN INJ
+D001930|Cortical Contusion
+D001930|Contusions, Cortical
+D001930|Cortical Contusions
+D001930|Contusion, Cortical
+D001930|Encephalopathy, Post-Concussive
+D001930|Encephalopathies, Post-Concussive
+D001930|Encephalopathy, Post Concussive
+D001930|Post-Concussive Encephalopathies
+D001930|Post Concussive Encephalopathy
+D001930|Post-Concussive Encephalopathy
+D001930|ENCEPH POST CONCUSSIVE
+D001930|POST CONCUSSIVE ENCEPH
+D001930|Encephalopathy, Post-Traumatic
+D001930|Encephalopathies, Post-Traumatic
+D001930|Encephalopathy, Post Traumatic
+D001930|Post-Traumatic Encephalopathies
+D001930|Post Traumatic Encephalopathy
+D001930|Post-Traumatic Encephalopathy
+D001930|ENCEPH POST TRAUMATIC
+D001930|POST TRAUMATIC ENCEPH
+D001930|Brain Injuries, Traumatic
+D001930|Brain Injury, Traumatic
+D001930|Injury, Brain, Traumatic
+D001930|Injury, Traumatic Brain
+D001930|Traumatic Brain Injury
+D001930|Injuries, Traumatic Brain
+D001930|Traumatic Brain Injuries
+D001930|Traumatic Encephalopathy
+D001930|Encephalopathies, Traumatic
+D001930|Traumatic Encephalopathies
+D001930|Encephalopathy, Traumatic
+D001930|TBI (Traumatic Brain Injury)
+D001930|TBIs (Traumatic Brain Injury)
+D001930|Trauma, Brain
+D001930|Brain Traumas
+D001930|Traumas, Brain
+D001930|Brain Trauma
+D001930|BRAIN INJ TRAUMATIC
+D001930|INJ BRAIN TRAUMATIC
+D001930|TRAUMATIC BRAIN INJ
+D001930|ENCEPH TRAUMATIC
+D001930|TRAUMATIC ENCEPH
+D001930|Mild Traumatic Brain Injury
+D001930|Injury, Brain, Traumatic Mild
+D001932|Brain Neoplasms
+D001932|Neoplasm, Brain
+D001932|Brain Neoplasm
+D001932|Neoplasms, Brain
+D001932|Brain Tumors
+D001932|Brain Tumor
+D001932|Tumor, Brain
+D001932|Tumors, Brain
+D001932|BRAIN NEOPL
+D001932|NEOPL BRAIN
+D001932|Brain Cancer
+D001932|Brain Cancers
+D001932|Cancer of Brain
+D001932|Cancer of the Brain
+D001932|Cancers, Brain
+D001932|Cancer, Brain
+D001932|Brain Neoplasms, Malignant
+D001932|Malignant Brain Neoplasm
+D001932|Brain Malignant Neoplasm
+D001932|Brain Neoplasm, Malignant
+D001932|Malignant Neoplasm, Brain
+D001932|Brain Malignant Neoplasms
+D001932|Malignant Brain Neoplasms
+D001932|Malignant Neoplasms, Brain
+D001932|Neoplasms, Brain, Malignant
+D001932|BRAIN NEOPL MALIGNANT
+D001932|MALIGNANT NEOPL BRAIN
+D001932|NEOPL BRAIN MALIGNANT
+D001932|Benign Neoplasms, Brain
+D001932|Benign Brain Neoplasm
+D001932|Benign Neoplasm, Brain
+D001932|Brain Benign Neoplasm
+D001932|Brain Neoplasm, Benign
+D001932|Benign Brain Neoplasms
+D001932|Brain Benign Neoplasms
+D001932|Brain Neoplasms, Benign
+D001932|Neoplasms, Brain, Benign
+D001932|BENIGN NEOPL BRAIN
+D001932|BRAIN NEOPL BENIGN
+D001932|NEOPL BRAIN BENIGN
+D001932|Brain Tumor, Primary
+D001932|Brain Tumors, Primary
+D001932|Primary Brain Tumors
+D001932|Primary Brain Tumor
+D001932|Primary Brain Neoplasms
+D001932|Brain Neoplasm, Primary
+D001932|Primary Brain Neoplasm
+D001932|Brain Neoplasms, Primary
+D001932|Neoplasms, Brain, Primary
+D001932|BRAIN NEOPL PRIMARY
+D001932|NEOPL BRAIN PRIMARY
+D001932|PRIMARY BRAIN NEOPL
+D001932|Brain Tumor, Recurrent
+D001932|Brain Tumors, Recurrent
+D001932|Recurrent Brain Tumors
+D001932|Recurrent Brain Tumor
+D001932|Malignant Primary Brain Tumors
+D001932|Primary Malignant Brain Tumors
+D001932|Brain Neoplasms, Malignant, Primary
+D001932|Brain Neoplasms, Primary Malignant
+D001932|Malignant Primary Brain Neoplasms
+D001932|Primary Malignant Brain Neoplasms
+D001932|BRAIN NEOPL MALIGNANT PRIMARY
+D001932|BRAIN NEOPL PRIMARY MALIGNANT
+D001932|MALIGNANT PRIMARY BRAIN NEOPL
+D001932|PRIMARY MALIGNANT BRAIN NEOPL
+D001932|Neoplasms, Intracranial
+D001932|Intracranial Neoplasm
+D001932|Neoplasm, Intracranial
+D001932|Intracranial Neoplasms
+D001932|INTRACRANIAL NEOPL
+D001932|NEOPL INTRACRANIAL
+D001943|Breast Cancer
+D001943|Cancer of Breast
+D001943|Cancer of the Breast
+D001943|Cancer, Breast
+D001943|Breast Carcinoma
+D001943|Malignant Neoplasm of Breast
+D001943|Malignant Tumor of Breast
+D001943|Mammary Cancer
+D001943|Mammary Carcinoma, Human
+D001943|Carcinomas, Human Mammary
+D001943|Human Mammary Carcinomas
+D001943|Mammary Carcinomas, Human
+D001943|Carcinoma, Human Mammary
+D001943|Human Mammary Carcinoma
+D001943|Mammary Neoplasms, Human
+D001943|Human Mammary Neoplasm
+D001943|Mammary Neoplasm, Human
+D001943|Neoplasm, Human Mammary
+D001943|Human Mammary Neoplasms
+D001943|Neoplasms, Human Mammary
+D001943|Breast Neoplasms
+D001943|Neoplasm, Breast
+D001943|Breast Neoplasm
+D001943|Neoplasms, Breast
+D001943|Breast Tumors
+D001943|Breast Tumor
+D001943|Tumor, Breast
+D001943|Tumors, Breast
+D001943|BREAST NEOPL
+D001943|NEOPL BREAST
+D002294|Carcinoma, Squamous Cell
+D002294|Carcinomas, Squamous Cell
+D002294|Squamous Cell Carcinomas
+D002294|Squamous Cell Carcinoma
+D002294|Carcinoma, Epidermoid
+D002294|Carcinomas, Epidermoid
+D002294|Epidermoid Carcinomas
+D002294|Epidermoid Carcinoma
+D002294|Carcinoma, Squamous
+D002294|Carcinomas, Squamous
+D002294|Squamous Carcinomas
+D002294|Squamous Carcinoma
+D002294|Carcinoma, Planocellular
+D002294|Carcinomas, Planocellular
+D002294|Planocellular Carcinomas
+D002294|Planocellular Carcinoma
+D002471|Cell Transformation, Neoplastic
+D002471|Cell Neoplastic Transformations
+D002471|Cell Transformations, Neoplastic
+D002471|Neoplastic Cell Transformations
+D002471|Neoplastic Transformations, Cell
+D002471|Transformations, Cell Neoplastic
+D002471|Transformations, Neoplastic Cell
+D002471|Cell Neoplastic Transformation
+D002471|Neoplastic Cell Transformation
+D002471|Neoplastic Transformation, Cell
+D002471|Transformation, Cell Neoplastic
+D002471|Transformation, Neoplastic Cell
+D002471|Tumorigenic Transformation
+D002471|Transformations, Tumorigenic
+D002471|Tumorigenic Transformations
+D002471|Transformation, Tumorigenic
+D002471|CELL TRANSFORM NEOPL
+D002471|NEOPL CELL TRANSFORM
+D002471|NEOPL TRANSFORM CELL
+D002471|TRANSFORM NEOPL CELL
+D020256|Choroidal Neovascularization
+D020256|Choroidal Neovascularizations
+D020256|Neovascularization, Choroidal
+D020256|Neovascularization, Choroid
+D020256|Choroid Neovascularizations
+D020256|Choroid Neovascularization
+D020256|CHOROID NEOVASC
+D020256|NEOVASC CHOROID
+D020256|CHOROIDAL NEOVASC
+D020256|NEOVASC CHOROIDAL
+D016510|Corneal Neovascularization
+D016510|Corneal Neovascularizations
+D016510|Neovascularizations, Corneal
+D016510|Neovascularization, Corneal
+D016510|Corneal Angiogenesis
+D016510|Angiogenesis, Corneal
+D016510|CORNEAL NEOVASC
+C536830|De Vivo disease
+C536830|GLUT-1 deficiency syndrome
+C536830|Glucose transport defect, blood-brain barrier
+C536830|Glut1 Deficiency Syndrome
+C536830|Glucose transporter type1 (GLUT-1) deficiency
+D003928|Diabetic Nephropathies
+D003928|Diabetic Nephropathy
+D003928|Nephropathy, Diabetic
+D003928|Nephropathies, Diabetic
+D003928|Diabetic Kidney Disease
+D003928|Diabetic Kidney Diseases
+D003928|Kidney Diseases, Diabetic
+D003928|Kidney Disease, Diabetic
+D003928|Diabetic Glomerulosclerosis
+D003928|Glomerulosclerosis, Diabetic
+D003928|Kimmelstiel-Wilson Syndrome
+D003928|Kimmelstiel Wilson Syndrome
+D003928|Syndrome, Kimmelstiel-Wilson
+D003928|Kimmelstiel-Wilson Disease
+D003928|Kimmelstiel Wilson Disease
+D003928|Nodular Glomerulosclerosis
+D003928|Glomerulosclerosis, Nodular
+D003928|Intracapillary Glomerulosclerosis
+D003930|Diabetic Retinopathy
+D003930|Diabetic Retinopathies
+D003930|Retinopathies, Diabetic
+D003930|Retinopathy, Diabetic
+D016889|Endometrial Neoplasms
+D016889|Endometrial Neoplasm
+D016889|Neoplasm, Endometrial
+D016889|Neoplasms, Endometrial
+D016889|ENDOMETRIAL NEOPL
+D016889|NEOPL ENDOMETRIAL
+D016889|Endometrial Carcinoma
+D016889|Carcinomas, Endometrial
+D016889|Endometrial Carcinomas
+D016889|Carcinoma, Endometrial
+D016889|Endometrial Cancer
+D016889|Cancers, Endometrial
+D016889|Endometrial Cancers
+D016889|Cancer, Endometrial
+D016889|Cancer of Endometrium
+D016889|Cancer of the Endometrium
+D016889|Cancers, Endometrium
+D016889|Endometrium Cancer
+D016889|Endometrium Cancers
+D016889|Cancer, Endometrium
+D016889|Carcinoma of Endometrium
+D016889|Endometrium Carcinoma
+D016889|Endometrium Carcinomas
+D005909|Glioblastoma
+D005909|Glioblastomas
+D005909|Astrocytoma, Grade IV
+D005909|Astrocytomas, Grade IV
+D005909|Grade IV Astrocytomas
+D005909|Grade IV Astrocytoma
+D005909|Giant Cell Glioblastoma
+D005909|Giant Cell Glioblastomas
+D005909|Glioblastomas, Giant Cell
+D005909|Glioblastoma, Giant Cell
+D005909|Glioblastoma Multiforme
+D005911|Gliosis
+D005911|Glioses
+D005911|Astrocytosis
+D006394|Hemangiosarcoma
+D006394|Hemangiosarcomas
+D006394|Angiosarcoma
+D006394|Angiosarcomas
+D008607|Idiocy
+D008607|Intellectual Disability
+D008607|Disabilities, Intellectual
+D008607|Intellectual Disabilities
+D008607|Disability, Intellectual
+D008607|Mental Retardation
+D008607|Retardation, Mental
+D008607|Mental Retardation, Psychosocial
+D008607|Mental Retardations, Psychosocial
+D008607|Psychosocial Mental Retardations
+D008607|Retardations, Psychosocial Mental
+D008607|Psychosocial Mental Retardation
+D008607|Retardation, Psychosocial Mental
+D008607|Deficiency, Mental
+D008607|Deficiencies, Mental
+D008607|Mental Deficiencies
+D008607|Mental Deficiency
+D008607|MENTAL DEFIC
+D008607|DEFIC MENTAL
+D015473|Leukemia, Promyelocytic, Acute
+D015473|Acute Promyelocytic Leukemias
+D015473|Leukemia, Acute Promyelocytic
+D015473|Promyelocytic Leukemia, Acute
+D015473|Acute Promyelocytic Leukemia
+D015473|Myeloid Leukemia, Acute, M3
+D015473|Leukemia, Myeloid, Acute, M3
+D015473|Leukemia, Progranulocytic
+D015473|Progranulocytic Leukemia
+D015473|M3 ANLL
+D015473|ANLL, M3
+D015473|LEUKEMIA MYELOID ACUTE M 03
+D015473|MYELOID LEUKEMIA ACUTE M 03
+D015473|AML M3
+D008103|Liver Cirrhosis
+D008103|Cirrhoses, Liver
+D008103|Liver Cirrhoses
+D008103|Cirrhosis, Liver
+D008103|Hepatic Cirrhosis
+D008103|Cirrhoses, Hepatic
+D008103|Hepatic Cirrhoses
+D008103|Cirrhosis, Hepatic
+D008103|Fibrosis, Liver
+D008103|Fibroses, Liver
+D008103|Liver Fibroses
+D008103|Liver Fibrosis
+D008569|Memory Disorders
+D008569|Memory Disorder
+D008569|Retention Disorders, Cognitive
+D008569|Cognitive Retention Disorder
+D008569|Retention Disorder, Cognitive
+D008569|Cognitive Retention Disorders
+D008569|MEMORY DIS
+D008569|Memory Deficits
+D008569|Deficit, Memory
+D008569|Memory Deficit
+D008569|Deficits, Memory
+D008569|Age-Related Memory Disorders
+D008569|Age Related Memory Disorders
+D008569|Age-Related Memory Disorder
+D008569|Memory Disorder, Age-Related
+D008569|Memory Disorders, Age Related
+D008569|Memory Disorders, Age-Related
+D008569|MEMORY DIS AGE RELATED
+D008569|AGE RELATED MEMORY DIS
+D008569|Memory Disorder, Semantic
+D008569|Memory Disorders, Semantic
+D008569|Semantic Memory Disorders
+D008569|Semantic Memory Disorder
+D008569|MEMORY DIS SEMANTIC
+D008569|SEMANTIC MEMORY DIS
+D008569|Memory Disorder, Spatial
+D008569|Memory Disorders, Spatial
+D008569|Spatial Memory Disorders
+D008569|Spatial Memory Disorder
+D008569|MEMORY DIS SPATIAL
+D008569|SPATIAL MEMORY DIS
+D008569|Memory Loss
+D008569|Memory Losses
+D015428|Myocardial Reperfusion Injury
+D015428|Injuries, Myocardial Reperfusion
+D015428|Myocardial Reperfusion Injuries
+D015428|Reperfusion Injuries, Myocardial
+D015428|Injury, Myocardial Reperfusion
+D015428|Reperfusion Injury, Myocardial
+D015428|Myocardial Ischemic Reperfusion Injury
+D015428|INJ MYOCARDIAL REPERFUSION
+D015428|MYOCARDIAL REPERFUSION INJ
+D015428|REPERFUSION INJ MYOCARDIAL
+D009362|Neoplasm Metastasis
+D009362|Metastases, Neoplasm
+D009362|Neoplasm Metastases
+D009362|Metastasis, Neoplasm
+D009362|Metastasis
+D009362|Metastases
+D009362|NEOPL METASTASIS
+D009362|METASTASES NEOPL
+D009362|NEOPL METASTASES
+D009362|METASTASIS NEOPL
+D009374|Neoplasms, Experimental
+D009374|Experimental Neoplasm
+D009374|Neoplasm, Experimental
+D009374|Experimental Neoplasms
+D009374|EXPER NEOPL
+D009374|NEOPL EXPER
+D009410|Nerve Degeneration
+D009410|Degenerations, Nerve
+D009410|Nerve Degenerations
+D009410|Degeneration, Nerve
+D009410|Neuron Degeneration
+D009410|Degenerations, Neuron
+D009410|Neuron Degenerations
+D009410|Degeneration, Neuron
+D011833|Radiation Injuries, Experimental
+D011833|Experimental Radiation Injury
+D011833|Radiation Injury, Experimental
+D011833|Experimental Radiation Injuries
+D011833|Injuries, Experimental Radiation
+D011833|EXPER RAD INJ
+D011833|INJ EXPER RAD
+D011833|RAD INJ EXPER
+D012164|Retinal Diseases
+D012164|Disease, Retinal
+D012164|Retinal Disease
+D012164|Diseases, Retinal
+D012164|RETINAL DIS
+D012208|Rhabdomyosarcoma
+D012208|Rhabdomyosarcomas
+D012559|Schizophrenia
+D012559|Schizophrenias
+D012559|Dementia Praecox
+D012559|Schizophrenic Disorders
+D012559|Disorder, Schizophrenic
+D012559|Schizophrenic Disorder
+D012559|Disorders, Schizophrenic
+D012559|SCHIZOPHRENIC DIS
+D012878|Cancer of Skin
+D012878|Cancer of the Skin
+D012878|Cancers, Skin
+D012878|Skin Cancer
+D012878|Skin Cancers
+D012878|Cancer, Skin
+D012878|Skin Neoplasms
+D012878|Neoplasm, Skin
+D012878|Skin Neoplasm
+D012878|Neoplasms, Skin
+D012878|SKIN NEOPL
+D012878|NEOPL SKIN
+D054058|Acute Coronary Syndrome
+D054058|Acute Coronary Syndromes
+D054058|Coronary Syndromes, Acute
+D054058|Syndromes, Acute Coronary
+D054058|Coronary Syndrome, Acute
+D054058|Syndrome, Acute Coronary
+D000230|Adenocarcinoma
+D000230|Adenocarcinomas
+D000230|Adenoma, Malignant
+D000230|Adenomas, Malignant
+D000230|Malignant Adenomas
+D000230|Malignant Adenoma
+D000230|Adenocarcinoma, Basal Cell
+D000230|Adenocarcinomas, Basal Cell
+D000230|Basal Cell Adenocarcinomas
+D000230|Basal Cell Adenocarcinoma
+D000230|Adenocarcinoma, Oxyphilic
+D000230|Adenocarcinomas, Oxyphilic
+D000230|Oxyphilic Adenocarcinomas
+D000230|Oxyphilic Adenocarcinoma
+D000230|Carcinoma, Cribriform
+D000230|Carcinomas, Cribriform
+D000230|Cribriform Carcinomas
+D000230|Cribriform Carcinoma
+D000230|Carcinoma, Granular Cell
+D000230|Carcinomas, Granular Cell
+D000230|Granular Cell Carcinomas
+D000230|Granular Cell Carcinoma
+D000230|Adenocarcinoma, Granular Cell
+D000230|Adenocarcinomas, Granular Cell
+D000230|Granular Cell Adenocarcinomas
+D000230|Granular Cell Adenocarcinoma
+D000230|Adenocarcinoma, Tubular
+D000230|Adenocarcinomas, Tubular
+D000230|Tubular Adenocarcinomas
+D000230|Tubular Adenocarcinoma
+D000230|Carcinoma, Tubular
+D000230|Carcinomas, Tubular
+D000230|Tubular Carcinomas
+D000230|Tubular Carcinoma
+C538231|Adenocarcinoma of lung
+C538231|Lung adenocarcinoma
+D000544|Alzheimer Disease
+D000544|Alzheimer's Disease
+D000544|Disease, Alzheimer's
+D000544|Disease, Alzheimer
+D000544|Primary Senile Degenerative Dementia
+D000544|Dementia, Primary Senile Degenerative
+D000544|Dementia, Senile
+D000544|Senile Dementia
+D000544|Senile Dementia, Alzheimer Type
+D000544|Alzheimer Type Senile Dementia
+D000544|Dementia, Alzheimer Type
+D000544|Alzheimer Type Dementia
+D000544|Alzheimer-Type Dementia (ATD)
+D000544|Alzheimer Type Dementia (ATD)
+D000544|Dementia, Alzheimer-Type (ATD)
+D000544|Alzheimer Dementia (AD)
+D000544|Dementia, Alzheimer (AD)
+D000544|Alzheimer Sclerosis
+D000544|Sclerosis, Alzheimer
+D000544|Alzheimer Syndrome
+D000544|Syndrome, Alzheimer
+D000544|ALZHEIMER DIS
+D000544|ALZHEIMERS DIS
+D000544|Dementia, Presenile
+D000544|Presenile Dementia
+D000544|Familial Alzheimer Disease (FAD)
+D000544|Alzheimer Disease, Late Onset
+D000544|Late Onset Alzheimer Disease
+D000544|LATE ONSET ALZHEIMER DIS
+D000544|ALZHEIMER DIS LATE ONSET
+D000544|Acute Confusional Senile Dementia
+D000544|Senile Dementia, Acute Confusional
+D000544|Alzheimer's Disease, Focal Onset
+D000544|Focal Onset Alzheimer's Disease
+D000544|FOCAL ONSET ALZHEIMERS DIS
+D000544|ALZHEIMERS DIS FOCAL ONSET
+D000544|Alzheimer Disease, Early Onset
+D000544|Early Onset Alzheimer Disease
+D000544|Presenile Alzheimer Dementia
+D000544|EARLY ONSET ALZHEIMER DIS
+D000544|ALZHEIMER DIS EARLY ONSET
+D000740|Anemia
+D000740|Anemias
+D015535|Arthritis, Psoriatic
+D015535|Psoriatic Arthritis
+D015535|Psoriasis Arthropathica
+D015535|Psoriatic Arthropathy
+D015535|Arthropathies, Psoriatic
+D015535|Psoriatic Arthropathies
+D015535|Arthropathy, Psoriatic
+D015535|Psoriasis, Arthritic
+D015535|Arthritic Psoriasis
+D001238|Asphyxia Neonatorum
+D001321|Autistic Disorder
+D001321|Disorders, Autistic
+D001321|Disorder, Autistic
+D001321|Autism
+D001321|Autisms
+D001321|Autism, Early Infantile
+D001321|Early Infantile Autism
+D001321|Infantile Autism, Early
+D001321|Autism, Infantile
+D001321|Infantile Autism
+D001321|Kanner's Syndrome
+D001321|Kanner Syndrome
+D001321|Kanners Syndrome
+D001321|Syndrome, Kanner's
+D001327|Autoimmune Diseases
+D001327|Disease, Autoimmune
+D001327|Autoimmune Disease
+D001327|Diseases, Autoimmune
+D001327|AUTOIMMUNE DIS
+D002056|Burns
+D002056|Burn
+D018376|Cardiovascular Abnormalities
+D018376|Abnormality, Cardiovascular
+D018376|Cardiovascular Abnormality
+D018376|Abnormalities, Cardiovascular
+D018376|CARDIOVASC ABNORM
+D018376|ABNORM CARDIOVASC
+D015209|Cholangitis, Sclerosing
+D015209|Cholangitides, Sclerosing
+D015209|Sclerosing Cholangitides
+D015209|Sclerosing Cholangitis
+D015209|Cholangiitis, Sclerosing
+D015209|Cholangiitides, Sclerosing
+D015209|Sclerosing Cholangiitides
+D015209|Sclerosing Cholangiitis
+D015209|Primary Sclerosing Cholangitis
+D015209|Cholangitides, Primary Sclerosing
+D015209|Primary Sclerosing Cholangitides
+D015209|Sclerosing Cholangitides, Primary
+D015209|Cholangitis, Primary Sclerosing
+D015209|Sclerosing Cholangitis, Primary
+D003110|Cancer of Colon
+D003110|Cancer of the Colon
+D003110|Cancers, Colon
+D003110|Colon Cancer
+D003110|Colon Cancers
+D003110|Cancer, Colon
+D003110|Colonic Cancer
+D003110|Cancers, Colonic
+D003110|Colonic Cancers
+D003110|Cancer, Colonic
+D003110|Colonic Neoplasms
+D003110|Neoplasm, Colonic
+D003110|Colonic Neoplasm
+D003110|Neoplasms, Colonic
+D003110|Colon Neoplasms
+D003110|Colon Neoplasm
+D003110|Neoplasm, Colon
+D003110|Neoplasms, Colon
+D003110|COLONIC NEOPL
+D003110|NEOPL COLONIC
+D003110|COLON NEOPL
+D004381|Curling Ulcer
+D004381|Curling's Ulcer
+D004381|Curlings Ulcer
+D004381|Ulcer, Curling
+D004381|Duodenal Ulcer
+D004381|Duodenal Ulcers
+D004381|Ulcers, Duodenal
+D004381|Ulcer, Duodenal
+C562729|Esophageal Squamous Cell Carcinoma
+D005334|Fever
+D005334|Fevers
+D005334|Hyperthermia
+D005334|Hyperthermias
+D005334|Pyrexia
+D005334|Pyrexias
+D005923|Glomerulosclerosis, Focal Segmental
+D005923|Focal Segmental Glomerulosclerosis
+D005923|Segmental Glomerulosclerosis, Focal
+D005923|Glomerulonephritis, Focal Sclerosing
+D005923|Focal Sclerosing Glomerulonephritides
+D005923|Glomerulonephritides, Focal Sclerosing
+D005923|Sclerosing Glomerulonephritides, Focal
+D005923|Focal Sclerosing Glomerulonephritis
+D005923|Sclerosing Glomerulonephritis, Focal
+D005923|Glomerulosclerosis, Focal
+D005923|Focal Glomerulosclerosis
+D005923|Hyalinosis, Segmental Glomerular
+D005923|Glomerular Hyalinosis, Segmental
+D005923|Segmental Glomerular Hyalinosis
+D005923|Hyalinosis, Segmental
+D005923|Segmental Hyalinosis
+D006333|Heart Failure
+D006333|Cardiac Failure
+D006333|Congestive Heart Failure
+D006333|Heart Failure, Congestive
+D006333|Heart Failure, Left-Sided
+D006333|Heart Failure, Left Sided
+D006333|Left Sided Heart Failure
+D006333|Left-Sided Heart Failure
+D006333|Heart Failure, Right-Sided
+D006333|Heart Failure, Right Sided
+D006333|Right Sided Heart Failure
+D006333|Right-Sided Heart Failure
+D006333|Myocardial Failure
+D006333|Heart Decompensation
+D006333|Decompensation, Heart
