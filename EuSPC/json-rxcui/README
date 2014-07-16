@@ -19,7 +19,7 @@ file contains 268 unique RxNorm drugs and RxCUIs.  $ cat
 drugMappings.txt | grep RXNORM | cut -f 1,2 -d ' '| uniq | wc -l 268
 
 Unique MeSH drugs were 269:
-$ cat drugMappings.txt | grep 269 | cut -f 1,2 -d ' '| uniq | wc -l
+$ cat drugMappings.txt | grep MESH | cut -f 1,2 -d ' '| uniq | wc -l
 269
 
 drugMappings was first put into tempRXCUIMappings.txt:
@@ -27,3 +27,11 @@ cat drugMappings.txt | grep RXNORM | cut -f 1,2 -d ' '| uniq | cut -f 6 -d '/' >
 
 Then it was pipe deliminated to tempRXCUIMappings_pipe.txt:
 $ tr ' ' '|' <tempRXCUIMappings.txt >tempRXCUIMapping_pipe.txt
+
+for the mesh mappings...
+cat drugMappings.txt | grep MESH | cut -f 1,2 -d ' '| uniq | cut -f 6 -d '/' | tr ' ' '|' > tempMESHMappings.txt
+
+07.16.2014
+Take note....
+These files are deprecated except drugMappings.txt. This is because this is space delimited and sometimes more than one word explained
+a drug in drugMappings.txt. I just had the processEuSPCTo....py to parse the drugMappings.txt.
