@@ -1,0 +1,35 @@
+Jeremy Jao
+07.16.2014
+
+connectSEMMED.py contains the function details()
+- returns a dict to use mysql.connector to connect
+
+selectPredicates.py
+- selects the unique predicates from the SemMED db table PREDICATION 
+- output:
+	- allpredicates.txt
+		- first line is the # of entries
+		- rest is all unique predicates
+
+the other py script is just a test to see if the connector can connect...
+
+Potentially useful predicates (including the negative ones...):
+- TREATS
+- COEXISTS_WITH
+- AFFECTS
+- CAUSES
+- USES
+- PREVENTS
+- INTERACTS_WITH
+- COMPLICATES
+- DISRUPTS
+- INHIBITS
+- AUGMENTS
+- STIMULATES
+
+Problems:
+- tables are case sensitive!
+- PREDICATION table has 15176516 entries..........
+	but.... 57 unique strings...
+	dunno why this inefficient... must be important though? Or maybe the dump
+	severely messed up...
