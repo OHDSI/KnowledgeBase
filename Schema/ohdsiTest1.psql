@@ -18,10 +18,10 @@ CREATE TABLE "drug_HOI_evidence" (
 
 
 INSERT INTO "drug_HOI_evidence"("drug", "HOI",, "evidence_type", "evidence_source_code_id", "evidence_target_id", "evidence_body_id") VALUES
-	(89013,35738560,'product_label', 1, 1, 1),
-	(36567,36110715, 'product_label',2,2,2),
-	(6944,10038435,'literature_case_report',3,3,3),
-	(6944,10038435,'literature_specific_review',4,4,4);
+	(757688,35738560,'product_label', 1, 1, 1),
+	(1539403,36110715, 'product_label',2,2,2),
+	(1707164,37019318,'literature_case_report',3,3,3),
+	(1707164,37019318,'literature_specific_review',4,4,4);
 	
 CREATE TABLE "evidence_bodies" (
     "id" serial NOT NULL, -- 'primary key',

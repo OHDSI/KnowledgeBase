@@ -38,15 +38,28 @@ WHERE
 "drug_HOI_evidence".evidence_body_id = evidence_bodies.body_id 
 ---
 
--- Get back all evidence for 'metronidazole' and 'renal failure'
+-- Get back all evidence for 'metronidazole' and 'renal failure' using standard vocab codes
 SELECT "drug_HOI_evidence"."evidence_type", "evidence_sources"."title", "evidence_sources"."description", "evidence_targets"."uri", "evidence_bodies"."semantic_tag_label", "evidence_bodies"."value_as_string", "evidence_bodies"."value_as_int", "evidence_bodies"."value_as_double", "evidence_bodies"."value_as_date"
 FROM "drug_HOI_evidence","evidence_sources", "evidence_targets", "evidence_bodies"  
 WHERE 
-"drug_HOI_evidence".drug = 6944 AND
-"drug_HOI_evidence"."HOI" = 10038435 AND
+"drug_HOI_evidence".drug = 1707164 AND
+"drug_HOI_evidence"."HOI" = 37019318 AND
 "drug_HOI_evidence"."evidence_source_code_id" = evidence_sources.id AND
 "drug_HOI_evidence".evidence_target_id = evidence_targets.id AND
 "drug_HOI_evidence".evidence_body_id = evidence_bodies.body_id 
+
+
+-- Get back all evidence for 'metronidazole' and 'renal failure' reporting results with standard RxNorm and MedDRA codes
+SELECT "drug_HOI_evidence"."evidence_type", "evidence_sources"."title", "evidence_sources"."description", "evidence_targets"."uri", "evidence_bodies"."semantic_tag_label", "evidence_bodies"."value_as_string", "evidence_bodies"."value_as_int", "evidence_bodies"."value_as_double", "evidence_bodies"."value_as_date", c1.concept_code, c2.concept_code
+FROM "drug_HOI_evidence","evidence_sources", "evidence_targets", "evidence_bodies", concept c1, concept c2
+WHERE 
+"drug_HOI_evidence".drug = 1707164 AND
+"drug_HOI_evidence"."HOI" = 37019318 AND
+"drug_HOI_evidence"."evidence_source_code_id" = evidence_sources.id AND
+"drug_HOI_evidence".evidence_target_id = evidence_targets.id AND
+"drug_HOI_evidence".evidence_body_id = evidence_bodies.body_id AND
+c1.concept_id = 1707164 AND
+c2.concept_id = 37019318
 
 
 
@@ -54,8 +67,8 @@ WHERE
 SELECT COUNT("drug_HOI_evidence".evidence_type)
 FROM "drug_HOI_evidence"
 WHERE 
-drug = 6944 AND
-"HOI" = 10038435 AND
+drug = 1707164 AND
+"HOI" = 37019318 AND
 evidence_type LIKE 'literature%'
 
 
@@ -63,8 +76,8 @@ evidence_type LIKE 'literature%'
 SELECT COUNT(evidence_type)
 FROM "drug_HOI_evidence"
 WHERE 
-drug = 6944 AND
-"HOI" = 10038435 AND 
+drug = 1707164 AND
+"HOI" = 37019318 AND 
 evidence_type = 'literature_case_report'
 
 
@@ -72,7 +85,7 @@ evidence_type = 'literature_case_report'
 SELECT evidence_targets.uri
 FROM "drug_HOI_evidence", evidence_targets
 WHERE 
-"drug_HOI_evidence".drug = 36567 AND
+"drug_HOI_evidence".drug = 1539403 AND
 "drug_HOI_evidence"."HOI" = 36110715 AND
 "drug_HOI_evidence".evidence_type = 'product_label' AND
 evidence_targets.id = "drug_HOI_evidence".evidence_target_id
