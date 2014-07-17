@@ -1,0 +1,15 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ct: <http://bio2rdf.org/clinicaltrials:>
+PREFIX ctv: <http://bio2rdf.org/clinicaltrials_vocabulary:>
+PREFIX bio2rdf: <http://bio2rdf.org/bio2rdf_vocabulary:>
+
+
+select * 
+where{
+ ?trialURI a ctv:Clinical-Study;
+      bio2rdf:identifier "NCT01810042"^^<http://www.w3.org/2001/XMLSchema#string>.
+}
+LIMIT 2
