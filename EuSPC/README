@@ -35,3 +35,26 @@ Disclaimer
 
 The establishment of this database, which is set up and maintained by the EMA and PROTECT partners, is not required by legislation and it is intended to provide an additional tool for signal detection activities and research purposes. Although all parties involved in the project have made their best efforts to provide comprehensive and up-to-date information, the EMA and PROTECT partners cannot be held responsible for failure to list some adverse drug reactions, inaccuracies in the MedDRA mapping and for any inappropriate use of this database.
 
+--------------------------------------------------------------------------------------------------------------------------
+07.16.2014
+Jeremy Jao
+
+python script:
+processEuSPCToAddRxNormAndMeSH.py
+- Description:
+	- Add columns with RxNorm and MeSH mappings
+	- These mappings come from json-rxcui/drugMappings.txt for each drug
+	- if found, the CUIs in RxNorm and MeSH will be added
+- input:
+	- original file:
+		FinalRepository_DLP30Jun2012.csv
+	- map file:
+		json-rxcui/drugMappings.txt
+- output:
+	- Final_Repository_DLP30Jun2012_withCUIs.csv
+- Problems:
+	- I wasn't sure how to handle the situations like line 723 in the input file (see row[2] below):
+		Adrovance	59424	ALENDRONIC ACID, COLECALCIFEROL
+	- So what I did was split the string in row[2] by ', ' then run a loop to find if either
+	alendronic acid or colecalciferol would be found. Not sure if this is the correct way to do things......
+	- perhaps the solution to this problem would be either be to find the CUIs by Product instead and not the substance
