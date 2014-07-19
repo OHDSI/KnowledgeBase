@@ -22,6 +22,9 @@ Unique MeSH drugs were 269:
 $ cat drugMappings.txt | grep MESH | cut -f 1,2 -d ' '| uniq | wc -l
 269
 
+Only one missing RxNorm that is in MeSH:
+N-(3-amino-1-(cyclobutylmethyl)-2,3-dioxopropyl)-3-(2-((((1,1-dimethylethyl)amino)carbonyl)amino)-3,3-dimethyl-1-oxobutyl)-6,6-dimethyl-3-azabicyclo(3.1.0)hexan-2-carboxamide
+
 drugMappings was first put into tempRXCUIMappings.txt:
 cat drugMappings.txt | grep RXNORM | cut -f 1,2 -d ' '| uniq | cut -f 6 -d '/' > tempRXCUIMappings.txt
 
