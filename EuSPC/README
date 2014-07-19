@@ -44,7 +44,7 @@ processEuSPCToAddRxNormAndMeSH.py
 - Description:
 	- Add columns with RxNorm and MeSH mappings
 	- These mappings come from json-rxcui/drugMappings.txt for each drug
-	- if found, the CUIs in RxNorm and MeSH will be added
+	- if found, the CUIs in RxNorm and MeSH will be added to the dict
 - input:
 	- original file:
 		FinalRepository_DLP30Jun2012.csv
@@ -57,4 +57,38 @@ processEuSPCToAddRxNormAndMeSH.py
 		Adrovance	59424	ALENDRONIC ACID, COLECALCIFEROL
 	- So what I did was split the string in row[2] by ', ' then run a loop to find if either
 	alendronic acid or colecalciferol would be found. Not sure if this is the correct way to do things......
-	- perhaps the solution to this problem would be either be to find the CUIs by Product instead and not the substance
+	- perhaps the solution to this problem would be either be to find the CUIs by Product instead and not the substance. EDIT: 07-19-2014 - looks like I'll be adding these manually
+
+07-19-2014
+============================
+
+
+- As said in json-rxcui/README, there were 268 substance RxCUIs and 269 MeSH substance CUIs. There was only one file that didn't have an RxCUI in the list but was in MeSH:
+N-(3-amino-1-(cyclobutylmethyl)-2,3-dioxopropyl)-3-(2-((((1,1-dimethylethyl)amino)carbonyl)amino)-3,3-dimethyl-1-oxobutyl)-6,6-dimethyl-3-azabicyclo(3.1.0)hexan-2-carboxamide 666 657
+
+**New Script made getMissingMappings.py:
+
+	This is a script that opens the input which will then find missing CUIs
+	or multiple substances per one drug and then writes them into one of the 4
+	outputs written below.
+	
+	Usage:
+	- python3 getMissingMappings.py
+	
+	Input:
+	- Final_Repository_DLP30Jun2012_withCUIs.csv
+		- made by
+	
+	Outputs:
+	- format on all:
+		- product|substance
+	1. missingRxNorms.txt
+		- writes single-substance drug with only a missing RxNorm CUI
+	2. missingMeSHes.txt
+		- writes single-substance drug with only a missing MeSH CUI
+	3. bothCUIsMissing.txt
+		- writes single-substance drug with both CUIs missing
+	4. multipleSubstances.txt
+		- writes multi-substance drugs to here
+
+Current plan now is to just manually add the RxCUIs of specific product names (drugs).
