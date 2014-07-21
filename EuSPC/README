@@ -104,9 +104,17 @@ This will then run on the python 3 script
 Still Missing MeSH CUIs:
 - Aldurazyme|Laronidase
 	- Laronidase is an L molecule for Iduronidase though which has a MeSH CUI
-- Ambirix
-	- cannot add since it is multiple substances
-
+- from bothMissingCUIs_CUIs.txt:
+	- Ambirix
+		- cannot add since it is multiple substances
+		- take note that there are many rxnorm results for the type of substance...
+	- Advate|Octocog Alfa
+	- Atryn|ANTITHROMBIN ALFA
+		- This was found in RxNorm form too but the substance and drug are 2 different RxNorms..
+	- BeneFIX|NONACOG ALFA
+	- Beromun|TASONERMIN
+	- Celvapan|A/CALIFORNIA/7/2009 (H1N1)V-LIKE VIRUS
+	- ChondroCelect|AUTOLOGOUS HUMAN CARTILAGE CELLS - gives me apoptosis factor though....
 Still Missing RxNorm CUIs:
 - IVABRADINE
 	- bioportal rxnorm and google give 0 results
@@ -120,8 +128,14 @@ Still Missing RxNorm CUIs:
 	- bioportal rxnorm and google give 0 results
 - TRABECTEDIN
 	- bioportal rxnorm and google give 0 results
+from bothMissingCUIs_CUIs.txt
+	- Bridion|SUGAMMADEX
+	-Brinavess|VERNAKALANT HYDROCHLORIDE
 
 Still Missing both CUIs:
 	- Aflunov
 		- no RxNorm still and multiple MeSH IDs possible?
-TODO: in bothMissingCUIs_CUIs.txt, contiue after Ambirix
+	- Daronrix|A/VIETNAM/1194/2004 (H5N1)
+TODO: in bothMissingCUIs_CUIs.txt, continue after Dificlir
+
+keep in mind, bothCUIsMissing.txt seems to be getting rxnorms back but not mesh CUIs...
