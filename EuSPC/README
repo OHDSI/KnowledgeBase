@@ -92,3 +92,36 @@ N-(3-amino-1-(cyclobutylmethyl)-2,3-dioxopropyl)-3-(2-((((1,1-dimethylethyl)amin
 		- writes multi-substance drugs to here
 
 Current plan now is to just manually add the RxCUIs of specific product names (drugs).
+
+07.21.2014
+====================
+
+I am manually adding the CUIs missing as shown in the text files above to
+the files above *_CUIs.txt using bioontology.bioportal.com.
+
+This will then run on the python 3 script 
+
+Still Missing MeSH CUIs:
+- Aldurazyme|Laronidase
+	- Laronidase is an L molecule for Iduronidase though which has a MeSH CUI
+- Ambirix
+	- cannot add since it is multiple substances
+
+Still Missing RxNorm CUIs:
+- IVABRADINE
+	- bioportal rxnorm and google give 0 results
+- Stiripentol
+	- bioportal rxnorm and google give 0 results
+- PIXANTRONE
+	- bioportal rxnorm and google give 0 results
+- PRUCALOPRIDE
+	- bioportal rxnorm and google give 0 results
+- VINFLUNINE
+	- bioportal rxnorm and google give 0 results
+- TRABECTEDIN
+	- bioportal rxnorm and google give 0 results
+
+Still Missing both CUIs:
+	- Aflunov
+		- no RxNorm still and multiple MeSH IDs possible?
+TODO: in bothMissingCUIs_CUIs.txt, contiue after Ambirix
