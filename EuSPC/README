@@ -126,6 +126,7 @@ Still Missing MeSH CUIs:
 	- Infanrix penta
 	- M-M-RVaxpro
 		- no way to search the MeSH heading for this...
+	- ProQuad
 	
 Still Missing RxNorm CUIs:
 - IVABRADINE
@@ -165,6 +166,7 @@ Still Missing RxNorm CUIs:
 	- Ganfort
 	- Kinzalkomb
 	- Kivexa
+	- Pergoveris
 	
 Still Missing both CUIs:
 - Aflunov
@@ -211,8 +213,26 @@ Still Missing both CUIs:
 - Karvezide
 - Komboglyze
 - Nimenrix
-
-TODO: in multipleSubstances_CUIs.txt, continue after Nimenrix
+- Onduarp
+- Pandemic influenza vaccine (H5N1) (split virion, inactivated, adjuvanted) GlaxoSmithKline Biologicals|PANDEMIC INFLUENZA VACCINE (H5N1) (SPLIT VIRION, INACTIVATED, ADJUVANTED)
+	- no way to search this.............
+- Pelzont
+- Pravafenix
+- PritorPlus
+- Pumarix
+- Rasilamlo
+- Rasilez HCT
+- Rasitrio
+- Riprazo HCT
+- Ristfor
+- Sprimeo HCT
+- Tandemact
+- Teysuno
+- Tredaptive
+- Vantavo
+- Velmetia
+- Zoely
+- Zomarist
 
 Notes on medicines (no other comments means usually that it was a direct result):
 - Eporatio is apparently epoetin theta:
