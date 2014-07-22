@@ -97,13 +97,17 @@ Current plan now is to just manually add the RxCUIs of specific product names (d
 ====================
 
 I am manually adding the CUIs missing as shown in the text files above to
-the files above *_CUIs.txt using bioontology.bioportal.com.
+the files above *_CUIs.txt using bioontology.bioportal.com advanced search
+for MeSH and RxNorm. I would search first the drug, then the substance name,
+and if all else fails try google. For the multipleSubstances_CUIs.txt file,
+I only searched for the drug name.
 
 This will then run on the python 3 script 
 
 Still Missing MeSH CUIs:
 - Aldurazyme|Laronidase
 	- Laronidase is an L molecule for Iduronidase though which has a MeSH CUI
+	
 - from bothMissingCUIs_CUIs.txt:
 	- Ambirix
 		- cannot add since it is multiple substances
@@ -115,6 +119,14 @@ Still Missing MeSH CUIs:
 	- Beromun|TASONERMIN
 	- Celvapan|A/CALIFORNIA/7/2009 (H1N1)V-LIKE VIRUS
 	- ChondroCelect|AUTOLOGOUS HUMAN CARTILAGE CELLS - gives me apoptosis factor though....
+	- Helixate NexGen|OCTOCOG ALFA
+		- octocog is a very popular ingredient but simply not showing up in MeSH...
+
+- from mulitipleSubstances_CUIs.txt:
+	- Infanrix penta
+	- M-M-RVaxpro
+		- no way to search the MeSH heading for this...
+	
 Still Missing RxNorm CUIs:
 - IVABRADINE
 	- bioportal rxnorm and google give 0 results
@@ -128,14 +140,105 @@ Still Missing RxNorm CUIs:
 	- bioportal rxnorm and google give 0 results
 - TRABECTEDIN
 	- bioportal rxnorm and google give 0 results
-from bothMissingCUIs_CUIs.txt
+	
+- from bothMissingCUIs_CUIs.txt
 	- Bridion|SUGAMMADEX
-	-Brinavess|VERNAKALANT HYDROCHLORIDE
+	- Brinavess|VERNAKALANT HYDROCHLORIDE
+	- Elonva|CORIFOLLITROPIN ALFA
+		- seems that I get drotecogin alfa from the substance search
+	- Fablyn|LASOFOXIFENE
+	- Fampyra|FAMPRIDINE
+	- LeukoScan|SULESOMAB
+	- Removab|CATUMAXOMAB
+	- Ruconest|CONESTAT ALFA
+	- Scintimun|BESILESOMAB
+	- Thymanax|AGOMELATINE
+	- Trobalt|RETIGABINE
+	- Valdoxan|AGOMELATINE
+	- Vyndaqel|TAFAMIDIS
+	- Zutectra|HUMAN HEPATITIS B IMMUNOGLOBULIN
+		- unsure what exactly which RxNorm CUI to use...
 
+- from multipleSubstances_CUIs.txt:
+	- Azarga
+	- DuoTrav
+	- Ganfort
+	- Kinzalkomb
+	- Kivexa
+	
 Still Missing both CUIs:
-	- Aflunov
-		- no RxNorm still and multiple MeSH IDs possible?
-	- Daronrix|A/VIETNAM/1194/2004 (H5N1)
-TODO: in bothMissingCUIs_CUIs.txt, continue after Dificlir
+- Aflunov
+	- no RxNorm still and multiple MeSH IDs possible?
+- Daronrix|A/VIETNAM/1194/2004 (H5N1)
+- Firdapse|AMIFAMPRIDINE
+	- I don't see this anywhere in Google or bioportal...
+- Foclivia|A/VIETNAM/1194/2004 (H5N1)
+	- no straight up results...
+- InductOs|DIBOTERMIN ALFA
+- Opgenra|EPTOTERMIN ALFA
+- Optaflu|INFLUENZA VACCINE SURFACE ANTIGEN INACTIVATED PREPARED IN CELL CULTURES
+- Osigraft|EPTOTERMIN ALFA
+- Pandemic influenza vaccine H5N1 Baxter|A/VIETNAM/1203/2004 (H5N1)
+- Prepandemic influenza vaccine (H5N1) Novartis Vaccines and Diagnostics|A/VIETNAM/1194/2004 (H5N1)
+- Prepandrix|A/INDONESIA/05/2005 (H5N1) (PR8-IBCDC-RG2)
+- Siklos|HYDROXYCARBAMIDE
+- Vedrop|TOCOFERSOLAN
+- Vepacel|PRE/PANDEMIC INFLUENZA VACCINE (H5N1)
+- Avrodance
+- Aerinaze
+- CoAprovel
+- Competact
+- Copalia
+- Copalia HCT
+- Dafiro
+- Dafiro HCT
+- Dukoral
+- DuoCover
+- Efficib
+- Eucreas
+- Eurartesim
+- Evicel
+- Fluenz
+- Fosavance
+- Glubrava
+- Icandra
+- IDflu
+- Ifirmacombi
+- Imprida
+- Imprida HCT
+- Intanza
+- IOA (it's a chemical in MeSH)
+- Karvezide
+- Komboglyze
+- Nimenrix
 
-keep in mind, bothCUIsMissing.txt seems to be getting rxnorms back but not mesh CUIs...
+TODO: in multipleSubstances_CUIs.txt, continue after Nimenrix
+
+Notes on medicines (no other comments means usually that it was a direct result):
+- Eporatio is apparently epoetin theta:
+	- http://www.ema.europa.eu/ema/index.jsp?curl=pages/medicines/human/medicines/001033/human_med_001204.jsp&mid=WC0b01ac058001d124
+- Fendrix RxCUI just comes from a generic vaccine. This is rDNA though so it might be wrong...
+- Flebogamma DIF had an ingredient RxNorm and an injectable product CUI. I chose the injectable product...
+- HBVaxPro|HEPATITIS B VACCINE (RDNA) was just given the generic hepatitis B vaccine CUIs
+- Helixate NexGen|OCTOCOG ALFA - chose Helixate for rxnorm...
+- Kogenate Bayer|OCTOCOG ALFA - used bayer 2000 for the mesh...
+- Methylthioninium chloride Proveblue|METHYLTHIONINIUM - used methylene blue for RxNorm
+- mixtard is actually insulin, pork - isophane insulin, pork (30:70)... not just INSULIN HUMAN
+- Osseor|STRONTIUM RANELATE - chose normal Strontium in RxNorm though there is a pill CUI for it
+- Preotact|PARATHYROID HORMONE - used parathyroid hormone...
+- Prevenar|PNEUMOCOCCAL POLYSACCHARIDE CONJUGATE VACCINE (ADSORBED) - used the heptavelent conjugate
+- Protaphane|INSULIN HUMAN - used the first results of INSULIN HUMAN
+- Qutenza|CAPSAICIN - used capsaicin for MeSH
+- Silgard is apparently Gardasil according to Wikipedia
+- SonoVue|SULFUR HEXAFLUORIDE - used Sulfur in RxNorm (probably wrong...)
+- Synflorix|PNEUMOCOCCAL POLYSACCHARIDE CONJUGATE VACCINE (ADSORBED) - used normal pneumococcal vaccine in RxNorm
+- Twinrix Adult|HEPATITIS A (INACTIVATED) AND HEPATITIS B (RDNA) VACCINE (ADSORBED) yields many products........
+	- only picked the first result even if the 2nd result said "injectable product"
+- Evra - used Ortho Evra for both CUIs
+- Infanrix penta
+	- take note that I just used normal infanrix (probably wrong) in RxNorm
+- Irbesartan Hydrochlorothiazide Teva and Zentiva seem to be identical.........
+- Levodopa/Carbidopa/Entacapone Orion
+	- got the generic version instead of pill version and no Orion in it... in RxNorm
+	- seems to be missing the Entacapone in MeSH but used it anyway
+- MicardisPlus - based on ingredients, used the Micardis HCT version...
