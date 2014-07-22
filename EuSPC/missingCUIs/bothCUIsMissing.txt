@@ -1,3 +1,4 @@
+Drug|Substance
 Actraphane|INSULIN HUMAN
 Advate|OCTOCOG ALFA
 Aflunov|A/VIETNAM/1194/2004 (H5N1)

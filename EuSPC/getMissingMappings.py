@@ -29,10 +29,16 @@ Use python3
 """
 
 import csv
+import sys
+import os
 
 #opening the new output file generated
-with open('Final_Repository_DLP30Jun2012_withCUIs.csv', 'r') as fil:
-
+with open(sys.argv[1], 'r') as fil:
+	
+	folder = sys.argv[2]
+	
+	if not os.path.exists(folder):
+		os.makedirs(folder)
 	
 	rows = csv.reader(fil, delimiter = "\t")
 	#skip the header
@@ -52,10 +58,10 @@ with open('Final_Repository_DLP30Jun2012_withCUIs.csv', 'r') as fil:
 			pipe delimited csvs
 	'''
 	
-	missingRxNorms = open('missingRxNorms.txt', 'w')
-	missingMeSHes = open('missingMeSHes.txt', 'w')
-	bothCUIsMissing = open('bothCUIsMissing.txt', 'w')
-	multipleSubstances = open('multipleSubstances.txt', 'w')
+	missingRxNorms = open(folder + '/missingRxNorms.txt', 'w')
+	missingMeSHes = open(folder + '/missingMeSHes.txt', 'w')
+	bothCUIsMissing = open(folder + '/bothCUIsMissing.txt', 'w')
+	multipleSubstances = open(folder + '/multipleSubstances.txt', 'w')
 	
 	currentSubstance = None
 	for row in rows:

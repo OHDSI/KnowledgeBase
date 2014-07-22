@@ -7,14 +7,21 @@
 
 import csv
 import string
+import pprint
 ##########INPUT STRING NAME FILES#######################################
 inp = 'FinalRepository_DLP30Jun2012.csv'
-out = 'Final_Repository_DLP30Jun2012_withCUIs.csv'
+out = 'FinalRepository_DLP30Jun2012_withCUIs_v2.csv'
 
 mapfolder = 'json-rxcui/'
 rxmap = mapfolder + 'tempRXCUIMappings_pipe.txt'
 meshmap = mapfolder + 'tempMESHCUImappings.txt'
 rawmap = mapfolder + 'drugMappings.txt'
+
+missingfolder = 'missingCUIs/'
+rxmissing = missingfolder + 'missingRxNorms_CUIs.txt'
+meshmissing = missingfolder + 'missingMeSHes_CUIs.txt'
+bothmissing = missingfolder + 'bothCUIsMissing_CUIs.txt'
+multiplesubs = missingfolder + 'multipleSubstances_CUIs.txt'
 ########################################################################
 
 ###########FUNCTIONS####################################################
@@ -86,15 +93,56 @@ def makeCompleteDict(fil, dct):
 			else:
 				dct[name][addTo] = cui
 				
+def makeMissingDict(dic, fil, typ):
+	
+	with open(fil, 'r') as fi:
+		rows = csv.reader(fi, delimiter='|')
+		rows.next()
+		line = 1
+		for row in rows:
+			drug = row[0].lower().strip()
+			substance = row[1].lower().strip()
+			if drug not in dic:
+				dic[drug] = {'substance': substance, 'RXNORM': None, 'MESH': None}
+			try:
+				if typ is 'BOTH':
+					notNullAdd(dic[drug], 'RXNORM', row[2])
+					notNullAdd(dic[drug],'MESH' , row[3])
+				elif typ is 'RXNORM' or typ is 'MESH':
+					notNullAdd(dic[drug], typ, row[2])
+				else:
+					print 'Was supposed to add to missing but nope...'
+			except IndexError:
+				print('%s, %d)', (fil, line))
+				
+			line += 1
+def notNullAdd(dic, index, obj):
+	if obj is not None and obj is not '':
+		if dic[index] is None:
+			dic[index] = obj
+		elif dic[index] == obj:
+			print 'missing cuis are the same. not adding.'
+		else:
+			print 'Something probably wrong with the missing CUIs'
 ##########################################################################
 
 ################################MAIN######################################
 mapdict = {}
+missingdict = {}
 
 #makeDictMap(meshmap, mapdict)
 #makeDictMap(rxmap, mapdict)
 
 makeCompleteDict(rawmap, mapdict)
+
+makeMissingDict(missingdict, rxmissing, 'RXNORM')
+makeMissingDict(missingdict, meshmissing, 'MESH')
+makeMissingDict(missingdict, bothmissing, 'BOTH')
+makeMissingDict(missingdict, multiplesubs, 'BOTH')
+
+hi = open('missingict.txt', 'w')
+pprint.pprint(missingdict, hi)
+hi.close()
 
 outfile = open(out, 'w')
 outcsv = csv.writer(outfile, delimiter = "\t")
@@ -107,22 +155,51 @@ with open(inp, 'r') as fil:
 	outcsv.writerow(row)
 	
 	for row in repo:
-		names = row[2].lower()
-		notdone = True
+		substance = row[2].lower().strip()
+		drug = row[0].lower().strip()
+		
+		MESH = None
+		RXNORM = None
+		
+		if substance in mapdict:
+			subdata = mapdict[substance]
+			RXNORM = subdata['RXNORM']
+			MESH = subdata['MESH']
+			if drug in missingdict:
+				if RXNORM is None and missingdict[drug]['RXNORM'] is not None:
+					RXNORM = missingdict[drug]['RXNORM']
+					#print drug
+					#print RXNORM
+					
+				if MESH is None and missingdict[drug]['MESH'] is not None:
+					MESH = missingdict[drug]['MESH']
+					
+		elif drug in missingdict:
+			drugdata = missingdict[drug]
+			if drug == 'mixtard':
+				print 'hi'
+			if drugdata['RXNORM'] is not None and RXNORM is None:
+				RXNORM = drugdata['RXNORM']
+			if drugdata['MESH'] is not None and MESH is None:
+				MESH = drugdata['MESH']
+		row.insert(3, MESH)
+		row.insert(3, RXNORM)
+				
+		#notdone = True
 		#case where the drug is identified with multiple drug names
-		for lame in string.split(names, ', '):
-			name = lame.strip()
-			#if the drug with multiple drug names is found, add the cuis
-			#then break
-			if(name in mapdict):
-				row.insert(3, mapdict[name]['MESH'])
-				row.insert(3, mapdict[name]['RXNORM'])
-				notdone = False
-				break
-		#if the drug was never found, keep the rows in sync
-		if notdone:
-			row.insert(3, None)
-			row.insert(3, None)
+		#for lame in string.split(names, ', '):
+			#name = lame.strip()
+			##if the drug with multiple drug names is found, add the cuis
+			##then break
+			#if(name in mapdict):
+				#row.insert(3, mapdict[name]['MESH'])
+				#row.insert(3, mapdict[name]['RXNORM'])
+				#notdone = False
+				#break
+		##if the drug was never found, keep the rows in sync
+		#if notdone:
+			#row.insert(3, None)
+			#row.insert(3, None)
 		outcsv.writerow(row)
 
 outfile.close()

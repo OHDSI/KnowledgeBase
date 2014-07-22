@@ -1,3 +1,4 @@
+drug|substance
 Apidra|INSULIN GLULISINE
 Corlentor|IVABRADINE
 Diacomit|STIRIPENTOL

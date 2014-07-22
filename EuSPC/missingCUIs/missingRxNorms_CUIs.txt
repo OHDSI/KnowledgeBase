@@ -1,3 +1,4 @@
+drug|Substance|RXCUI
 Apidra|INSULIN GLULISINE|400008
 Corlentor|IVABRADINE|
 Diacomit|STIRIPENTOL|
