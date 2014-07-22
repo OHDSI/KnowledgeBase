@@ -160,7 +160,7 @@ with open(inp, 'r') as fil:
 		
 		MESH = None
 		RXNORM = None
-		
+
 		if substance in mapdict:
 			subdata = mapdict[substance]
 			RXNORM = subdata['RXNORM']
@@ -176,12 +176,16 @@ with open(inp, 'r') as fil:
 					
 		elif drug in missingdict:
 			drugdata = missingdict[drug]
-			if drug == 'mixtard':
-				print 'hi'
+			if drug == 'janumet':
+				print RXNORM
 			if drugdata['RXNORM'] is not None and RXNORM is None:
 				RXNORM = drugdata['RXNORM']
+				if drug == 'janumet':
+					print 'should have been written'
 			if drugdata['MESH'] is not None and MESH is None:
 				MESH = drugdata['MESH']
+		if drug == 'janumet':
+			print RXNORM
 		row.insert(3, MESH)
 		row.insert(3, RXNORM)
 				

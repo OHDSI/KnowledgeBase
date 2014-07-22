@@ -79,7 +79,7 @@ with open(sys.argv[1], 'r') as fil:
 			#if there are multiple substances, write to multipleSubstances.txt
 			#else move to all single substance cases
 			multipleSubstances.write(writeTo)
-		elif row[3].strip() == '' and row[4].strip() == '':
+		if row[3].strip() == '' and row[4].strip() == '':
 			#if both MeSH and RxNorm CUIs are missing, write to bothCUIsMissing.txt
 			bothCUIsMissing.write(writeTo)
 		elif row[3].strip() == '':
