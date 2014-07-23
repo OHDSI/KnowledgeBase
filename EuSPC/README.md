@@ -26,7 +26,7 @@ The establishment of this database, which is set up and maintained by the EMA an
 This table of adverse events from the EU SPCs as downloaded from [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
 
 
-## EU SPC Drug Listing
+### EU SPC Drug Listing
 
 The **euspc-drug-listing** holds drug names for single ingredient drugs
 listed in the adverse event table. This was created by:
@@ -35,24 +35,55 @@ listed in the adverse event table. This was created by:
 2. within emacs:
 `replace-regexp  ".*, .*^J" -> ""`
 
-## Scripts
+## Subfolders
+1. [json-rxcui](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/json-rxcui)
+	- Contains the raw output from the [TRIADs drug named entity recognition program](https://swat-4-med-safety.googlecode.com/svn/trunk/u-of-pitt-SPL-drug-NER) used to input one of the big files.
+2. [missingCUIs](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/missingCUIs)
+	- contains the output of the first run of [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/d2af5e16c2b6f05d59664b93457f90f90da83dea/EuSPC/processEuSPCToAddRxNormAndMeSH.py) from commit [d2af5e16c2b6f05d59664b93457f90f90da83dea](https://github.com/OHDSI/KnowledgeBase/commit/d2af5e16c2b6f05d59664b93457f90f90da83dea)
+	- Also contains the missing CUIs from the first run manually searched in [Bioportal](http://bioportal.bioontology.org/search?opt=advanced)
+3. [missing2](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/missing2)
+	- contains the missing CUIs from the second run of [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/processEuSPCToAddRxNormAndMeSH.py)
 
-1. *processEuSPCToAddRxNormAndMeSH.py*
+## Scripts to Run
+
+1. [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/processEuSPCToAddRxNormAndMeSH.py)
 	- **Description**
+		- python2 script
 		- Add columns with RxNorm and MeSH mappings
-		- These mappings come from json-rxcui/drugMappings.txt for each drug
+		- These mappings come from input for each drug from the map files
 		- if found, the CUIs in RxNorm and MeSH will be added to the dict
-	- input:
+	- **Input**
 		- original file:
-			FinalRepository_DLP30Jun2012.csv
-		- map file:
-			json-rxcui/drugMappings.txt
-	- output:
-		- Final_Repository_DLP30Jun2012_withCUIs.csv
-	- Problems:
-		- I wasn't sure how to handle the situations like line 723 in the input file (see row[2] below):
-			Adrovance	59424	ALENDRONIC ACID, COLECALCIFEROL
-		- So what I did was split the string in row[2] by ', ' then run a loop to find if either
-		alendronic acid or colecalciferol would be found. Not sure if this is the correct way to do things......
-		- perhaps the solution to this problem would be either be to find the CUIs by Product instead and not the substance. EDIT: 07-19-2014 - looks like I'll be adding these manually
-	
+			- [FinalRepository_DLP30Jun2012.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/FinalRepository_DLP30Jun2012.csv)
+		- map files:
+			- [json-rxcui/drugMappings.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/json-rxcui/drugMappings.txt)
+			- [missingCUIs/bothCUIsMissing_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/bothCUIsMissing_CUIs.txt)
+			- [missingCUIs/missingMeSHes_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/missingMeSHes_CUIs.txt)
+			- [missingCUIs/missingRxNorms_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/missingRxNorms_CUIs.txt)
+			- [missingCUIs/multipleSubstances_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/multipleSubstances_CUIs.txt)
+	- **output**
+		- FinalRepository_DLP30Jun2012_withCUIs_v2.csv
+2. [getMissingMappings.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/getMissingMappings.py)
+	- **Description**
+		- python3 script
+		- finds the missing CUIs of each drug and outputs it into the subfolder [missing2](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/missing2)
+	- **Input**
+		- FinalRepository_DLP30Jun2012_withCUIs_v2.csv
+	- **[Output](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/missing2)**
+		- [bothCUIsMissing.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missing2/bothCUIsMissing.txt)
+			- all drugs that are missing both an RxCUI and MeSH CUI
+		- [missingMeSHes.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missing2/missingMeSHes.txt)
+			- all drugs missing a MeSH CUI
+		- [missingRxNorms.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missing2/missingRxNorms.txt)
+			- all drugs missing an RxCUI
+		- [multipleSubstances.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missing2/multipleSubstances.txt)
+			- all drugs that are composed of multiple substances
+
+##### Usage:
+
+Prerequirements: **python2** and **python3** need to be installed
+
+1. `python processEuSPCToAddRxNormAndMeSH.py`
+2. `python3 getMissingMappings FinalRepository_DLP30Jun2012_withCUIs_v2.csv missing2`
+
+
