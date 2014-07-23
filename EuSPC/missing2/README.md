@@ -1,7 +1,7 @@
 missing2 subfolder
 ==================
 
-Contains the output of [getMissingMappings.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/getMissingMappings.py) which ran on the [output](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/FinalRepository_DLP30Jun2012_withCUIs_v2.csv) of [processEuSPCToAddRxNormAndMeSH.py](processEuSPCToAddRxNormAndMeSH.py)
+Contains the output of [getMissingMappings.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/getMissingMappings.py) which ran on the [output](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/FinalRepository_DLP30Jun2012_withCUIs_v2.csv) of [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/processEuSPCToAddRxNormAndMeSH.py)
 
 - **Ouptut**
 	- format: **drug|substance**
