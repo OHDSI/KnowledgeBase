@@ -15,7 +15,7 @@ The original intention was to add all RxCUIs and MeSHes of all programs in
 		- single substance drugs that are only missing the RxCUI
 	- [bothCUIsMissing.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/bothCUIsMissing.txt)
 		- single-substance drugs that are missing both CUIs
-	- [multipleSubstances.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/missingRxNorms.txt)
+	- [multipleSubstances.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/multipleSubstances.txt)
 		- all drugs that had multiple substances
 - the CUIs:
 	- format: **drug|substance|CUI**
