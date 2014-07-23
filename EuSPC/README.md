@@ -62,13 +62,13 @@ listed in the adverse event table. This was created by:
 			- [missingCUIs/missingRxNorms_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/missingRxNorms_CUIs.txt)
 			- [missingCUIs/multipleSubstances_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/multipleSubstances_CUIs.txt)
 	- **output**
-		- FinalRepository_DLP30Jun2012_withCUIs_v2.csv
+		- [FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/FinalRepository_DLP30Jun2012_withCUIs_v2.csv)
 2. [getMissingMappings.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/getMissingMappings.py)
 	- **Description**
 		- python3 script
 		- finds the missing CUIs of each drug and outputs it into the subfolder [missing2](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/missing2)
 	- **Input**
-		- FinalRepository_DLP30Jun2012_withCUIs_v2.csv
+		- [FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/FinalRepository_DLP30Jun2012_withCUIs_v2.csv)
 	- **[Output](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/missing2)**
 		- [bothCUIsMissing.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missing2/bothCUIsMissing.txt)
 			- all drugs that are missing both an RxCUI and MeSH CUI
@@ -84,6 +84,6 @@ listed in the adverse event table. This was created by:
 Prerequirements: **python2** and **python3** need to be installed
 
 1. `python processEuSPCToAddRxNormAndMeSH.py`
-2. `python3 getMissingMappings FinalRepository_DLP30Jun2012_withCUIs_v2.csv missing2`
+2. `python3 getMissingMappings.py FinalRepository_DLP30Jun2012_withCUIs_v2.csv missing2`
 
 

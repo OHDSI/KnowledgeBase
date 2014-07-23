@@ -1,6 +1,11 @@
 # processEuSPCToAddRxNormAndMeSH.py
 #
-# Add columns with RxNorm and MeSH mappings
+# Add columns with RxNorm and MeSH mappings from the original input
+# using the input generated from the TRIADs drug named entity recognition program
+# and manually searched CUIs missing from the data.
+#
+# Usage:
+#	python processEuSPCToAddRxNormAndMeSH.py
 #
 # Author: Richard Boyce and Jeremy Jao
 # 07.16.2014
@@ -12,11 +17,13 @@ import pprint
 inp = 'FinalRepository_DLP30Jun2012.csv'
 out = 'FinalRepository_DLP30Jun2012_withCUIs_v2.csv'
 
+## raw input from the TRIADs drug named entity recognition program
 mapfolder = 'json-rxcui/'
 rxmap = mapfolder + 'tempRXCUIMappings_pipe.txt'
 meshmap = mapfolder + 'tempMESHCUImappings.txt'
 rawmap = mapfolder + 'drugMappings.txt'
 
+## missing CUIs not present from the above file
 missingfolder = 'missingCUIs/'
 rxmissing = missingfolder + 'missingRxNorms_CUIs.txt'
 meshmissing = missingfolder + 'missingMeSHes_CUIs.txt'
@@ -29,7 +36,7 @@ multiplesubs = missingfolder + 'multipleSubstances_CUIs.txt'
 #takes a csv map of 2 columns (first is CUI and 2nd is drug name
 #and puts it into a dictionary.
 #Only coded for an RxNorm or MeSH CUIs for now
-##Deprecated
+##Deprecated!!
 def makeDictMap(fil, dct):
 	if 'RX' in fil:
 		addTo = 'RxNorm'
@@ -93,6 +100,8 @@ def makeCompleteDict(fil, dct):
 			else:
 				dct[name][addTo] = cui
 				
+#Makes the dict of manually searched RxNorm and MeSH CUIs that the TRIADS
+#output could not be obtained automatically
 def makeMissingDict(dic, fil, typ):
 	
 	with open(fil, 'r') as fi:
@@ -116,6 +125,9 @@ def makeMissingDict(dic, fil, typ):
 				print('%s, %d)', (fil, line))
 				
 			line += 1
+			
+			
+#adds to the dictionary if the object being added is not null
 def notNullAdd(dic, index, obj):
 	if obj is not None and obj is not '':
 		if dic[index] is None:
@@ -127,83 +139,83 @@ def notNullAdd(dic, index, obj):
 ##########################################################################
 
 ################################MAIN######################################
-mapdict = {}
-missingdict = {}
+mapdict = {} # the TRIADS RxNorm and MeSH CUIs by substance
+missingdict = {} # the manually searched CUIs by drug name
 
-#makeDictMap(meshmap, mapdict)
-#makeDictMap(rxmap, mapdict)
-
+#Filling up mapdict
 makeCompleteDict(rawmap, mapdict)
 
+#filling up missingdict
 makeMissingDict(missingdict, rxmissing, 'RXNORM')
 makeMissingDict(missingdict, meshmissing, 'MESH')
 makeMissingDict(missingdict, bothmissing, 'BOTH')
 makeMissingDict(missingdict, multiplesubs, 'BOTH')
 
-hi = open('missingict.txt', 'w')
-pprint.pprint(missingdict, hi)
-hi.close()
+##This was done to make sure the missingdict was being made...
+#hi = open('missingict.txt', 'w')
+#pprint.pprint(missingdict, hi)
+#hi.close()
 
+#output file FinalRepository_DLP30Jun2012_withCUIs_v2.csv initialized
 outfile = open(out, 'w')
 outcsv = csv.writer(outfile, delimiter = "\t")
 
+#opening the main input that the CUIs will be added to
 with open(inp, 'r') as fil:
 	repo = csv.reader(fil, delimiter = "\t")
 	row = repo.next()
+	# adding the extra header CUIs to the 3rd index
 	row.insert(3, 'MeSH')
 	row.insert(3, 'RxNorm')
 	outcsv.writerow(row)
 	
+	# now applying to all rows of data
 	for row in repo:
+		
+		#getting substance of row
 		substance = row[2].lower().strip()
+		#getting drug of row
 		drug = row[0].lower().strip()
 		
+		#initializing the MeSH and RxCUI variables
 		MESH = None
 		RXNORM = None
-
+		
+		#case where substance is found in the TRIADS input
 		if substance in mapdict:
 			subdata = mapdict[substance]
 			RXNORM = subdata['RXNORM']
 			MESH = subdata['MESH']
+			
+			#if the drug name is in the manually searched CUIs dict
 			if drug in missingdict:
+				
+				#if the RxCUI was not in the TRIADS input
 				if RXNORM is None and missingdict[drug]['RXNORM'] is not None:
+					#add the RxNorm CUI from the manually searched CUIs dict
 					RXNORM = missingdict[drug]['RXNORM']
-					#print drug
-					#print RXNORM
-					
+				
+				#if the MeSH CUI was not in the TRIADS input					
 				if MESH is None and missingdict[drug]['MESH'] is not None:
+					#add the MeSH CUI from the manually searched CUIs dict
 					MESH = missingdict[drug]['MESH']
 					
+		#case where the substance was not found in the TRIAD input
+		#but the drug name was found in the manually searched CUIs dict
 		elif drug in missingdict:
 			drugdata = missingdict[drug]
-			if drug == 'janumet':
-				print RXNORM
 			if drugdata['RXNORM'] is not None and RXNORM is None:
+				#if the RxCUI was found in the manually searched
+				#CUIs dict, we use this 
 				RXNORM = drugdata['RXNORM']
-				if drug == 'janumet':
-					print 'should have been written'
 			if drugdata['MESH'] is not None and MESH is None:
+				#if the MeSH CUI was found in the manually searched
+				#CUIs dict, we use this 
 				MESH = drugdata['MESH']
-		if drug == 'janumet':
-			print RXNORM
+		#adding the MeSH and RxNorm CUIs, doesn't have to have a value
 		row.insert(3, MESH)
 		row.insert(3, RXNORM)
-				
-		#notdone = True
-		#case where the drug is identified with multiple drug names
-		#for lame in string.split(names, ', '):
-			#name = lame.strip()
-			##if the drug with multiple drug names is found, add the cuis
-			##then break
-			#if(name in mapdict):
-				#row.insert(3, mapdict[name]['MESH'])
-				#row.insert(3, mapdict[name]['RXNORM'])
-				#notdone = False
-				#break
-		##if the drug was never found, keep the rows in sync
-		#if notdone:
-			#row.insert(3, None)
-			#row.insert(3, None)
+		#write to the output file	
 		outcsv.writerow(row)
 
 outfile.close()
