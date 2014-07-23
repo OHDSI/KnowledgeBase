@@ -1,18 +1,5 @@
-This table of adverse events from the EU SPCs as downloaded from [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
-
-The `euspc-drug-listing` holds drug names for single ingredient drugs
-listed in the adverse event table. This was created by:
-
-1. `cat FinalRepository_DLP30Jun2012.csv| cut -f3 | sort | uniq > euspc-drug-listing.txt`
-2. within emacs: `replace-regexp  ".*, .*^J" -> ""`
-
-
-
-description
-============
-
-# Adverse Drug Reactions Database
-
+Adverse Drug Reactions Database
+================================
  
 
 The PROTECT ADR database is a downloadable Excel file listing of all MedDRA PT or LLT adverse drug reactions (ADRs). It is a structured Excel database of all adverse drug reactions (ADRs) listed in section 4.8 of the Summary of Product Characteristics (SPC) of medicinal products authorised in the EU according to the centralised procedure. It is based exclusively on MedDRA terminology. In principle, MedDRA Preferred Terms (PT) are used to map terms of the SPC. When they are used in the SPC to add precision in the description of the ADR, Low Level Terms (LLTs) are also coded. PTs and LLTs are linked to a primary System Organ Class (SOC). The database also includes information on gender, causality, frequency, class warning and source of information for ADRs for which additional information is provided in the SPC. Fields are described in the file Database structure.
@@ -24,15 +11,48 @@ The current database has been updated up to 31 December 2012 based on latest ava
 The database has been created by EMA and partners in PROTECT Work Package 3 through a stepwise approach using automated mapping of ADR terms listed in section 4.8 of the SPC to the MedDRA terminology, fuzzy text matching (Bergvall et al. Pharmacoepidemiol Drug Saf. 2011;20(S1), S143) and expert review.
 It is aimed to routinely update the database at least once a year based on amended SPCs. It can also be amended between routine updates to correct data entries.
 
-### Objectives
+#### Objectives
 
 A time-consuming step in signal detection of adverse reactions is the determination of whether an effect is already recorded in the European Summary of Product Characteristics (SPC). Thus there is a need for a structured database which can be searched for this information. Such a database also allows filtering or flagging reaction monitoring reports for signals related to unlisted reactions only, thus improving considerably the efficiency of the signal detection process.
 
 A data set of established ADRs also allows a comparison to coincidental or unidentified drug-adverse event combinations only, an adjustment of statistical signals for known ADRs, and an evaluation of the effect of background restriction on the performance of statistical signal detection.
 The objective of the ADR database is not to provide a continuously updated list of ADRs to centrally-authorised products.
 
-### Disclaimer
+#### Disclaimer
 
 
 The establishment of this database, which is set up and maintained by the EMA and PROTECT partners, is not required by legislation and it is intended to provide an additional tool for signal detection activities and research purposes. Although all parties involved in the project have made their best efforts to provide comprehensive and up-to-date information, the EMA and PROTECT partners cannot be held responsible for failure to list some adverse drug reactions, inaccuracies in the MedDRA mapping and for any inappropriate use of this database.
 
+This table of adverse events from the EU SPCs as downloaded from [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
+
+
+## EU SPC Drug Listing
+
+The **euspc-drug-listing** holds drug names for single ingredient drugs
+listed in the adverse event table. This was created by:
+
+1. `cat FinalRepository_DLP30Jun2012.csv| cut -f3 | sort | uniq > euspc-drug-listing.txt`
+2. within emacs:
+`replace-regexp  ".*, .*^J" -> ""`
+
+## Scripts
+
+1. *processEuSPCToAddRxNormAndMeSH.py*
+	- **Description**
+		- Add columns with RxNorm and MeSH mappings
+		- These mappings come from json-rxcui/drugMappings.txt for each drug
+		- if found, the CUIs in RxNorm and MeSH will be added to the dict
+	- input:
+		- original file:
+			FinalRepository_DLP30Jun2012.csv
+		- map file:
+			json-rxcui/drugMappings.txt
+	- output:
+		- Final_Repository_DLP30Jun2012_withCUIs.csv
+	- Problems:
+		- I wasn't sure how to handle the situations like line 723 in the input file (see row[2] below):
+			Adrovance	59424	ALENDRONIC ACID, COLECALCIFEROL
+		- So what I did was split the string in row[2] by ', ' then run a loop to find if either
+		alendronic acid or colecalciferol would be found. Not sure if this is the correct way to do things......
+		- perhaps the solution to this problem would be either be to find the CUIs by Product instead and not the substance. EDIT: 07-19-2014 - looks like I'll be adding these manually
+	
