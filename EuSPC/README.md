@@ -46,12 +46,12 @@ listed in the adverse event table. This was created by:
 
 ## Scripts to Run
 
+The main point of the scripts was to add RxCUIs and MeSH IDs to the EU SPC drug list.
+
 1. [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/processEuSPCToAddRxNormAndMeSH.py)
 	- **Description**
 		- python2 script
-		- Add columns with RxNorm and MeSH mappings
-		- These mappings come from input for each drug from the map files
-		- if found, the CUIs in RxNorm and MeSH will be added to the dict
+		- if RxNorm and/or MeSH CUI is found in the map files by substance or drug, the CUIs in RxNorm and MeSH will be added 
 	- **Input**
 		- original file:
 			- [FinalRepository_DLP30Jun2012.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/FinalRepository_DLP30Jun2012.csv)
@@ -66,6 +66,7 @@ listed in the adverse event table. This was created by:
 2. [getMissingMappings.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/getMissingMappings.py)
 	- **Description**
 		- python3 script
+		- This will make a list of drugs with the MeSH or RxCUIs not found from [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/processEuSPCToAddRxNormAndMeSH.py)
 		- finds the missing CUIs of each drug and outputs it into the subfolder [missing2](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/missing2)
 	- **Input**
 		- [FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/FinalRepository_DLP30Jun2012_withCUIs_v2.csv)
