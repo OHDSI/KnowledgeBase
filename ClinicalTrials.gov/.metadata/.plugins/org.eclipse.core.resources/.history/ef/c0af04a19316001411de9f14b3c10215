@@ -1,0 +1,12 @@
+package genericMapper;
+
+public class meshMapper {
+	
+	
+	public static void main(String[] args) {
+		String input, outputObject;
+		input = "/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META";
+		outputObject = "../meshMapping.map";
+		
+	}
+}

@@ -1,0 +1,18 @@
+package genericMapper;
+
+import mapping.GenericMapper;
+
+public class meshMapper {
+	
+	
+	public static void main(String[] args) {
+		String input, outputObject;
+		input = "/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META";
+		//will be a HashMap<String,String>
+		outputObject = "../meshMapping.map";
+		GenericMapper map = new GenericMapper();
+		
+		map.makeMapping(input, cui, string);
+		
+	}
+}

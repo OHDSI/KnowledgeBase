@@ -1,0 +1,27 @@
+package meshMapper;
+
+import java.io.Serializable;
+
+/**
+ * 
+ * @author epicstar
+ *
+ */
+
+public class MeSHMapper implements Serializable {
+	
+	/**
+	 * 
+	 * @param filelocation
+	 */
+	public MeSHMapper(String filelocation) {
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		String filestring = "/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META/MRCONSO.RRF";
+		
+		
+	}
+}

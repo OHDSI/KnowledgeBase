@@ -1,0 +1,61 @@
+package meshMapper;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * 
+ * @author epicstar
+ *
+ */
+public abstract class GenericMapper implements Serializable {
+	
+	private HashMap<String, String> find;
+	
+	public GenericMapper() throws IOException {	
+		find = new HashMap<String, String>();
+	}
+	
+	private void addToMap(String cui, String string) {
+		find.put(string, cui);
+	}
+	
+	public void makeMapping(String fileInputLocation, int language, int cui, int string) {
+		BufferedReader buf;
+		String[] currentRow;
+		try {
+			buf = new BufferedReader(new FileReader(fileInputLocation));
+			while (buf.ready()) {
+				currentRow = buf.readLine().trim().split("|");
+				if(language == -1 || currentRow[language] == "ENG") {
+					addToMap(currentRow[cui], currentRow[string]);
+				}
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void makeMapping(String fileInputLocation, int cui, int string) {
+		makeMapping(fileInputLocation, -1, cui, string);
+	}
+	
+	public makeSerializable
+	
+	public static void main(String[] args) {
+		
+		String filestring = "/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META/MRCONSO.RRF";
+		
+		
+	}
+}

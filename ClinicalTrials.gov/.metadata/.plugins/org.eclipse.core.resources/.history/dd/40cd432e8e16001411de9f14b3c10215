@@ -1,0 +1,45 @@
+package meshMapper;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * 
+ * @author epicstar
+ *
+ */
+public abstract class implements Serializable {
+	
+	private ArrayList<String> cuis;
+	private HashMap<String, Integer> finder;
+	
+	public MeSHMapper() throws IOException {	
+		cuis = new ArrayList<String>();
+		finder = new HashMap<>
+	}
+	
+	public HashMap<String, String> makeMapping(String outputLocation) {
+		
+		try {
+			
+			String currentLine;
+			
+			while(buf.ready()) {
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		String filestring = "/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META/MRCONSO.RRF";
+		
+		
+	}
+}

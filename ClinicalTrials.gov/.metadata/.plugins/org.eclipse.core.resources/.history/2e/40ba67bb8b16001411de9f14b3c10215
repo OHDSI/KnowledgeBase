@@ -1,0 +1,20 @@
+package meshMapper;
+
+import java.io.IOException;
+import java.io.Serializable;
+
+public class MeSHMapper implements Serializable {
+	
+	BufferedReader buf;
+	
+	public MeSHMapper(String filelocation) throws IOException {	
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		String filestring = "/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META/MRCONSO.RRF";
+		
+		
+	}
+}
