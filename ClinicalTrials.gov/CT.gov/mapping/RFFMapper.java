@@ -11,14 +11,14 @@ import java.util.HashMap;
 
 /**
  * 
- * @author epicstar
- * 
  * Takes RFF files from the UMLS Metathesaurus then adds them to a hashmap.
  * Right now, it only considers a case to find and then a match... such as...
  * finding the word 'Hello' and get a CUI match of '12315'.
  * 
  * This file was originally made to find MeSH CUIs for ENG strings in
  * MRCONSO.RFF so when finding mappings, you have to know the file before running it.
+ * 
+ * @author epicstar
  *
  */
 public class RFFMapper implements Serializable {
