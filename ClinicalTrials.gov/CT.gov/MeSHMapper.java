@@ -1,4 +1,3 @@
-package main;
 
 import mapping.RFFMapper;
 
@@ -14,3 +13,4 @@ public class MeSHMapper {
 		map.makeSerializable(serialLocation);
 	}
 }
+
