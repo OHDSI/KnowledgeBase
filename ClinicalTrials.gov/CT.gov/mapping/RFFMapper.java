@@ -52,7 +52,6 @@ public class RFFMapper implements Serializable {
 		if(find.containsKey(string))
 			System.out.println(string + " is already contained...");
 		find.put(string, cui);
-		System.out.println(string + " is added....");
 	}
 	
 	/**
@@ -66,11 +65,14 @@ public class RFFMapper implements Serializable {
 		BufferedReader buf;
 		String[] currentRow;
 		try {
+			System.out.println("Processing file...");
 			buf = new BufferedReader(new FileReader(fileInputLocation));
+			System.out.println("Finished processing! Now parsing and creating.");
 			while (buf.ready()) {
-				currentRow = buf.readLine().split("|");
-				System.out.println(currentRow[language] + " " + currentRow[cui] + " " + currentRow[string]);
-				if(currentRow.length > Math.max(cui, string) && (language == -1 || (currentRow[language] == "PT" ||currentRow[language] == "ENG"))) {
+				String line = buf.readLine();
+				currentRow = line.split("\\|");
+				System.out.println(currentRow.length);
+				if((currentRow.length >= Math.max(cui, string)) && (language == -1 || (currentRow[language].equals("PT") ||currentRow[language].equals("ENG")))) {
 					addToMap(currentRow[cui], currentRow[string]);
 				}
 			}
@@ -115,7 +117,7 @@ public class RFFMapper implements Serializable {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(output));
 			out.writeObject(find);
 			out.close();
-			
+			System.out.println("Hashmap written to " + output);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
