@@ -18,7 +18,7 @@ import java.util.HashMap;
  * This file was originally made to find MeSH CUIs for ENG strings in
  * MRCONSO.RFF so when finding mappings, you have to know the file before running it.
  * 
- * @author epicstar
+ * @author Jeremy Jao
  *
  */
 public class RFFMapper implements Serializable {
@@ -94,10 +94,11 @@ public class RFFMapper implements Serializable {
 	}
 	
 	/**
+	 * Makes the mapping without regard for the language used.
 	 * 
-	 * @param fileInputLocation
-	 * @param cui
-	 * @param string
+	 * @param fileInputLocation input location of the file.
+	 * @param cui This is the common universal identifier for a string
+	 * @param string The string to find the common universal identifier
 	 */
 	public final void makeMapping(String fileInputLocation, String type, int cui, int string) {
 		makeMapping(fileInputLocation, type, -1, cui, string);
