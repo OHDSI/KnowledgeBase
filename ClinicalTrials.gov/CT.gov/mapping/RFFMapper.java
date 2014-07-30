@@ -79,7 +79,7 @@ public class RFFMapper implements Serializable {
 			System.out.println("Finished processing! Now parsing and creating.");
 			while (buf.ready()) {
 				currentRow = buf.readLine().split("\\|");
-				if((currentRow.length > Math.max(cui, string)) && currentRow[12].equals(type) && (language == -1 || (currentRow[language].equals("PT") ||currentRow[language].equals("ENG")))) {
+				if((currentRow.length > Math.max(cui, string)) && currentRow[11].equals(type) && (language == -1 || (currentRow[language].equals("PT") ||currentRow[language].equals("ENG")))) {
 					addToMap(currentRow[cui], currentRow[string]);
 				}
 			}
