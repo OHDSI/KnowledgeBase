@@ -49,7 +49,10 @@ public class RFFMapper implements Serializable {
 	 * @param string
 	 */
 	private void addToMap(String cui, String string) {
+		if(find.containsKey(string))
+			System.out.println(string + " is already contained...");
 		find.put(string, cui);
+		System.out.println(string + " is added....");
 	}
 	
 	/**
@@ -66,6 +69,7 @@ public class RFFMapper implements Serializable {
 			buf = new BufferedReader(new FileReader(fileInputLocation));
 			while (buf.ready()) {
 				currentRow = buf.readLine().trim().split("|");
+				System.out.println(currentRow[language] + " " + currentRow[cui] + " " + currentRow[string]);
 				if(language == -1 || currentRow[language] == "PT" ||currentRow[language] == "ENG") {
 					addToMap(currentRow[cui], currentRow[string]);
 				}
