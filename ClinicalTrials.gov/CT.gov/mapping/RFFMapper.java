@@ -70,7 +70,7 @@ public class RFFMapper implements Serializable {
 	 * @param cui This is the common universal identifier for a string
 	 * @param string The string to find the common universal identifier
 	 */
-	public void makeMapping(String fileInputLocation, int language, int cui, int string) {
+	public void makeMapping(String fileInputLocation, String type, int language, int cui, int string) {
 		BufferedReader buf;
 		String[] currentRow;
 		try {
@@ -79,7 +79,7 @@ public class RFFMapper implements Serializable {
 			System.out.println("Finished processing! Now parsing and creating.");
 			while (buf.ready()) {
 				currentRow = buf.readLine().split("\\|");
-				if((currentRow.length >= Math.max(cui, string)) && (language == -1 || (currentRow[language].equals("PT") ||currentRow[language].equals("ENG")))) {
+				if((currentRow.length > Math.max(cui, string)) && currentRow[12].equals(type) && (language == -1 || (currentRow[language].equals("PT") ||currentRow[language].equals("ENG")))) {
 					addToMap(currentRow[cui], currentRow[string]);
 				}
 			}
@@ -99,8 +99,8 @@ public class RFFMapper implements Serializable {
 	 * @param cui
 	 * @param string
 	 */
-	public final void makeMapping(String fileInputLocation, int cui, int string) {
-		makeMapping(fileInputLocation, -1, cui, string);
+	public final void makeMapping(String fileInputLocation, String type, int cui, int string) {
+		makeMapping(fileInputLocation, type, -1, cui, string);
 	}
 	
 	/**
