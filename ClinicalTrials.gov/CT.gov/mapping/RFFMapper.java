@@ -68,9 +68,9 @@ public class RFFMapper implements Serializable {
 		try {
 			buf = new BufferedReader(new FileReader(fileInputLocation));
 			while (buf.ready()) {
-				currentRow = buf.readLine().trim().split("|");
+				currentRow = buf.readLine().split("|");
 				System.out.println(currentRow[language] + " " + currentRow[cui] + " " + currentRow[string]);
-				if(language == -1 || currentRow[language] == "PT" ||currentRow[language] == "ENG") {
+				if(currentRow.length > Math.max(cui, string) && (language == -1 || (currentRow[language] == "PT" ||currentRow[language] == "ENG"))) {
 					addToMap(currentRow[cui], currentRow[string]);
 				}
 			}
