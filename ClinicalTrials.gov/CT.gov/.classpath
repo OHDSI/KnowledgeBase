@@ -2,12 +2,19 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="externalClasses/NobleCoder.jar"/>
 	<classpathentry kind="lib" path="externalClasses/poi-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="externalClasses/poi-ooxml-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="lib" path="externalClasses/poi-examples-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="lib" path="externalClasses/poi-excelant-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="externalClasses/poi-ooxml-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="lib" path="externalClasses/poi-ooxml-schemas-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="lib" path="externalClasses/poi-scratchpad-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="externalClasses/NobleCoder.jar"/>
+	<classpathentry kind="lib" path="externalClasses/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="externalClasses/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="externalClasses/resolver.jar"/>
+	<classpathentry kind="lib" path="externalClasses/xbean_xpath.jar"/>
+	<classpathentry kind="lib" path="externalClasses/xbean.jar"/>
+	<classpathentry kind="lib" path="externalClasses/xmlbeans-qname.jar"/>
+	<classpathentry kind="lib" path="externalClasses/xmlpublic.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
