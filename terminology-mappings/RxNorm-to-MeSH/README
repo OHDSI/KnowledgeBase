@@ -1,5 +1,15 @@
-The mapping from RxNorm to MeSH comes from the UMLS March 2014
-release:
+meddra-to-rxnorm-standard-vocab-v4.txt - This mapping is from the
+standard vocabulary and comes from the following query:
+
+select * from source_to_concept_map where source_vocabulary_id = 46 AND target_vocabulary_id = 8;
+
+The format is as follows:
+source_code|source_vocabulary_id|source_code_description|target_concept_id|target_vocabulary_id|mapping_type|primary_map|valid_start_date|valid_end_date|invalid_reason
+
+------------------------------------------------------------
+
+rxnorm-to-MeSH-mapping-03032014.txt - This mapping comes from the UMLS
+March 2014 release as follows:
 
 $ cat RXNCONSO.RRF | grep MSH | cut -f 1,14,15 -d '|' > /tmp/rxnorm-to-MeSH-mapping-03032014.txt
 
