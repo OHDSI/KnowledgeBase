@@ -1,7 +1,0 @@
-package meshMapper;
-
-import java.io.Serializable;
-
-public class MeSHMapper implements Serializable {
-	public Me
-}

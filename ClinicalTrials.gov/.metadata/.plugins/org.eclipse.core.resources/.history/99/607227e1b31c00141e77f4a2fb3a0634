@@ -1,0 +1,31 @@
+package map.addcuis;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+public class AddCuis {
+	
+	public static void main(String[] args) {
+		
+		final String inputfile = "../Example-CT.gov-data-v3-v011.csv";
+		
+		try {
+			
+			
+			BufferedReader in = new BufferedReader(new FileReader(inputfile));
+			while(in.ready()) {
+				
+			}
+			
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+}
