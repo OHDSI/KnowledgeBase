@@ -1,0 +1,26 @@
+PREFIX ohdsi:<http://purl.org/net/ohdsi#>
+PREFIX oa:<http://www.w3.org/ns/oa#>
+PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/>
+PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>
+
+select *
+where {
+ ?an a ohdsi:ADRAnnotation;
+   oa:hasBody ?body;
+   oa:hasTarget ?target.
+
+ ?body ohdsi:ImedsDrug ohdsi:40172167.
+ ?body ohdsi:MeddrraHoi meddra:35205272.
+
+ ?target oa:hasSource ?sourceURL.
+ ?target oa:hasSelector ?selector.
+
+ ?selector dailymed:splSection ?section.
+
+ ?spl a ncbit:Label;
+   foaf:homePage ?sourceURL;
+   ?section ?adrText.
+}
+LIMIT 10

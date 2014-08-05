@@ -86,12 +86,6 @@ for elt in l:
         COND_D_MEDDRA[mesh] = [meddra]
 
 
-# d2rq:translation [ d2rq:databaseValue "Adverse Reactions"; d2rq:rdfValue  dailymed:adverseReactions; ];
-# d2rq:translation [ d2rq:databaseValue "Post Marketing"; d2rq:rdfValue  dailymed:adverseReactions; ];
-# d2rq:translation [ d2rq:databaseValue "Precautions (beta)"; d2rq:rdfValue  dailymed:precautions; ];
-# d2rq:translation [ d2rq:databaseValue "Black Box (beta)"; d2rq:rdfValue  dailymed:boxedWarning; ];
-
-
 def splicer_f_generator():
     # open the SPLICER data file and parse it incrementally
     #
@@ -137,9 +131,9 @@ mesh = Namespace('http://purl.bioontology.org/ontology/MESH/')
 meddra = Namespace('http://purl.bioontology.org/ontology/MEDDRA/')
 rxnorm = Namespace('http://purl.bioontology.org/ontology/RXNORM/')
 pubmed = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
-dailymed = Namespace('http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>')
-poc = Namespace('http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#')
-
+dailymed = Namespace('http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
+ohdsi = Namespace('http://purl.org/net/ohdsi#')
+poc = Namespace('http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc#')
 
 graph = Graph()
 graph.namespace_manager.reset()
@@ -157,8 +151,9 @@ graph.namespace_manager.bind('mesh', 'http://purl.bioontology.org/ontology/MESH/
 graph.namespace_manager.bind('meddra','http://purl.bioontology.org/ontology/MEDDRA/')
 graph.namespace_manager.bind('rxnorm','http://purl.bioontology.org/ontology/RXNORM/')
 graph.namespace_manager.bind('pubmed', 'http://www.ncbi.nlm.nih.gov/pubmed/')
-graph.namespace_manager.bind('dailymed' 'http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
-graph.namespace_manager.bind('poc','http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#')
+graph.namespace_manager.bind('dailymed', 'http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
+graph.namespace_manager.bind('ohdsi', 'http://purl.org/net/ohdsi#')
+graph.namespace_manager.bind('poc','http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc#')
 
 ### open annotation ontology properties and classes
 graph.add((dctypes["Collection"], RDFS.label, Literal("Collection"))) # Used in lieau of the AnnotationSet https://code.google.com/p/annotation-ontology/wiki/AnnotationSet
@@ -195,6 +190,9 @@ graph.add((sio["SIO_000338"], dcterms["description"], Literal("A relation betwee
 graph.add((poc['MeshDrug'], RDFS.label, Literal("MeSH Drug code")))
 graph.add((poc['MeshDrug'], dcterms["description"], Literal("Drug code in the MeSH vocabulary.")))
 
+graph.add((poc['ImedsDrug'], RDFS.label, Literal("IMEDS Drug code")))
+graph.add((poc['ImedsDrug'], dcterms["description"], Literal("Drug code in the IMEDS standard vocabulary.")))
+
 graph.add((poc['RxnormDrug'], RDFS.label, Literal("Rxnorm Drug code")))
 graph.add((poc['RxnormDrug'], dcterms["description"], Literal("Drug code in the Rxnorm vocabulary.")))
 
@@ -223,9 +221,31 @@ graph.add((poc[currentAnnotSet], RDF.type, oa["DataAnnotation"])) # TODO: find o
 graph.add((poc[currentAnnotSet], oa["annotatedAt"], Literal(datetime.date.today())))
 graph.add((poc[currentAnnotSet], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
 
+
+# DEBUG
+cntr = 0 
 it = splicer_f_generator()
-for elt in it:  
-    
+for elt in it:
+    if cntr == 50000:
+        break
+    cntr += 1
+
+    # for now, only process those ADR records for drugs that we have
+    # mesh mappings for
+    imedsDrug = elt["DRUG_CONCEPT_ID"]
+    rxcuiDrug = meshDrug = drugLabs = None
+    if DRUGS_D_OMOP.has_key(imedsDrug):
+        rxcuiDrug = DRUGS_D_OMOP[imedsDrug]
+        print "INFO: rxcuiDrug : %s" % rxcuiDrug
+
+        # if DRUGS_D.has_key(rxcuiDrug):
+        #     drugLabs = DRUGS_D[rxcuiDrug][1]
+        #     meshDrug = DRUGS_D[rxcuiDrug][0]
+        #     print "INFO: processing adr record with OMOP concept id %s" % imedsDrug
+        # else:
+        #     print "INFO: Skipping - no mesh mapping in rxnorm to mesh drug list for OMOP concept id %s" % imedsDrug
+        #     continue
+
     ###################################################################
     ### Each annotations holds one target that points to the source
     ### record in DailyMed, and one or more bodies each of which
@@ -234,59 +254,57 @@ for elt in it:
     ###################################################################
     currentAnnotItem = None
 
-            for elt in curDict[k]:
-                if annotatedCache.has_key(elt['SET_ID']):
-                    currentAnnotation = annotatedCache[elt['SET_ID']]
-                    currentAnnotItem = "ohdsi-splicer-annotation-item-%s" % currentAnnotation
-                else:
-                    currentAnnotation = annotationItemCntr
-                    annotatedCache[elt['SET_ID']] = currentAnnotation
-                    annotationItemCntr += 1
-                    
-                    currentAnnotItem = "ohdsi-splicer-annotation-item-%s" % currentAnnotation
+    if annotatedCache.has_key(elt['SET_ID']):
+        currentAnnotation = annotatedCache[elt['SET_ID']]
+        currentAnnotItem = "ohdsi-splicer-annotation-item-%s" % currentAnnotation
+    else:
+        currentAnnotation = annotationItemCntr
+        annotatedCache[elt['SET_ID']] = currentAnnotation
+        annotationItemCntr += 1
+        
+        currentAnnotItem = "ohdsi-splicer-annotation-item-%s" % currentAnnotation
 
-                    graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
-                    graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
-                    graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
-                    graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
-                    graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
-                    
-                    currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-                    graph.add((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
-                    graph.add((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
-                    graph.add((currentAnnotTargetUuid, oa["hasSource"], URIRef(u"http://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=" + [elt['SET_ID']])))
+        graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
+        graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
+        graph.add((poc[currentAnnotItem], RDF.type, ohdsi["ADRAnnotation"]))
+        graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
+        graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
+        graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
+        # TODO: add in PROV wasGeneratedBY
 
-                    # TODO: make these custom Selectors for SPLs
-                    if elt["SPL_SECTION"] == "Adverse Reactions" or elt["SPL_SECTION"] == "Post Marketing":
-                        graph.add((currentAnnotTargetUuid, poc["adrSectionIdentified"], dailymed["adverseReactions"]))
-                    elif elt["SPL_SECTION"] == "Precautions (beta)":
-                        graph.add((currentAnnotTargetUuid, poc["adrSectionIdentified"], dailymed["precautions"]))
-                    elif elt["SPL_SECTION"] == "Black Box (beta)":
-                        graph.add((currentAnnotTargetUuid, poc["adrSectionIdentified"], dailymed["boxedWarning"]))
+        currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+        graph.add((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
+        graph.add((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
+        graph.add((currentAnnotTargetUuid, oa["hasSource"], URIRef(u"http://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=" + elt['SET_ID'])))
+
+        # TODO: make these custom Selectors for SPLs
+        currentAnnotSelectorUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+        graph.add((currentAnnotTargetUuid, oa["hasSelector"], currentAnnotSelectorUuid))
+        graph.add((currentAnnotSelectorUuid, RDF.type, dailymed["SectionSelector"]))
+
+        if elt["SPL_SECTION"] == "Adverse Reactions" or elt["SPL_SECTION"] == "Post Marketing":
+            graph.add((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["adverseReactions"]))
+        elif elt["SPL_SECTION"] == "Precautions (beta)":
+            graph.add((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["precautions"]))
+        elif elt["SPL_SECTION"] == "Black Box (beta)":
+            graph.add((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["boxedWarning"]))
 
                 
-                # Specify the bodies of the annotation - for this type each
-                # body contains the MESH drug and condition as a semantic tag
-                currentAnnotationBody = "ohdsi-splicer-annotation-body-%s" % annotationBodyCntr
-                annotationBodyCntr += 1
-         
-                graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-                k = (elt["DRUG_CONCEPT_ID"],elt["CONDITION_CONCEPT_ID"]) # these ids are OMOP concept ids
-                graph.add((poc[currentAnnotationBody], RDFS.label, "Drug-HOI tag for %s-%s" % k))
-                graph.add((poc[currentAnnotationBody], RDF.type, poc["OHDSI_SPL_ADR_Tags"])) # TODO: this is not yet formalized in a public ontology but should be
+    # Specify the bodies of the annotation - for this type each
+    # body contains the MESH drug and condition as a semantic tag
+    currentAnnotationBody = "ohdsi-splicer-annotation-body-%s" % annotationBodyCntr
+    annotationBodyCntr += 1
+        
+    graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
+    graph.add((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s-%s" % (imedsDrug, elt["CONDITION_CONCEPT_ID"]))))
+    graph.add((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
-### LEFT OFF HERE -- CLEAN UP THE CODE BELOW, ENSURE OMOP CODES ARE ADDED TO THE BODY, TEST FOR SUMMARY AND DRILL DOWN USE CASE
-                if DRUGS_D_OMOP.has_key(elt["DRUG_CONCEPT_ID"]):
-                    rxcui = DRUGS_D_OMOP[elt["DRUG_CONCEPT_ID"]]
-                    if DRUGS_D.has_key(rxcui):
-                        drugLabs = DRUGS_D[rxcui][1]
-                        graph.add((poc[currentAnnotationBody], dcterms["description"], "Drug-HOI tag for %s (%s - %s)" % (k, drugLabs, elt["CONDITION_PT"])))
-                        graph.add((poc[currentAnnotationBody], poc['RxnormDrug'], rxnorm[rxcui]))
-                        graph.add((poc[currentAnnotationBody], poc['MeshDrug'], mesh[DRUGS_D[rxcui][0]])) # TODO: consider adding the values as a collection
-                else:
-                    print "ERROR: no OMOP concept id in the rxnorm mapping for %s" % elt["DRUG_CONCEPT_ID"]
+    graph.add((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt["CONDITION_PT"]))))
+    graph.add((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
+    graph.add((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
+    #graph.add((poc[currentAnnotationBody], poc['MeshDrug'], mesh[meshDrug])) # TODO: consider adding the values as a collection
                         
-                graph.add((poc[currentAnnotationBody], poc['MeddrraHoi'], meddra[elt["])) # TODO: consider adding the values as a collection
+    graph.add((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
 
 
 # display the graph
