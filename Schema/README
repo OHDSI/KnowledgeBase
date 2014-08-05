@@ -1,18 +1,32 @@
 
-v.01 
+v.02 
 
-Conceptually, the data model is a relational DB adaptation of the Open
-Data Annotation model: http://www.openannotation.org/spec/core/. The
-basic idea is to model evidence data sources, information items, and
-semantic qualifiers using, respectively, the 'evidence_sources',
-'evidence_targets', and 'evidence_bodies' tables. This decouples the
-data sources from varies copies of the sources that might have been
-processed in many different ways. It also decouples what can be said
-about and evidence item (i.e., the semantic tags) from the information
-artifact. All of this allows for greater flexibility wrt inclusion of
-sources and analysis. Moreover, the 'drill down' use case can be
-supported by following URIs provided by in the 'evidence target' table
-to Linked Data resources.
+Conceptually, the data model is a hybrid relational/RDF schema where
+the RDF component applies the Open Data Annotation (OA) model
+(http://www.openannotation.org/spec/core/) to model drug-HOI evidence
+from any variety of sources, and the relational component provides a
+summary and index for drug-HOI evidence modeled in the RDF
+component. We use OA to model...
+
+
+The relational component enumerates the evidence data sources and
+provides tables that provide counts for the records associated with
+every drug-HOI pair in each source (noting the modality of the
+association). Assocated with the counts from a given source is a URI
+that can be used in the RDF component to pull back a list of OA
+records typed using custom OHDSI types. Each OA record provides data
+that client programs can use to render data about the source of the
+evidence (the "target") and the semantic tags used to identify the
+record as a source of evidence for a drug-HOI pair (the "body" or
+"bodies").
+
+This model decouples the data sources from varies copies of the
+sources that might have been processed in many different ways. It also
+decouples what can be said about and evidence item (i.e., the semantic
+tags) from the information artifact. All of this allows for greater
+flexibility wrt inclusion of sources and analysis. Moreover, the
+'drill down' use case can be supported by following URIs provided by
+in the 'evidence target' table to Linked Data resources.
 
 This model will be developed to support all of the sources here:
 https://docs.google.com/document/d/13UwoqjPyqKr-MLpcflzNs8WD5Za4Ynqnue1xWU2cgaA/edit# 
