@@ -1,22 +1,42 @@
 package map.addcuis;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
-import edu.pitt.coder.NobleCoder;
+import edu.pitt.terminology.client.IndexFinderTerminology;
+
+/**
+ * Adds CUIs to the file in the Git "Example-CT.gov-data-v3-v011.csv"
+ * 
+ * Adds the MeSH CUIs to the MeSH Condition and MeSH Interventions in a pipe delimited format
+ * from the triads MeSH exact string mapper which does with amazing accuracy.
+ * 
+ * Will Add MedDRA, SNOMED_CT, and RxNorm CUIs from Nobletools jar NLP program from the text column
+ * Using the IndexFinderTerminology class.
+ * 
+ * @author epicstar
+ *
+ */
 
 public class AddCuis {
 	
+	HashMap<String, String> meshMap;
+	
 	public AddCuis() {
-		
+		meshMap = null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public boolean addCuis(String input, String output) {
 		
 		
@@ -24,40 +44,58 @@ public class AddCuis {
 		try {
 			
 			BufferedReader in = new BufferedReader(new FileReader(input));
-			ArrayList<String> line = new ArrayList<String>(Arrays.asList(in.readLine().split("\t")));
+			List<String> line = new LinkedList<String>(Arrays.asList(in.readLine().split("\t")));
 			PrintWriter out = new PrintWriter(new FileWriter(output));
 			
-			insert(line, 7, "MeSH_CUI");
-			insert(line, 2, "MedDRA_CUI");
-			insert(line, 2, "SNOMED_CUI");
-			insert(line, 2, "RxNorm_CUI");
+			insert(line, 8, "msh_intervention_CUI");
+			insert(line, 7, "msh_condition_CUI");
+			
+//			insert(line, 2, "MedDRA_CUI");
+//			insert(line, 2, "SNOMED_CUI");
+//			insert(line, 2, "RxNorm_CUI");
 			
 			System.out.println(line);
-			out.write(outputString(line, "\t"));
+			out.write(outputString(line, "\t") + "\n");			
 			
-			
-			NobleCoder nc = new NobleCoder();
-			
-			
+			ObjectInputStream meshMapfile = new ObjectInputStream(new FileInputStream("../MeSHHashMap.ser"));
+			meshMap = (HashMap<String, String>)meshMapfile.readObject();
+			meshMapfile.close();
 			
 			while(in.ready()) {
 				
-				insert(line, 7, "MeSH_CUI");
-				insert(line, 2, "MedDRA_CUI");
-				insert(line, 2, "SNOMED_CUI");
-				insert(line, 2, "RxNorm_CUI");
+				line = new ArrayList<String>(Arrays.asList(in.readLine().split("\t")));
+				addMesh(line, 8);
+				addMesh(line, 7);
+				out.write(outputString(line, "\t") + "\n");
+				
+//				insert(line, 2, "MedDRA_CUI");
+//				insert(line, 2, "SNOMED_CUI");
+//				insert(line, 2, "RxNorm_CUI");
 				
 			}
 			
 			in.close();
 			out.close();
 		
-		} catch(IOException e) {
+		} catch(IOException | ClassNotFoundException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 			
 		return true;
 		
+	}
+	
+	private void addMesh(List<String> line, int index) {
+		String queryThis = line.get(index  - 1);
+		List<String> cuis = new LinkedList<String>();
+		for(String word : queryThis.split("\\|")) {
+			if(meshMap.containsKey(word))
+				cuis.add(meshMap.get(word));
+			else
+				cuis.add("");
+		}
+		line.add(index, outputString(cuis, "|"));
 	}
 	
 	private void insert(List<String> line, int index, String add) {
@@ -80,6 +118,10 @@ public class AddCuis {
 		return "";
 	}
 	
+	/**
+	 * Main to run to add CUIs to the main module
+	 * @param args not used
+	 */
 	public static void main(String[] args) {
 		
 		final String inputfile = "../Example-CT.gov-data-v3-v011.csv";
