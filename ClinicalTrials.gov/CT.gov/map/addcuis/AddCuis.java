@@ -2,7 +2,9 @@ package map.addcuis;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,15 +22,19 @@ public class AddCuis {
 		
 		
 		try {
-		
+			
 			BufferedReader in = new BufferedReader(new FileReader(input));
 			ArrayList<String> line = new ArrayList<String>(Arrays.asList(in.readLine().split("\t")));
+			PrintWriter out = new PrintWriter(new FileWriter(output));
+			
 			insert(line, 7, "MeSH_CUI");
 			insert(line, 2, "MedDRA_CUI");
 			insert(line, 2, "SNOMED_CUI");
 			insert(line, 2, "RxNorm_CUI");
 			
 			System.out.println(line);
+			out.write(outputString(line, "\t"));
+			
 			
 			NobleCoder nc = new NobleCoder();
 			
@@ -44,6 +50,7 @@ public class AddCuis {
 			}
 			
 			in.close();
+			out.close();
 		
 		} catch(IOException e) {
 			return false;
@@ -57,7 +64,7 @@ public class AddCuis {
 		line.add(index, add);
 	}
 	
-	private String outputString(List<String> string) {
+	private String outputString(List<String> string, String delim) {
 		
 		StringBuffer buf = new StringBuffer();
 		int lastIndex = string.size() - 1;
@@ -65,7 +72,7 @@ public class AddCuis {
 		for(int i=0;i<string.size();++i) {
 			buf.append(string.get(i));
 			if(i < lastIndex)
-				buf.append("\t");
+				buf.append(delim);
 			else
 				return buf.toString();
 		}
