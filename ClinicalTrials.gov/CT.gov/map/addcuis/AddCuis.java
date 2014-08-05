@@ -14,6 +14,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.pitt.terminology.client.IndexFinderTerminology;
+import edu.pitt.terminology.lexicon.Concept;
+import edu.pitt.terminology.lexicon.SemanticType;
+import edu.pitt.terminology.lexicon.Source;
+import edu.pitt.terminology.util.TerminologyException;
 
 /**
  * Adds CUIs to the file in the Git "Example-CT.gov-data-v3-v011.csv"
@@ -31,6 +35,7 @@ import edu.pitt.terminology.client.IndexFinderTerminology;
 public class AddCuis {
 	
 	HashMap<String, String> meshMap;
+	IndexFinderTerminology term;
 	
 	public AddCuis() {
 		meshMap = null;
@@ -59,6 +64,7 @@ public class AddCuis {
 			
 			ObjectInputStream meshMapfile = new ObjectInputStream(new FileInputStream("../MeSHHashMap.ser"));
 			meshMap = (HashMap<String, String>)meshMapfile.readObject();
+			setupNobleCoder();
 			meshMapfile.close();
 			
 			while(in.ready()) {
@@ -66,6 +72,7 @@ public class AddCuis {
 				line = new ArrayList<String>(Arrays.asList(in.readLine().split("\t")));
 				addMesh(line, 8);
 				addMesh(line, 7);
+				addFromNobleCoder(line);
 				out.write(outputString(line, "\t") + "\n");
 				
 //				insert(line, 2, "MedDRA_CUI");
@@ -77,13 +84,49 @@ public class AddCuis {
 			in.close();
 			out.close();
 		
-		} catch(IOException | ClassNotFoundException e) {
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
+			return false;
+		} catch(ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 			return false;
 		}
 			
 		return true;
 		
+	}
+	
+	private void addFromNobleCoder(List<String> line) {
+		String find = line.get(1);
+		try {
+			Concept[] results = term.search(find);
+			System.out.println(results[0].getCodes());
+		} catch (TerminologyException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	private void setupNobleCoder() throws IOException {
+
+			term = new IndexFinderTerminology("triads-test-2014");
+			term.setSelectBestCandidate(true);
+			term.setFilterSources(term.getSources("MDR;MSH;SNOMEDCT_US;ICD9CM;RXNORM"));
+			term.
+				setFilterSemanticType(SemanticType
+								.getSemanticTypes(new String []{
+										"Event",
+										"Pathological Function",
+										"Functional Concept",
+										"Mental or Behavioral Concept",
+										"Finding",
+										"Sign or Symptom",
+										"Individual Behavior",
+										"Disease or Syndrome",
+										"Mental Process"
+																}
+												)
+										);
 	}
 	
 	private void addMesh(List<String> line, int index) {
