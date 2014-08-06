@@ -39,6 +39,7 @@ public class AddCuis {
 	
 	public AddCuis() {
 		meshMap = null;
+		term = null;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -55,9 +56,9 @@ public class AddCuis {
 			insert(line, 8, "msh_intervention_CUI");
 			insert(line, 7, "msh_condition_CUI");
 			
-//			insert(line, 2, "MedDRA_CUI");
-//			insert(line, 2, "SNOMED_CUI");
-//			insert(line, 2, "RxNorm_CUI");
+//			insert(line, 2, "text_MedDRA_CUI");
+//			insert(line, 2, "text_SNOMED_CT_CUI");
+//			insert(line, 2, "text_MeSH_CUI");
 			
 			System.out.println(line);
 			out.write(outputString(line, "\t") + "\n");			
@@ -111,7 +112,7 @@ public class AddCuis {
 
 			term = new IndexFinderTerminology("triads-test-2014");
 			term.setSelectBestCandidate(true);
-			term.setFilterSources(term.getSources("MDR;MSH;SNOMEDCT_US;ICD9CM;RXNORM"));
+			term.setFilterSources(term.getSources("MDR,MSH,SNOMED_CT"));
 			term.
 				setFilterSemanticType(SemanticType
 								.getSemanticTypes(new String []{
