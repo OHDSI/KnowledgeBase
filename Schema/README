@@ -2,31 +2,29 @@
 v.02 
 
 Conceptually, the data model is a hybrid relational/RDF schema where
-the RDF component applies the Open Data Annotation (OA) model
+the RDF component apply the Open Data Annotation (OA) model
 (http://www.openannotation.org/spec/core/) to model drug-HOI evidence
 from any variety of sources, and the relational component provides a
-summary and index for drug-HOI evidence modeled in the RDF
-component. We use OA to model...
+summary and index for drug-HOI evidence modeled in the RDF component.
 
+The relational component enumerates the evidence data sources provides
+counts for the records associated with every drug-HOI pair in each
+source (TODO: noting the modality of the association). Associated with the
+counts from a given source is a URI that can be used in the RDF
+component to pull back a list of OA records typed using custom OHDSI
+types. Each OA record provides data that client programs can use to
+render data about the source of the evidence (the "target") and the
+semantic tags used to identify the record as a source of evidence for
+a drug-HOI pair (the "body" or "bodies").
 
-The relational component enumerates the evidence data sources and
-provides tables that provide counts for the records associated with
-every drug-HOI pair in each source (noting the modality of the
-association). Assocated with the counts from a given source is a URI
-that can be used in the RDF component to pull back a list of OA
-records typed using custom OHDSI types. Each OA record provides data
-that client programs can use to render data about the source of the
-evidence (the "target") and the semantic tags used to identify the
-record as a source of evidence for a drug-HOI pair (the "body" or
-"bodies").
-
-This model decouples the data sources from varies copies of the
+This model decouples the data sources from the variouss copies of the
 sources that might have been processed in many different ways. It also
 decouples what can be said about and evidence item (i.e., the semantic
 tags) from the information artifact. All of this allows for greater
-flexibility wrt inclusion of sources and analysis. Moreover, the
-'drill down' use case can be supported by following URIs provided by
-in the 'evidence target' table to Linked Data resources.
+flexibility with respect to inclusion of sources and
+analysis. Moreover, the 'drill down' use case can be supported by
+following URIs provided by in the 'evidence target' table to Linked
+Data resources.
 
 This model will be developed to support all of the sources here:
 https://docs.google.com/document/d/13UwoqjPyqKr-MLpcflzNs8WD5Za4Ynqnue1xWU2cgaA/edit# 
@@ -44,14 +42,13 @@ follwing terminologies:
 EXAMPLE QUERIES:
 
 -- A general query showing how to bridge all tables
-SELECT "drug_HOI_evidence".drug, "drug_HOI_evidence"."HOI", "drug_HOI_evidence".evidence_type, evidence_sources.title, evidence_sources.description, evidence_targets.uri, evidence_bodies.semantic_tag_label, evidence_bodies.value_as_string, evidence_bodies.value_as_int, evidence_bodies.value_as_double, evidence_bodies.value_as_date
-FROM "drug_HOI_evidence", evidence_sources, evidence_targets, evidence_bodies  
-WHERE 
-"drug_HOI_evidence".evidence_source_code_id = evidence_sources.id AND
-"drug_HOI_evidence".evidence_target_id = evidence_targets.id AND
-"drug_HOI_evidence".evidence_body_id = evidence_bodies.body_id 
----
+SELECT `drug`,`HOI`,`evidence_type`,`evidence_count`,`evidence_linkout`,evidence_sources.title, evidence_sources.description
+FROM `drug_HOI_evidence`, evidence_sources
+WHERE evidence_source_code_id = evidence_sources.id
 
+
+
+--- TODO : REVISE THESE for v0.2
 -- Get back all evidence for 'metronidazole' and 'renal failure' using standard vocab codes
 SELECT "drug_HOI_evidence"."evidence_type", "evidence_sources"."title", "evidence_sources"."description", "evidence_targets"."uri", "evidence_bodies"."semantic_tag_label", "evidence_bodies"."value_as_string", "evidence_bodies"."value_as_int", "evidence_bodies"."value_as_double", "evidence_bodies"."value_as_date"
 FROM "drug_HOI_evidence","evidence_sources", "evidence_targets", "evidence_bodies"  
