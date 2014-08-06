@@ -1,9 +1,0 @@
-package genericMapper;
-
-public class meshMapper {
-	
-	
-	public static void main(String[] args) {
-		
-	}
-}

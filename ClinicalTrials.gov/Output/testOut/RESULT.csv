@@ -1,0 +1,127 @@
+Report	Matched Term	Code	Name	Semantic Type	Annotations	Acronym	Negated
+0	Total	C0439810	Total	Qualitative Concept	Total/1		
+0	serious	C0205404	Serious	Qualitative Concept	serious/8		
+0	events	C0441471	{Event}	Event	events/24		
+1	hemorrhagic stroke	C0553692	Hemorrhage brain	Pathologic Function	hemorrhagic/1, stroke/13		
+10	Psychiatric	C0205487	Psychiatric	Functional Concept	Psychiatric/1		
+10	hallucinations	C0018524	Hallucination	Mental or Behavioral Dysfunction	hallucinations/14		
+11	Total	C0439810	Total	Qualitative Concept	Total/1		
+11	events	C0441471	{Event}	Event	events/22		
+11	other	C0205394	Other	Qualitative Concept	other/8		
+12	back pain	C0004604	Pain back	Sign or Symptom	back/44, pain/49		
+12	bone mineral density	C0005938	Bone density	Clinical Attribute	bone/22, mineral/27, density/35		
+12	low bone density	C3266069	Bone density below reference range	Finding	low/18, bone/22, density/35		
+13	behavior	C0004927	behavior	Individual Behavior	behavior/15		
+14	croup	C0010380	Croup	Disease or Syndrome	croup/46		
+14	chest tightness	C0232292	Tight chest	Sign or Symptom	chest/29, tightness/35		
+14	wheeze	C0043144	Wheezes	Sign or Symptom	wheeze/21		
+14	cough	C0010200	Cough	Sign or Symptom	cough/14		
+15	Dizziness	C0012833	Dizziness	Sign or Symptom	Dizziness/1		
+16	Cardiac disorders	C0018799	Heart Diseases	Disease or Syndrome	Cardiac/1, disorders/9		
+16	Other	C0205394	Other	Qualitative Concept	Other/21		
+17	Anorexia	C0003123	Anorexia	Disease or Syndrome	Anorexia/1		
+18	Peripheral motor neuropathy	C0235025	Neuritis motor	Disease or Syndrome	Peripheral/1, motor/12, neuropathy/18		
+19	Intracranial hemorrhage	C0151699	Intracranial haemorrhage NOS	Pathologic Function	Intracranial/1, hemorrhage/14		
+2	Total	C0439810	Total	Qualitative Concept	Total/1		
+2	events	C0441471	{Event}	Event	events/22		
+2	other	C0205394	Other	Qualitative Concept	other/8		
+20	Nervous system disorders	C0027765	Nervous System Diseases	Disease or Syndrome	Nervous/1, system/9, disorders/16		
+20	Other	C0205394	Other	Qualitative Concept	Other/28		
+21	Total	C0439810	Total	Qualitative Concept	Total/1		
+21	serious	C0205404	Serious	Qualitative Concept	serious/8		
+21	events	C0441471	{Event}	Event	events/24		
+22	Conduction disorder	C0264886	Cardiac Conduction Defect	Disease or Syndrome	Conduction/1, disorder/12		
+23	General disorders administration site conditions	C0851362	General disorders and administration site conditions	Disease or Syndrome	General/1, disorders/9, administration/23, site/38, conditions/43		
+23	Other	C0205394	Other	Qualitative Concept	Other/56		
+24	Urinary tract obstruction	C0178879	Urinary tract obstruction NOS	Disease or Syndrome	Urinary/1, tract/9, obstruction/15		
+25	Hypokalemia	C0020621	Hypokalemia	Finding	Hypokalemia/1		
+27	Musculoskeletal connective tissue disorder	C0263660	Musculoskeletal and connective tissue disorders	Disease or Syndrome	Musculoskeletal/1, connective/21, tissue/32, disorder/39		
+27	Other	C0205394	Other	Qualitative Concept	Other/51		
+28	Gastrointestinal disorders	C0017178	Gastrointestinal Diseases	Disease or Syndrome	Gastrointestinal/1, disorders/18		
+28	Other	C0205394	Other	Qualitative Concept	Other/30		
+29	Hyponatremia	C0020625	Hyponatremia	Finding	Hyponatremia/1		
+3	hematuria	C0018965	Hematuria	Finding	hematuria/1		
+30	White blood cell decreased	C0750394	White blood cell count decreased	Finding	White/1, blood/7, cell/13, decreased/18		
+31	Visceral arterial ischemia	C0853812	Mesenteric artery ischemia	Disease or Syndrome	Visceral/1, arterial/10, ischemia/19		
+32	Hepatic failure	C0085605	Failure liver	Disease or Syndrome	Hepatic/1, failure/9		
+33	Hyperglycemia	C0020456	Hyperglycaemia NOS	Disease or Syndrome	Hyperglycemia/1		
+34	Left ventricular systolic dysfunction	C1277187	Left ventricular systolic dysfunction	Pathologic Function	Left/1, ventricular/6, systolic/18, dysfunction/27		
+35	Colitis	C0009319	Colitis (NOS)	Disease or Syndrome	Colitis/1		
+36	Hematuria	C0018965	Hematuria	Finding	Hematuria/1		
+37	Hypertriglyceridemia	C0020557	Hypertriglyceridemia	Finding	Hypertriglyceridemia/1		
+38	Duodenal ulcer	C0013295	Ulcer duodenal	Disease or Syndrome	Duodenal/1, ulcer/10		
+39	Esophagitis	C0014868	Esophagitis NOS	Disease or Syndrome	Esophagitis/1		
+4	easy bruising	C0423798	Bruises easily	Finding	easy/1, bruising/6		
+40	Respiratory thoracic mediastinal disorders	C0851355	Respiratory, thoracic and mediastinal disorders	Disease or Syndrome	Respiratory/1, thoracic/14, mediastinal/27, disorders/39		
+40	Other	C0205394	Other	Qualitative Concept	Other/51		
+41	Stevens Johnson syndrome	C0038325	Stevens Johnson syndrome	Disease or Syndrome	Stevens/1, Johnson/9, syndrome/17		
+42	Febrile neutropenia	C0746883	Febrile Neutropenia	Disease or Syndrome	Febrile/1, neutropenia/9		
+43	Anxiety	C0003467	Anxiety	Mental Process	Anxiety/1		
+44	Confusion	C0009676	Confusion	Mental or Behavioral Dysfunction	Confusion/1		
+45	Myocardial infarction	C0027051	Myocardial Infarction	Disease or Syndrome	Myocardial/1, infarction/12		
+46	Depression	C0011570	Depression NOS	Mental or Behavioral Dysfunction	Depression/1		
+47	Ventricular arrhythmia	C0085612	Arrhythmia ventricular	Pathologic Function	Ventricular/1, arrhythmia/13		
+48	Alanine aminotransferase ALT	C0001899	Alanine Transaminase	Amino Acid, Peptide, or Protein	Alanine/1, aminotransferase/9, ALT/37		
+48	increased SGPT	C0151905	Alanine aminotransferase increased	Finding	increased/26, SGPT/41		
+49	Adult respiratory distress syndrome	C0035222	Syndrome adult respiratory distress	Disease or Syndrome	Adult/1, respiratory/7, distress/19, syndrome/28	ARDS	
+5	GI upset	C2697368	Irritation gastrointestinal	Disease or Syndrome	GI/11, upset/14		
+5	report	C0684224	Report	Intellectual Product	report/1		
+50	Wound infection	C0043241	Wound Infection	Pathologic Function	Wound/1, infection/7		
+51	Hypocalcemia	C0020598	Hypocalcemia	Pathologic Function	Hypocalcemia/1		
+52	Mucositis oral	C0038362	Stomatitis	Disease or Syndrome	Mucositis/1, oral/11		
+53	increased SGOT	C0151904	Aspartate aminotransferase increased	Finding	increased/28, AST/39, Aspartate/1, aminotransferase/11		
+54	Dehydration	C0011175	Dehydration	Disease or Syndrome	Dehydration/1		
+55	Neutrophil count decreased	C0853697	Neutrophil count decreased	Finding	Neutrophil/1, count/12, decreased/18		
+56	Hepatobiliary disorders	C0267792	Hepatobiliary disease	Disease or Syndrome	Hepatobiliary/1, disorders/15		
+56	Other	C0205394	Other	Qualitative Concept	Other/27		
+57	Typhlitis	C0267537	Typhlitis	Disease or Syndrome	Typhlitis/1		
+59	Thromboembolic event	C0857496	Thromboembolic event	Pathologic Function	Thromboembolic/1, event/16		
+6	epistaxis	C0014591	Epistaxis	Pathologic Function	epistaxis/1		
+60	Dyspnea	C0013404	Dyspnea NOS	Sign or Symptom	Dyspnea/1		
+61	Capillary leak syndrome	C0343084	Capillary Leak Syndrome	Disease or Syndrome	Capillary/1, leak/11, syndrome/16		
+62	Psychosis	C0033975	Psychotic disorder NOS	Mental or Behavioral Dysfunction	Psychosis/1		
+63	Infections infestations	C0009450	Communicable Diseases	Disease or Syndrome	Infections/1, infestations/16		
+63	Other	C0205394	Other	Qualitative Concept	Other/31		
+64	Vasovagal reaction	C0042420	Syncope vasovagal	Disease or Syndrome	Vasovagal/1, reaction/11		
+65	Dermatitis radiation	C0034561	Radiodermatitis	Injury or Poisoning	Dermatitis/1, radiation/12		
+66	Hypoxia	C0242184	Hypoxia	Pathologic Function	Hypoxia/1		
+67	Pneumonitis	C0032285	Pneumoniae	Disease or Syndrome	Pneumonitis/1		
+68	Creatinine increased	C0151578	Creatinine increased	Finding	Creatinine/1, increased/12		
+69	Hypertension	C0020538	Hypertension NOS	Disease or Syndrome	Hypertension/1		
+7	Asthma exacerbation	C0349790	Exacerbation of asthma	Finding	Asthma/1, exacerbation/8		
+70	Hypotension	C0020649	Hypotension NOS	Finding	Hypotension/1		
+71	Blood bilirubin increased	C0311468	Increased bilirubin level	Finding	Blood/1, bilirubin/7, increased/17		
+72	Anaphylaxis	C0002792	Anaphylaxis	Pathologic Function	Anaphylaxis/1		
+73	Arthralgia	C0003862	Arthralgia	Sign or Symptom	Arthralgia/1		
+74	Myalgia	C0231528	Myalgia	Sign or Symptom	Myalgia/1		
+76	Febrile neutropenia	C0746883	Febrile Neutropenia	Disease or Syndrome	Febrile/1, neutropenia/9		
+77	Infections infestations	C0009450	Communicable Diseases	Disease or Syndrome	Infections/1, infestations/16		
+77	Other	C0205394	Other	Qualitative Concept	Other/31		
+78	Total	C0439810	Total	Qualitative Concept	Total/1		
+78	events	C0441471	{Event}	Event	events/22		
+78	other	C0205394	Other	Qualitative Concept	other/8		
+79	Fatigue	C0015672	Fatigue	Sign or Symptom	Fatigue/1		
+8	Total	C0439810	Total	Qualitative Concept	Total/1		
+8	serious	C0205404	Serious	Qualitative Concept	serious/8		
+8	events	C0441471	{Event}	Event	events/24		
+82	Pulmonary	C2709248	Pulmonary	Qualitative Concept	Pulmonary/1		
+83	Arrythmia	C0003811	Arrhythmia cardiac (NOS)	Pathologic Function	Arrythmia/1		
+84	Effusion Pleural	C0032227	Effusion pleural	Disease or Syndrome	Effusion/1, Pleural/10		
+85	Adult respiratory distress syndrome ARDS	C0035222	Syndrome adult respiratory distress	Disease or Syndrome	Adult/1, respiratory/7, distress/19, syndrome/28, ARDS/38	ARDS	
+86	Rash	C0015230	Exanthema	Disease or Syndrome	Rash/1		
+87	Hypertension	C0020538	Hypertension NOS	Disease or Syndrome	Hypertension/1		
+88	Thrombosis	C0040053	Thrombosis NOS	Pathologic Function	Thrombosis/1		
+89	Dyspnea	C0013404	Dyspnea NOS	Sign or Symptom	Dyspnea/1		
+9	Renal stone	C1458136	Renal stone	Body Substance	Renal/1, stone/7		
+90	Hypotension	C0020649	Hypotension NOS	Finding	Hypotension/1		
+91	Total	C0439810	Total	Qualitative Concept	Total/1		
+91	serious	C0205404	Serious	Qualitative Concept	serious/8		
+91	events	C0441471	{Event}	Event	events/24		
+92	Hyponatremia	C0020625	Hyponatremia	Finding	Hyponatremia/1		
+93	Sensory	C0445254	Sensory	Qualitative Concept	Sensory/7		
+94	Seizure	C0036572	Seizures	Sign or Symptom	Seizure/1		
+95	Pneumonitis	C0032285	Pneumoniae	Disease or Syndrome	Pneumonitis/1		
+96	Dehydration	C0011175	Dehydration	Disease or Syndrome	Dehydration/1		
+97	Arthralgia	C0003862	Arthralgia	Sign or Symptom	Arthralgia/1		
+98	Myalgia	C0231528	Myalgia	Sign or Symptom	Myalgia/1		
+99	Edema	C0013604	Edema NOS	Pathologic Function	Edema/1		

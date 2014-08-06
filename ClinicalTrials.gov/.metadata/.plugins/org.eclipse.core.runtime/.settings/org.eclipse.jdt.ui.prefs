@@ -1,3 +1,4 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="edu.pitt.terminology.AbstractTerminology"><rhs name\="edu.pitt.terminology.client.IndexFinderTerminology"/></lhs><lhs name\="edu.pitt.terminology.Terminology"><rhs name\="edu.pitt.terminology.client.IndexFinderTerminology"/></lhs><lhs name\="edu.pitt.terminology.util.Describable"><rhs name\="edu.pitt.terminology.client.IndexFinderTerminology"/></lhs><lhs name\="edu.pitt.terminology.client.IndexFinderTerminology"><rhs name\="edu.pitt.terminology.client.IndexFinderTerminology"/></lhs></history>
 content_assist_number_of_computers=13
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=76,76,76

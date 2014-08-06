@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="org.apache.poi.openxml4j.opc.OPCPackage"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.WorkbookFactory"/>
+<fullyQualifiedTypeName name="org.apache.poi.hslf.model.Sheet"/>
+<fullyQualifiedTypeName name="org.apache.poi.sl.usermodel.Sheet"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Sheet"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="edu.pitt.terminology.lexicon.Source"/>
+<fullyQualifiedTypeName name="edu.pitt.terminology.client.IndexFinderTerminology"/>
+</qualifiedTypeNameHistroy>

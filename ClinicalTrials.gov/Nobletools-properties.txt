@@ -1,0 +1,41 @@
+Jeremy Jao
+
+08.05.2014
+
+From the GUI...
+
+Use Triads
+
+Vocabularies:
+MDR;MSH;SNOMEDCT_US;ICD9CM;RXNORM
+
+I then ran noblecoder on the first 100 lines of the text column of the CT
+gov stuff....
+
+I then ran nobletools to 
+
+Nobletools is getting a lot of results back without semantic types
+
+Semantic Types I found Useful....
+- Event
+- Pathological Function
+- Functional Concept
+- Mental or Behavioral Dysfunction
+- Finding
+- Sign or Symptom
+- Individual Behavior
+- Disease or Syndrome
+- Mental Process
+
+Depression is mapped to many semantic types
+
+Adverse is not tagged but events is. So Assumption is that all events
+are adverse avents. We can get the severity of events (serious, etc.) if
+we also account for qualitative concepts.
+
+Pulmonary is a qualitative concept....
+Sensory is a qualitative concept..
+neuro-sensory never tagged
+
+Other notes... Other shows up a lot....
+Also NOS versions of the word are tagged

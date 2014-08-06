@@ -1,7 +1,0 @@
-package meshMapper;
-
-public class MeSHMapper {
-	public static void main(String[] args) {
-		
-	}
-}
