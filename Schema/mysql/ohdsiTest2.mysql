@@ -24,11 +24,12 @@ DROP TABLE IF EXISTS `drug_HOI_evidence`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `drug_HOI_evidence` (
   `id` int(20) NOT NULL AUTO_INCREMENT COMMENT 'primary key',
-  `drug_HOI_key` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'foreign key to drug_HOI_index',
+  `drug` int(20) NOT NULL COMMENT 'RxNorm CUI for the drug',
+  `HOI` int(20) NOT NULL COMMENT 'MedDRA CUI for the HOI',
   `evidence_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'the type of evidence (literature, product label, pharmacovigilance, EHR)',
   `evidence_source_code_id` int(8) NOT NULL COMMENT 'a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)',
-  `evidence_target_id` int(20) NOT NULL COMMENT 'a foreign key to data about the information artifact from which this evidence was found',
-  `evidence_body_id` int(20) NOT NULL COMMENT 'a foreign key to a resource that adds additional information derived from this evidence item',
+  `evidence_count` int(20) NOT NULL COMMENT 'the count of the number of items of the evidence type present in the evidence base',
+  `evidence_linkout` varchar(50) NOT NULL COMMENT 'a URL that will resolve to a query against the RDF endpoint for all resources used to generate the evidence_count ',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,67 +40,15 @@ CREATE TABLE `drug_HOI_evidence` (
 
 LOCK TABLES `drug_HOI_evidence` WRITE;
 /*!40000 ALTER TABLE `drug_HOI_evidence` DISABLE KEYS */;
-INSERT INTO `drug_HOI_evidence` VALUES (1,'89013-35738560','product_label',1,1,1),(2,'36567-36110715','product_label',2,2,2),(3,'6944-10038435','literature_case_report',3,3,3),(4,'6944-10038435','literature_specific_review',4,4,4);
+INSERT INTO `drug_HOI_evidence` VALUES (1,40224133,10014735,'literature_case_report',3,1,'http://tinyurl.com/mxvnx6o'),(2,40224133,10006869,'literature_case_report',3,1,'http://tinyurl.com/kpqjaw6'),(3,40224133,10014744,'literature_case_report',3,1,'http://tinyurl.com/jvmqxnh'),(4,40224133,10014733,'literature_case_report',3,1,'http://tinyurl.com/my9a4p3'),(5,40224133,10014768,'literature_case_report',3,1,'http://tinyurl.com/kwwz2oa'),(6,40224133,10014758,'literature_case_report',3,1,'http://tinyurl.com/mawz3ot'),(7,40224133,10007063,'literature_case_report',3,1,'http://tinyurl.com/ljwafho'),(8,40224133,10007342,'literature_case_report',3,1,'http://tinyurl.com/myb7wyw'),(9,40224133,10028993,'literature_case_report',3,1,'http://tinyurl.com/lrftbs7'),(10,40224133,10014759,'literature_case_report',3,1,'http://tinyurl.com/ldp64en'),(11,40224133,10014743,'literature_case_report',3,1,'http://tinyurl.com/k25tlk9'),(12,40224133,10003694,'literature_case_report',3,2,'http://tinyurl.com/mzg4x2c'),(13,40224133,10003704,'literature_case_report',3,2,'http://tinyurl.com/labxarr'),(14,40224133,10015105,'literature_case_report',3,1,'http://tinyurl.com/q7ul859'),(15,40224133,10007506,'literature_case_report',3,1,'http://tinyurl.com/mpbfk94'),(16,40224133,10007284,'literature_case_report',3,1,'http://tinyurl.com/lmb44vd'),(17,40224133,10007423,'literature_case_report',3,1,'http://tinyurl.com/m3yrcbu'),(18,40224133,10026947,'literature_case_report',3,1,'http://tinyurl.com/mug7r5v'),(19,40224133,10029402,'literature_case_report',3,1,'http://tinyurl.com/lffphol'),(20,40224133,10045242,'literature_case_report',3,1,'http://tinyurl.com/lpp9vz9'),(21,40224133,10029505,'literature_case_report',3,1,'http://tinyurl.com/lwklzpy'),(22,40224133,10012612,'literature_case_report',3,1,'http://tinyurl.com/mr22xj2'),(23,40224133,10067585,'literature_case_report',3,1,'http://tinyurl.com/jwkxz5c'),(24,40224133,10012611,'literature_case_report',3,1,'http://tinyurl.com/kdanpzt'),(25,40224133,10012613,'literature_case_report',3,1,'http://tinyurl.com/mtkv4xw'),(26,40224133,10024314,'literature_case_report',3,1,'http://tinyurl.com/mmpjgr7'),(27,40224133,10060500,'literature_case_report',3,1,'http://tinyurl.com/loux8da'),(28,40224133,10060430,'literature_case_report',3,1,'http://tinyurl.com/n6ufhrk'),(29,40224133,10024329,'literature_case_report',3,1,'http://tinyurl.com/k85vzm2'),(30,40224133,10024352,'literature_case_report',3,1,'http://tinyurl.com/lgb27tk'),(31,40224133,10024288,'literature_case_report',3,1,'http://tinyurl.com/lctte9o'),(32,40224133,10024323,'literature_case_report',3,1,'http://tinyurl.com/mrubnoy'),(33,40224133,10024312,'literature_case_report',3,1,'http://tinyurl.com/kqk94tu'),(34,40224133,10045992,'literature_case_report',3,1,'http://tinyurl.com/k6y7a9l'),(35,40224133,10024351,'literature_case_report',3,1,'http://tinyurl.com/le6awh6'),(36,40224133,10045991,'literature_case_report',3,1,'http://tinyurl.com/mcyu7v3'),(37,40224133,10024324,'literature_case_report',3,1,'http://tinyurl.com/lrqggdj'),(38,40224133,10045994,'literature_case_report',3,1,'http://tinyurl.com/km78ukv'),(39,40224133,10025044,'literature_case_report',3,2,'http://tinyurl.com/kpleo7r'),(40,40224133,10006880,'literature_case_report',3,2,'http://tinyurl.com/mf5ftwk'),(41,40224133,10007096,'literature_case_report',3,2,'http://tinyurl.com/lrje2cb'),(42,40224133,10058467,'literature_case_report',3,2,'http://tinyurl.com/n2ohojt'),(43,40224133,10025056,'literature_case_report',3,2,'http://tinyurl.com/mzjlnjg'),(44,40224133,10062042,'literature_case_report',3,2,'http://tinyurl.com/l3j6e56'),(45,40224133,10049790,'literature_case_report',3,2,'http://tinyurl.com/kxzrvrf'),(46,40224133,10061054,'literature_case_report',3,5,'http://tinyurl.com/mujphn2'),(47,40224133,10010400,'literature_case_report',3,5,'http://tinyurl.com/lfja88p'),(48,40224133,10048496,'literature_case_report',3,7,'http://tinyurl.com/l59prf4'),(49,40224133,10007650,'literature_case_report',3,7,'http://tinyurl.com/jwnz8mg'),(50,40224133,10013200,'literature_case_report',3,7,'http://tinyurl.com/lyxaan9'),(51,40224133,10007649,'literature_case_report',3,7,'http://tinyurl.com/kuj4h3d'),(52,40224133,10007648,'literature_case_report',3,7,'http://tinyurl.com/m5o86av'),(53,40224133,10025310,'literature_case_report',3,1,'http://tinyurl.com/nx5ll4w'),(54,40224133,10025633,'literature_case_report',3,1,'http://tinyurl.com/lz56bnm'),(55,40224133,10025315,'literature_case_report',3,1,'http://tinyurl.com/ln9vzkg'),(56,40224133,10025316,'literature_case_report',3,1,'http://tinyurl.com/k89g966'),(57,40224133,10025632,'literature_case_report',3,1,'http://tinyurl.com/kmx6gjn'),(58,40224133,10046150,'literature_case_report',3,1,'http://tinyurl.com/m7erjkt'),(59,40224133,10039626,'literature_case_report',3,1,'http://tinyurl.com/mxjfwe4'),(60,40224133,10012297,'literature_case_report',3,1,'http://tinyurl.com/n8ojllm'),(61,40224133,10046156,'literature_case_report',3,1,'http://tinyurl.com/k64pxqp'),(62,40224133,10039642,'literature_case_report',3,1,'http://tinyurl.com/le9snya'),(63,40224133,10039632,'literature_case_report',3,1,'http://tinyurl.com/ku4wmxu'),(64,40224133,10002272,'literature_case_report',3,1,'http://tinyurl.com/mpt55so'),(65,40224133,10002315,'literature_case_report',3,1,'http://tinyurl.com/kxwwqtv'),(66,40224133,10045627,'literature_case_report',3,1,'http://tinyurl.com/mo5zpzq'),(67,40224133,10002082,'literature_case_report',3,1,'http://tinyurl.com/m7xmozd'),(68,40224133,10002071,'literature_case_report',3,1,'http://tinyurl.com/mdtybp5'),(69,40224133,10055742,'literature_case_report',3,1,'http://tinyurl.com/kdsdb5g'),(70,40224133,10002034,'literature_case_report',3,1,'http://tinyurl.com/kknovc8'),(71,40224133,10046146,'literature_case_report',3,1,'http://tinyurl.com/k3zsubs'),(72,40224133,10038853,'literature_case_report',3,1,'http://tinyurl.com/l4skwcl'),(73,40224133,10013265,'literature_case_report',3,1,'http://tinyurl.com/mdxolk6'),(74,40224133,10038931,'literature_case_report',3,1,'http://tinyurl.com/lno3dmw'),(75,40224133,10038923,'literature_case_report',3,1,'http://tinyurl.com/mvt72uh'),(76,40224133,10048487,'literature_case_report',3,1,'http://tinyurl.com/mba58a8'),(77,40224133,10038854,'literature_case_report',3,1,'http://tinyurl.com/m7swenc'),(78,40224133,10001141,'literature_case_report',3,1,'http://tinyurl.com/kc4qusz'),(79,40224133,10001166,'literature_case_report',3,1,'http://tinyurl.com/n95ogo5'),(80,40224133,10066136,'literature_case_report',3,1,'http://tinyurl.com/kc7ffgl'),(81,40224133,10061873,'literature_case_report',3,1,'http://tinyurl.com/l6lsuam'),(82,40224133,10029514,'literature_case_report',3,1,'http://tinyurl.com/lr7uouv'),(83,40224133,10013242,'literature_case_report',3,1,'http://tinyurl.com/ldh7hhe'),(84,40224133,10029203,'literature_case_report',3,1,'http://tinyurl.com/lnqovb2'),(85,40224133,10029286,'literature_case_report',3,1,'http://tinyurl.com/mz85d53'),(86,40224133,10029202,'literature_case_report',3,1,'http://tinyurl.com/mvvskzk'),(87,40224133,10045843,'literature_case_report',3,1,'http://tinyurl.com/lum3zhr'),(88,40224133,10029298,'literature_case_report',3,1,'http://tinyurl.com/n5r77pc'),(89,40224133,10029205,'literature_case_report',3,1,'http://tinyurl.com/lm35zy4'),(90,40224133,10012687,'literature_case_report',3,1,'http://tinyurl.com/kdvysqj'),(91,40224133,10029477,'literature_case_report',3,1,'http://tinyurl.com/mu8978m'),(92,40224133,10012674,'literature_case_report',3,1,'http://tinyurl.com/n43krfe'),(93,40224133,10012638,'literature_case_report',3,1,'http://tinyurl.com/kv2utqw'),(94,40224133,10061835,'literature_case_report',3,1,'http://tinyurl.com/kagt26n'),(95,40224133,10012678,'literature_case_report',3,1,'http://tinyurl.com/ko7j9k7'),(96,40224133,10003816,'literature_case_report',3,1,'http://tinyurl.com/mfm99n6'),(97,40224133,10003815,'literature_case_report',3,1,'http://tinyurl.com/mmhkttv'),(98,40224133,10061664,'literature_case_report',3,1,'http://tinyurl.com/ku7l6mx');
 /*!40000 ALTER TABLE `drug_HOI_evidence` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `drug_HOI_index`
 --
 
-DROP TABLE IF EXISTS `drug_HOI_index`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `drug_HOI_index` (
-  `drug_HOI_pair` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'A key constructed from drug CUI - HOI - CUI',
-  `drug` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'RxNorm CUI for the drug',
-  `drug_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'A string nlabel for the drug',
-  `HOI` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'MedDRA CUI for the HOI',
-  `HOI_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'A string label for the HOI',
-  PRIMARY KEY (`drug_HOI_pair`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `drug_HOI_index`
---
-
-LOCK TABLES `drug_HOI_index` WRITE;
-/*!40000 ALTER TABLE `drug_HOI_index` DISABLE KEYS */;
-INSERT INTO `drug_HOI_index` VALUES ('36567-36110715','36567','Simvastatin','36110715','Upper respiratory tract infection'),('6944-10038435','6944','Metronidazole','10038435','Renal failure'),('89013-35738560','89013','Aripiprazole','35738560','Abdominal discomfort');
-/*!40000 ALTER TABLE `drug_HOI_index` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `evidence_bodies`
---
-
-DROP TABLE IF EXISTS `evidence_bodies`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `evidence_bodies` (
-  `id` int(20) NOT NULL AUTO_INCREMENT COMMENT 'primary key',
-  `body_id` int(20) NOT NULL COMMENT 'an id useful for retrieving all body attributes associated with an evidence item ',
-  `semantic_tag_id` int(20) NOT NULL COMMENT 'The concept identifier from the OHDSI Standard Vocabulary of the semantic tag used to annotate a body resource',
-  `semantic_tag_label` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'the label of the semantic tag used to annotate a body resource',
-  `value_as_concept` int(20) DEFAULT NULL COMMENT 'The  value from the Standard Vocabulary of the tagged concept',
-  `value_as_string` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT 'the string value of a body attribute',
-  `value_as_int` int(50) DEFAULT NULL COMMENT 'The integer value of the tagged concept',
-  `value_as_double` double DEFAULT NULL COMMENT 'The double precision float  value of the tagged concept',
-  `value_as_date` date DEFAULT NULL COMMENT 'The date value of the tagged concept',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `evidence_bodies`
---
-
-LOCK TABLES `evidence_bodies` WRITE;
-/*!40000 ALTER TABLE `evidence_bodies` DISABLE KEYS */;
-INSERT INTO `evidence_bodies` VALUES (1,1,0,'DATE OF THE SPC',NULL,NULL,NULL,NULL,'2011-01-21'),(2,1,0,'AGE GROUP',NULL,NULL,0,NULL,NULL),(3,2,0,'SPL_DATE',NULL,NULL,NULL,NULL,'2013-08-10'),(4,2,0,'SPL_SECTION',NULL,'Adverse Reactions',NULL,NULL,NULL),(5,1,0,'MEDDRA_PT_CODE',35738560,'ABDOMINAL DISCOMFORT',NULL,NULL,NULL),(6,1,0,'MEDDRA_SOC',35700000,'Gastrointestinal disorders',NULL,NULL,NULL),(7,3,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'1994-03-01'),(8,4,0,'MEDLINE_PUBLISH_DATE',NULL,NULL,NULL,NULL,'2001-03-03');
-/*!40000 ALTER TABLE `evidence_bodies` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `evidence_sources`
@@ -131,30 +80,6 @@ INSERT INTO `evidence_sources` VALUES (1,'EU_SPC_ADR','Adverse drug events extra
 /*!40000 ALTER TABLE `evidence_sources` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `evidence_targets`
---
-
-DROP TABLE IF EXISTS `evidence_targets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `evidence_targets` (
-  `id` int(20) NOT NULL AUTO_INCREMENT COMMENT 'primary key',
-  `uri` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'a unique resource identifer that can be used to retrieve the target from the RDF store',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `evidence_targets`
---
-
-LOCK TABLES `evidence_targets` WRITE;
-/*!40000 ALTER TABLE `evidence_targets` DISABLE KEYS */;
-INSERT INTO `evidence_targets` VALUES (1,'http://purl.ohdsi.org/SmPC:Abilify'),(2,'http://purl.ohdsi.org/SPL:dc6c3d16-b7ab-46ee-83dc-846445beeee7'),(3,'http://purl.ohdsi.org/MEDLINE_MeSH:7817353'),(4,'http://purl.ohdsi.org/MEDLINE_SemMedDB:11085348');
-/*!40000 ALTER TABLE `evidence_targets` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

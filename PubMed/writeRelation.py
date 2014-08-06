@@ -21,9 +21,11 @@ f.close()
 buf = buf.replace("http://purl.org/net/ohdsi#","").replace("http://purl.bioontology.org/ontology/MEDDRA/","").replace('"',"")
 l = buf.split("\n")[1:]
 
+i = 0
 for elt in l:
+    i += 1
     (cnt,drug,hoi) = [x.strip() for x in elt.split(",")]
     q = TEMPLATE.replace("@IMEDS_DRUG@",drug).replace("@MEDDRA_HOI@",hoi)
     turl = tinyurl.create_one(q)
-    print "\t".join([cnt,drug,hoi,turl,EVTYPE])
+    print "\t".join([str(i),drug,hoi,'literature_case_report',str(3),str(cnt),turl])
 
