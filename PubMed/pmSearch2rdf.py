@@ -223,6 +223,7 @@ for k in commonKeys:
 
                     graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
                     graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
+                    graph.add((poc[currentAnnotItem], RDF.type, ohdsi["PubMedDrugHOIAnnotation"]))
                     graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
                     graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
                     graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
@@ -236,6 +237,8 @@ for k in commonKeys:
                         graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
                     elif i == CR:
                         graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
+                    else:
+                        graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
 
                 
                 # Specify the bodies of the annotation - for this type each
@@ -256,13 +259,14 @@ for k in commonKeys:
                     graph.add((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D[rxnormDrug][2]]))
                 else:
                     print "ERROR: no MeSH equivalent to the rxnorm drug %s" % rxnormDrug
-                    graph.add((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[meshCond]))
+
+                graph.add((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[meshCond]))
                 if COND_D_MEDDRA.has_key(meshCond):
                     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-                    graph.add((poc[currentAnnotationBody], ohdsi['MeddrraHois'], collectionHead))
+                    graph.add((poc[currentAnnotationBody], ohdsi['MeddraHois'], collectionHead))
                     condL = COND_D_MEDDRA[meshCond]
                     for i in range(0,len(condL)):
-                        graph.add((collectionHead, ohdsi['MeddrraHoi'], meddra[condL[i]]))
+                        graph.add((collectionHead, ohdsi['MeddraHoi'], meddra[condL[i]]))
                     # TESTED: Create a collection for the MeSH condition
                     # restUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
                     # collectionHead = restUuid
