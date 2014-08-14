@@ -12,15 +12,15 @@
 	<section name="org.eclipse.egit.ui.COMMIT_DIALOG_SECTION">
 		<item value="877" key="DIALOG_WIDTH"/>
 		<item value="82" key="DIALOG_Y_ORIGIN"/>
-		<item value="913" key="DIALOG_HEIGHT"/>
 		<item value="327" key="DIALOG_X_ORIGIN"/>
+		<item value="913" key="DIALOG_HEIGHT"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
 		<item value="652" key="DIALOG_WIDTH"/>
-		<item value="212" key="DIALOG_Y_ORIGIN"/>
-		<item value="454" key="DIALOG_HEIGHT"/>
+		<item value="-478" key="DIALOG_Y_ORIGIN"/>
 		<item value="315" key="DIALOG_X_ORIGIN"/>
+		<item value="454" key="DIALOG_HEIGHT"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 </section>

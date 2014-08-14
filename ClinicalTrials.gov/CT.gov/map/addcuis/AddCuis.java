@@ -65,7 +65,7 @@ public class AddCuis {
 			
 			ObjectInputStream meshMapfile = new ObjectInputStream(new FileInputStream("../MeSHHashMap.ser"));
 			meshMap = (HashMap<String, String>)meshMapfile.readObject();
-			setupNobleCoder();
+//			setupNobleCoder();
 			meshMapfile.close();
 			
 			while(in.ready()) {
@@ -73,7 +73,7 @@ public class AddCuis {
 				line = new ArrayList<String>(Arrays.asList(in.readLine().split("\t")));
 				addMesh(line, 8);
 				addMesh(line, 7);
-				addFromNobleCoder(line);
+//				addFromNobleCoder(line);
 				out.write(outputString(line, "\t") + "\n");
 				
 //				insert(line, 2, "MedDRA_CUI");
@@ -136,8 +136,10 @@ public class AddCuis {
 		for(String word : queryThis.split("\\|")) {
 			if(meshMap.containsKey(word))
 				cuis.add(meshMap.get(word));
-			else
+			else {
 				cuis.add("");
+				System.out.println(word + " not found in exact match.");
+			}
 		}
 		line.add(index, outputString(cuis, "|"));
 	}
@@ -169,7 +171,7 @@ public class AddCuis {
 	public static void main(String[] args) {
 		
 		final String inputfile = "../Example-CT.gov-data-v3-v011.csv";
-		final String outputfile = "../Example-CT.gov-data-v3-v011_CUIs.csv";
+		final String outputfile = "../Example-CT.gov-data-v3-v011_CUIs_v1.csv";
 		
 		AddCuis add = new AddCuis();
 		add.addCuis(inputfile, outputfile);

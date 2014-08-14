@@ -16,4 +16,11 @@
 		<item value="0" key="DIALOG_Y_ORIGIN"/>
 		<item value="0" key="DIALOG_X_ORIGIN"/>
 	</section>
+	<section name="ImportExportAction">
+		<item value="org.eclipse.team.svn.ui.wizard.ImportFromSVNWizard" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.team.svn.ui.repository"/>
+			<item value="org.eclipse.team.ui.importWizards"/>
+		</list>
+	</section>
 </section>
