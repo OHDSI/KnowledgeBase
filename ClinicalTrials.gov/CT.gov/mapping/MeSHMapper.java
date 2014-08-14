@@ -1,6 +1,5 @@
 package mapping;
 
-import mapping.RFFMapper;
 /**
  * This is the file that will make a serializable hashmap for mesh terms based on the search string.
  * This HashMap<String, String> will be used when we run on 
