@@ -64,7 +64,7 @@ public class RFFMapper implements Serializable {
 	}
 	
 	/**
-	 * Builds up the mapper object.
+	 * Builds up the mapper object. The key is always lowercase.
 	 * @param fileInputLocation input location of the file.
 	 * @param language In some files, many string finders have many different languages for one CUI
 	 * @param cui This is the common universal identifier for a string
@@ -79,8 +79,8 @@ public class RFFMapper implements Serializable {
 			System.out.println("Finished processing! Now parsing and creating.");
 			while (buf.ready()) {
 				currentRow = buf.readLine().split("\\|");
-				if((currentRow.length > Math.max(cui, string)) && currentRow[11].equals(type) && (language == -1 || (currentRow[language].equals("PT") ||currentRow[language].equals("ENG")))) {
-					addToMap(currentRow[cui], currentRow[string]);
+				if((currentRow.length > Math.max(cui, string)) && currentRow[11].contains(type) && (language == -1 || (currentRow[language].equals("PT") ||currentRow[language].equals("ENG")))) {
+					addToMap(currentRow[cui], currentRow[string].toLowerCase());
 				}
 			}
 			buf.close();
@@ -100,15 +100,15 @@ public class RFFMapper implements Serializable {
 	 * @param cui This is the common universal identifier for a string
 	 * @param string The string to find the common universal identifier
 	 */
-	public final void makeMapping(String fileInputLocation, String type, int cui, int string) {
+	public void makeMapping(String fileInputLocation, String type, int cui, int string) {
 		makeMapping(fileInputLocation, type, -1, cui, string);
 	}
 	
 	/**
 	 * Getter method for the mapper
-	 * @return the map object (as a final)
+	 * @return the map object
 	 */
-	public final HashMap<String, String> getMapping() {
+	public HashMap<String, String> getMapping() {
 		return find;
 	}
 	
