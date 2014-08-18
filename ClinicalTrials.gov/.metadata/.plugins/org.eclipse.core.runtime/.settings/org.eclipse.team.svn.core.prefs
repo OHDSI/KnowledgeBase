@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
 externalMigrateFromAuthorizationDatabase/isMigrated=true
 migrateFromAuthorizationDatabase/isMigrated=true
+repositories/20cf3d93781d00141a2881881d612355=20cf3d93781d00141a2881881d612355;svn+ssh\://svn.code.sf.net/p/nobletools/code/trunk/;svn+ssh\://svn.code.sf.net/p/nobletools/code/trunk/;branches;tags;trunk;true;bf46674b-1a93-4495-8305-7af9fbfa460c;svn+ssh\://svn.code.sf.net/p/nobletools/code;;false;;;0
+repositories/d017eb52771d00141d1f9d50a1f59f2a=d017eb52771d00141d1f9d50a1f59f2a;svn+ssh\://svn.code.sf.net/p/nobletools/code;svn+ssh\://svn.code.sf.net/p/nobletools/code;branches;tags;trunk;true;bf46674b-1a93-4495-8305-7af9fbfa460c;svn+ssh\://svn.code.sf.net/p/nobletools/code;;false;;;0

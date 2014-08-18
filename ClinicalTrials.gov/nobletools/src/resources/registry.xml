@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LexBIG_Registry>
+  <variables>
+    <lastUpdateTime value="1195678323789" />
+    <lastUsedDBIdentifer value="a2" />
+    <lastUsedHistoryIdentifer value="a0" />
+  </variables>
+  <codingSchemes>
+    <codingScheme urn="urn:oid:2.16.840.1.113883.3.26.1.2" dbURL="jdbc:mysql://157.229.221.21:3307/lexbig?jdbcCompliantTruncation=false" dbName="" prefix="lba1_" status="active" tag="" version="200705" deactivateDate="0" lastUpdateDate="1195678323789" />
+  </codingSchemes>
+  <histories />
+</LexBIG_Registry>
+

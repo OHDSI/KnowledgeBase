@@ -1,0 +1,40 @@
+# this table has a list of singular and matching plural suffixes
+# singular	plural	comments
+a	ae			alga	->	algae
+a	as			nova	->	novas/novae
+an	en			woman	->	women
+ch	ches		church	->	churches
+eau	eaus		chateau	->	chateaus/chateaux
+en	ens			foramen	->	foramens/foramina
+ex	ices		codex	->	codices
+ex	exes		index	->	indexes/indices
+f	ves			wolf	->	wolves
+fe	ves			life	->	lives
+ieu	ieus		milieu	->	mileus/milieux
+ieu	ieux		milieu	->	mileus/milieux
+is	es			basis	->	bases
+is	ises		es		iris	->	irises	/irides
+ix	ixes		matrix	->	matrixes/matrices
+ix	ices		matrix	->	matrixes/matrices
+nx	nxes		phalanx	->	phalanxes	/phalanges
+k	ks			park    -> parks
+o	oes			potato	->	potatoes
+o	os			photo	->	photos
+on	a			aphelion	->	aphelia
+on	ons			ganglion	->	ganglions/ganglia
+oo	ee			foot	->	feet	tooth	->	teeth
+oof	oofs		hoof	->	hoofs/hooves
+oof	ooves		hoof	->	hoofs/hooves
+s	ses			atlas	->	altases
+sh	shes		wish	->	wishes
+um	a			bacterium	->	bacteria
+um	ums			medium	->	mediums/media
+us	era			genus	->	genera
+us	i			stimulus	->	stimuli
+us	uses		radius	->	radiuses/radii
+us	ora			corpus	->	corpuses/corpora
+x	xes			box	->	boxes
+y	ies			ferry	->	ferries
+#s	s			series	->	series
+#e	es			satellite	->	satellites *
+#n	ns			margin  ->  margins *
