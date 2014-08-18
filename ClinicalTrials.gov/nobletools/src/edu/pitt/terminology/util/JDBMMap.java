@@ -40,7 +40,6 @@ public class JDBMMap<K extends Comparable, V> implements Map<K, V> {
 		this.filename = filename;
 		this.readonly = readonly;
 		String f = filename+"_"+tablename;
-		System.out.println(f);
 		
 		// check parent directory
 		if(!new File(f).getParentFile().exists())
