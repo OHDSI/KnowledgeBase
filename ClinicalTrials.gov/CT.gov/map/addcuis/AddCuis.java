@@ -184,8 +184,9 @@ public class AddCuis {
 		String queryThis = line.get(index  - 1);
 		List<String> cuis = new LinkedList<String>();
 		for(String word : queryThis.split("\\|")) {
-			if(meshMap.containsKey(word))
-				cuis.add(meshMap.get(word));
+			String lower = word.toLowerCase();
+			if(meshMap.containsKey(lower))
+				cuis.add(meshMap.get(lower));
 			else {
 				cuis.add("");
 				pseudolog.write("MESH: No exact match for \"" + word + "\"" + "\n");
