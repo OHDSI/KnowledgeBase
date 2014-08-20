@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import edu.pitt.terminology.client.IndexFinderTerminology;
 import edu.pitt.terminology.lexicon.Concept;
@@ -26,7 +27,7 @@ import edu.pitt.terminology.util.TerminologyException;
  * Adds the MeSH CUIs to the MeSH Condition and MeSH Interventions in a pipe delimited format
  * from the triads MeSH exact string mapper which does with amazing accuracy.
  * 
- * Will Add MedDRA, SNOMED_CT, and RxNorm CUIs from Nobletools jar NLP program from the text column
+ * MedDRA, SNOMED_CT, and RxNorm CUIs from Nobletools jar NLP program from the text column
  * Using the IndexFinderTerminology class.
  * 
  * @author epicstar
@@ -34,18 +35,80 @@ import edu.pitt.terminology.util.TerminologyException;
  */
 
 public class AddCuis {
-	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * This is the container for the exact MeSH String matching with its CUIs. The keys are non-capitalized
+	 */
 	private HashMap<String, String> meshMap;
-	private IndexFinderTerminology term;
-	private PrintWriter pseudolog;
-	private static final Source[] nobleCoderVocabs = {new Source("MDR"), new Source("SNOMEDCT_US"), new Source("MSH")};
 	
+	/**
+	 * This is the Nobletools section of the code to get the MDR, MeSH, and SNOMEDCT_US CUIs from the text portion of the input
+	 */
+	private IndexFinderTerminology term;
+	
+	/**
+	 * The verbose "log" file of missing outputs
+	 */
+	private PrintWriter pseudolog;
+	
+	/**
+	 * will report the amount of missing CUIs from the text files
+	 */
+	private HashMap<Source, Integer> missingNoblecoderCUIs;
+	
+	/**
+	 * The MedDRA, SNOMEDCT_US, and MSH vocabs to get from Nobletools getCodes() output
+	 */
+	private static final Source[] nobleCoderVocabs = {new Source("MDR"), new Source("SNOMEDCT_US"), new Source("MSH")};
+
+	/**
+	 * Finds the number of missing MeSH exact matches from both the msh_condition
+	 */
+	private int missingExactCondition;
+	
+	/**
+	 * Finds the number of missing MeSH exact matches from both the msh_intervention
+	 */
+	private int missingExactIntervention;
+	
+	/**
+	 * amount of rows in the file
+	 */
+	private int lines;
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+	
+	
+	/**
+	 * Initial Constructor to add the CUIs. The Outputs will usually be put in the parent directory.
+	 * @throws FileNotFoundException
+	 */
 	public AddCuis() throws FileNotFoundException {
 		meshMap = null;
 		term = null;
 		pseudolog = new PrintWriter("../missingCUIs.txt");
+		missingExactCondition = 0;
+		missingExactIntervention = 0;
+		initializeMissingNobletoolsMap();
 	}
 	
+	/**
+	 * initializes missingNoblecoderCUIs
+	 */
+	private void initializeMissingNobletoolsMap() {
+		missingNoblecoderCUIs = new HashMap<Source, Integer>(3);
+		missingNoblecoderCUIs = new HashMap<Source, Integer>(3);
+		for(Source voc: nobleCoderVocabs)
+			missingNoblecoderCUIs.put(voc, 0);
+	}
+	
+	/**
+	 * Method that adds the CUIs to the input file
+	 * @param input Clinicaltrials.gov table. In this case I used "../Example-CT.gov-data-v3-v011.csv" tab-deliminated
+	 * @param output Clinicaltrials.gov table with the added CUIs tab-deliminated in this case
+	 * @return True if successful, False if an error was caught
+	 */
 	@SuppressWarnings("unchecked")
 	public boolean addCuis(String input, String output) {
 		
@@ -65,7 +128,6 @@ public class AddCuis {
 			insert(line, 2, "text_SNOMED_CT_CUI");
 			insert(line, 2, "text_MeSH_CUI");
 			
-//			System.out.println(line);
 			out.write(outputString(line, "\t") + "\n");			
 			
 			ObjectInputStream meshMapfile = new ObjectInputStream(new FileInputStream("../MeSHHashMap.ser"));
@@ -75,6 +137,7 @@ public class AddCuis {
 			
 			System.out.println("Adding CUIs. This may take take a while.");
 			
+			//Reading the input row-by-row
 			while(in.ready()) {
 				
 				line = new ArrayList<String>(Arrays.asList(in.readLine().split("\t")));
@@ -82,12 +145,10 @@ public class AddCuis {
 				addMesh(line, 7);
 				addFromNobleCoder(line);
 				out.write(outputString(line, "\t") + "\n");
-				
-//				insert(line, 2, "MedDRA_CUI");
-//				insert(line, 2, "SNOMED_CUI");
-//				insert(line, 2, "RxNorm_CUI");
-				
+				++lines;
 			}
+			
+			writeReport(input + "_report.txt");
 			System.out.println("Finished!");
 			in.close();
 			out.close();
@@ -106,6 +167,42 @@ public class AddCuis {
 		
 	}
 	
+	/**
+	 * Outputs a human readable report on the amount of missing CUIs
+	 * @param output the output file
+	 */
+	private void writeReport(String outfile) {
+		PrintWriter report;
+		try {
+			System.out.println("Writing Report");
+			report = new PrintWriter(outfile);
+			
+			report.write("Rows: " + lines + "\n\n");
+			
+			report.write("Nobletools Properties....\n");
+			
+			for(Entry<Object, Object> properties : term.getSearchProperties().entrySet()) {
+				report.write("\t" + properties.getKey().toString() + ": " + properties.getValue().toString() + "\n");
+			}
+			
+			report.write("\nMissing Text CUIs....\n");
+			for(Entry<Source, Integer> pairs : missingNoblecoderCUIs.entrySet())
+				report.write(pairs.getKey().toString() + ": " + pairs.getValue().toString() + "\n");
+			
+			report.write("\nMissing Exact MeSH matches....\n");
+			report.write("Missing exact MSH Conditions: " + missingExactCondition + "\n");
+			report.write("Missing exact MSH Interventions: " + missingExactIntervention);
+			report.close();
+			System.out.println("Done Writing report!");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Adds the CUIs retrieved from Nobletools programmatically
+	 * @param line row represented as a List
+	 */
 	private void addFromNobleCoder(List<String> line) {
 		String find = line.get(1);
 		try {
@@ -122,8 +219,11 @@ public class AddCuis {
 					else {
 						insert(line, 2, "");
 						missingCUIs.add(vocab.toString());
+						missingNoblecoderCUIs.put(vocab, missingNoblecoderCUIs.get(vocab) + 1);
 					}
 				}
+				
+				//inefficient and better ways to do this...
 				if(missingCUIs.size()>0) {
 					StringBuffer log = new StringBuffer();
 					log.append(find + " missing NobleCoder CUIs: ");
@@ -137,8 +237,9 @@ public class AddCuis {
 				}
 			}
 			else {
-				for(int i=0;i<3;++i) {
+				for(Source vocab : nobleCoderVocabs) {
 					insert(line, 2, "");
+					missingNoblecoderCUIs.put(vocab, missingNoblecoderCUIs.get(vocab) + 1);
 				}
 				pseudolog.write(find + " not found in NobleCoder." + "\n");
 			}
@@ -148,6 +249,10 @@ public class AddCuis {
 		}
 	}
 	
+	/**
+	 * Sets up Nobletools to the settings needed to run accurately with the least noise
+	 * @throws IOException
+	 */
 	private void setupNobleCoder() throws IOException {
 
 			term = new IndexFinderTerminology();
@@ -180,6 +285,11 @@ public class AddCuis {
 			pseudolog.write(term.getSearchProperties().toString() + "\n");
 	}
 	
+	/**
+	 * Finds the MeSH exact String mapping
+	 * @param line the row represented as a list
+	 * @param index location where the mesh column is
+	 */
 	private void addMesh(List<String> line, int index) {
 		String queryThis = line.get(index  - 1);
 		List<String> cuis = new LinkedList<String>();
@@ -189,16 +299,34 @@ public class AddCuis {
 				cuis.add(meshMap.get(lower));
 			else {
 				cuis.add("");
-				pseudolog.write("MESH: No exact match for \"" + word + "\"" + "\n");
+				if(!"".equals(lower)) {
+					pseudolog.write("MESH: No exact match for \"" + word + "\"" + "\n");
+					if(index == 7)
+						++missingExactCondition;
+					else
+						++missingExactIntervention;
+				}
 			}
 		}
 		line.add(index, outputString(cuis, "|"));
 	}
 	
+	/**
+	 * Inserts a column to the row being fed
+	 * @param line the row represented as a list
+	 * @param index location where the column needed to add is
+	 * @param add String being added to the row
+	 */
 	private void insert(List<String> line, int index, String add) {
 		line.add(index, add);
 	}
 	
+	/**
+	 * Turns the row into a string representation of itself
+	 * @param string the row represented as a List
+	 * @param delim delimiter used to output
+	 * @return a "string" delimited line
+	 */
 	private String outputString(List<String> string, String delim) {
 		
 		StringBuffer buf = new StringBuffer();

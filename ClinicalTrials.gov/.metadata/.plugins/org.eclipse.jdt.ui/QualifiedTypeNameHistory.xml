@@ -10,4 +10,5 @@
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="edu.pitt.terminology.client.IndexFinderTerminology"/>
 <fullyQualifiedTypeName name="edu.pitt.terminology.lexicon.Source"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
 </qualifiedTypeNameHistroy>

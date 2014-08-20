@@ -1,0 +1,30 @@
+Rows: 245028
+
+Nobletools Properties....
+	window.size: -1
+	source.filter: MDR;MSH;SNOMEDCT_US
+	ignore.acronyms: false
+	semantic.type.filter: Event;Pathologic Function;Body Substance;Functional Concept;Mental or Behavioral Concept;Mental or Behavioral Dysfunction;Finding;Sign or Symptom;Individual Behavior;Disease or Syndrome;Mental Process;Body Part, Organ, or Organ Component;Therapeutic or Preventive Procedure
+	ignore.digitss: false
+	default.search.method: best-match
+	ordered.mode: false
+	ignore.small.words: true
+	ignore.common.words: false
+	ignore.used.words: true
+	select.best.candidate: false
+	overlap.mode: true
+	partial.mode: false
+	stem.words: false
+	language.filter: 
+	subsumption.mode: true
+	contiguous.mode: true
+	enable.search.cache: true
+
+Missing Text CUIs....
+MSH: 116015
+SNOMEDCT_US: 67389
+MDR: 43583
+
+Missing Exact MeSH matches....
+Missing exact MSH Conditions: 0
+Missing exact MSH Interventions: 0
