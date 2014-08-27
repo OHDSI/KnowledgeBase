@@ -59,7 +59,11 @@ public class AddCuis {
 	/**
 	 * The MedDRA, SNOMEDCT_US, and MSH vocabs to get from Nobletools getCodes() output
 	 */
-	private static final Source[] nobleCoderVocabs = {new Source("MDR"), new Source("SNOMEDCT_US"), new Source("MSH")};
+	private static final Source[] nobleCoderVocabs = {
+		new Source("MDR"), 
+		new Source("SNOMEDCT_US"), 
+		new Source("MSH")
+	};
 
 	/**
 	 * Finds the number of missing MeSH exact matches from both the msh_condition
@@ -97,10 +101,10 @@ public class AddCuis {
 	 * initializes missingNoblecoderCUIs
 	 */
 	private void initializeMissingNobletoolsMap() {
-		missingNoblecoderCUIs = new HashMap<Source, Integer>(3);
-		missingNoblecoderCUIs = new HashMap<Source, Integer>(3);
+		missingNoblecoderCUIs = new HashMap<Source, Integer>(nobleCoderVocabs.length + 1);
 		for(Source voc: nobleCoderVocabs)
 			missingNoblecoderCUIs.put(voc, 0);
+		missingNoblecoderCUIs.put(new Source("All missing"), 0);
 	}
 	
 	/**
@@ -148,7 +152,7 @@ public class AddCuis {
 				++lines;
 			}
 			
-			writeReport(input + "_report.txt");
+			writeReport(output + "_report.txt");
 			System.out.println("Finished!");
 			in.close();
 			out.close();
@@ -188,6 +192,7 @@ public class AddCuis {
 			report.write("\nMissing Text CUIs....\n");
 			for(Entry<Source, Integer> pairs : missingNoblecoderCUIs.entrySet())
 				report.write(pairs.getKey().toString() + ": " + pairs.getValue().toString() + "\n");
+//			report.write("Nobletools could not find in any Vocabulary: " + missingNoblecoderCUIs.get(new Source("All three missing")) + "\n");
 			
 			report.write("\nMissing Exact MeSH matches....\n");
 			report.write("Missing exact MSH Conditions: " + missingExactCondition + "\n");
@@ -201,6 +206,13 @@ public class AddCuis {
 	
 	/**
 	 * Adds the CUIs retrieved from Nobletools programmatically
+	 * 
+	 * It looks through every result possible and adds CUIs that are specified by
+	 * nobeCoderVocabs if the previously temporarily stored CUI isn't null.
+	 * 
+	 * The assumption here is that the accuracy of the Nobletools results is higher 
+	 * when it is higher on the Results list.
+	 * 
 	 * @param line row represented as a List
 	 */
 	private void addFromNobleCoder(List<String> line) {
@@ -209,44 +221,82 @@ public class AddCuis {
 			
 			Concept[] results = term.search(find);
 			if(results.length > 0) {
-				@SuppressWarnings("rawtypes")
-				Map nobleCodes = results[0].getCodes();
+//				@SuppressWarnings("rawtypes")
+//				Map nobleCodes = results[0].getCodes();
+//
+//				LinkedList<String> missingCUIs = new LinkedList<String>();
+//				for(Source vocab : nobleCoderVocabs) {
+//					if(nobleCodes.containsKey(vocab))
+//						insert(line, 2, (String)nobleCodes.get(vocab));
+//					else {
+//						insert(line, 2, "");
+//						missingCUIs.add(vocab.toString());
+//						missingNoblecoderCUIs.put(vocab, missingNoblecoderCUIs.get(vocab) + 1);
+//					}
+//				}
 
-				LinkedList<String> missingCUIs = new LinkedList<String>();
-				for(Source vocab : nobleCoderVocabs) {
-					if(nobleCodes.containsKey(vocab))
-						insert(line, 2, (String)nobleCodes.get(vocab));
-					else {
-						insert(line, 2, "");
-						missingCUIs.add(vocab.toString());
-						missingNoblecoderCUIs.put(vocab, missingNoblecoderCUIs.get(vocab) + 1);
-					}
-				}
 				
 				//inefficient and better ways to do this...
-				if(missingCUIs.size()>0) {
-					StringBuffer log = new StringBuffer();
-					log.append(find + " missing NobleCoder CUIs: ");
-					int index = 0;
-					for(String voc : missingCUIs) {
-						log.append(voc);
-						if(++index < missingCUIs.size())
-							log.append(", ");
+//				if(missingCUIs.size()>0) {
+//					StringBuffer log = new StringBuffer();
+//					log.append(find + " missing NobleCoder CUIs: ");
+//					int index = 0;
+//					for(String voc : missingCUIs) {
+//						log.append(voc);
+//						if(++index < missingCUIs.size())
+//							log.append(", ");
+//					}
+//					pseudolog.write(log.toString() + "\n");
+//				}
+				
+				Map<Source, String> tempCUIs = new HashMap<Source, String>(nobleCoderVocabs.length);
+				for(Concept result : results) {
+					@SuppressWarnings("rawtypes")
+					Map nobleCodes = result.getCodes();
+					for(Source voc : nobleCoderVocabs) {
+						if(tempCUIs.get(voc) == null) {
+							tempCUIs.put(voc, (String)nobleCodes.get(voc));
+						}
 					}
-					pseudolog.write(log.toString() + "\n");
 				}
+				addCUIs(line, tempCUIs);
 			}
 			else {
 				for(Source vocab : nobleCoderVocabs) {
 					insert(line, 2, "");
 					missingNoblecoderCUIs.put(vocab, missingNoblecoderCUIs.get(vocab) + 1);
 				}
+				missingNoblecoderCUIs.put(new Source("All missing"), missingNoblecoderCUIs.get(new Source("All missing")) + 1);
 				pseudolog.write(find + " not found in NobleCoder." + "\n");
 			}
 		} catch (TerminologyException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Adds CUIs to the list. In this case,
+	 * @param line row represented as a List
+	 * @param CUIs the added cuis from addFromNobleCoder
+	 */
+	private void addCUIs(List<String> line, Map<Source, String> CUIs) {
+		String cui;
+		int missing = 0;
+		StringBuffer log = new StringBuffer();
+		for(Source voc : nobleCoderVocabs) {
+			cui = CUIs.get(voc);
+			
+			if(cui == null) {
+				insert(line, 2, "");
+				missingNoblecoderCUIs.put(voc, missingNoblecoderCUIs.get(voc) + 1);
+				++missing;
+			}
+			else
+				insert(line, 2, cui);
+		}
+		if(missing == nobleCoderVocabs.length)
+			missingNoblecoderCUIs.put(new Source("All missing"), missingNoblecoderCUIs.get(new Source("All missing")) + 1);
 	}
 	
 	/**
@@ -350,7 +400,7 @@ public class AddCuis {
 	public static void main(String[] args) {
 		
 		final String inputfile = "../Example-CT.gov-data-v3-v011.csv";
-		final String outputfile = "../Example-CT.gov-data-v3-v011_CUIs_v2.csv";
+		final String outputfile = "../Example-CT.gov-data-v3-v011_CUIs_v3.csv";
 		
 		AddCuis add;
 		try {
