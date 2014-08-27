@@ -328,7 +328,7 @@ public class AddCuis {
 										"Disease or Syndrome",
 										"Mental Process",
 										"Body Part, Organ, or Organ Component",
-										"Therapeutic or Preventive Procedure",
+										"Therapeutic or Preventive Procedure"
 															   }
 												)
 									  );
