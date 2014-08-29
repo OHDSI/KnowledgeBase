@@ -30,6 +30,13 @@ import edu.pitt.terminology.util.TerminologyException;
  * MedDRA, SNOMED_CT, and RxNorm CUIs from Nobletools jar NLP program from the text column
  * Using the IndexFinderTerminology class.
  * 
+ * Usage:
+ * - In Eclipse:
+ * $ java AddCuis <input>
+ * 
+ * - In the jar:
+ * $ java-jar AddCuis.jar <input>
+ * 
  * @author epicstar
  *
  */
@@ -91,7 +98,7 @@ public class AddCuis {
 	public AddCuis() throws FileNotFoundException {
 		meshMap = null;
 		term = null;
-		pseudolog = new PrintWriter("../missingCUIs.txt");
+		pseudolog = new PrintWriter("missingCUIs.txt");
 		missingExactCondition = 0;
 		missingExactIntervention = 0;
 		initializeMissingNobletoolsMap();
@@ -399,8 +406,8 @@ public class AddCuis {
 	 */
 	public static void main(String[] args) {
 		
-		final String inputfile = "../Example-CT.gov-data-v3-v011.csv";
-		final String outputfile = "../Example-CT.gov-data-v3-v011_CUIs_v3.csv";
+		final String inputfile = args[0];
+		final String outputfile = args[0] + "_CUIs_v3.csv";
 		
 		AddCuis add;
 		try {

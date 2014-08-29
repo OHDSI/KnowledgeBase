@@ -1,7 +1,7 @@
 package edu.pitt.ontology;
 import java.beans.PropertyChangeListener;
 import java.io.OutputStream;
-import java.net.URI;
+import java.net.*;
 
 /**
  * this class describes an ontology, get an instance of this class
@@ -16,6 +16,7 @@ public interface IOntology extends IResource {
 	public static final int NTRIPLE_FORMAT = 1;
 	public static final int TURTLE_FORMAT = 2;
 	public static final int OWL_FORMAT = 3;
+	public static final int OBO_FORMAT = 4;
 	
 	public static final String ONTOLOGY_LOADING_EVENT = "Ontology Loading";
 	public static final String ONTOLOGY_LOADED_EVENT = "Ontology Loaded";

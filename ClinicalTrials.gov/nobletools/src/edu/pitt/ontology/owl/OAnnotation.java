@@ -32,7 +32,7 @@ public class OAnnotation extends OResource implements IProperty {
 	
 	public IProperty createSubProperty(String name) {
 		OWLDataFactory dataFactory = getOWLDataFactory();
-		OWLAnnotationProperty ch = dataFactory.getOWLAnnotationProperty(IRI.create(getNameSpace()+name));
+		OWLAnnotationProperty ch = dataFactory.getOWLAnnotationProperty(IRI.create(getOntology().getNameSpace()+name));
 		addAxiom(getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(ch,annotation));
 		return (IProperty) convertOWLObject(ch);
 	}

@@ -3,15 +3,7 @@ package edu.pitt.ontology.owl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLProperty;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 
 import edu.pitt.ontology.IClass;
@@ -20,15 +12,15 @@ import edu.pitt.ontology.IProperty;
 import edu.pitt.ontology.IResource;
 
 public class OProperty extends OResource implements IProperty {
-	private OWLProperty property;
+	private OWLPropertyExpression property;
 	
-	protected OProperty(OWLProperty obj,OOntology ont) {
+	protected OProperty(OWLPropertyExpression obj,OOntology ont) {
 		super(obj,ont);
 		property = obj;
 	}
 
 	public OWLProperty getOWLProperty(){
-		return property;
+		return (OWLProperty) property;
 	}
 	
 	OWLDataProperty asOWLDataProperty(){
@@ -41,11 +33,11 @@ public class OProperty extends OResource implements IProperty {
 	public IProperty createSubProperty(String name) {
 		OWLDataFactory dataFactory = getOWLDataFactory();
 		if(isDatatypeProperty()){
-			OWLDataProperty ch = dataFactory.getOWLDataProperty(IRI.create(getNameSpace()+name));
+			OWLDataProperty ch = dataFactory.getOWLDataProperty(IRI.create(getOntology().getNameSpace()+name));
 			addAxiom(getOWLDataFactory().getOWLSubDataPropertyOfAxiom(ch,asOWLDataProperty()));
 			return (IProperty) convertOWLObject(ch);
 		}else{
-			OWLObjectProperty ch = dataFactory.getOWLObjectProperty(IRI.create(getNameSpace()+name));
+			OWLObjectProperty ch = dataFactory.getOWLObjectProperty(IRI.create(getOntology().getNameSpace()+name));
 			addAxiom(getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(ch,asOWLObjectProperty()));
 			return (IProperty) convertOWLObject(ch);
 		}
@@ -57,11 +49,11 @@ public class OProperty extends OResource implements IProperty {
 	}
 
 	public boolean isDatatypeProperty() {
-		return property.isOWLDataProperty();
+		return getOWLProperty().isOWLDataProperty();
 	}
 
 	public boolean isObjectProperty() {
-		return property.isOWLObjectProperty();
+		return getOWLProperty().isOWLObjectProperty();
 	}
 
 	public boolean isAnnotationProperty() {
@@ -114,9 +106,9 @@ public class OProperty extends OResource implements IProperty {
 				addAxiom(getOWLDataFactory().getOWLObjectPropertyRangeAxiom(asOWLObjectProperty(),(OWLClassExpression) convertOntologyObject(o)));
 		}else{
 			for(OWLDataRange r: asOWLDataProperty().getRanges(getDefiningOntologies()))
-				removeAxiom(getOWLDataFactory().getOWLDataPropertyRangeAxiom(asOWLDataProperty(),(OWLDataRange)convertOntologyObject(r)));
+				removeAxiom(getOWLDataFactory().getOWLDataPropertyRangeAxiom(asOWLDataProperty(),((OWLLiteral)convertOntologyObject(r)).getDatatype()));
 			for(Object o: range)
-				addAxiom(getOWLDataFactory().getOWLDataPropertyRangeAxiom(asOWLDataProperty(),(OWLDataRange)convertOntologyObject(o)));
+				addAxiom(getOWLDataFactory().getOWLDataPropertyRangeAxiom(asOWLDataProperty(),((OWLLiteral)convertOntologyObject(o)).getDatatype()));
 		}
 	}
 

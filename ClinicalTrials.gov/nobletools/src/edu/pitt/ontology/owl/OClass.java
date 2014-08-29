@@ -1,10 +1,19 @@
 package edu.pitt.ontology.owl;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLRestriction;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 
@@ -13,20 +22,21 @@ import edu.pitt.ontology.IInstance;
 import edu.pitt.ontology.ILogicExpression;
 import edu.pitt.ontology.IProperty;
 import edu.pitt.ontology.IRestriction;
+import edu.pitt.ontology.LogicExpression;
 import edu.pitt.terminology.lexicon.Concept;
 
 
 public class OClass extends OResource implements IClass{
-	private OWLClass cls;
+	private OWLClassExpression cls;
 	private transient Concept concept;
 	
-	protected OClass(OWLClass obj,OOntology ont){
+	protected OClass(OWLClassExpression obj,OOntology ont){
 		super(obj,ont);
 		cls = obj;
 	}
 
 	public OWLClass getOWLClass(){
-		return cls;
+		return (OWLClass) cls;
 	}
 	
 	public void addSubClass(IClass child) {
@@ -51,7 +61,7 @@ public class OClass extends OResource implements IClass{
 
 	public IInstance createInstance(String name) {
 		OWLDataFactory dataFactory = getOWLDataFactory();
-		OWLIndividual ind = dataFactory.getOWLNamedIndividual(IRI.create(getNameSpace()+name));
+		OWLIndividual ind = dataFactory.getOWLNamedIndividual(IRI.create(getOntology().getNameSpace()+name));
 		addAxiom(dataFactory.getOWLClassAssertionAxiom(cls,ind));
 		return (IInstance)convertOWLObject(ind);
 	}
@@ -65,32 +75,89 @@ public class OClass extends OResource implements IClass{
 
 	public IClass createSubClass(String name) {
 		OWLDataFactory dataFactory = getOWLDataFactory();
-		OWLClass ch = dataFactory.getOWLClass(IRI.create(getNameSpace()+name));
+		OWLClass ch = dataFactory.getOWLClass(IRI.create(getOntology().getNameSpace()+name));
 		addAxiom(getOWLDataFactory().getOWLSubClassOfAxiom(ch,cls));
 		return (IClass) convertOWLObject(ch);
 	}
 
-	@Override
 	public void addNecessaryRestriction(IRestriction restriction) {
-		// TODO Auto-generated method stub
-		
+		OWLRestriction r = ((ORestriction)restriction).getOWLRestriction();
+		OWLSubClassOfAxiom ax = getOWLDataFactory().getOWLSubClassOfAxiom(getOWLClass(),r);
+	    addAxiom(ax);
 	}
-
-	@Override
 	public void removeNecessaryRestriction(IRestriction restriction) {
-		// TODO Auto-generated method stub
+		OWLRestriction r = ((ORestriction)restriction).getOWLRestriction();
+		OWLSubClassOfAxiom ax = getOWLDataFactory().getOWLSubClassOfAxiom(getOWLClass(),r);
+	    removeAxiom(ax);
 		
 	}
-
-	@Override
 	public void addEquivalentRestriction(IRestriction restriction) {
-		// TODO Auto-generated method stub
+		OWLRestriction r = ((ORestriction)restriction).getOWLRestriction();
+		OWLEquivalentClassesAxiom ax = getOWLDataFactory().getOWLEquivalentClassesAxiom(getOWLClass(),r);
+	    addAxiom(ax);
+	}
+	public void removeEquivalentRestriction(IRestriction restriction) {
+		OWLRestriction r = ((ORestriction)restriction).getOWLRestriction();
+		OWLEquivalentClassesAxiom ax = getOWLDataFactory().getOWLEquivalentClassesAxiom(getOWLClass(),r);
+	    removeAxiom(ax);
+	}
+	
+	/**
+	 * get equivalent restrictions for this class
+	 */
+	public ILogicExpression getEquivalentRestrictions() {
+		ILogicExpression exp = getOntology().createLogicExpression();
+		exp.setExpressionType(ILogicExpression.AND);
 		
+		for(OWLEquivalentClassesAxiom ax: getDefiningOntology().getEquivalentClassesAxioms(getOWLClass())){
+			for(OWLClassExpression ex: ax.getClassExpressions()){
+				if(ex.isAnonymous()){
+					exp.add(convertOWLObject(ex));
+				}
+			}
+		}
+		return (exp.size() == 1 && exp.get(0) instanceof ILogicExpression)?(ILogicExpression)exp.get(0):exp;
 	}
 
-	@Override
-	public void removeEquivalentRestriction(IRestriction restriction) {
-		// TODO Auto-generated method stub
+	public ILogicExpression getDirectNecessaryRestrictions() {
+		ILogicExpression exp = getOntology().createLogicExpression();
+		exp.setExpressionType(ILogicExpression.AND);
+	    for (OWLSubClassOfAxiom ax : getDefiningOntology().getSubClassAxiomsForSubClass(getOWLClass())) {
+	    	OWLClassExpression ex = ax.getSuperClass();
+			if(ex.isAnonymous()){
+				exp.add(convertOWLObject(ex));
+			}
+			
+		}
+		return (exp.size() == 1 && exp.get(0) instanceof ILogicExpression)?(ILogicExpression)exp.get(0):exp;
+	}
+
+	public IRestriction[] getRestrictions(IProperty p) {
+		List<IRestriction> list = new ArrayList<IRestriction>();
+		for(List l: new List [] {getEquivalentRestrictions(),getNecessaryRestrictions()}){
+			for(Object o: l){
+				if(o instanceof IRestriction){
+					IRestriction r = (IRestriction)o;
+					if(r.getProperty().equals(p))
+						list.add(r);
+				}
+			}
+		}
+		return list.toArray(new IRestriction [0]);
+	}
+
+	/**
+	 * get necessary restrictions
+	 */
+	public ILogicExpression getNecessaryRestrictions() {
+		ILogicExpression exp = new LogicExpression(ILogicExpression.AND);
+		for(Object o: getDirectNecessaryRestrictions())
+			exp.add(o);
+		for(IClass parent: getSuperClasses()){
+			for(Object o: parent.getDirectNecessaryRestrictions())
+				exp.add(o);
+		}
+		return exp;
 	}
 
 	public void removeSubClass(IClass child) {
@@ -144,34 +211,7 @@ public class OClass extends OResource implements IClass{
 		return getInstances(sub.getFlattened());
 	}
 
-	@Override
-	public ILogicExpression getEquivalentRestrictions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ILogicExpression getDirectNecessaryRestrictions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IRestriction[] getRestrictions(IProperty p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ILogicExpression getNecessaryRestrictions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public boolean hasSuperClass(IClass parent) {
-		/*OWLClass c = (OWLClass) convertOntologyObject(parent);
-		OWLAxiom a = getOWLDataFactory().getOWLSubClassOfAxiom(cls,c);
-		return getOWLReasoner().isEntailed(a);*/
 		return getOWLReasoner().getSuperClasses(cls,false).containsEntity((OWLClass)convertOntologyObject(parent));
 	}
 

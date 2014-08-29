@@ -2,6 +2,8 @@ package edu.pitt.ontology;
 
 import java.beans.PropertyChangeListener;
 
+import edu.pitt.terminology.util.Describable;
+
 /**
  * this class wraps the functions of a reasoner
  * @author tseytlin

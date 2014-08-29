@@ -3,7 +3,7 @@ package edu.pitt.ontology;
 import java.beans.PropertyChangeListener;
 import java.io.OutputStream;
 import java.net.URI;
-
+import java.net.URL;
 import edu.pitt.terminology.Terminology;
 
 

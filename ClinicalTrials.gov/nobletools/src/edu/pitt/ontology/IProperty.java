@@ -10,7 +10,7 @@ public interface IProperty extends IResource {
 	public static final int DATATYPE = 1;
 	public static final int ANNOTATION_OBJECT = 2;
 	public static final int ANNOTATION_DATATYPE = 3;
-	
+	public static final int ANNOTATION = 4;
 	
 	// a set of predefined RDFS/OWL properties
 	public static final String RDFS_IS_DEFINED_BY = "rdfs:isDefinedBy";
