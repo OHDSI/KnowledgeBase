@@ -9,29 +9,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObject;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLProperty;
-import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
-
 import edu.pitt.ontology.IClass;
 import edu.pitt.ontology.IInstance;
 import edu.pitt.ontology.ILogicExpression;
@@ -142,7 +123,7 @@ public class OResource implements IResource{
 			for(OWLAnnotation a: e.getAnnotations(getDefiningOntology(),(OWLAnnotationProperty)convertOntologyObject(prop))){
 				list.add(convertOWLObject(a.getValue()));
 			}
-			return list.toArray(new IProperty [0]);
+			return list.toArray();
 		}
 		return new Object [0];
 	}
@@ -156,17 +137,22 @@ public class OResource implements IResource{
 
 	public void setPropertyValue(IProperty prop, Object value) {
 		if(prop.isAnnotationProperty()){
-			removeAxiom(getAnnotationAxiom((OWLAnnotationProperty)convertOntologyObject(prop),(OWLAnnotationValue)convertOntologyObject(value)));
-			addAxiom(getAnnotationAxiom((OWLAnnotationProperty)convertOntologyObject(prop),(OWLAnnotationValue)convertOntologyObject(value)));
+			removePropertyValues(prop);
+			addPropertyValue(prop, value);
 		}else
 			throw new IOntologyError("Not implemented for "+getClass().getName());
 	}
 
 	public void setPropertyValues(IProperty prop, Object[] values) {
-		for(Object o: values){
-			setPropertyValue(prop,o);
-		}
+		if(prop.isAnnotationProperty()){
+			removePropertyValues(prop);
+			for(Object o: values){
+				addPropertyValue(prop,o);
+			}
+		}else
+			throw new IOntologyError("Not implemented for "+getClass().getName());
 	}
+	
 	public void removePropertyValues(IProperty prop) {
 		OWLEntity e = asOWLEntity();
 		if(e != null){
@@ -392,6 +378,8 @@ public class OResource implements IResource{
 				return l.parseBoolean();
 			if(l.isDouble())
 				return l.parseDouble();
+			if(l.isFloat())
+				return l.parseFloat();
 			//if(l.getDatatype().equals(OWL2Datatype.XSD_DATE_TIME))
 			//	return l.
 			return l.getLiteral();
@@ -401,16 +389,41 @@ public class OResource implements IResource{
 			return new OInstance((OWLIndividual)val,getOntology());
 		}else if (val instanceof OWLAnnotationProperty){
 			return new OAnnotation((OWLAnnotationProperty)val,getOntology());
-		}else if (val instanceof OWLProperty){
-			return new OProperty((OWLProperty)val,getOntology());
+		}else if (val instanceof OWLPropertyExpression){
+			return new OProperty((OWLPropertyExpression)val,getOntology());
 		}else if (val instanceof OWLDataRange){
 			OWLDataRange l = (OWLDataRange) val;
 			if(l.isDatatype()){
-				//TODO:if(l.asOWLDatatype().equals(OWL2Datatype.)
+				if(l.asOWLDatatype().isBoolean()){
+					return Boolean.FALSE;
+				}else if(l.asOWLDatatype().isInteger()){
+					return new Integer(0);
+				}else if(l.asOWLDatatype().isDouble()){
+					return new Double(0);
+				}else if(l.asOWLDatatype().isFloat()){
+					return new Float(0);
+				}else{
+					return new String("string");
+				}
 			}
+		}else if(val instanceof OWLNaryBooleanClassExpression){
+			LogicExpression exp = new LogicExpression(LogicExpression.EMPTY);
+			if(val instanceof OWLObjectIntersectionOf || val instanceof OWLDataIntersectionOf)
+				exp.setExpressionType(ILogicExpression.AND);
+			else if(val instanceof OWLObjectUnionOf || val instanceof OWLDataUnionOf)
+				exp.setExpressionType(ILogicExpression.OR);
+			for(OWLClassExpression e: ((OWLNaryBooleanClassExpression)val).getOperands()){
+				exp.add(convertOWLObject(e));
+			}
+			return exp;
+		}else if(val instanceof OWLObjectComplementOf){
+			LogicExpression exp = new LogicExpression(LogicExpression.NOT);
+			exp.add(convertOWLObject(((OWLObjectComplementOf) val).getOperand()));
+			return exp;
+		}else if(val instanceof OWLRestriction){
+			return new ORestriction((OWLRestriction)val,getOntology());
 		}
 		
-		//TODO:
 		return null;
 	}
 	
@@ -445,19 +458,51 @@ public class OResource implements IResource{
 			return df.getOWLLiteral((Integer) val);
 		if(val instanceof Boolean )
 			return df.getOWLLiteral((Boolean) val);
-		
-		//TODO:
+		if(val instanceof ILogicExpression){
+			ILogicExpression exp = (ILogicExpression) val;
+			if(exp.isEmpty())
+				return null;
+			Object obj = convertOntologyObject(exp.get(0));
+			switch(exp.getExpressionType()){
+			case ILogicExpression.EMPTY:
+				return obj;
+			case ILogicExpression.NOT:
+				if(obj instanceof OWLLiteral)
+					return df.getOWLDataComplementOf(((OWLLiteral)obj).getDatatype());
+				else if(obj instanceof OWLClassExpression )
+					return df.getOWLObjectComplementOf((OWLClassExpression)obj);
+			case ILogicExpression.AND:
+				if(obj instanceof OWLLiteral){
+					Set<OWLDataRange> dataRanges = new LinkedHashSet<OWLDataRange>();
+					for(Object o: exp){
+						dataRanges.add(((OWLLiteral)convertOntologyObject(o)).getDatatype());
+					}
+					return df.getOWLDataIntersectionOf(dataRanges);
+				}else if(obj instanceof OWLClassExpression ){
+					Set<OWLClassExpression> dataRanges = new LinkedHashSet<OWLClassExpression>();
+					for(Object o: exp){
+						dataRanges.add((OWLClassExpression)convertOntologyObject(o));
+					}
+					return df.getOWLObjectIntersectionOf(dataRanges);
+				}
+			case ILogicExpression.OR:
+				if(obj instanceof OWLLiteral){
+					Set<OWLDataRange> dataRanges = new LinkedHashSet<OWLDataRange>();
+					for(Object o: exp){
+						dataRanges.add(((OWLLiteral)convertOntologyObject(o)).getDatatype());
+					}
+					return df.getOWLDataUnionOf(dataRanges);
+				}else if(obj instanceof OWLClassExpression ){
+					Set<OWLClassExpression> dataRanges = new LinkedHashSet<OWLClassExpression>();
+					for(Object o: exp){
+						dataRanges.add((OWLClassExpression)convertOntologyObject(o));
+					}
+					return df.getOWLObjectUnionOf(dataRanges);
+				}
+			}
+		}
 		return null;
 	}
-	
-	/*
-	protected boolean hasClass(Collection<OWLClass> sub,IClass parent){
-		for (OWLClass child : sub) {
-			if(parent.getURI().equals(child.getIRI().toURI()))
-				return true;
-		}
-		return false;
-	}*/
 	
 	
 	/**
@@ -478,7 +523,11 @@ public class OResource implements IResource{
 	protected IProperty [] getProperties(Collection list){
 		List<IProperty> props = new ArrayList<IProperty>();
 		for(Object p: list){
-			props.add((IProperty)convertOWLObject((OWLEntity)p));
+			if(p instanceof OWLEntity){
+				OWLEntity e = (OWLEntity) p;
+				if(!e.isBottomEntity() && !e.isTopEntity())
+					props.add((IProperty)convertOWLObject(e));
+			}
 		}
 		return props.toArray(new IProperty [0]);
 	}

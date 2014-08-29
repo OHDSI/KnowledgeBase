@@ -3,33 +3,58 @@ package edu.pitt.ontology.owl;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.net.ProtocolException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.coode.owlapi.obo.parser.OBOOntologyFormat;
+import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.util.OWLEntityRenamer;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
-import org.semanticweb.owlapi.util.OWLEntityRenamer;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 import edu.pitt.ontology.IClass;
 import edu.pitt.ontology.IInstance;
 import edu.pitt.ontology.ILogicExpression;
 import edu.pitt.ontology.IOntology;
+import edu.pitt.ontology.IOntologyError;
 import edu.pitt.ontology.IOntologyException;
 import edu.pitt.ontology.IProperty;
 import edu.pitt.ontology.IQuery;
@@ -39,6 +64,7 @@ import edu.pitt.ontology.IResource;
 import edu.pitt.ontology.IResourceIterator;
 import edu.pitt.ontology.IRestriction;
 import edu.pitt.ontology.LogicExpression;
+import edu.pitt.ontology.protege.PProperty;
 import edu.pitt.ontology.protege.concepts.ConceptRegistry;
 import edu.pitt.terminology.lexicon.Concept;
 
@@ -55,9 +81,12 @@ public class OOntology extends OResource implements IOntology{
 	private OWLReasoner reasoner;
 	private OWLEntityRemover remover;
 	private OWLEntityRenamer renamer;
-	private ORepository repository;
+	private IRepository repository;
 	private PrefixManager prefixManager;
 	private boolean modified;
+	private String location;
+	private IRI locationIRI;
+	
 	
 	/**
 	 * create new ow
@@ -72,12 +101,80 @@ public class OOntology extends OResource implements IOntology{
 		prefixManager = manager.getOntologyFormat(ontology).asPrefixOWLOntologyFormat();
 	}
 	
+	
+	public OOntology(String location){
+		super(null);
+		this.location = location;
+	}
+	
+	
 	/**
 	 * get prefix manager 
 	 * @return
 	 */
 	PrefixManager getPrefixManager(){
 		return prefixManager;
+	}
+	
+	private void lazyLoad(){
+		try {
+			load();
+		} catch (IOntologyException e) {
+			throw new IOntologyError("Unable to load ontology "+location,e);
+		}
+	}
+	
+	
+	public void load() throws IOntologyException {
+		if(!isLoaded() && location != null){
+			try{
+				manager = OWLManager.createOWLOntologyManager();
+				File f = new File(location);
+				// this is file
+				if(f.exists()){
+					ontology = manager.loadOntologyFromOntologyDocument(f);
+				// this is URL	
+				}else if(location.matches("[a-zA-Z]+://(.*)")){
+					ontology = manager.loadOntologyFromOntologyDocument(IRI.create(location));
+				}
+				obj = ontology;
+				data = manager.getOWLDataFactory();
+				setOntology(this);
+				prefixManager = manager.getOntologyFormat(ontology).asPrefixOWLOntologyFormat();
+				
+			} catch (OWLOntologyCreationException e) {
+				throw new IOntologyException("Unable to create ontology "+location,e);
+			}
+		}
+	}
+	
+
+	private IRI inferIRI(String loc) {
+		if(loc.matches("[a-zA-Z]+://(.*)"))
+			return IRI.create(loc);
+		File f = new File(location);
+		// this is file
+		if(f.exists()){
+			try {
+				String url = null;
+				Pattern p = Pattern.compile("(ontologyIRI|xml:base)=\"(.*?)\"");
+				BufferedReader r = new BufferedReader(new FileReader(f));
+				for(String l = r.readLine(); l != null; l = r.readLine()){
+					Matcher m = p.matcher(l);
+					if(m.find()){
+						url = m.group(2);
+						break; 
+					}
+				}
+				r.close();
+				return IRI.create(url);
+			} catch (FileNotFoundException e) {
+				throw new IOntologyError("Error reading ontology from "+location,e);
+			} catch (IOException e) {
+				throw new IOntologyError("Error reading ontology from "+location,e);
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -86,11 +183,31 @@ public class OOntology extends OResource implements IOntology{
 	 * @param file
 	 * @throws Exception
 	 */
-	public static OOntology loadOntology(File file) throws Exception {
+	public static OOntology loadOntology(File file) throws IOntologyException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		return new OOntology(manager.loadOntologyFromOntologyDocument(file));
+		try{
+			return new OOntology(manager.loadOntologyFromOntologyDocument(file));
+		} catch (OWLOntologyCreationException e) {
+			throw new IOntologyException("Unable to create ontology "+file,e);
+		}
 	}
 	
+	
+	/**
+	 * create new ontology with this URI
+	 * @param uri
+	 * @return
+	 * @throws Exception
+	 */
+	public static OOntology createOntology(URI uri) throws IOntologyException {
+		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+		//manager.addOntologyStorer(new OWLXMLOntologyStorer());
+		try{
+			return new OOntology(manager.createOntology(IRI.create(uri)));
+		} catch (OWLOntologyCreationException e) {
+			throw new IOntologyException("Unable to create ontology "+uri,e);
+		}
+	}
 	
 	/**
 	 * load ontology from uri
@@ -98,9 +215,15 @@ public class OOntology extends OResource implements IOntology{
 	 * @param file
 	 * @throws Exception
 	 */
-	public static OOntology loadOntology(URL file) throws Exception {
+	public static OOntology loadOntology(URL file) throws IOntologyException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		return new OOntology(manager.loadOntologyFromOntologyDocument(IRI.create(file)));
+		try {
+			return new OOntology(manager.loadOntologyFromOntologyDocument(IRI.create(file)));
+		} catch (OWLOntologyCreationException e) {
+			throw new IOntologyException("Unable to create ontology "+file,e);
+		} catch (URISyntaxException e) {
+			throw new IOntologyException("Unable to create ontology "+file,e);
+		}
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -110,17 +233,21 @@ public class OOntology extends OResource implements IOntology{
 		pcs.removePropertyChangeListener(listener);
 	}
 	
-	@Override
 	public void addImportedOntology(IOntology o) throws IOntologyException {
-		// TODO Auto-generated method stub
+		lazyLoad();
+		IRI toImport=IRI.create(o.getURI());
+		OWLImportsDeclaration importDeclaraton = getOWLDataFactory().getOWLImportsDeclaration(toImport);
+		getOWLOntologyManager().applyChange(new AddImport(getOWLOntology(),importDeclaraton));
 		
 	}
-	@Override
 	public void removeImportedOntology(IOntology o) {
-		// TODO Auto-generated method stub
-		
+		lazyLoad();
+		IRI toImport=IRI.create(o.getURI());
+		OWLImportsDeclaration importDeclaraton = getOWLDataFactory().getOWLImportsDeclaration(toImport);
+		getOWLOntologyManager().applyChange(new RemoveImport(getOWLOntology(),importDeclaraton));
 	}
 	public IOntology[] getImportedOntologies() {
+		lazyLoad();
 		List<IOntology> io = new ArrayList<IOntology>();
 		for(OWLOntology o: ontology.getImports()){
 			io.add(new OOntology(o));
@@ -131,7 +258,7 @@ public class OOntology extends OResource implements IOntology{
 		return repository;
 	}
 	public void setRepository(IRepository r) {
-		repository = (ORepository) r;
+		repository = r;
 	}
 	
 	public IClass createClass(String name) {
@@ -144,11 +271,12 @@ public class OOntology extends OResource implements IOntology{
 		IRI iri = getIRI(name);
 		switch(type){
 			case(IProperty.OBJECT):
-				return (IProperty) convertOWLObject(data.getOWLObjectProperty(iri));
+				return getTopObjectProperty().createSubProperty(name);
 			case(IProperty.DATATYPE):
-				return (IProperty) convertOWLObject(data.getOWLDataProperty(iri));
+				return getTopDatatProperty().createSubProperty(name);
 			case(IProperty.ANNOTATION_OBJECT):
 			case(IProperty.ANNOTATION_DATATYPE):
+			case(IProperty.ANNOTATION):
 				return (IProperty) convertOWLObject(data.getOWLAnnotationProperty(iri));
 		}
 		return null;
@@ -164,41 +292,32 @@ public class OOntology extends OResource implements IOntology{
 	public ILogicExpression createLogicExpression() {
 		return new LogicExpression(ILogicExpression.EMPTY);
 	}
-	@Override
 	public IRestriction createRestriction(int type) {
-		//TODO: create empty restrictions
-		/*switch(type){
-		case(IRestriction.ALL_VALUES_FROM):
-			return (IRestriction) convertOWLObject(data.getOWLObjectAllValuesFrom(property, classExpression));
-			return new ORestriction(model.createOWLAllValuesFrom(),this);
-		case(IRestriction.SOME_VALUES_FROM):
-			return new ORestriction(model.createOWLSomeValuesFrom(),this);
-		case(IRestriction.HAS_VALUE):
-			return new ORestriction(model.createOWLHasValue(),this);
-		case(IRestriction.CARDINALITY):
-			return new ORestriction(model.createOWLCardinality(),this);
-		case(IRestriction.MAX_CARDINALITY):
-			return new ORestriction(model.createOWLMaxCardinality(),this);
-		case(IRestriction.MIN_CARDINALITY):
-			return new ORestriction(model.createOWLMinCardinality(),this);
-	}*/
-	return null;
+		return new ORestriction(type, getOntology());
 	}
-	@Override
+
 	public IQueryResults executeQuery(IQuery iQuery) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new IOntologyError("Not implemented yet");
 	}
-	@Override
+	
 	public IResourceIterator getMatchingResources(IProperty p, Object value) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new IOntologyError("Not implemented yet");
 	}
-	@Override
+	
 	public IResourceIterator getMatchingResources(String regex) {
-		// TODO Auto-generated method stub
-		return null;
+		lazyLoad();
+		List<OWLEntity> list = new ArrayList<OWLEntity>();
+		for(OWLEntity e: ontology.getSignature(true)){
+			Pattern p = Pattern.compile(regex);
+			Matcher m = p.matcher(e.getIRI().toString());
+			if(m.find()){
+				list.add(e);
+			}
+		}
+		return  new OResourceIterator(list,this);
 	}
+	
+	
 	public IResource getResource(String name) {
 		IRI iri = getIRI(name);
 		if(ontology.containsClassInSignature(iri,true)){
@@ -246,6 +365,18 @@ public class OOntology extends OResource implements IOntology{
 	public IClass getRoot() {
 		return (IClass) convertOWLObject(data.getOWLThing());
 	}
+	public IClass getThing() {
+		return (IClass) convertOWLObject(data.getOWLThing());
+	}
+	public IClass getNothing() {
+		return (IClass) convertOWLObject(data.getOWLNothing());
+	}
+	public IProperty getTopObjectProperty() {
+		return (IProperty) convertOWLObject(data.getOWLTopObjectProperty());
+	}
+	public IProperty getTopDatatProperty() {
+		return (IProperty) convertOWLObject(data.getOWLTopDataProperty());
+	}
 	public IResourceIterator getAllResources() {
 		return  new OResourceIterator(ontology.getSignature(true),this);
 	}
@@ -263,17 +394,13 @@ public class OOntology extends OResource implements IOntology{
 	public boolean isLoaded() {
 		return ontology != null;
 	}
-	public void load() throws IOntologyException {
-	}
-	
+
 	public void reload() throws IOntologyException {
 		dispose();
 		load();
 		
 	}
-	public void flush() {
-		//TODO:
-	}
+	public void flush() {}
 	
 	public String getNameSpace(){
 		return getIRI().toString()+"#";
@@ -283,16 +410,33 @@ public class OOntology extends OResource implements IOntology{
 		try {
 			manager.saveOntology(ontology, getIRI());
 		} catch (OWLOntologyStorageException e) {
+			if(e.getCause() instanceof ProtocolException)
+				throw new IOntologyException("Unable to save ontology opened from URL "+getIRI()+". You should use IOntology.write() to save it as a file first.",e);
 			throw new IOntologyException("Unable to save ontology "+getIRI(),e);
 		}
 	}
 	
 	public void write(OutputStream out, int format) throws IOntologyException {
-		//TODO: handle other format
 		OWLOntologyFormat ontologyFormat = manager.getOntologyFormat(ontology);
+		switch(format){
+		case OWL_FORMAT:
+			ontologyFormat = new OWLXMLOntologyFormat();break;
+		case RDF_FORMAT:
+			ontologyFormat = new RDFXMLOntologyFormat();break;
+		case NTRIPLE_FORMAT:
+			throw new IOntologyException("Unsupported export format");
+		case OBO_FORMAT:
+			ontologyFormat = new OBOOntologyFormat();break;
+		case TURTLE_FORMAT:
+			ontologyFormat = new TurtleOntologyFormat();break;
+		}
+		
+		
 		try {
 			manager.saveOntology(ontology, ontologyFormat, out);
 		} catch (OWLOntologyStorageException e) {
+			if(e.getCause() instanceof ProtocolException)
+				throw new IOntologyException("Unable to save ontology opened from URL "+getIRI()+". You should use IOntology.write() to save it as a file first.",e);
 			throw new IOntologyException("Unable to save ontology "+getIRI(),e);
 		}
 		
@@ -320,10 +464,12 @@ public class OOntology extends OResource implements IOntology{
 	}
 	
 	protected OWLDataFactory getOWLDataFactory(){
+		lazyLoad();
 		return data;
 	}
 	
 	protected OWLOntologyManager getOWLOntologyManager(){
+		lazyLoad();
 		return manager;
 	}
 	
@@ -358,7 +504,17 @@ public class OOntology extends OResource implements IOntology{
 		return new Concept(cls);
 	}
 	
+	protected IRI getIRI(){
+		if(!isLoaded()){
+			if(locationIRI == null)
+				locationIRI = inferIRI(location);
+			return locationIRI;
+		}
+		return ontology.getOntologyID().getOntologyIRI();
+	}
 	
+	
+
 	/**
 	 * convert name of resource to IRI
 	 * @param name
@@ -367,6 +523,9 @@ public class OOntology extends OResource implements IOntology{
 	protected IRI getIRI(String name){
 		if(name == null)
 			return null;
+		// lazy load ontology for most things
+		lazyLoad();
+		
 		//full URI given
 		if(name.indexOf("://") > -1)
 			return IRI.create(name);

@@ -3,10 +3,7 @@ package edu.pitt.ontology;
 import java.beans.PropertyChangeListener;
 import java.io.OutputStream;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import edu.pitt.terminology.Terminology;
 

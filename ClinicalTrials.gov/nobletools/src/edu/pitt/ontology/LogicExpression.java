@@ -1,9 +1,6 @@
 package edu.pitt.ontology;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * list of resources that could be conjunction or disjunction

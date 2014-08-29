@@ -1,7 +1,6 @@
 package edu.pitt.ontology;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public interface IQueryResults extends Iterator {
 

@@ -1,6 +1,6 @@
 package edu.pitt.ontology;
 
-import java.net.URI;
+import java.net.*;
 import java.util.Properties;
 
 import edu.pitt.terminology.util.Describable;

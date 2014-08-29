@@ -1,23 +1,15 @@
 package edu.pitt.terminology.lexicon;
+import java.io.Externalizable;
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import edu.pitt.info.extract.model.util.XMLUtils;
 import edu.pitt.ontology.IClass;
 import edu.pitt.ontology.IOntology;
+import edu.pitt.ontology.IProperty;
 import edu.pitt.terminology.Terminology;
 import edu.pitt.terminology.util.TerminologyException;
 import edu.pitt.text.tools.TextTools;
@@ -345,6 +337,27 @@ public class Concept implements  Serializable, Comparable<Concept> {
 		setSynonyms(labels.toArray(new String [0]));
 		if(ontology instanceof Terminology)
 			setTerminology((Terminology)ontology);
+		
+		// try to guess some of the annotations
+		for(IProperty p : cls.getProperties()){
+			if(p.getName().matches("(?i)Sem(antic)?_?Type")){
+				for(Object o: cls.getPropertyValues(p)){
+					addSemanticType(SemanticType.getSemanticType(o.toString()));
+				}
+			}else if(p.getName().matches("(?i)((preferred|legacy)_)?(synonym|term|variant|name)")){
+				for(Object o: cls.getPropertyValues(p)){
+					addSynonym(o.toString());
+				}
+			}else if(p.getName().matches("(?i).*(definition|description)")){
+				for(Object o: cls.getPropertyValues(p)){
+					addDefinition(Definition.getDefinition(o.toString()));
+				}
+			}else if(p.getName().matches("(?i).*(cui|code|id)")){
+				for(Object o: cls.getPropertyValues(p)){
+					addCode(o.toString(),Source.getSource(p.getName()));
+				}
+			}
+		}
 		setInitialized(true);
 	}
 	

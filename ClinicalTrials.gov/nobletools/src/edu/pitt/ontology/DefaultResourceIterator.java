@@ -1,7 +1,6 @@
 package edu.pitt.ontology;
 
-import java.util.Iterator;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * resource iterator that wrapps regular iterator

@@ -47,8 +47,8 @@ import edu.pitt.terminology.lexicon.SemanticType;
 import edu.pitt.terminology.lexicon.Source;
 import edu.pitt.terminology.lexicon.Term;
 import edu.pitt.terminology.util.CacheMap;
-import edu.pitt.terminology.util.JDBMMap;
 import edu.pitt.terminology.util.MemoryManager;
+import edu.pitt.terminology.util.JDBMMap;
 import edu.pitt.terminology.util.TerminologyException;
 import edu.pitt.text.tools.TextTools;
 
@@ -119,6 +119,7 @@ public class IndexFinderTerminology extends AbstractTerminology {
 	private boolean subsumptionMode = true,overlapMode=true, orderedMode, contiguousMode,partialMode; 
 	private int windowSize = -1;
 	private int wordWindowSize = 1;
+	private double partialMatchThreshold = 0.5;
 	private String defaultSearchMethod = BEST_MATCH;
 	
 	
@@ -334,6 +335,7 @@ public class IndexFinderTerminology extends AbstractTerminology {
 		p.setProperty("partial.mode",""+partialMode);
 		p.setProperty("stem.words",""+stemWords);
 		p.setProperty("ignore.digitss",""+stripDigits);
+		p.setProperty("partial.match.theshold",""+partialMatchThreshold);
 		return p;
 	}
 	
@@ -393,7 +395,8 @@ public class IndexFinderTerminology extends AbstractTerminology {
 			partialMode = Boolean.parseBoolean(p.getProperty("partial.mode"));
 		if(p.containsKey("enable.search.cache"))
 			cachingEnabled = Boolean.parseBoolean(p.getProperty("enable.search.cache"));
-		
+		if(p.containsKey("partial.match.theshold"))
+			partialMatchThreshold = Double.parseDouble(p.getProperty("partial.match.theshold"));
 		
 		// language filter
 		String v = p.getProperty("language.filter");
@@ -2174,8 +2177,9 @@ public class IndexFinderTerminology extends AbstractTerminology {
 			}
 			
 			// do partial match
-			if(partialMode && !all){
-				all = hits > twords.length/2.0;
+			if(partialMode && !all && hits > 0){
+				//all = hits >= twords.length/2.0;
+				all = ((double)hits/twords.length) >= partialMatchThreshold;
 			}
 			
 			// optionally inforce term contiguity in text
@@ -2652,6 +2656,16 @@ public class IndexFinderTerminology extends AbstractTerminology {
 	public void setIgnoreCommonWords(boolean ignoreCommonWords) {
 		this.ignoreCommonWords = ignoreCommonWords;
 	}
+	
+	public double getPartialMatchThreshold() {
+		return partialMatchThreshold;
+	}
+
+	public void setPartialMatchThreshold(double partialMatchThreshold) {
+		this.partialMatchThreshold = partialMatchThreshold;
+	}
+
+
 	
 	/**
 	 * comput concept match score

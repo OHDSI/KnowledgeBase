@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 
@@ -64,41 +67,62 @@ public class OInstance extends OResource implements IInstance {
 		return new Object [0];
 	}
 
-	@Override
+
+	
 	public void addPropertyValue(IProperty prop, Object value) {
-		// TODO Auto-generated method stub
-		
+		OWLDataFactory df = getOWLDataFactory();
+		OWLIndividual subj = getOWLIndividual();
+		if(prop.isAnnotationProperty()){
+			super.addPropertyValue(prop, value);
+		}else if(prop.isDatatypeProperty()){
+			OWLDataProperty dp = (OWLDataProperty)convertOntologyObject(prop);
+			OWLLiteral dl = (OWLLiteral)convertOntologyObject(value);
+			addAxiom(df.getOWLDataPropertyAssertionAxiom(dp,subj,dl));
+		}else if(prop.isObjectProperty()){
+			OWLObjectProperty op = (OWLObjectProperty)convertOntologyObject(prop);
+			OWLIndividual oo = (OWLIndividual)convertOntologyObject(value);
+			addAxiom(df.getOWLObjectPropertyAssertionAxiom(op,subj,oo));
+		}
 	}
-
-	@Override
 	public void setPropertyValue(IProperty prop, Object value) {
-		// TODO Auto-generated method stub
-		
+		removePropertyValues(prop);
+		addPropertyValue(prop, value);
 	}
 
-	@Override
 	public void setPropertyValues(IProperty prop, Object[] values) {
-		// TODO Auto-generated method stub
-		
+		removePropertyValues(prop);
+		for(Object o: values)
+			addPropertyValue(prop, o);
 	}
 
-	@Override
 	public void removePropertyValues(IProperty prop) {
-		// TODO Auto-generated method stub
-		
+		for(Object o: getPropertyValues(prop)){
+			removePropertyValue(prop,o);
+		}
 	}
 
-	@Override
 	public void removePropertyValue(IProperty prop, Object value) {
-		// TODO Auto-generated method stub
-		
+		OWLDataFactory df = getOWLDataFactory();
+		OWLIndividual subj = getOWLIndividual();
+		if(prop.isAnnotationProperty()){
+			super.removePropertyValue(prop, value);
+		}else if(prop.isDatatypeProperty()){
+			OWLDataProperty dp = (OWLDataProperty)convertOntologyObject(prop);
+			OWLLiteral dl = (OWLLiteral)convertOntologyObject(value);
+			removeAxiom(df.getOWLDataPropertyAssertionAxiom(dp,subj,dl));
+		}else if(prop.isObjectProperty()){
+			OWLObjectProperty op = (OWLObjectProperty)convertOntologyObject(prop);
+			OWLIndividual oo = (OWLIndividual)convertOntologyObject(value);
+			removeAxiom(df.getOWLObjectPropertyAssertionAxiom(op,subj,oo));
+		}
 	}
 
-	@Override
 	public void removePropertyValues() {
-		// TODO Auto-generated method stub
-		
+		for(IProperty p: getProperties()){
+			removePropertyValues(p);
+		}
 	}
+	
 	public boolean hasPropetyValue(IProperty p, Object value) {
 		if(p.isAnnotationProperty())
 			return super.hasPropetyValue(p, value);
@@ -133,11 +157,8 @@ public class OInstance extends OResource implements IInstance {
 
 	public boolean hasType(IClass cls) {
 		NodeSet<OWLClass> sub = getOWLReasoner().getTypes((OWLNamedIndividual)individual,false);
-		//return hasClass(sub.getFlattened(),(OWLClass)convertOntologyObject(cls));
-		//TODO:
-		return false;
+		return sub.containsEntity((OWLClass)convertOntologyObject(cls));
 	}
-
 
 	public OWLIndividual getOWLIndividual() {
 		return individual;
