@@ -1,0 +1,228 @@
+################# Configuration File General Documentation
+
+# This is the configuration file for LexGrid based applications.  Each 
+# option in this file is described just before the option.  Any line that 
+# starts with a '#' sign is treated as a comment, and is completely ignored 
+# by the application.  Due to the way that this file is processed - whenever
+# you want to create a '\' character, you need to use two '\'.   For example
+# the following paths are valid:
+# C:\\temp\\foo\\
+# C:/temp/foo/
+#
+# This path is _NOT_ valid.
+# C:\temp\foo
+
+
+################ Locating the config file at runtime
+
+# The LexGrid system attempts to automatically locate this file in one of two ways:
+#
+# OPTION 1 - AutoSearch
+# It determines the folder that the LexGrid classes are located (either in 
+# a jar file, or a folder containing class files).  For this example, lets assume
+# that the jar file containing LexGrid was found at 'C:\LexGrid\LexBIG\lib\lbRuntime.jar'
+# Then the path it starts with will be 'C:\LexGrid\LexBIG\lib\'.  Lets call this 
+# location 'A'.  Starting from location A, it checks for the following sub-path: 
+# 'resources\config\config.props'.  Lets call this path 'B'.  If a file exists 
+# 'A\B', the search is over.  If this file is not found - it goes up one directory
+# from A, and checks for B again.  So, now it is checking "A\..\B". - which is
+# 'C:\LexGrid\LexBIG\resources\config\config.props'.  This process continues until 
+# it finds the file, reaches the root of the file system, or it has gone up 10 levels.
+# At that point, it quits and and the startup fails.
+#
+# OPTION 2 - System Variable
+# You may skip the auto search by setting the System Config variable 'LG_CONFIG_FILE'
+# to the full absolute path of the config.props file.  
+# Example - if you were starting from the command line, you would add this parameter to 
+# the java command to set the 'System Property' 
+# -DLG_CONFIG_FILE="C:\LexGrid\LexBIG\resources\config\config.props"
+
+############# Additional Path Configuration
+
+# The LG_BASE_PATH variable is the location that will be used beginning for resolving 
+# any relative paths in this configuration file.  
+#
+# This variable is optional, and should usually be left blank.
+#
+# If you do not set this variable it will automatically be set to the location of the
+# folder that contains your config.props file - this file - when the system starts up.  
+# So all of your other relative paths should be set relative to the folder that contains
+# your config.props file.  This is the recommended deployment configuration.
+#
+# Alternatively, you can enter an absolute path here, or you can also set this variable 
+# by setting the 'System Property' 'LG_BASE_PATH'.  If you set the System Property variable
+# this overrides any value here. 
+LG_BASE_PATH=/mnt/cab52/LexBIG/2.1.1/resources/config
+
+# The location of the folder that contains your SQL drivers and extensions.  This folder and 
+# its subfolders will be scanned for .jar files to add to the classpath.
+#
+# This folder must also contain either the lbRuntime.jar file, or the lgUtility.jar file (from
+# the runtime-components folder)
+#
+# This path can be relative to the location of LG_BASE_PATH or absolute.
+# You may put more than one folder here by seperating the folders with a ';'.
+JAR_FILE_LOCATION=../lib/
+
+# The location of the file that will store information about
+# all loaded terminologies.  
+# This path can be relative to the location of LG_BASE_PATH or absolute.
+REGISTRY_FILE=registry.xml
+
+# The folder that will hold all of the generated system indexes.  
+# This path can be relative to the location of LG_BASE_PATH or absolute.
+INDEX_LOCATION=/mnt/cab52_h/lexbig/lbIndex
+
+
+############# LexGrid System performance variables
+
+# The maximum number of SQL connections to open (and pool) per database. 
+MAX_CONNECTIONS_PER_DB=8
+
+# Size of the Dynamic Cache (this is used to cache frequently accessed information)
+CACHE_SIZE=5000
+
+# Length of idle time before invalidating Iterators (in minutes)
+ITERATOR_IDLE_TIME=5
+
+# Max number of results that can be returned at once by
+# any query operation.  This corresponds to the maximum size
+# of the lists that are returned by Resolve calls.
+#
+# NOTE: This does not affect the total number of results
+# that can be returned by an iterator, just the size that
+# can be returned per 'next' call.
+MAX_RESULT_SIZE=5000
+
+
+############# Database Configuration
+
+
+# When SINGLE_DB_MODE is set to false, a new database will be created 
+# for each loaded terminology.  When SINGLE_DB_MODE is set to true, 
+# a new set of tables (with a unique prefix) will be created for 
+# each loaded terminology.  All terminologies will be held inside 
+# the same physical database.
+#
+# NOTE: This value should typically not be changed once content has
+# been loaded.  If a change is required, it is recommended that all
+# coding schemes be removed and the resource registry (xml file in
+# the same directory as this config) be deleted prior to the change.
+
+SINGLE_DB_MODE=true
+
+# This is the address of the database server that will be used
+# when you load a new terminology through the LexBIG API.  
+#
+######  READ THE NEXT LINES CAREFULLY!  ######
+# If you have set 'SINGLE_DB_MODE' to 'true', then this variable 
+# _should_ contain the database name.
+#
+# If you have set 'SINGLE_DB_MODE' to 'false', then this variable 
+# _should NOT_ contain the database name. Instead, it should end 
+# at the end of the server address plus whatever character seperates 
+# the server name from the database name. 
+#
+# NOTE: Changes to the URL will only affect newly loaded content.
+# The URL's for content that is already loaded are stored in the 
+# registry.xml file.
+
+# Examples for 'SINGLE_DB_MODE=false'
+#DB_URL=jdbc:mysql://1upmc-opi-cab52:3307/?jdbcCompliantTruncation='false'
+#DB_URL=jdbc:postgresql://bmidev/
+#DB_URL=jdbc:hsqldb:file:C:/temp/
+#DB_URL=jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=C:/temp/
+
+# Examples for 'SINGLE_DB_MODE=true'
+DB_URL=jdbc:mysql://1upmc-opi-cab52:3307/lexbig?jdbcCompliantTruncation=false
+#DB_URL=jdbc:mysql://1upmc-opi-spn01:3307/lexbig?jdbcCompliantTruncation=false
+#DB_URL=jdbc:postgresql://bmidev/LexGrid
+#DB_URL=jdbc:hsqldb:file:C:/temp/LexGrid
+#DB_URL=jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=C:/temp/LexBIG.mdb
+
+# The prefix to use on created tables or database names.  
+# If 'SINGLE_DB_MODE=true', this prefix will be used on the created tables.
+# If 'SINGLE_DB_MODE=false', this prefix will be used on the created databases.
+#
+# WARNING - If you are using Oracle, this is not supported (because of length 
+# constraints on oracle table names.)  You must leave this value blank.
+# On databases other than Oracle, there should be room for a reasonable (< 10)
+# amount of characters.
+#
+# NOTE: This value MUST BE UNIQUE for each LexBIG runtime
+# that utilizes the same database host.
+# NOTE: Do not use dashes '-' in the db_prefix value.
+# Recommended characters are alphanumeric (a-z, 0-9) and
+# underscore '_'.
+# NOTE: This variable should typically not be changed after content has been loaded.
+DB_PREFIX=lb
+
+# Optional parameters to append to the end of the database
+# connection string.  Access to some database environments
+# may require additional values to be passed in.
+# NOTE: Changes to this variable will only affect newly loaded content.  It will
+# not be applied to content that has already been loaded.
+DB_PARAM=
+
+# The database driver.
+# NOTE: This should typically not be changed after content has been loaded.
+DB_DRIVER=org.gjt.mm.mysql.Driver
+#DB_DRIVER=org.postgresql.Driver
+#DB_DRIVER=org.hsqldb.jdbcDriver
+#DB_DRIVER=sun.jdbc.odbc.JdbcOdbcDriver
+
+# The database username and password.
+#
+# NOTE: If SINGLE_DB_MODE is set to false, the specified account MUST HAVE 
+# PERMISSION TO CREATE AND REMOVE DATABASES in the database environment.
+# If SINGLE_DB_MODE is set to true, the specified account MUST HAVE permission
+# to create and remove tables, indexes, and foreign keys in the database environment.
+DB_USER=caties
+DB_PASSWORD=caties
+
+############# Logging Configuration
+
+# Location of the log files. This path can be relative to the location of LG_BASE_PATH 
+# or absolute.  This name should be a directory, which will be created if not present.
+LOG_FILE_LOCATION=/home/tseytlin/Work/logs/
+
+#API Call Logging - enabling API call logging will cause every method call to be printed
+#to the log file.
+API_LOG_ENABLED=false
+
+# Enabling Debug will cause much more information to be
+# written to the log files, but will impact runtime performance.
+DEBUG_ENABLED=false
+
+# Indicates when a new log file should be started.
+# This can be a one of the following:
+# - A string indicating the rollover time period ('daily', 'weekly',
+#   or 'monthly').
+# - A number such as '10', which will be read as change log files 
+#   after the file size reaches 10 MB.
+LOG_CHANGE=5
+
+# Controls automated cleanup of log files.
+# If 'LOG_CHANGE' is set to 'daily', 'weekly', or 'monthly', this
+# variable instructs the service to remove log files that have not
+# been written to in X days (note: the unit is treated as days
+# regardless of the LOG_CHANGE value.  In this case, cleanup will
+# only occur on restart of the JVM.
+#
+# If 'LOG_CHANGE' is set to a number, this is the number of old
+# log files that will be kept.
+ERASE_LOGS_AFTER=5
+
+# Controls e-mail notification of errors and warnings (true or false).
+# NOTE: E-mail is rate-limited, so frequent or repetitive errors will
+# not flood this address.
+EMAIL_ERRORS=false
+
+# The SMTP server to use for sending the e-mail.
+# NOTE: Only applicable if EMAIL_ERRORS is set to 'true'.
+SMTP_SERVER=yourserver.edu
+
+# The address(es) to send the e-mail to.
+# This can be a single address or comma-separated list.
+# NOTE: Only applicable if EMAIL_ERRORS is set to 'true'.
+EMAIL_TO=yourAddress@.edu

@@ -1,0 +1,44 @@
+Acquired Abnormality
+Anatomical Abnormality
+Anatomical Structure
+Bacterium
+Biologic Function
+Body Location or Region
+Body Part, Organ, or Organ Component
+Body Space or Junction
+Body Substance
+Body System
+Cell
+Cell Component
+Cell Function
+Cell or Molecular Dysfunction
+Clinical Attribute
+Congenital Abnormality
+Diagnostic Procedure
+Disease or Syndrome
+Embryonic Structure
+Finding
+Fully Formed Anatomical Structure
+Functional Concept
+Gene or Genome
+Genetic Function
+Laboratory or Test Result
+Laboratory Procedure
+Molecular Biology Research Technique
+Molecular Function
+Natural Phenomenon or Process
+Neoplastic Process
+Organ or Tissue Function
+Organism
+Organism Attribute
+Organism Function
+Pathologic Function
+Physiologic Function
+Qualitative Concept
+Quantitative Concept
+Rickettsia or Chlamydia
+Sign or Symptom
+Spatial Concept
+Therapeutic or Preventive Procedure
+Tissue
+Virus

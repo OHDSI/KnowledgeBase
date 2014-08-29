@@ -1,0 +1,14 @@
+AbstractTextEditor.Color.Background=39,40,34
+AbstractTextEditor.Color.Foreground=207,191,173
+eclipse.preferences.version=1
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.comment.color=255,255,255
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.default.color=207,191,173
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.keyword.color=255,0,127
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.number.color=196,140,255
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.punctuation.color=255,0,127
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.string.color=236,228,126
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.xbase.annotation.color=255,255,255
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.xbase.extension.method.invacation.color=167,236,33
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.xbase.field.color=207,191,173
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.xbase.static.field.color=207,191,173
+org.eclipse.xtend.core.Xtend.syntaxColorer.tokenStyles.xbase.static.method.invocation.color=167,236,33
