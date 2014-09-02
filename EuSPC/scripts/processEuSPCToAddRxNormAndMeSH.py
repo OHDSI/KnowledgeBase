@@ -15,16 +15,16 @@ import string
 import pprint
 ##########INPUT STRING NAME FILES#######################################
 inp = 'FinalRepository_DLP30Jun2012.csv'
-out = 'FinalRepository_DLP30Jun2012_withCUIs_v2.csv'
+out = '../data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv'
 
 ## raw input from the TRIADs drug named entity recognition program
-mapfolder = 'json-rxcui/'
+mapfolder = '../json-rxcui/'
 rxmap = mapfolder + 'tempRXCUIMappings_pipe.txt'
 meshmap = mapfolder + 'tempMESHCUImappings.txt'
 rawmap = mapfolder + 'drugMappings.txt'
 
 ## missing CUIs not present from the above file
-missingfolder = 'missingCUIs/'
+missingfolder = '../backup/missingCUIs/'
 rxmissing = missingfolder + 'missingRxNorms_CUIs.txt'
 meshmissing = missingfolder + 'missingMeSHes_CUIs.txt'
 bothmissing = missingfolder + 'bothCUIsMissing_CUIs.txt'
