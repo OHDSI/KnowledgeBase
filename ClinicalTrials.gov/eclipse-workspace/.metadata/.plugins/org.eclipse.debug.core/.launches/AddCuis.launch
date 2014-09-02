@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/CT.gov/src/edu/pitt/dbmi/map/addcuis/AddCuis.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="edu.pitt.dbmi.map.addcuis.AddCuis"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="../../Example-CT.gov-data-v3-v011.csv&#10;../../MeSHHashMap.ser"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="CT.gov"/>
+</launchConfiguration>
