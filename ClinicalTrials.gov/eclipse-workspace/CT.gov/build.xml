@@ -5,7 +5,6 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="CT.gov">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../../../../../opt/eclipse/"/>
     <property name="build_files:-Xms1024m -Xmx3000m" value=""/>
     <property name="nobletools.location" value="../nobletools"/>
     <property name="debuglevel" value="source,lines,vars"/>
@@ -28,6 +27,7 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -40,11 +40,7 @@
     </target>
     <target depends="build-subprojects,build-project" name="build"/>
     <target name="build-subprojects">
-        <ant antfile="build.xml" dir="${nobletools.location}" inheritAll="false" target="build-project">
-            <propertyset>
-                <propertyref name="build.compiler"/>
-            </propertyset>
-        </ant>
+        <ant antfile="build.xml" dir="${nobletools.location}" inheritAll="false" target="build-project"/>
     </target>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
@@ -54,19 +50,6 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
     <target name="ExtractColumn">
         <java classname="extractor.ExtractColumn" failonerror="true" fork="yes">
             <arg line="../testOut&#10;1"/>
@@ -79,14 +62,14 @@
             <classpath refid="CT.gov.classpath"/>
         </java>
     </target>
-    <target name="AddCuis">
-        <java classname="map.addcuis.AddCuis" failonerror="true" fork="yes">
-            <arg line="../testOut/column1.txt&#10;1"/>
+    <target name="MeSHMapper">
+        <java classname="mapping.MeSHMapper" failonerror="true" fork="yes">
             <classpath refid="CT.gov.classpath"/>
         </java>
     </target>
-    <target name="MeSHMapper">
-        <java classname="mapping.MeSHMapper" failonerror="true" fork="yes">
+    <target name="AddCuis">
+        <java classname="edu.pitt.dbmi.map.addcuis.AddCuis" failonerror="true" fork="yes">
+            <arg line="../../Example-CT.gov-data-v3-v011.csv ../../MeSHHashMap.ser"/>
             <classpath refid="CT.gov.classpath"/>
         </java>
     </target>

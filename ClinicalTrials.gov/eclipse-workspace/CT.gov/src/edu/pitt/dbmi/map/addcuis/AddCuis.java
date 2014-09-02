@@ -98,7 +98,7 @@ public class AddCuis {
 	public AddCuis() throws FileNotFoundException {
 		meshMap = null;
 		term = null;
-		pseudolog = new PrintWriter("missingCUIs.txt");
+		pseudolog = new PrintWriter("../../ctgov-inout/missingCUIs.txt");
 		missingExactCondition = 0;
 		missingExactIntervention = 0;
 		initializeMissingNobletoolsMap();
@@ -121,7 +121,7 @@ public class AddCuis {
 	 * @return True if successful, False if an error was caught
 	 */
 	@SuppressWarnings("unchecked")
-	public boolean addCuis(String input, String output) {
+	public boolean addCuis(String input, String output, String meshLocation) {
 		
 		
 		
@@ -141,7 +141,7 @@ public class AddCuis {
 			
 			out.write(outputString(line, "\t") + "\n");			
 			
-			ObjectInputStream meshMapfile = new ObjectInputStream(new FileInputStream("../MeSHHashMap.ser"));
+			ObjectInputStream meshMapfile = new ObjectInputStream(new FileInputStream(meshLocation));
 			meshMap = (HashMap<String, String>)meshMapfile.readObject();
 			setupNobleCoder();
 			meshMapfile.close();
@@ -382,11 +382,11 @@ public class AddCuis {
 		
 		final String inputfile = args[0];
 		final String outputfile = args[0] + "_CUIs_v3.csv";
-		
+		final String meshLocation = args[1];
 		AddCuis add;
 		try {
 			add = new AddCuis();
-			add.addCuis(inputfile, outputfile);
+			add.addCuis(inputfile, outputfile, meshLocation);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

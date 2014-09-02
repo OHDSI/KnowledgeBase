@@ -1,137 +1,52 @@
-<?xml version="1.0"?>
-
-<!-- Written to assume that classpath is rooted in the current directory. -->
-<!-- So this should be OK if you make this script in the root of a filesystem. -->
-<!-- If not, you may prefer to adjust the basedir, or move some directories around. -->
-<!-- The idea is that both Ant and NetBeans have to know what the package root is -->
-<!-- for the classes in your application. -->
-<project name="TextServices" basedir="." default="all">
-
-    <!-- Don't worry if you don't know the Ant syntax completely or need help on some tasks! -->
-    <!-- The standard Ant documentation is bundled. See Help | Shortcuts | Ant 1.3 Documentation. -->
-
-    
-	<property environment="env"/>
-	<!-- directories -->
-	<property name="lib.dir" value="lib"/>
-	<property name="src.dir" value="src"/>
-	<property name="resource.dir" value="src/resources"/>
-	<property name="icon.dir" value="src/icons"/>
-	
-	<!-- buildc dir sits OUTSIDE the cvs -->
-	<property name="build.dir" value="./build"/>
-	<property name="build.classes" value="${build.dir}/classes"/>  
-	<property name="build.sign" value="${build.dir}/signed"/>  
-	<property name="build.lib" value="${build.dir}/jars"/>
-	
-	
-	<!-- 3rd party libraries -->
-	<property name="cacore" value="cacore32-client.jar"/>
-	<property name="lexcts" value="ctsImplAndDepend.jar"/>
-	<property name="lexbig" value="lbRuntime-2.1.jar"/>
-	<property name="lexevs" value="LexEVSclient-51.jar"/>
-	<property name="servlet" value="servlet-2_3.jar"/>
-	<property name="nlp" value="specialistTextTools.jar"/>
-	<property name="gspell" value="gspellProject.jar"/>
-	<property name="protege" value="protege.jar"/>
-	<property name="protege-owl" value="protege-owl.jar"/>
-	<property name="bioportal" value="bioportalservices.jar"/>
-	<property name="lucene" value="lucene-core-2.4.0.jar"/>
-	<property name="mmtx" value="mmtxProject.jar"/>
-	<property name="jdbm" value="jdbm-1.0.jar"/>
-	<property name="jdbm3" value="jdbm-3.0.jar"/>
-	
-	<!-- libs for this projects -->
-	<property name="TextClient" value="TextTools.jar"/>
-	<property name="TextServer" value="TextTools.jar"/>
-	
-	
-	
-	<!-- installation path -->
-	<property name="target.dir" value="/mnt/xip_c/SunOne/docs/reporttutordev_docs/webapps/term/"/> 
-	<property name="lib.target" value="${target.dir}/lib"/> 
-	<property name="weblib.dir" value="${target.dir}/WEB-INF/lib"/>
-	<property name="webcls.dir" value="${target.dir}/WEB-INF/classes"/>
-	
-	
-   <!-- CLASSPATH definitions -->
-	<path id="text.client.path">
-		<pathelement location="${lib.dir}/${lucene}"/>
-		<pathelement location="${lib.dir}/${lexevs}"/>
-		<pathelement location="${lib.dir}/${protege}"/>
-		<pathelement location="${lib.dir}/${protege-owl}"/>
-        <pathelement location="${lib.dir}/${servlet}"/>
-		<pathelement location="${lib.dir}/${nlp}"/>
-		<pathelement location="${lib.dir}/${gspell}"/>
-		<pathelement location="${lib.dir}/${jdbm}"/>
-		<pathelement location="${lib.dir}/${jdbm3}"/>
-		<pathelement location="${lib.dir}/${servlet}"/>
-		<pathelement location="${lib.dir}/${mmtx}"/>
-	</path> 
-
-	<!-- targets -->
-	
-	<!-- Utility Targets -->
-	<target name="clean" depends="">
-        <delete dir="${build.classes}"/>
-		<delete dir="${build.lib}"/>
-		<delete dir="${build.sign}"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="nobletools">
+    <property environment="env"/>
+    <property name="CT.gov.location" value="../CT.gov"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="nobletools.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/jdbm-3.0.jar"/>
+        <pathelement location="lib/owlapi-distribution-3.5.0.jar"/>
+        <pathelement location="lib/protege-owl-inference.jar"/>
+        <pathelement location="lib/protege-owl.jar"/>
+        <pathelement location="lib/protege.jar"/>
+        <pathelement location="lib/servlet-2_3.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
-    
-    <target name="all" depends="" description="Build, Move everything.">
-        <echo message="Application built. No Problems!"/>
+    <target name="clean">
+        <delete dir="bin"/>
     </target>
-	
-	<!-- create build directories???? (I don't know if it is necessary thought) -->
-    <target name="makedirs" depends="">
-    	<mkdir dir="${build.dir}"/>
-    	<mkdir dir="${build.classes}"/>
-		<mkdir dir="${build.classes}/icons"/>	
-		<mkdir dir="${build.classes}/resources"/>	
-    	<mkdir dir="${build.lib}"/>
-		<mkdir dir="${build.sign}"/>
-    </target>
-	
-	<!-- compile client code -->
-    <target name="compile_Client" depends="clean,makedirs">
-        <javac srcdir="${src.dir}" destdir="${build.classes}" debug="true" deprecation="true" classpathref="text.client.path" source="1.5"  target="1.5">
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="nobletools.classpath"/>
         </javac>
     </target>
-    
-	
-    <target name="jar_Client" depends="compile_Client" description="Create a JAR File">
-    	<delete quiet="true">
-			<fileset dir="${build.classes}/${resource.dir}" includes="*.*"/>
-    		<fileset dir="${build.classes}/${icon.dir}" includes="*.*"/>
-	    </delete>
-    	<copy todir="${build.classes}/${resource.dir}">
-			<fileset dir="${resource.dir}" includes="*.lst" />
-    		<fileset dir="${resource.dir}" includes="*.owl" />
-		</copy>	
-    	<copy todir="${build.classes}/${icon.dir}">
-			<fileset dir="${icon.dir}" includes="*.gif" />
-		</copy>	
-    	<jar jarfile="${build.lib}/${TextClient}" 
-             basedir="${build.classes}" >
-    		<!--
-    		<manifest>
-    		 	<attribute name="Trusted-Library" value="true"/>
-    		 </manifest>
-    		 -->
-			 <include name="**/terminology/**"/>
-    		 <include name="**/info/**"/>
-    		 <include name="**/ontology/**"/>
-    		 <include name="**/text/**"/>
-    		 <include name="**/coder/**"/>
-			 <include name="**/servlet/**"/>
-    	 	 <include name="**/resources/*.lst"/>
-    		 <include name="**/resources/*.owl"/>
-    		 <include name="**/icons/*.gif"/>
-        </jar>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${CT.gov.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${CT.gov.location}" inheritAll="false" target="build"/>
     </target>
-
-	<target name="doc">
-		<javadoc sourcepath="${src.dir}" destdir="${build.dir}/api/text-tools" packagenames="edu.pitt.*" />
-	</target>
-	
+    <target name="NobleCoder">
+        <java classname="edu.pitt.coder.NobleCoder" failonerror="true" fork="yes">
+            <classpath refid="nobletools.classpath"/>
+        </java>
+    </target>
 </project>

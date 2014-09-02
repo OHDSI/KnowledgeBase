@@ -22,7 +22,7 @@ public class MeSHMapper {
 	public static void main(String[] args) {
 		
 		String inputdata = "/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META/MRCONSO.RRF";
-		String serialLocation = "../MeSHHashMap.ser";
+		String serialLocation = "../../ctgov-inout/MeSHHashMap.ser";
 		
 		RFFMapper map = new RFFMapper();
 		map.makeMapping(inputdata, "MSH", 13, 14);
