@@ -1,4 +1,4 @@
-import mapping.RFFMapper;
+package edu.pitt.dbmi.mapping;
 
 /**
  * This is the file that will make a serializable hashmap for mesh terms based on the search string.

@@ -1,4 +1,4 @@
-package mapping;
+package edu.pitt.dbmi.mapping;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

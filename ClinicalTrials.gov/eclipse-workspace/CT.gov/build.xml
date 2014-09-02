@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="CT.gov">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../../../opt/eclipse/"/>
+    <property name="build_files:-Xms1024m -Xmx3000m" value=""/>
+    <property name="nobletools.location" value="../nobletools"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="nobletools.classpath">
+        <pathelement location="${nobletools.location}/bin"/>
+        <pathelement location="${nobletools.location}/lib/jdbm-3.0.jar"/>
+        <pathelement location="${nobletools.location}/lib/owlapi-distribution-3.5.0.jar"/>
+        <pathelement location="${nobletools.location}/lib/protege-owl-inference.jar"/>
+        <pathelement location="${nobletools.location}/lib/protege-owl.jar"/>
+        <pathelement location="${nobletools.location}/lib/protege.jar"/>
+        <pathelement location="${nobletools.location}/lib/servlet-2_3.jar"/>
+    </path>
+    <path id="CT.gov.classpath">
+        <pathelement location="bin"/>
+        <path refid="nobletools.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${nobletools.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${nobletools.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="CT.gov.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="ExtractColumn">
+        <java classname="extractor.ExtractColumn" failonerror="true" fork="yes">
+            <arg line="../testOut&#10;1"/>
+            <classpath refid="CT.gov.classpath"/>
+        </java>
+    </target>
+    <target name="ExcelParser">
+        <java classname="excel.ExcelParser" failonerror="true" fork="yes">
+            <jvmarg line="${build_files:-Xms1024m -Xmx3000m}"/>
+            <classpath refid="CT.gov.classpath"/>
+        </java>
+    </target>
+    <target name="AddCuis">
+        <java classname="map.addcuis.AddCuis" failonerror="true" fork="yes">
+            <arg line="../testOut/column1.txt&#10;1"/>
+            <classpath refid="CT.gov.classpath"/>
+        </java>
+    </target>
+    <target name="MeSHMapper">
+        <java classname="mapping.MeSHMapper" failonerror="true" fork="yes">
+            <classpath refid="CT.gov.classpath"/>
+        </java>
+    </target>
+</project>
