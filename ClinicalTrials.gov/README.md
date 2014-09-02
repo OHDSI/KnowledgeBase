@@ -1,9 +1,9 @@
 ClinicalTrials.gov
 ==================
 
-Jeremy Jao
-Dr. Richard Boyce
-Dr. Vojtech Huser
+- Jeremy Jao
+- Dr. Richard Boyce
+- Dr. Vojtech Huser
 
 This folder represents a way to bring ClinicalTrials.gov data into the 
 Knowledgebase.
@@ -14,7 +14,7 @@ and summary use cases for our project which will help us get the correct
 OMOP CUI. The way to do this is explained in the USAGE section of this 
 readme.
 
-***USAGE:
+### USAGE:
 
 To run our test case...
 1. Move to the build file that contains the AddCuis class:
@@ -22,7 +22,7 @@ To run our test case...
 2. run the build task to run the AddCuis class
 	`$ ant AddCuis`
 	
-**FILES AND FOLDERS:
+## FILES AND FOLDERS:
 - ctgov-inout
 	- location to store the run's input and output files
 - eclipse-workspace
