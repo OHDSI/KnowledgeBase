@@ -1,9 +1,9 @@
 ClinicalTrials.gov
 ==================
 
-Jeremy Jao
-Dr. Richard Boyce
-Dr. Vojtech Huser
+- Jeremy Jao
+- Dr. Richard Boyce
+- Dr. Vojtech Huser
 
 This folder represents a way to bring ClinicalTrials.gov data into the 
 Knowledgebase.
