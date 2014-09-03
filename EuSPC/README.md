@@ -3,9 +3,9 @@ Adverse Drug Reactions Database Import
 
 This table of adverse events from the EU SPCs as downloaded from [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
 
-The scripts in this folder add RxCUIs and MeSH IDs to the EU SPC drug list. In most cases, there was a simple string match betwee an entry in the 'substance' column with an RxNorm or MeSH preferred term. However, there are many cases of combination products, and a few things that were unable to be mapped. The combination products were manually mapped where possibly using the Bioportal's ontology search. 
+The scripts in this folder add RxCUIs and MeSH CUIs to the EU SPC drug list. In most cases, there was a simple string match betwee an entry in the 'substance' column with an RxNorm or MeSH preferred term. However, there are many cases of combination products, and a few things that were unable to be mapped. The combination products were manually mapped where possibly using the Bioportal's ontology search. 
 
-The final dataset is in FinalRepository_DLP30Jun2012_withCUIs.csv
+The final dataset with the RxCUIs and MeSH CUIs is in [FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv) after running the Usage as said below.
 
 
 ## USAGE:
@@ -35,4 +35,3 @@ listed in the adverse event table. This was created by:
 	- location of the scripts file to run
 5. [data](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/data)
 	- location of the scripts output files
-
