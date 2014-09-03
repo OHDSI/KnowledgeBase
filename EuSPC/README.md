@@ -11,7 +11,7 @@ The final dataset is in FinalRepository_DLP30Jun2012_withCUIs.csv
 ## USAGE:
 1. `cd scripts`
 2. `python processEuSPCToAddRxNormAndMeSH.py`
-3. `python3 getMissingMappings.py FinalRepository_DLP30Jun2012_withCUIs_v2.csv ../data/missing`
+3. `python3 getMissingMappings.py ../data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv ../data/missing`
 
 ### Processing the EU SPC Drug Listing
 

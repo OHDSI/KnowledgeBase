@@ -24,7 +24,7 @@ meshmap = mapfolder + 'tempMESHCUImappings.txt'
 rawmap = mapfolder + 'drugMappings.txt'
 
 ## missing CUIs not present from the above file
-missingfolder = '../backup/missingCUIs/'
+missingfolder = '../data/missing/'
 rxmissing = missingfolder + 'missingRxNorms_CUIs.txt'
 meshmissing = missingfolder + 'missingMeSHes_CUIs.txt'
 bothmissing = missingfolder + 'bothCUIsMissing_CUIs.txt'
