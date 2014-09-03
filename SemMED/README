@@ -33,3 +33,75 @@ Problems:
 	but.... 57 unique strings...
 	dunno why this inefficient... must be important though? Or maybe the dump
 	severely messed up...
+
+========================================================================
+09.03.2014
+
+List of subject/object types obtained from:
+https://raw.githubusercontent.com/mengjunxie/ae-lda/master/misc/SRDEF.txt
+
+Complete list of semantic types:
+http://semanticnetwork.nlm.nih.gov/SemGroups/Papers/2003-medinfo-atm.pdf
+
+List of drugs:
+http://www.nlm.nih.gov/research/umls/sourcereleasedocs/current/RXNORM/stats.html
+
+Subjects (goal is to get drug entities -> all RXNORM entities):
+- clnd|Clinical Drug
+- phsu|Pharmacologic Substance
+- orch|Organic Chemical
+- medd|Medical Device
+- drdd|Drug Delivery Device
+
+Objects (goal is to get health outcomes):
+- bpoc|Body Part, Organ, or Organ Component
+- cgab|Congenital Abnormality
+- clna|Clinical Attribute
+- comd|Cell or Molecular Dysfunction
+- dysn|Disease or Syndrome
+- enzy|Enzyme
+- fndg|Finding
+- ftcn|Functional Concept
+- gngm|Gene or Genome
+- horm|Hormone
+- humn|Human
+- imft|Immunologic Factor
+- mobd|Mental or behavioral dysfunction
+- menp|Mental Process
+- nnon|Nucleic Acid, Nucleoside, etc.
+- patf|Pathologic Function
+- orgf|Organism Function
+- sosy|Sign or Symptom
+- vita|Vitamin
+
+PREDICATES:
+
+- CAUSES
+- NEG_CAUSES
+
+- AFFECTS
+- NEG_AFFECTS
+
+- ASSOCIATED_WITH
+- NEG_ASSOCIATED_WITH
+
+- COMPLICATES
+- NEG_COMPLICATES
+
+- DISRUPTS
+- NEG_DISRUPTS
+
+- PREDISPOSES
+- NEG_PREDISPOSES
+
+- TREATS
+- NEG_TREATS
+
+- INHIBITS
+- NEG_INHIBITS
+
+- DISRUPTS
+- NEG_DISRUPTS
+
+- STIMULATES
+- NEG_STIMULATES

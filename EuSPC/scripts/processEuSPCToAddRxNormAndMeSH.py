@@ -14,7 +14,7 @@ import csv
 import string
 import pprint
 ##########INPUT STRING NAME FILES#######################################
-inp = 'FinalRepository_DLP30Jun2012.csv'
+inp = '../data/FinalRepository_DLP30Jun2012.csv'
 out = '../data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv'
 
 ## raw input from the TRIADs drug named entity recognition program

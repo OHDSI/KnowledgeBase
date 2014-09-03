@@ -231,16 +231,18 @@ public class AddCuis {
 
 				
 				Map<Source, String> tempCUIs = new HashMap<Source, String>(nobleCoderVocabs.length);
+				Map<Source, String> tempNames = new HashMap<Source, String>(nobleCoderVocabs.length);
 				for(Concept result : results) {
 					@SuppressWarnings("rawtypes")
 					Map nobleCodes = result.getCodes();
 					for(Source voc : nobleCoderVocabs) {
-						if(tempCUIs.get(voc) == null) {
+						if(tempCUIs.get(voc) == null || find.equalsIgnoreCase(result.getName())) {
 							tempCUIs.put(voc, (String)nobleCodes.get(voc));
+							tempNames.put(voc, result.getName());
 						}
 					}
 				}
-				addCUIs(line, tempCUIs);
+				addCUIs(line, tempCUIs, tempNames);
 			}
 			else {
 				for(Source vocab : nobleCoderVocabs) {
@@ -261,20 +263,20 @@ public class AddCuis {
 	 * @param line row represented as a List
 	 * @param CUIs the added cuis from addFromNobleCoder
 	 */
-	private void addCUIs(List<String> line, Map<Source, String> CUIs) {
-		String cui;
+	private void addCUIs(List<String> line, Map<Source, String> CUIs, Map<Source, String> tempNames) {
+		String cui, name;
 		int missing = 0;
 		StringBuffer log = new StringBuffer();
 		for(Source voc : nobleCoderVocabs) {
 			cui = CUIs.get(voc);
-			
+			name = tempNames.get(voc);
 			if(cui == null) {
 				insert(line, 2, "");
 				missingNoblecoderCUIs.put(voc, missingNoblecoderCUIs.get(voc) + 1);
 				++missing;
 			}
 			else
-				insert(line, 2, cui);
+				insert(line, 2, cui + "|" + name);
 		}
 		if(missing == nobleCoderVocabs.length)
 			missingNoblecoderCUIs.put(new Source("All missing"), missingNoblecoderCUIs.get(new Source("All missing")) + 1);
@@ -309,7 +311,16 @@ public class AddCuis {
 										"Disease or Syndrome",
 										"Mental Process",
 										"Body Part, Organ, or Organ Component",
-										"Therapeutic or Preventive Procedure"
+										"Therapeutic or Preventive Procedure",
+										"Laboratory Procedure",
+										"Tissue",
+										"Pharmacological Substance",
+										"Amino Acid, Peptide, or Protein",
+										"Organic Chemical",
+										"Body System",
+										"Injury or Poisoning",
+										"Cell",
+										"Acquired Abnormality"
 															   }
 												)
 									  );
