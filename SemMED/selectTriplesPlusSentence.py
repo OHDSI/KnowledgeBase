@@ -21,22 +21,7 @@ cursor = cnx.cursor()
 
 def main():
     with open('listOfResults.txt', 'w') as fil:
-        #allObjects = open('allObjectTypes.txt', 'w')
-        #query = """
-    #SELECT CONCEPT1, PREDICATE, CONCEPT2, SENTENCE_ID, PMID, TYPE, NUMBER, SENTENCE
-    #FROM 
-    #...TODO: 
-    #Q1) all rows from PREDICATION_ARGUMENT with a given predication id
-    #Q2) SENTENCE_PREDICATION will give the sentence id that can be used for the table.
-
-    #you probably do not want to inner join from predication to PREDICATION_ARGUMENT....
-
-    #CONCEPT_SEMTYPE_ID
-
-    #"""
-
-        """
-        
+        """        
         List of subject/object types obtained from:
         https://raw.githubusercontent.com/mengjunxie/ae-lda/master/misc/SRDEF.txt
         
@@ -50,32 +35,18 @@ def main():
         - clnd|Clinical Drug
         - phsu|Pharmacologic Substance
         - orch|Organic Chemical
-        - medd|Medical Device
-        - drdd|Drug Delivery Device
         
         Objects (goal is to get health outcomes):
-        - bpoc|Body Part, Organ, or Organ Component
         - cgab|Congenital Abnormality
-        - clna|Clinical Attribute
-        - comd|Cell or Molecular Dysfunction
         - dysn|Disease or Syndrome
-        - enzy|Enzyme
-        - fndg|Finding
-        - ftcn|Functional Concept
-        - gngm|Gene or Genome
-        - horm|Hormone
-        - humn|Human
-        - imft|Immunologic Factor
         - mobd|Mental or behavioral dysfunction
-        - menp|Mental Process
-        - nnon|Nucleic Acid, Nucleoside, etc.
         - patf|Pathologic Function
-        - orgf|Organism Function
-        - sosy|Sign or Symptom
-        - vita|Vitamin
         
-        PREDICATES:
-        
+        PREDICATES: See Kilicoglu H, Rosemblat G, Fiszman M, Rindflesch TC. Constructing a semantic
+predication gold standard from the biomedical literature. BMC Bioinformatics.
+2011 Dec 20;12:486. doi: 10.1186/1471-2105-12-486. PubMed PMID: 22185221; PubMed 
+Central PMCID: PMC3281188.
+   
         - CAUSES
         - NEG_CAUSES
         
@@ -91,20 +62,15 @@ def main():
         - DISRUPTS
         - NEG_DISRUPTS
         
+        - DISRUPTS
+        - NEG_DISRUPTS
+
+        TODO: Consider the following to help untangle confounding by indication and known risk factors
         - PREDISPOSES
         - NEG_PREDISPOSES
         
         - TREATS
         - NEG_TREATS
-        
-        - INHIBITS
-        - NEG_INHIBITS
-        
-        - DISRUPTS
-        - NEG_DISRUPTS
-        
-        - STIMULATES
-        - NEG_STIMULATES
         """
 
         query = """
@@ -136,10 +102,6 @@ def main():
                         s_type='phsu'
                     OR
                         s_type='orch'
-                    OR
-                        s_type='medd'
-                    OR
-                        s_type='drdd'
                 )
                 AND
                 (
@@ -162,132 +124,19 @@ def main():
                         predicate='DISRUPTS'
                     OR
                         predicate='NEG_DISRUPTS'
-                    OR
-                        predicate='PREDISPOSES'
-                    OR
-                        predicate='NEG_PREDISPOSES'
-                    OR
-                        predicate='TREATS'
-                    OR
-                        predicate='NEG_TREATS'
-                    OR
-                        predicate='INHIBITS'
-                    OR
-                        predicate='NEG_INHIBITS'
-                    OR
-                        predicate='DISRUPTS'
-                    OR
-                        predicate='NEG_DISRUPTS'
-                    OR
-                        predicate='STIMULATES'
-                    OR
-                        predicate='NEG_STIMULATES'
                 )
                 AND
-                (
-                        o_type='bpoc'
-                    OR
+                (                      
                         o_type='cgab'
-                    OR
-                        o_type='clna'
-                    OR
-                        o_type='comd'
                     OR
                         o_type='dysn'
                     OR
-                        o_type='enzy'
-                    OR
-                        o_type='fndg'
-                    OR
-                        o_type='ftcn'
-                    OR
-                        o_type='gngm'
-                    OR
-                        o_type='horm'
-                    OR
-                        o_type='humn'
-                    OR
-                        o_type='imft'
-                    OR
                         o_type='mobd'
                     OR
-                        o_type='menp'
-                    OR
-                        o_type='nnon'
-                    OR
                         o_type='patf'
-                    OR
-                        o_type='orgf'
-                    OR
-                        o_type='sosy'
-                    OR
-                        o_type='vita'
                 );
                 """
-        
-        #otherquery = """
-                
-                #SELECT DISTINCT
-                    #o_type
-                #FROM
-                    #PREDICATION_AGGREGATE
-                #WHERE
-                #(
-                        #s_type='clnd'
-                    #OR
-                        #s_type='phsu'
-                    #OR
-                        #s_type='orch'
-                    #OR
-                        #s_type='medd'
-                    #OR
-                        #s_type='drdd'
-                #)
-                #AND
-                #(
-                        #predicate='CAUSES'
-                    #OR
-                        #predicate='NEG_CAUSES'
-                    #OR
-                        #predicate='AFFECTS'
-                    #OR
-                        #predicate='NEG_AFFECTS'
-                    #OR
-                        #predicate='ASSOCIATED_WITH'
-                    #OR
-                        #predicate='NEG_ASSOCIATED_WITH'
-                    #OR
-                        #predicate='COMPLICATES'
-                    #OR
-                        #predicate='NEG_COMPLICATES'
-                    #OR
-                        #predicate='DISRUPTS'
-                    #OR
-                        #predicate='NEG_DISRUPTS'
-                    #OR
-                        #predicate='PREDISPOSES'
-                    #OR
-                        #predicate='NEG_PREDISPOSES'
-                    #OR
-                        #predicate='TREATS'
-                    #OR
-                        #predicate='NEG_TREATS'
-                    #OR
-                        #predicate='INHIBITS'
-                    #OR
-                        #predicate='NEG_INHIBITS'
-                    #OR
-                        #predicate='DISRUPTS'
-                    #OR
-                        #predicate='NEG_DISRUPTS'
-                    #OR
-                        #predicate='STIMULATES'
-                    #OR
-                        #predicate='NEG_STIMULATES'
-                #)
-                #ORDER BY o_type
-                #"""
-        
+             
         dic = makeSemanticDict('SRDEF.txt')
         pprint.pprint(dic, fil)
         
@@ -298,6 +147,11 @@ def main():
             pprint.pprint(predicate, fil)
             #allObjects.write(dic[predicate[0]] + " -> " + predicate[0] + "\n")
             fil.write("\n")
+
+            ## TODO: write in this format 
+# TSV with header: pmid, predicate, drug CUI, drug RxNorm, drug MeSH, drug Preferred Term, drug UMLS entity type (long), HOI CUI, HOI SNOMED, HOI MedDRA, HOI MeSH, HOI Preferred Term, HOI UMLS entity type (long), sentence, sentence type, 
+# 
+            
         #allObjects.close()
 
 def makeSemanticDict(inp):
