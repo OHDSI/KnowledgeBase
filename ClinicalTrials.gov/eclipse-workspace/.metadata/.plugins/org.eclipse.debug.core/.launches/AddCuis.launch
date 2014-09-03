@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="edu.pitt.dbmi.map.addcuis.AddCuis"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="../../Example-CT.gov-data-v3-v011.csv&#10;../../MeSHHashMap.ser"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="../../ctgov-inout/Example-CT.gov-data-v3-v011.csv ../../ctgov-inout/MeSHHashMap.ser"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="CT.gov"/>
 </launchConfiguration>
