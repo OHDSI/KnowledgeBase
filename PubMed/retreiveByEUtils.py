@@ -1,4 +1,5 @@
 #/usr/bin/python
+# -*- coding: utf-8
 
 import re, sys, pickle
 sys.path = sys.path + ['.']
@@ -6,7 +7,7 @@ sys.path = sys.path + ['.']
 from Bio.EUtils  import HistoryClient
 
 # maximum number of drugs to search 
-MAX_DRUGS = 10
+MAX_DRUGS = 100
 
 # TERMINOLOGY MAPPING FILES
 #RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/rxnorm-to-MeSH-mapping-03032014.txt"

@@ -67,9 +67,9 @@
             <classpath refid="CT.gov.classpath"/>
         </java>
     </target>
-    <target name="AddCuis">
+    <target depends="clean,build" name="AddCuis">
         <java classname="edu.pitt.dbmi.map.addcuis.AddCuis" failonerror="true" fork="yes">
-            <arg line="../../Example-CT.gov-data-v3-v011.csv ../../MeSHHashMap.ser"/>
+            <arg line="../../ctgov-inout/Example-CT.gov-data-v3-v011.csv ../../ctgov-inout/MeSHHashMap.ser"/>
             <classpath refid="CT.gov.classpath"/>
         </java>
     </target>
