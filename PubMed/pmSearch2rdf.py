@@ -172,10 +172,10 @@ graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Me
 # same set of keys
 
 # Debugging
-rct_d = pickle.load(open( SEARCH_RESULTS, "rb"))
+#rct_d = pickle.load(open( SEARCH_RESULTS, "rb"))
 
 # Deployment
-#(rct_d, cr_d, other_d) = pickle.load( open( SEARCH_RESULTS, "rb" ) )
+(rct_d, cr_d, other_d) = pickle.load( open( SEARCH_RESULTS, "rb" ) )
 
 commonKeys = rct_d.keys()
 
