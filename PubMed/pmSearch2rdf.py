@@ -170,7 +170,13 @@ graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Me
 # the dataset holds three dictionaries, one for RCTs, one for case
 # reports, and one for other study types. All three dicts have the
 # same set of keys
-(rct_d, cr_d, other_d) = pickle.load( open( SEARCH_RESULTS, "rb" ) )
+
+# Debugging
+rct_d = pickle.load(open( SEARCH_RESULTS, "rb"))
+
+# Deployment
+#(rct_d, cr_d, other_d) = pickle.load( open( SEARCH_RESULTS, "rb" ) )
+
 commonKeys = rct_d.keys()
 
 annotationSetCntr = 1
@@ -209,8 +215,14 @@ for k in commonKeys:
         elif i == OTHER:
             curDict = other_d
 
-        if curDict[k] != []:
+        if curDict[k] != []: 
+            # iterate through the list of dictionaries containing potential drug-HOI assocations
             for elt in curDict[k]:
+                if elt["adeAgent"] == []:
+                    continue
+                if elt["adeEffect"] == [] and elt["drugComplication"] == []:
+                    continue
+                
                 if annotatedCache.has_key(elt['pmid']):
                     currentAnnotation = annotatedCache[elt['pmid']]
                     currentAnnotItem = "ohdsi-pubmed-mesh-annotation-item-%s" % currentAnnotation
@@ -222,8 +234,8 @@ for k in commonKeys:
                     currentAnnotItem = "ohdsi-pubmed-mesh-annotation-item-%s" % currentAnnotation
 
                     graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
-                    graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
-                    graph.add((poc[currentAnnotItem], RDF.type, ohdsi["PubMedDrugHOIAnnotation"]))
+                    graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"])) 
+                    graph.add((poc[currentAnnotItem], RDF.type, ohdsi["PubMedDrugHOIAnnotation"])) # TODO: should be a subclass of oa:DataAnnotation
                     graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
                     graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
                     graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
@@ -249,6 +261,29 @@ for k in commonKeys:
                 graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
                 graph.add((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s" % k)))
                 graph.add((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
+                
+                # temporarily, include the mesh tags from the record as preferred terms as well as data from the drug and HOI query
+                
+                ## mesh tags from the record
+                collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+                graph.add((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
+                for agent in elt["adeAgent"]:
+                    graph.add((collectionHead, ohdsi['adeAgent'], Literal(agent)))
+
+                if elt["adeEffect"] != []:
+                    collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+                    graph.add((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
+                    for effect in elt["adeEffect"]:
+                        graph.add((collectionHead, ohdsi['adeEffect'], Literal(effect)))
+
+                if elt["drugComplication"] != []:
+                    collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+                    graph.add((poc[currentAnnotationBody], ohdsi['drugComplications'], collectionHead))
+                    for complication in elt["drugComplication"]:
+                        graph.add((collectionHead, ohdsi['drugComplication'], Literal(complication)))
+
+
+                ## data from the drug and HOI query
                 if DRUGS_D.has_key(rxnormDrug) and COND_D.has_key(meshCond):
                     graph.add((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s (%s - %s)" % (k, DRUGS_D[rxnormDrug][1], COND_D[meshCond][0]))))
 
