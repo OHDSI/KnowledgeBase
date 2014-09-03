@@ -16,6 +16,7 @@ MEDDRA_TO_MESH = "../terminology-mappings/MeSHToMedDRA/meshToMeddra-partial-0520
 
 # OUTPUT DATA FILE
 PICKLE_FILE = "drug-hoi-test.pickle"
+TEMP_STAGING_PICKLE = "temp.pickle"
 
 # PUBLICATION TYPE FILTERS
 RCT_FILTER = "Clinical Trial [PT]"
@@ -86,33 +87,96 @@ def retrieveByEUtils(drugD, condD, pubTypeFilter, pt, limit=None):
             k = "%s-%s" % (d,cond)
             rslt_D[k] = []
 
-            q = '''%s AND ("%s" [MeSH Terms]) AND ("%s" [MeSH Terms])''' % (pubTypeFilter, drugLabel, condLabel)
+            q = '''(%s) AND ("%s" [MeSH Terms] OR "%s" [Ti]) AND ("%s" [MeSH Terms] OR "%s" [Ti])''' % (pubTypeFilter, drugLabel, drugLabel, condLabel, condLabel)
             rslts = client1.search(q)
 
             print "INFO: %d results" % len(rslts)
             for i in range(0,len(rslts)):
-                rec = rslts[i].efetch(retmode = "text", rettype = "abstract").read()
-                id = re.findall("PMID: \d+",rec)
-                id = " ".join(id)
-                id = id[6:]
-                newD = {"pmid":id,
-                        "abstract":rec}
+                rec = rslts[i].efetch(retmode = "text", rettype = "medline").read()
                 
-                rslt_D[k].append(newD)
+                newD = parseMedlineForADE(rec)
+                if newD != None:
+                    rslt_D[k].append(newD)
+
+        f = open(TEMP_STAGING_PICKLE,"w")
+        pickle.dump(rslt_D, f)
+        f.close()
+        "INFO: staging results up to drug %s and condition %s are stored as the rslt_d dictionary in %s" % (d.upper(), cond.upper(), TEMP_STAGING_PICKLE)
 
     return rslt_D
+
+
+def parseMedlineForADE(rec):
+    """ Parse a medline record for an adverse drug event association using the method described in: 
+    Avillach P, Dufour JC, Diallo G, Salvo F, Joubert M, Thiessard F, Mougin F, Trifirò G, Fourrier-Réglat A, Pariente A, Fieschi M. Design and validation of an automated method to detect known adverse drug reactions in MEDLINE: a contribution from the EU-ADR project. J Am Med Inform Assoc. 2013 May 1;20(3):446-52. doi: 10.1136/amiajnl-2012-001083. Epub 2012 Nov 29. PubMed PMID: 23195749; PubMed Central PMCID: PMC3628051.
+    """
+    d = {"pmid":None,
+         "adeAgent":[],
+         "adeEffect":[],
+         "drugComplication":[],
+         "otherComplication":[],
+         "substances":[]}
+
+    pmidRgx = re.compile("PMID-(.*)")
+    l = pmidRgx.findall(rec)
+    if len(l) == 0:
+        print "ERROR: unable to process a PMID from the following medline record:\n\t%s" % rec
+        return None
+    else:
+        d["pmid"] = l[0].strip()
+
+    mshRgx = re.compile("MH  - (.*)")
+    l = mshRgx.findall(rec)
+    for elt in l:
+        tpl = elt.split("/")
+        msh = tpl[0]
+        rest = "/".join(tpl[1:])
+        if rest.find("adverse effects") != -1:
+            d["adeAgent"].append(msh.strip())
+        elif rest.find("chemically induced") != -1:          
+            if rest.find("complications") != -1:
+                d["drugComplication"].append(msh.strip())
+            else:
+                d["adeEffect"].append(msh.strip())
+
+        elif rest.find("complications") != -1:
+            d["otherComplication"].append(msh.strip())
+    
+    # TODO: extend processing of substances to only take into account
+    # drugs from the ‘substances’ field if their pharmacological
+    # action was qualified by the subheading ‘AE’
+    #
+    # TODO: consider how to best use the FDA UNII mappings for
+    # substances where present
+    substanceRgx = re.compile("RN  - (.*)")
+    l = substanceRgx.findall(rec)
+    for elt in l:
+        d["substances"].append(elt.strip())
+
+    return d
+        
+
+RCT_D = CR_D = OTHER_D = None
 
 ### GET RCTS
 RCT_D = retrieveByEUtils(DRUGS_D, COND_D, RCT_FILTER, "RCT", MAX_DRUGS)
 
+results = [RCT_D, CR_D, OTHER_D]
+f = open(PICKLE_FILE,"w")
+pickle.dump(results, f)
+f.close()
+
 ### GET CASE REPORTS
 CR_D = retrieveByEUtils(DRUGS_D, COND_D, CASE_REPORT_FILTER, "CASE REPORT", MAX_DRUGS)
+results = [RCT_D, CR_D, OTHER_D]
+f = open(PICKLE_FILE,"w")
+pickle.dump(results, f)
+f.close()
 
 ### GET OTHER
 OTHER_D = retrieveByEUtils(DRUGS_D, COND_D, OTHER_FILTER, "OTHER", MAX_DRUGS)
             
 results = [RCT_D, CR_D, OTHER_D]
-
 f = open(PICKLE_FILE,"w")
 pickle.dump(results, f)
 f.close()
