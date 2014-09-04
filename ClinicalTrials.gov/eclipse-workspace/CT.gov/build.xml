@@ -57,6 +57,7 @@
             <classpath refid="CT.gov.classpath"/>
         </java>
     </target>
+
     <target name="MeSHMapper">
         <java classname="mapping.MeSHMapper" failonerror="true" fork="yes">
             <classpath refid="CT.gov.classpath"/>
