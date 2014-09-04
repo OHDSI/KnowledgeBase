@@ -4,6 +4,7 @@
 import re, sys, pickle
 sys.path = sys.path + ['.']
 
+import httplib.BadStatusLine
 from Bio.EUtils  import HistoryClient
 
 # maximum number of drugs to search 
@@ -68,7 +69,7 @@ for elt in l:
     else: # create a new record
         COND_D[mesh] = [term]
 
-def retrieveByEUtils(drugD, condD, pubTypeFilter, pt, limit=None):
+def retrieveByEUtils(drugD, condD, pubTypeFilter, pt, limit=None, stageNamePrefix=""):
     rslt_D = {}
     if limit:
         i = 0
@@ -93,16 +94,19 @@ def retrieveByEUtils(drugD, condD, pubTypeFilter, pt, limit=None):
 
             print "INFO: %d results" % len(rslts)
             for i in range(0,len(rslts)):
-                rec = rslts[i].efetch(retmode = "text", rettype = "medline").read()
-                
-                newD = parseMedlineForADE(rec)
-                if newD != None:
-                    rslt_D[k].append(newD)
+                try:
+                    rec = rslts[i].efetch(retmode = "text", rettype = "medline").read()
+                   
+                    newD = parseMedlineForADE(rec)
+                    if newD != None:
+                        rslt_D[k].append(newD)
+                except httplib.BadStatusLine:
+                    print "INFO: unable to retrieve result %d for drug %s - httplib.BadStatusLine" % (i,k)
 
-        f = open(TEMP_STAGING_PICKLE,"w")
+        f = open(stageNamePrefix + TEMP_STAGING_PICKLE,"w")
         pickle.dump(rslt_D, f)
         f.close()
-        "INFO: staging results up to drug %s and condition %s are stored as the rslt_d dictionary in %s" % (d.upper(), cond.upper(), TEMP_STAGING_PICKLE)
+        "INFO: staging results up to drug %s and condition %s are stored as the rslt_d dictionary in %s" % (d.upper(), cond.upper(), stageNamePrefix + TEMP_STAGING_PICKLE)
 
     return rslt_D
 
@@ -160,7 +164,7 @@ def parseMedlineForADE(rec):
 RCT_D = CR_D = OTHER_D = None
 
 ### GET RCTS
-RCT_D = retrieveByEUtils(DRUGS_D, COND_D, RCT_FILTER, "RCT", MAX_DRUGS)
+RCT_D = retrieveByEUtils(DRUGS_D, COND_D, RCT_FILTER, "RCT", MAX_DRUGS, "RCT=")
 
 results = [RCT_D, CR_D, OTHER_D]
 f = open(PICKLE_FILE,"w")
@@ -168,14 +172,14 @@ pickle.dump(results, f)
 f.close()
 
 ### GET CASE REPORTS
-CR_D = retrieveByEUtils(DRUGS_D, COND_D, CASE_REPORT_FILTER, "CASE REPORT", MAX_DRUGS)
+CR_D = retrieveByEUtils(DRUGS_D, COND_D, CASE_REPORT_FILTER, "CASE REPORT", MAX_DRUGS, "CR-")
 results = [RCT_D, CR_D, OTHER_D]
 f = open(PICKLE_FILE,"w")
 pickle.dump(results, f)
 f.close()
 
 ### GET OTHER
-OTHER_D = retrieveByEUtils(DRUGS_D, COND_D, OTHER_FILTER, "OTHER", MAX_DRUGS)
+OTHER_D = retrieveByEUtils(DRUGS_D, COND_D, OTHER_FILTER, "OTHER", MAX_DRUGS, "OTHER-")
             
 results = [RCT_D, CR_D, OTHER_D]
 f = open(PICKLE_FILE,"w")
