@@ -14,10 +14,13 @@ and summary use cases for our project which will help us get the correct
 OMOP CUI. The way to do this is explained in the USAGE section of this 
 readme.
 
+
 UMLS Terminology date:
 February 2014
 
 We must be able to incrementally update this in order to make sure we get the latest data.
+
+[Eugene Tseytlin](http://www.dbmi.pitt.edu/person/eugene-tseytlin) of the University of Pittsburgh Biomedical Informatics was kind enough to use his program [Nobletools](https://sourceforge.net/projects/nobletools/) (running R26 as of 09.03.2014) to get CUIs for MeDRA, SNOMEDCT_US, and MeSH to get to our goal of the project.
 
 ### USAGE:
 

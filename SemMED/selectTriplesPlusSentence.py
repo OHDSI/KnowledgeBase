@@ -4,24 +4,69 @@ selectTriplesPlusSentence.py
 Jeremy Jao and Rich Boyce
 09.2.2014
 
-Selects concept triples with the sentences from which they were derived.
-TODO: filter this down to triples with:
-- subject being a pharm entity semantic type 
-- object being a Pathologic Function, Sign or Symptom, Disease or Syndrome, Finding
-- predicate CAUSES, ASSOCIATED_WITH, COMPLICATES, DISRUPTS, PREDISPOSES - and the negated versions of these
+Selects concept triples with the sentences from which they were derived. 
+The output semmedTriplesPlusSentence.tsv has a way to perhaps create a way
+to make a simple drilldown and summary case usage.
+
+Prerequisites:
+
+The UMLS CUI to RxNorm, MeSH, SNOMED, and MedDRA Conversion was done with 
+UMLS_CUIs.py class which takes the TRIADS data from Dr. Boyce's server, 
+process it into its own class (well documented), processed, and then 
+pickled using cPickle (in its main). This had to be done because
+
+-File prerequisites:
+    - UMLS_CUIs.py (python UMLS_CUIs.py)
+    - umlsStructure.cPickle - UMLS_CUIs class postprocessed file created
+    from above python class file
+    - can only be run on Dr. Boyce's server
+
+Steps that the program does:
+
+1. Query the SemMED DB from the OHDSI dev server
+2. open the UMLS_CUIs pickle
+3. writes the results via this in a TSV:
+['pmid', 'predicate', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH', 'drug Preferred Term', 'drug UMLS entity type', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'sentence', 'sentence location', 'sentence type']
+- explanation of columns:
+    - pmid: the PMID
+    - predicate: the predicate used to associate the subject and object
+    - Drug UMLS CUI: UMLS CUI of the subject (drug)
+    - drug RxNorm: RxNorm drug CUI
+    - drug MeSH: MeSH drug CUI
+    - drug Preferred Term: name of the drug from SEMMED
+    - drug UMLS entity type: name of the drug's UMLS Entity Type
+    - HOI UMLS CUI: Health Outcome of Interest UMLS CUI
+    - HOI SNOMED: Health Outcome of Interest SNOMED CUI
+    - HOI MedDRA: Health Outcome of Interest MedDRA CUI
+    - HOI MeSH: Health Outcome of Interest MeSH CUI
+    - HOI Preferred Term: name of the HOI from SEMMED
+    - HOI entity type: name of the HOI's UMLS Entity type
+    - sentence: the actual sentence of the finding
+    - sentence location: number that represents the location of the sentence found from its source from PM
+    - sentence type: sentence was extracted from this type
+    
+Take Note:
+- SEMMED supplies the UMLS CUI
+- I used the UMLS CUI to get the RxNorm, MeSH, MedDRA, and SNOMED CUIs
+- However, as of right now, there is a one-to-many mapping between UMLS and SNOMED+MEDDRA
+so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
+
 
 """
 
 import mysql.connector as sql
 import connectSEMMED as db
 import pprint
+import cPickle as pickle
+import csv
+from UMLS_CUIs import UMLS_CUIs
 
 cnx = sql.connect(**db.details())
 cursor = cnx.cursor()
 
 def main():
-    with open('listOfResults.txt', 'w') as fil:
-        """        
+    with open('semmedTriplesPlusSentence.tsv', 'w') as fil:
+        '''        
         List of subject/object types obtained from:
         https://raw.githubusercontent.com/mengjunxie/ae-lda/master/misc/SRDEF.txt
         
@@ -61,9 +106,6 @@ Central PMCID: PMC3281188.
         
         - DISRUPTS
         - NEG_DISRUPTS
-        
-        - DISRUPTS
-        - NEG_DISRUPTS
 
         TODO: Consider the following to help untangle confounding by indication and known risk factors
         - PREDISPOSES
@@ -71,20 +113,20 @@ Central PMCID: PMC3281188.
         
         - TREATS
         - NEG_TREATS
-        """
+        '''
 
         query = """
-                
                 SELECT 
                     PREDICATION_AGGREGATE.PMID,
+                    predicate,
                     s_cui,
                     s_name,
                     s_type,
-                    predicate,
                     o_cui,
                     o_name,
                     o_type,
                     SENTENCE,
+                    NUMBER,
                     TYPE
                 FROM
                     PREDICATION_AGGREGATE, 
@@ -97,60 +139,54 @@ Central PMCID: PMC3281188.
                 )
                 AND
                 (
-                        s_type='clnd'
-                    OR
-                        s_type='phsu'
-                    OR
-                        s_type='orch'
+                    s_type in 
+                    (
+                        'clnd',
+                        'phsu',
+                        'orch'
+                    )
                 )
                 AND
                 (
-                        predicate='CAUSES'
-                    OR
-                        predicate='NEG_CAUSES'
-                    OR
-                        predicate='AFFECTS'
-                    OR
-                        predicate='NEG_AFFECTS'
-                    OR
-                        predicate='ASSOCIATED_WITH'
-                    OR
-                        predicate='NEG_ASSOCIATED_WITH'
-                    OR
-                        predicate='COMPLICATES'
-                    OR
-                        predicate='NEG_COMPLICATES'
-                    OR
-                        predicate='DISRUPTS'
-                    OR
-                        predicate='NEG_DISRUPTS'
+                    predicate in 
+                    (
+                        'CAUSES',
+                        'NEG_CAUSES',
+                        'AFFECTS',
+                        'NEG_AFFECTS',
+                        'ASSOCIATED_WITH',
+                        'NEG_ASSOCIATED_WITH',
+                        'COMPLICATES',
+                        'NEG_COMPLICATES',
+                        'DISRUPTS',
+                        'NEG_DISRUPTS'
+                    )
                 )
                 AND
-                (                      
-                        o_type='cgab'
-                    OR
-                        o_type='dysn'
-                    OR
-                        o_type='mobd'
-                    OR
-                        o_type='patf'
-                );
-                """
+                (   
+                    o_type in
+                    (
+                        'cgab',
+                        'dysn',
+                        'mobd',
+                        'patf'
+                    )
+                )
+                ;
+        """
              
-        dic = makeSemanticDict('SRDEF.txt')
-        pprint.pprint(dic, fil)
+        srdefdic = makeSemanticDict('SRDEF.txt')
+        #pprint.pprint(dic, fil)
         
-        fil.write("query:\n" + query + "\n")
+        #fil.write("query:\n" + query + "\n")
         cursor.execute(query)
-
+        tsv = csv.writer(fil, delimiter="\t")
+        umlsCUIs = pickle.load(open('umlsStructure.cPickle', 'rb'))
+        if cursor is not None:
+            tsv.writerow(['pmid', 'predicate', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH', 'drug Preferred Term', 'drug UMLS entity type', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'sentence', 'sentence location', 'sentence type'])
         for predicate in cursor:
-            pprint.pprint(predicate, fil)
-            #allObjects.write(dic[predicate[0]] + " -> " + predicate[0] + "\n")
-            fil.write("\n")
+            tsv.writerow([predicate[0], predicate[1], predicate[2], umlsCUIs.getRxnormCui(predicate[2]), umlsCUIs.getMeshCui(predicate[2]), predicate[3], srdefdic[predicate[4]], predicate[5], umlsCUIs.getSnomedct_usCui(predicate[5]), umlsCUIs.getMeddraCui(predicate[5]), umlsCUIs.getMeshCui(predicate[5]), predicate[6], srdefdic[predicate[7]], predicate[8], predicate[9], predicate[10]])
 
-            ## TODO: write in this format 
-# TSV with header: pmid, predicate, drug CUI, drug RxNorm, drug MeSH, drug Preferred Term, drug UMLS entity type (long), HOI CUI, HOI SNOMED, HOI MedDRA, HOI MeSH, HOI Preferred Term, HOI UMLS entity type (long), sentence, sentence type, 
-# 
             
         #allObjects.close()
 
