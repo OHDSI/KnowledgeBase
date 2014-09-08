@@ -29,6 +29,7 @@ CREATE TABLE `drug_HOI_evidence` (
   `HOI` int(20) NOT NULL COMMENT 'OMOP/IMEDS for the HOI',
 /*TODO: add a column for MedDRA preferred term*/;
   `evidence_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'the type of evidence (literature, product label, pharmacovigilance, EHR)',
+/*TODO: ?? add a column for modality to indicate if relationship of evidence is to refute the assertion*/;
   `evidence_source_code_id` int(8) NOT NULL COMMENT 'a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)',
   `statistic_value` int(20) NOT NULL COMMENT 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.',
   `evidence_linkout` varchar(50) NOT NULL COMMENT 'For literature-like (e.g., PubMed abstracts, product labeling), this holds a URL that will resolve to a query against the RDF endpoint for all resources used to generate the evidence_count. For signal detection sources, this holds a link to metadata on the algorithm and how it was applied to arrive at the statistical value. ',
