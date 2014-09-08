@@ -1,9 +1,11 @@
 # splicer2rdf.py
 #
-# Convert the result of a SPLICER drug-HOI evidence search to Open Data Annotation
+# Convert the result of a SPLICER drug-HOI evidence search to Open
+# Data Annotation and serialize as N3. This is a large dataset so the
+# graph is serialized as the iterator parses the SPLICER data
 #
 # Author: Richard D Boyce, PhD
-# July 2014
+# Summer and Fall 2014
 #
 
 import sys
@@ -12,9 +14,9 @@ sys.path = sys.path + ['.']
 import re, codecs, uuid, datetime
 import json
 import pickle
-from rdflib import Graph, BNode, Literal, Namespace, URIRef, RDF, RDFS
+from rdflib import Graph, BNode, Literal, Namespace, URIRef, RDF, RDFS, XSD
 
-SPLICER_DATA = "/media/Backup/SPLICER-data/SPLICER_JANSSEN_July2014.tsv"
+SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER_JANSSEN.tsv"
 
 # TERMINOLOGY MAPPING FILES
 RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/rxnorm-to-MeSH-mapping-03032014.txt"
@@ -23,7 +25,7 @@ MESH_TO_LABEL = "../terminology-mappings/MeSHToMedDRA/mesh_cui_to_label.txt"
 MEDDRA_TO_MESH = "../terminology-mappings/MeSHToMedDRA/meshToMeddra-partial-05202014.txt"
 
 # OUTPUT DATA FILE
-OUTPUT_FILE = "drug-hoi-splicer.rdf"
+OUTPUT_FILE = "drug-hoi-splicer.n3"
 
 # TEST DRUGS
 DRUGS_D = {}
@@ -155,6 +157,8 @@ graph.namespace_manager.bind('dailymed', 'http://dbmi-icode-01.dbmi.pitt.edu/lin
 graph.namespace_manager.bind('ohdsi', 'http://purl.org/net/ohdsi#')
 graph.namespace_manager.bind('poc','http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc#')
 
+## TODO: add datatype=XSD.string to all string Literals and port queries appropriately
+
 ### open annotation ontology properties and classes
 graph.add((dctypes["Collection"], RDFS.label, Literal("Collection"))) # Used in lieau of the AnnotationSet https://code.google.com/p/annotation-ontology/wiki/AnnotationSet
 graph.add((dctypes["Collection"], dcterms["description"], Literal("A collection is described as a group; its parts may also be separately described. See http://dublincore.org/documents/dcmi-type-vocabulary/#H7")))
@@ -221,23 +225,27 @@ graph.add((poc[currentAnnotSet], RDF.type, oa["DataAnnotation"])) # TODO: find o
 graph.add((poc[currentAnnotSet], oa["annotatedAt"], Literal(datetime.date.today())))
 graph.add((poc[currentAnnotSet], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
 
+f = codecs.open(OUTPUT_FILE,"w","utf8")
+s = graph.serialize(format="n3",encoding="utf8", errors="replace")
+f.write(s)
 
 # DEBUG
 cntr = 0 
 it = splicer_f_generator()
 for elt in it:
-    if cntr == 50000:
-        break
+    #if cntr == 50000:
+    #    break
     cntr += 1
+    print cntr
 
-    # for now, only process those ADR records for drugs that we have
-    # mesh mappings for
     imedsDrug = elt["DRUG_CONCEPT_ID"]
     rxcuiDrug = meshDrug = drugLabs = None
     if DRUGS_D_OMOP.has_key(imedsDrug):
         rxcuiDrug = DRUGS_D_OMOP[imedsDrug]
         print "INFO: rxcuiDrug : %s" % rxcuiDrug
 
+        # for now, only process those ADR records for drugs that we have
+        # mesh mappings for
         # if DRUGS_D.has_key(rxcuiDrug):
         #     drugLabs = DRUGS_D[rxcuiDrug][1]
         #     meshDrug = DRUGS_D[rxcuiDrug][0]
@@ -264,57 +272,59 @@ for elt in it:
         
         currentAnnotItem = "ohdsi-splicer-annotation-item-%s" % currentAnnotation
 
-        graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
-        graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
-        graph.add((poc[currentAnnotItem], RDF.type, ohdsi["ADRAnnotation"]))
-        graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
-        graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
-        graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
+        tplL = []
+        #tplL.append((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
+        tplL.append((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
+        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["ADRAnnotation"]))
+        tplL.append((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
+        tplL.append((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
+        tplL.append((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
         # TODO: add in PROV wasGeneratedBY
 
         currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-        graph.add((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
-        graph.add((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
-        graph.add((currentAnnotTargetUuid, oa["hasSource"], URIRef(u"http://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=" + elt['SET_ID'])))
+        tplL.append((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
+        tplL.append((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
+        tplL.append((currentAnnotTargetUuid, oa["hasSource"], URIRef(u"http://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=" + elt['SET_ID'])))
 
         # TODO: make these custom Selectors for SPLs
         currentAnnotSelectorUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-        graph.add((currentAnnotTargetUuid, oa["hasSelector"], currentAnnotSelectorUuid))
-        graph.add((currentAnnotSelectorUuid, RDF.type, dailymed["SectionSelector"]))
+        tplL.append((currentAnnotTargetUuid, oa["hasSelector"], currentAnnotSelectorUuid))
+        tplL.append((currentAnnotSelectorUuid, RDF.type, dailymed["SectionSelector"]))
 
         if elt["SPL_SECTION"] == "Adverse Reactions" or elt["SPL_SECTION"] == "Post Marketing":
-            graph.add((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["adverseReactions"]))
+            tplL.append((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["adverseReactions"]))
         elif elt["SPL_SECTION"] == "Precautions (beta)":
-            graph.add((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["precautions"]))
+            tplL.append((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["precautions"]))
         elif elt["SPL_SECTION"] == "Black Box (beta)":
-            graph.add((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["boxedWarning"]))
+            tplL.append((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["boxedWarning"]))
 
+        s = ""
+        for t in tplL:
+            s += unicode.encode(" ".join((t[0].n3(graph.namespace_manager), t[1].n3(graph.namespace_manager), t[2].n3(graph.namespace_manager), u"\n")), 'utf-8', 'replace')
+        f.write(s)
                 
     # Specify the bodies of the annotation - for this type each
     # body contains the MESH drug and condition as a semantic tag
     currentAnnotationBody = "ohdsi-splicer-annotation-body-%s" % annotationBodyCntr
     annotationBodyCntr += 1
-        
-    graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    graph.add((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s-%s" % (imedsDrug, elt["CONDITION_CONCEPT_ID"]))))
-    graph.add((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
+    
+    tplL = []
+    tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
+    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s-%s" % (imedsDrug, elt["CONDITION_CONCEPT_ID"]))))
+    tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
-    graph.add((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt["CONDITION_PT"]))))
-    graph.add((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
-    graph.add((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
-    #graph.add((poc[currentAnnotationBody], poc['MeshDrug'], mesh[meshDrug])) # TODO: consider adding the values as a collection
+    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt["CONDITION_PT"]))))
+    tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
+    tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
+    #tplL.append((poc[currentAnnotationBody], poc['MeshDrug'], mesh[meshDrug])) # TODO: consider adding the values as a collection
                         
-    graph.add((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
+    s = ""
+    for t in tplL:
+        s += unicode.encode(" ".join((t[0].n3(graph.namespace_manager), t[1].n3(graph.namespace_manager), t[2].n3(graph.namespace_manager), u"\n")), 'utf-8', 'replace')
+    f.write(s)
 
 
-# display the graph
-f = codecs.open(OUTPUT_FILE,"w","utf8")
-#graph.serialize(destination=f,format="xml",encoding="utf8")
-s = graph.serialize(format="xml",encoding="utf8")
-
-#f.write(graph.serialize(format="xml",encoding="utf8"))
-f.write(unicode(s,errors='replace'))
-#print graph.serialize(format="xml")
 f.close
 
 graph.close()
