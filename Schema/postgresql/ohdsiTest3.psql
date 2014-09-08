@@ -1,0 +1,53 @@
+-- Converted by db_converter
+START TRANSACTION;
+SET standard_conforming_strings=off;
+SET escape_string_warning=off;
+SET CONSTRAINTS ALL DEFERRED;
+
+CREATE TABLE drug_HOI_evidence (
+    id serial NOT NULL, -- 'primary key',
+    drug integer NOT NULL, -- 'OMOP/IMEDS Concept ID for the drug',
+    drug_RXNORM integer, -- rxnorm cui of the drug
+    HOI integer NOT NULL, -- 'OMOP/IMEDS for the HOI',
+    HOI_MEDDRA integer, -- meddra cui of the HOI
+    evidence_type varchar(60),
+    evidence_source_code_id integer,
+    statistic_value int NOT NULL, -- 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.' ,
+    evidence_linkout varchar(100) NOT NULL,
+    statistic_type varchar(60),
+    modality boolean, -- check if the relationship between drug and HOI  is positive or negative. Null if it is not specified
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE evidence_sources (
+    id serial NOT NULL ,
+    title varchar(100) ,
+    description varchar(200) ,
+    contributer varchar(100) ,
+    creator varchar(100) ,
+    creation_date date NOT NULL , -- 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010',
+    rights varchar(400) ,
+    source varchar(200) ,
+    PRIMARY KEY (id)
+);
+
+
+-- Post-data save --
+COMMIT;
+START TRANSACTION;
+
+-- Typecasts --
+
+-- Foreign keys --
+
+-- Sequences --
+CREATE SEQUENCE drug_HOI_evidence_id_seq;
+SELECT setval('drug_HOI_evidence_id_seq', max(id)) FROM drug_HOI_evidence;
+ALTER TABLE drug_HOI_evidence ALTER COLUMN id SET DEFAULT nextval('drug_HOI_evidence_id_seq');
+CREATE SEQUENCE evidence_sources_id_seq;
+SELECT setval('evidence_sources_id_seq', max(id)) FROM evidence_sources;
+ALTER TABLE evidence_sources ALTER COLUMN id SET DEFAULT nextval('evidence_sources_id_seq');
+
+-- Full Text keys --
+
+COMMIT;
