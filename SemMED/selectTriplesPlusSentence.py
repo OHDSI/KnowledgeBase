@@ -65,7 +65,7 @@ cnx = sql.connect(**db.details())
 cursor = cnx.cursor()
 
 def main():
-    with open('semmedTriplesPlusSentence.tsv', 'w') as fil:
+    with open('semmedTriplesPlusSentence_v2.tsv', 'w') as fil:
         '''        
         List of subject/object types obtained from:
         https://raw.githubusercontent.com/mengjunxie/ae-lda/master/misc/SRDEF.txt
@@ -127,17 +127,31 @@ Central PMCID: PMC3281188.
                     o_type,
                     SENTENCE,
                     NUMBER,
-                    TYPE
+                    TYPE,
+                    PREDICATE_START_INDEX,
+                    PREDICATE_END_INDEX,
+                    SUBJECT_START_INDEX,
+                    SUBJECT_END_INDEX,
+                    SUBJECT_DIST,
+                    SUBJECT_MAXDIST,
+                    SUBJECT_SCORE,
+                    OBJECT_START_INDEX,
+                    OBJECT_END_INDEX,
+                    OBJECT_DIST,
+                    OBJECT_MAXDIST,
+                    OBJECT_SCORE
+
                 FROM
-                    PREDICATION_AGGREGATE, 
-                    SENTENCE
+                        PREDICATION_AGGREGATE
+                    INNER JOIN
+                        (SENTENCE NATURAL JOIN SENTENCE_PREDICATION)
+                    ON
+                            PREDICATION_AGGREGATE.SID=SENTENCE_ID
+                        AND
+                            PREDICATION_AGGREGATE.PNUMBER=PREDICATION_NUMBER
+                        AND
+                            PREDICATION_AGGREGATE.PID=PREDICATION_ID
                 WHERE
-                (
-                        SID = SENTENCE_ID
-                    AND
-                        PREDICATION_AGGREGATE.PMID=SENTENCE.PMID
-                )
-                AND
                 (
                     s_type in 
                     (
@@ -174,20 +188,18 @@ Central PMCID: PMC3281188.
                 )
                 ;
         """
-             
+
         srdefdic = makeSemanticDict('SRDEF.txt')
         #pprint.pprint(dic, fil)
         
         #fil.write("query:\n" + query + "\n")
         cursor.execute(query)
+       
         tsv = csv.writer(fil, delimiter="\t")
         umlsCUIs = pickle.load(open('umlsStructure.cPickle', 'rb'))
-        if cursor is not None:
-            tsv.writerow(['pmid', 'predicate', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH', 'drug Preferred Term', 'drug UMLS entity type', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'sentence', 'sentence location', 'sentence type'])
+        tsv.writerow(['pmid', 'predicate', 'predicate start index', 'predicate end index', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH','drug Preferred Term','drug UMLS entity type', 'drug start index', 'drug end index', 'drug distance', 'drug max distance', 'drug max score', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'HOI start index', 'HOI end index', 'HOI distance', 'HOI max distance', 'HOI score', 'sentence','sentence location', 'sentence type'])
         for predicate in cursor:
-            tsv.writerow([predicate[0], predicate[1], predicate[2], umlsCUIs.getRxnormCui(predicate[2]), umlsCUIs.getMeshCui(predicate[2]), predicate[3], srdefdic[predicate[4]], predicate[5], umlsCUIs.getSnomedct_usCui(predicate[5]), umlsCUIs.getMeddraCui(predicate[5]), umlsCUIs.getMeshCui(predicate[5]), predicate[6], srdefdic[predicate[7]], predicate[8], predicate[9], predicate[10]])
-
-            
+            tsv.writerow([predicate[0], predicate[1], predicate[11], predicate[12],predicate[2], umlsCUIs.getRxnormCui(predicate[2]), umlsCUIs.getMeshCui(predicate[2]), predicate[3], srdefdic[predicate[4]], predicate[13], predicate[14], predicate[15], predicate[16], predicate[17], predicate[5], umlsCUIs.getSnomedct_usCui(predicate[5]), umlsCUIs.getMeddraCui(predicate[5]), umlsCUIs.getMeshCui(predicate[5]), predicate[6], srdefdic[predicate[7]], predicate[18], predicate[19], predicate[20], predicate[21], predicate[22], predicate[8], predicate[9], predicate[10]])
         #allObjects.close()
 
 def makeSemanticDict(inp):

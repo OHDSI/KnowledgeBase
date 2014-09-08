@@ -114,4 +114,12 @@ Jeremy Jao - epicstar
 
 ohdsiTest.sql is a dump in mysql format. I change the dump to postgres format.
 
+instructions...
+1. mysql dump -> mysqldump --compatible=postgresql ...
+2. clone mysql-postgresql-converter: 
+	https://github.com/lanyrd/mysql-postgresql-converter
+3. replace '`' with '"'
+4. move the comments out (http://www.postgresql.org/docs/8.2/interactive/sql-comment.html)
+5. eliminated the '"' (we want to create the tables and columns without double quotes so there's no case sensitivity)
+6. then run the db_converter <mysql> <psql>
 
