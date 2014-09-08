@@ -24,8 +24,10 @@ DROP TABLE IF EXISTS `drug_HOI_evidence`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `drug_HOI_evidence` (
   `id` int(20) NOT NULL AUTO_INCREMENT COMMENT 'primary key',
-  `drug` int(20) NOT NULL COMMENT 'RxNorm CUI for the drug',
-  `HOI` int(20) NOT NULL COMMENT 'MedDRA CUI for the HOI',
+  `drug` int(20) NOT NULL COMMENT 'OMOP/IMEDS Concept ID for the drug',
+/*TODO: add a column for RxNorm preferred term*/;
+  `HOI` int(20) NOT NULL COMMENT 'OMOP/IMEDS for the HOI',
+/*TODO: add a column for MedDRA preferred term*/;
   `evidence_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'the type of evidence (literature, product label, pharmacovigilance, EHR)',
   `evidence_source_code_id` int(8) NOT NULL COMMENT 'a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)',
   `statistic_value` int(20) NOT NULL COMMENT 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.',
