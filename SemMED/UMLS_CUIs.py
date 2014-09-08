@@ -7,6 +7,8 @@ This is a class that will process MRCONSO.rff from the UMLS datasets:
 
 http://www.nlm.nih.gov/pubs/factsheets/umlsmeta.html
 
+http://www.nlm.nih.gov/research/umls/knowledge_sources/metathesaurus/release/abbreviations.html
+
 To get the UMLS datasets, you must have a UMLS account then download it.
 
 Usually this is designed to process MRCONSO.RRF
@@ -93,7 +95,8 @@ class UMLS_CUIs:
         Adds the UMLS CUIs to the UMLS python structure
         
         The CUIs will be added if and only if the UMLS entity is English
-        and a preferred term
+        and a preferred term. SNOMED and MESH are assumed to all be active
+        since I didnt' have any conflicts with many CUIs for them.
         
         For now, for every different kb CUI, I add it to itself pipe delimited.
         So for UMLS CUIs with multiple SNOMED CUIs -> cui1|cui2... etc.
@@ -105,14 +108,14 @@ class UMLS_CUIs:
         :param kb_cui: the type of cui from the knowledgebase given
         :param kb_name: the string of the term
         """
-        self.__initializeEntityIfNotPresent(umls_cui, kb_name)
+        self.__initializeEntityIfNotPresent(umls_cui)
         
         #print term_type
         #print language
         #print kb_cui
         #print ''
         #if term_type == 'PT' and language == 'ENG' and kb in self.cui:
-        if language == 'ENG' and kb in self.cui:
+        if language == 'ENG' and ((kb in ('RXNORM', 'MSH')) or term_type in ('PT', 'MH', 'SCD','MIN')) and kb in self.cui:
             #if self.structure[umls_cui][self.cui[kb]] is not None:
                 #print umls_cui + ' ' + kb + ' '
                 #print 'old: ' + self.structure[umls_cui][self.cui[kb]]
@@ -122,6 +125,8 @@ class UMLS_CUIs:
                 #print ''
             #else:
                 #self.structure[umls_cui][self.cui[kb]] = kb_cui
+            if self.structure[umls_cui][0] == None:
+                self.structure[umls_cui][0] = kb_name
             if kb_cui not in self.structure[umls_cui][self.cui[kb]]:
                 self.structure[umls_cui][self.cui[kb]].append(kb_cui)
                 
@@ -134,7 +139,7 @@ class UMLS_CUIs:
         """
         return (umls_cui in self.structure)
     
-    def __initializeEntityIfNotPresent(self, umls_cui, kb_name):
+    def __initializeEntityIfNotPresent(self, umls_cui):
         """
         Puts an empty entity into the UMLS dictionary structure if not
         present in the structure as the UMLS CUI as a string and 
@@ -154,7 +159,7 @@ class UMLS_CUIs:
         :param kb_name: the preferred UMLS entity's name
         """
         if not (self.__inStructure(umls_cui)):
-            self.structure[umls_cui] = [kb_name, [], [], [], []]
+            self.structure[umls_cui] = [None, [], [], [], []]
             
     def getName(self, umls_cui):
         """
@@ -172,6 +177,7 @@ class UMLS_CUIs:
         """
         if self.__inStructure(umls_cui):
             return self.listToPipe(self.structure[umls_cui][1])
+            #return self.structure[umls_cui][1]
         return None
         
     def getMeshCui(self, umls_cui):
@@ -181,6 +187,7 @@ class UMLS_CUIs:
         """
         if self.__inStructure(umls_cui):
             return self.listToPipe(self.structure[umls_cui][2])
+            #return self.structure[umls_cui][2]
         return None
         
     def getMeddraCui(self, umls_cui):
@@ -190,6 +197,7 @@ class UMLS_CUIs:
         """
         if self.__inStructure(umls_cui):
             return self.listToPipe(self.structure[umls_cui][3])
+            #return self.structure[umls_cui][3]
         return None
         
     def getRxnormCui(self, umls_cui):
@@ -199,6 +207,7 @@ class UMLS_CUIs:
         """
         if self.__inStructure(umls_cui):
             return self.listToPipe(self.structure[umls_cui][4])
+            #return self.structure[umls_cui][4]
         return None
 
     def listToPipe(self, lis):
@@ -220,8 +229,15 @@ def main():
     """
     umls_cuis = UMLS_CUIs()
     umls_cuis.process(inp)
-    testCUI = 'C3495559'
+    testCUI = 'C0013604'
     
+    print umls_cuis.getName(testCUI)
+    print umls_cuis.getMeshCui(testCUI)
+    print umls_cuis.getRxnormCui(testCUI)
+    print umls_cuis.getSnomedct_usCui(testCUI)
+    print umls_cuis.getMeddraCui(testCUI)
+    
+    testCUI = 'C0055447'
     print umls_cuis.getName(testCUI)
     print umls_cuis.getMeshCui(testCUI)
     print umls_cuis.getRxnormCui(testCUI)

@@ -1,0 +1,92 @@
+-- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: ohdsiTest3
+-- ------------------------------------------------------
+-- Server version	5.5.37-0ubuntu0.12.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table "drug_HOI_evidence"
+--
+
+DROP TABLE IF EXISTS "drug_HOI_evidence";
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE "drug_HOI_evidence" (
+  "id" int(20) NOT NULL AUTO_INCREMENT , -- 'primary key',
+  "drug" int(20) NOT NULL , -- 'OMOP/IMEDS Concept ID for the drug',
+  "HOI" int(20) NOT NULL , -- 'OMOP/IMEDS for the HOI',
+  "evidence_type" varchar(30) ,
+  "evidence_source_code_id" int(8) NOT NULL , -- 'a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)',
+  "statistic_value" int NOT NULL, -- 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.',
+  "evidence_linkout" varchar(50) NOT NULL,
+  "statistic_type" varchar(30) ,
+  PRIMARY KEY ("id")
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table "drug_HOI_evidence"
+--
+
+-- LOCK TABLES "drug_HOI_evidence" WRITE;
+-- /*!40000 ALTER TABLE "drug_HOI_evidence" DISABLE KEYS */;
+-- INSERT INTO "drug_HOI_evidence" VALUES (1,40224133,10014735,'literature_case_report',3,1,'http://tinyurl.com/mxvnx6o','COUNT'),(2,40224133,10006869,'literature_case_report',3,1,'http://tinyurl.com/kpqjaw6','COUNT'),(3,40224133,10014744,'literature_case_report',3,1,'http://tinyurl.com/jvmqxnh','COUNT'),(4,40224133,10014733,'literature_case_report',3,1,'http://tinyurl.com/my9a4p3','COUNT'),(5,40224133,10014768,'literature_case_report',3,1,'http://tinyurl.com/kwwz2oa','COUNT'),(6,40224133,10014758,'literature_case_report',3,1,'http://tinyurl.com/mawz3ot','COUNT'),(7,40224133,10007063,'literature_case_report',3,1,'http://tinyurl.com/ljwafho','COUNT'),(8,40224133,10007342,'literature_case_report',3,1,'http://tinyurl.com/myb7wyw','COUNT'),(9,40224133,10028993,'literature_case_report',3,1,'http://tinyurl.com/lrftbs7','COUNT'),(10,40224133,10014759,'literature_case_report',3,1,'http://tinyurl.com/ldp64en','COUNT'),(11,40224133,10014743,'literature_case_report',3,1,'http://tinyurl.com/k25tlk9','COUNT'),(12,40224133,10003694,'literature_case_report',3,2,'http://tinyurl.com/mzg4x2c','COUNT'),(13,40224133,10003704,'literature_case_report',3,2,'http://tinyurl.com/labxarr','COUNT'),(14,40224133,10015105,'literature_case_report',3,1,'http://tinyurl.com/q7ul859','COUNT'),(15,40224133,10007506,'literature_case_report',3,1,'http://tinyurl.com/mpbfk94','COUNT'),(16,40224133,10007284,'literature_case_report',3,1,'http://tinyurl.com/lmb44vd','COUNT'),(17,40224133,10007423,'literature_case_report',3,1,'http://tinyurl.com/m3yrcbu','COUNT'),(18,40224133,10026947,'literature_case_report',3,1,'http://tinyurl.com/mug7r5v','COUNT'),(19,40224133,10029402,'literature_case_report',3,1,'http://tinyurl.com/lffphol','COUNT'),(20,40224133,10045242,'literature_case_report',3,1,'http://tinyurl.com/lpp9vz9','COUNT'),(21,40224133,10029505,'literature_case_report',3,1,'http://tinyurl.com/lwklzpy','COUNT'),(22,40224133,10012612,'literature_case_report',3,1,'http://tinyurl.com/mr22xj2','COUNT'),(23,40224133,10067585,'literature_case_report',3,1,'http://tinyurl.com/jwkxz5c','COUNT'),(24,40224133,10012611,'literature_case_report',3,1,'http://tinyurl.com/kdanpzt','COUNT'),(25,40224133,10012613,'literature_case_report',3,1,'http://tinyurl.com/mtkv4xw','COUNT'),(26,40224133,10024314,'literature_case_report',3,1,'http://tinyurl.com/mmpjgr7','COUNT'),(27,40224133,10060500,'literature_case_report',3,1,'http://tinyurl.com/loux8da','COUNT'),(28,40224133,10060430,'literature_case_report',3,1,'http://tinyurl.com/n6ufhrk','COUNT'),(29,40224133,10024329,'literature_case_report',3,1,'http://tinyurl.com/k85vzm2','COUNT'),(30,40224133,10024352,'literature_case_report',3,1,'http://tinyurl.com/lgb27tk','COUNT'),(31,40224133,10024288,'literature_case_report',3,1,'http://tinyurl.com/lctte9o','COUNT'),(32,40224133,10024323,'literature_case_report',3,1,'http://tinyurl.com/mrubnoy','COUNT'),(33,40224133,10024312,'literature_case_report',3,1,'http://tinyurl.com/kqk94tu','COUNT'),(34,40224133,10045992,'literature_case_report',3,1,'http://tinyurl.com/k6y7a9l','COUNT'),(35,40224133,10024351,'literature_case_report',3,1,'http://tinyurl.com/le6awh6','COUNT'),(36,40224133,10045991,'literature_case_report',3,1,'http://tinyurl.com/mcyu7v3','COUNT'),(37,40224133,10024324,'literature_case_report',3,1,'http://tinyurl.com/lrqggdj','COUNT'),(38,40224133,10045994,'literature_case_report',3,1,'http://tinyurl.com/km78ukv','COUNT'),(39,40224133,10025044,'literature_case_report',3,2,'http://tinyurl.com/kpleo7r','COUNT'),(40,40224133,10006880,'literature_case_report',3,2,'http://tinyurl.com/mf5ftwk','COUNT'),(41,40224133,10007096,'literature_case_report',3,2,'http://tinyurl.com/lrje2cb','COUNT'),(42,40224133,10058467,'literature_case_report',3,2,'http://tinyurl.com/n2ohojt','COUNT'),(43,40224133,10025056,'literature_case_report',3,2,'http://tinyurl.com/mzjlnjg','COUNT'),(44,40224133,10062042,'literature_case_report',3,2,'http://tinyurl.com/l3j6e56','COUNT'),(45,40224133,10049790,'literature_case_report',3,2,'http://tinyurl.com/kxzrvrf','COUNT'),(46,40224133,10061054,'literature_case_report',3,5,'http://tinyurl.com/mujphn2','COUNT'),(47,40224133,10010400,'literature_case_report',3,5,'http://tinyurl.com/lfja88p','COUNT'),(48,40224133,10048496,'literature_case_report',3,7,'http://tinyurl.com/l59prf4','COUNT'),(49,40224133,10007650,'literature_case_report',3,7,'http://tinyurl.com/jwnz8mg','COUNT'),(50,40224133,10013200,'literature_case_report',3,7,'http://tinyurl.com/lyxaan9','COUNT'),(51,40224133,10007649,'literature_case_report',3,7,'http://tinyurl.com/kuj4h3d','COUNT'),(52,40224133,10007648,'literature_case_report',3,7,'http://tinyurl.com/m5o86av','COUNT'),(53,40224133,10025310,'literature_case_report',3,1,'http://tinyurl.com/nx5ll4w','COUNT'),(54,40224133,10025633,'literature_case_report',3,1,'http://tinyurl.com/lz56bnm','COUNT'),(55,40224133,10025315,'literature_case_report',3,1,'http://tinyurl.com/ln9vzkg','COUNT'),(56,40224133,10025316,'literature_case_report',3,1,'http://tinyurl.com/k89g966','COUNT'),(57,40224133,10025632,'literature_case_report',3,1,'http://tinyurl.com/kmx6gjn','COUNT'),(58,40224133,10046150,'literature_case_report',3,1,'http://tinyurl.com/m7erjkt','COUNT'),(59,40224133,10039626,'literature_case_report',3,1,'http://tinyurl.com/mxjfwe4','COUNT'),(60,40224133,10012297,'literature_case_report',3,1,'http://tinyurl.com/n8ojllm','COUNT'),(61,40224133,10046156,'literature_case_report',3,1,'http://tinyurl.com/k64pxqp','COUNT'),(62,40224133,10039642,'literature_case_report',3,1,'http://tinyurl.com/le9snya','COUNT'),(63,40224133,10039632,'literature_case_report',3,1,'http://tinyurl.com/ku4wmxu','COUNT'),(64,40224133,10002272,'literature_case_report',3,1,'http://tinyurl.com/mpt55so','COUNT'),(65,40224133,10002315,'literature_case_report',3,1,'http://tinyurl.com/kxwwqtv','COUNT'),(66,40224133,10045627,'literature_case_report',3,1,'http://tinyurl.com/mo5zpzq','COUNT'),(67,40224133,10002082,'literature_case_report',3,1,'http://tinyurl.com/m7xmozd','COUNT'),(68,40224133,10002071,'literature_case_report',3,1,'http://tinyurl.com/mdtybp5','COUNT'),(69,40224133,10055742,'literature_case_report',3,1,'http://tinyurl.com/kdsdb5g','COUNT'),(70,40224133,10002034,'literature_case_report',3,1,'http://tinyurl.com/kknovc8','COUNT'),(71,40224133,10046146,'literature_case_report',3,1,'http://tinyurl.com/k3zsubs','COUNT'),(72,40224133,10038853,'literature_case_report',3,1,'http://tinyurl.com/l4skwcl','COUNT'),(73,40224133,10013265,'literature_case_report',3,1,'http://tinyurl.com/mdxolk6','COUNT'),(74,40224133,10038931,'literature_case_report',3,1,'http://tinyurl.com/lno3dmw','COUNT'),(75,40224133,10038923,'literature_case_report',3,1,'http://tinyurl.com/mvt72uh','COUNT'),(76,40224133,10048487,'literature_case_report',3,1,'http://tinyurl.com/mba58a8','COUNT'),(77,40224133,10038854,'literature_case_report',3,1,'http://tinyurl.com/m7swenc','COUNT'),(78,40224133,10001141,'literature_case_report',3,1,'http://tinyurl.com/kc4qusz','COUNT'),(79,40224133,10001166,'literature_case_report',3,1,'http://tinyurl.com/n95ogo5','COUNT'),(80,40224133,10066136,'literature_case_report',3,1,'http://tinyurl.com/kc7ffgl','COUNT'),(81,40224133,10061873,'literature_case_report',3,1,'http://tinyurl.com/l6lsuam','COUNT'),(82,40224133,10029514,'literature_case_report',3,1,'http://tinyurl.com/lr7uouv','COUNT'),(83,40224133,10013242,'literature_case_report',3,1,'http://tinyurl.com/ldh7hhe','COUNT'),(84,40224133,10029203,'literature_case_report',3,1,'http://tinyurl.com/lnqovb2','COUNT'),(85,40224133,10029286,'literature_case_report',3,1,'http://tinyurl.com/mz85d53','COUNT'),(86,40224133,10029202,'literature_case_report',3,1,'http://tinyurl.com/mvvskzk','COUNT'),(87,40224133,10045843,'literature_case_report',3,1,'http://tinyurl.com/lum3zhr','COUNT'),(88,40224133,10029298,'literature_case_report',3,1,'http://tinyurl.com/n5r77pc','COUNT'),(89,40224133,10029205,'literature_case_report',3,1,'http://tinyurl.com/lm35zy4','COUNT'),(90,40224133,10012687,'literature_case_report',3,1,'http://tinyurl.com/kdvysqj','COUNT'),(91,40224133,10029477,'literature_case_report',3,1,'http://tinyurl.com/mu8978m','COUNT'),(92,40224133,10012674,'literature_case_report',3,1,'http://tinyurl.com/n43krfe','COUNT'),(93,40224133,10012638,'literature_case_report',3,1,'http://tinyurl.com/kv2utqw','COUNT'),(94,40224133,10061835,'literature_case_report',3,1,'http://tinyurl.com/kagt26n','COUNT'),(95,40224133,10012678,'literature_case_report',3,1,'http://tinyurl.com/ko7j9k7','COUNT'),(96,40224133,10003816,'literature_case_report',3,1,'http://tinyurl.com/mfm99n6','COUNT'),(97,40224133,10003815,'literature_case_report',3,1,'http://tinyurl.com/mmhkttv','COUNT'),(98,40224133,10061664,'literature_case_report',3,1,'http://tinyurl.com/ku7l6mx','COUNT');
+-- /*!40000 ALTER TABLE "drug_HOI_evidence" ENABLE KEYS */;
+-- UNLOCK TABLES;
+
+/*TODO: ?? add a column for modality to indicate if relationship of evidence is to refute the assertion*/
+/*TODO: add a column for MedDRA preferred term*/;
+/*TODO: add a column for RxNorm preferred term*/;
+
+
+--
+-- Table structure for table "evidence_sources"
+--
+
+DROP TABLE IF EXISTS "evidence_sources";
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE "evidence_sources" (
+  "id" int(8) NOT NULL AUTO_INCREMENT,
+  "title" varchar(50) ,
+  "description" varchar(100) ,
+  "contributer" varchar(50) ,
+  "creator" varchar(50) ,
+  "creation_date" date NOT NULL , -- 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010',
+  "rights" varchar(200) ,
+  "source" varchar(100) ,
+  PRIMARY KEY ("id")
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table "evidence_sources"
+--
+
+-- LOCK TABLES "evidence_sources" WRITE;
+-- /*!40000 ALTER TABLE "evidence_sources" DISABLE KEYS */;
+-- INSERT INTO "evidence_sources" VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','','');
+-- /*!40000 ALTER TABLE "evidence_sources" ENABLE KEYS */;
+-- UNLOCK TABLES;
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-08-06 10:42:53
