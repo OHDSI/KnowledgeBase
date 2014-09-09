@@ -15,7 +15,8 @@ import csv
 linkouts = {
 
 'aers_ebgm': 'http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1884980/',
-'aers_eb05': 'http://www.ncbi.nlm.nih.gov/pubmed/23657824'
+'aers_eb05': 'http://www.ncbi.nlm.nih.gov/pubmed/23657824',
+'aers_report_count': 'https://open.fda.gov/drug/event/reference/'
 
 }
 
@@ -70,11 +71,14 @@ def main():
             drug_HOI[drug_HOI_rel] = (row[0], row[1], row[2], row[3])
             csvrel.writerow([drug_HOI_rel, row[0], row[1], row[2], row[3]])
             
-        csvout.writerow([table_id, row[0], row[1], row[2], row[3], row[4], None, 5, row[5], linkouts['aers_ebgm'], 'aers_ebgm'])
-        csvout2.writerow([table_id, drug_HOI_rel, row[4], None, 5, row[5], linkouts['aers_ebgm'], 'aers_ebgm'])
+        csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_report_count', None, 5, row[4], linkouts['aers_report_count'], 'COUNT'])
+        csvout2.writerow([table_id, drug_HOI_rel, 'aers_report_count', None, 5, row[4], linkouts['aers_report_count'], 'COUNT'])
         table_id += 1
-        csvout.writerow([table_id, row[0], row[1], row[2], row[3], row[4], None, 5, row[6], linkouts['aers_eb05'], 'aers_eb05'])
-        csvout2.writerow([table_id, drug_HOI_rel, row[4], None, 5, row[5], linkouts['aers_eb05'], 'aers_eb05'])
+        csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_ebgm', None, 5, row[5], linkouts['aers_ebgm'], 'EBGM'])
+        csvout2.writerow([table_id, drug_HOI_rel, 'aers_ebgm', None, 5, row[5], linkouts['aers_ebgm'], 'aers_ebgm'])
+        table_id += 1
+        csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_eb05', None, 5, row[6], linkouts['aers_eb05'], 'EB05'])
+        csvout2.writerow([table_id, drug_HOI_rel, 'aers_eb05', None, 5, row[5], linkouts['aers_eb05'], 'EB05'])
         table_id += 1
     infile.close()
     outfile.close()
