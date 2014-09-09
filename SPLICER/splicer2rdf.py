@@ -25,7 +25,7 @@ MESH_TO_LABEL = "../terminology-mappings/MeSHToMedDRA/mesh_cui_to_label.txt"
 MEDDRA_TO_MESH = "../terminology-mappings/MeSHToMedDRA/meshToMeddra-partial-05202014.txt"
 
 # OUTPUT DATA FILE
-OUTPUT_FILE = "drug-hoi-splicer.n3"
+OUTPUT_FILE = "drug-hoi-splicer.nt"
 
 # TEST DRUGS
 DRUGS_D = {}
@@ -300,7 +300,7 @@ for elt in it:
 
         s = ""
         for t in tplL:
-            s += unicode.encode(" ".join((t[0].n3(graph.namespace_manager), t[1].n3(graph.namespace_manager), t[2].n3(graph.namespace_manager), u"\n")), 'utf-8', 'replace')
+            s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
         f.write(s)
                 
     # Specify the bodies of the annotation - for this type each
@@ -321,7 +321,7 @@ for elt in it:
     tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
     s = ""
     for t in tplL:
-        s += unicode.encode(" ".join((t[0].n3(graph.namespace_manager), t[1].n3(graph.namespace_manager), t[2].n3(graph.namespace_manager), u"\n")), 'utf-8', 'replace')
+        s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
     f.write(s)
 
 
