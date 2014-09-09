@@ -1,5 +1,9 @@
-AERS
+Pharmacovigilance signals mined from the FAERS
 ====
 
-This is the data from the FDA Adverse Event Reporting System. The data here
-will be put on the OHDSI Postgres DB drug_HOI_evidence table.
+Data from pharmacoviglance signals mined from FDA Adverse Event
+Reporting System will also be included in the OHDSI KB. THis folder
+holds some data to test the best approach to loading the data into the
+OHDSI Postgres DB drug_HOI_evidence table.
+
+
