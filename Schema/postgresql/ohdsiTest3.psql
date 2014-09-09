@@ -1,26 +1,31 @@
+-- Jeremy Jao
+-- 09.09.2014
+-- Made created from ohdsiTest3.mysql in the mysql folder of the Schema in Github.
+-- Then I added some tables and whatnot.
+-- I had to pipe the port so I can load this script using pgadmin3 (psql should be fine)
+
+-- USAGE:
+-- -prerequisites:
+	-- - example_drug_HOI_relationship_input.csv - example input file for the drug_HOI_relationship table
+	-- - example_drug_HOI_evidence_input.csv - example input file for the drug_HOI_evidence table
+	-- - example_drug_HOI_evidence_input_2.csv - example input file for the drug_HOI_evidence2 table
+-- - make sure that all these files including the script are in:
+	-- - /mnt/vol1/inbound folder of the OHDSI dev server!!!!
+-- - & psql vocabulary < ohdsiTest3.psql (cannot use pgadmin3 to load -> need \copy command)
+
 -- Converted by db_converter
 START TRANSACTION;
 SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
 
-CREATE TABLE drug_HOI_evidence (
-    id serial NOT NULL, -- 'primary key',
-    drug integer NOT NULL, -- 'OMOP/IMEDS Concept ID for the drug',
-    drug_RXNORM integer, -- rxnorm cui of the drug
-    HOI integer NOT NULL, -- 'OMOP/IMEDS for the HOI',
-    HOI_MEDDRA integer, -- meddra cui of the HOI
-    evidence_type varchar(60),
-    evidence_source_code_id integer,
-    statistic_value int NOT NULL, -- 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.' ,
-    evidence_linkout varchar(100) NOT NULL,
-    statistic_type varchar(60),
-    modality boolean, -- check if the relationship between drug and HOI  is positive or negative. Null if it is not specified
-    PRIMARY KEY (id)
-);
+DROP TABLE IF EXISTS drug_HOI_evidence;
+DROP TABLE IF EXISTS drug_HOI_evidence2;
+DROP TABLE IF EXISTS drug_HOI_relationship;
+DROP TABLE IF EXISTS evidence_sources;
 
 CREATE TABLE evidence_sources (
-    id serial NOT NULL ,
+    id serial,
     title varchar(100) ,
     description varchar(200) ,
     contributer varchar(100) ,
@@ -31,6 +36,46 @@ CREATE TABLE evidence_sources (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE drug_HOI_relationship (
+    id varchar(50) PRIMARY KEY,
+    drug integer,
+    RxNorm_drug varchar(100),
+    HOI integer,
+    MedDRA_HOI varchar(100)
+);
+
+CREATE TABLE drug_HOI_evidence (
+    id serial PRIMARY KEY, -- 'primary key',
+    drug integer NOT NULL , -- 'OMOP/IMEDS Concept ID for the drug',
+    RxNorm_Preferred_Term varchar(100),
+    HOI integer NOT NULL , -- 'OMOP/IMEDS for the HOI',
+    MedDRA_Preferred_Term varchar(100),
+    evidence_type varchar(60) ,
+    modality boolean,
+    evidence_source_code_id integer ,
+    statistic_value numeric NOT NULL, -- 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.' ,
+    evidence_linkout varchar(100) NOT NULL,
+    statistic_type varchar(60) ,
+    FOREIGN KEY(evidence_source_code_id) REFERENCES evidence_sources(id)
+);
+
+
+
+CREATE TABLE drug_HOI_evidence2 (
+	id serial PRIMARY KEY,
+	drug_HOI_relationship varchar(50),
+	evidence_type varchar(60) ,
+    modality boolean,
+    evidence_source_code_id integer ,
+    statistic_value numeric NOT NULL, -- 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.' ,
+    evidence_linkout varchar(100) NOT NULL,
+    statistic_type varchar(60) ,
+    FOREIGN KEY (drug_HOI_relationship) REFERENCES drug_HOI_relationship (id),
+    FOREIGN KEY(evidence_source_code_id) REFERENCES evidence_sources(id)
+);
+
+
+INSERT INTO evidence_sources VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','',''), (5, 'Adverse Event Reporting System', 'FDA database containing adverse event and medication error reports.', 'Jeremy Jao', 'FDA', '2014-09-09', '','');
 
 -- Post-data save --
 COMMIT;
@@ -41,13 +86,84 @@ START TRANSACTION;
 -- Foreign keys --
 
 -- Sequences --
-CREATE SEQUENCE drug_HOI_evidence_id_seq;
-SELECT setval('drug_HOI_evidence_id_seq', max(id)) FROM drug_HOI_evidence;
-ALTER TABLE drug_HOI_evidence ALTER COLUMN id SET DEFAULT nextval('drug_HOI_evidence_id_seq');
-CREATE SEQUENCE evidence_sources_id_seq;
-SELECT setval('evidence_sources_id_seq', max(id)) FROM evidence_sources;
-ALTER TABLE evidence_sources ALTER COLUMN id SET DEFAULT nextval('evidence_sources_id_seq');
+-- CREATE SEQUENCE drug_HOI_evidence_id_seq;
+-- SELECT setval('drug_HOI_evidence_id_seq', max(id)) FROM drug_HOI_evidence;
+-- ALTER TABLE drug_HOI_evidence ALTER COLUMN id SET DEFAULT nextval('drug_HOI_evidence_id_seq');
+-- CREATE SEQUENCE evidence_sources_id_seq;
+-- SELECT setval('evidence_sources_id_seq', max(id)) FROM evidence_sources;
+-- ALTER TABLE evidence_sources ALTER COLUMN id SET DEFAULT nextval('evidence_sources_id_seq');
 
 -- Full Text keys --
 
+COMMENT ON COLUMN drug_HOI_evidence.id IS 'primary key';
+COMMENT ON COLUMN drug_HOI_evidence.drug IS 'OMOP/IMEDS Concept ID for the drug';
+COMMENT ON COLUMN drug_HOI_evidence.RxNorm_Preferred_Term IS 'RxNorm Preferred Term of the Drug';
+COMMENT ON COLUMN drug_HOI_evidence.HOI IS 'OMOP/IMEDS Concept ID for the Health Outcome of Interest';
+COMMENT ON COLUMN drug_HOI_evidence.MedDRA_Preferred_Term IS 'MedDRA preferred term of the Health Outcome of Interest';
+COMMENT ON COLUMN drug_HOI_evidence.evidence_type IS 'the type of evidence (literature, product label, pharmacovigilance, EHR)';
+COMMENT ON COLUMN drug_HOI_evidence.modality IS 'Whether or not the relationship of evidence is to refute the assertion';
+COMMENT ON COLUMN drug_HOI_evidence.evidence_source_code_id IS 'a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)';
+COMMENT ON COLUMN drug_HOI_evidence.statistic_value IS 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.';
+COMMENT ON COLUMN drug_HOI_evidence.evidence_linkout IS 'For literature-like (e.g., PubMed abstracts, product labeling), this holds a URL that will resolve to a query against the RDF endpoint for all resources used to generate the evidence_count. For signal detection sources, this holds a link to metadata on the algorithm and how it was applied to arrive at the statistical value.';
+COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)';
+
+COMMENT ON COLUMN evidence_sources.title IS 'a short name for the evidence source. Same as http://purl.org/dc/elements/1.1/title';
+COMMENT ON COLUMN evidence_sources.description IS 'Description of the evidence source. Same as http://purl.org/dc/elements/1.1/description';
+COMMENT ON COLUMN evidence_sources.contributer IS 'Same as http://purl.org/dc/elements/1.1/contributor';
+COMMENT ON COLUMN evidence_sources.creator IS 'Same as http://purl.org/dc/elements/1.1/creator';
+COMMENT ON COLUMN evidence_sources.creation_date IS 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010';
+COMMENT ON COLUMN evidence_sources.rights IS 'Same as http://purl.org/dc/elements/1.1/rights';
+COMMENT ON COLUMN evidence_sources.source IS 'The source from which this data was derived. Same as http://purl.org/dc/elements/1.1/source';
+
+COMMENT ON COLUMN drug_HOI_relationship.drug IS 'OMOP/IMEDS Concept ID for the drug';
+COMMENT ON COLUMN drug_HOI_relationship.RxNorm_drug IS 'RxNorm Preferred Term of the Drug';
+COMMENT ON COLUMN drug_HOI_relationship.HOI IS 'OMOP/IMEDS Concept ID for the Health Outcome of Interest';
+COMMENT ON COLUMN drug_HOI_relationship.MedDRA_HOI IS 'MedDRA preferred term of the Health Outcome of Interest';
+
+COMMENT ON COLUMN drug_HOI_evidence.id IS 'primary key';
+COMMENT ON COLUMN drug_HOI_evidence2.drug_HOI_relationship IS 'foreign key to the drug_HOI_relationship id';
+COMMENT ON COLUMN drug_HOI_evidence.evidence_type IS 'the type of evidence (literature, product label, pharmacovigilance, EHR)';
+COMMENT ON COLUMN drug_HOI_evidence.modality IS 'Whether or not the relationship of evidence is to refute the assertion';
+COMMENT ON COLUMN drug_HOI_evidence.evidence_source_code_id IS 'a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)';
+COMMENT ON COLUMN drug_HOI_evidence.statistic_value IS 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.';
+COMMENT ON COLUMN drug_HOI_evidence.evidence_linkout IS 'For literature-like (e.g., PubMed abstracts, product labeling), this holds a URL that will resolve to a query against the RDF endpoint for all resources used to generate the evidence_count. For signal detection sources, this holds a link to metadata on the algorithm and how it was applied to arrive at the statistical value.';
+COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)';
+
+ALTER TABLE drug_HOI_evidence
+  OWNER TO jeremy;
+GRANT ALL ON TABLE drug_HOI_evidence TO jeremy;
+GRANT ALL ON TABLE drug_HOI_evidence TO public;
+GRANT ALL ON TABLE drug_HOI_evidence TO administrator;
+
+ALTER TABLE drug_HOI_evidence2
+  OWNER TO jeremy;
+GRANT ALL ON TABLE drug_HOI_evidence2 TO jeremy;
+GRANT ALL ON TABLE drug_HOI_evidence2 TO public;
+GRANT ALL ON TABLE drug_HOI_evidence2 TO administrator;
+
+ALTER TABLE evidence_sources
+  OWNER TO jeremy;
+GRANT ALL ON TABLE evidence_sources TO jeremy;
+GRANT ALL ON TABLE evidence_sources TO public;
+GRANT ALL ON TABLE evidence_sources TO administrator;
+
+ALTER TABLE drug_HOI_relationship
+  OWNER TO jeremy;
+GRANT ALL ON TABLE drug_HOI_relationship TO jeremy;
+GRANT ALL ON TABLE drug_HOI_relationship TO public;
+GRANT ALL ON TABLE drug_HOI_relationship TO administrator;
+
+COMMIT;
+
+START TRANSACTION;
+
+\copy drug_HOI_relationship from 'example_drug_HOI_relationship_input.csv' DELIMITER '|' CSV HEADER;
+
+COMMIT;
+
+START TRANSACTION;
+\copy drug_HOI_evidence from 'example_drug_HOI_evidence_input.csv' DELIMITER '|' CSV HEADER;
+COMMIT;
+START TRANSACTION;
+\copy drug_HOI_evidence2 from 'example_drug_HOI_evidence_input_2.csv' DELIMITER '|' CSV HEADER;
 COMMIT;

@@ -30,17 +30,29 @@ Steps that the program does:
 - explanation of columns:
     - pmid: the PMID
     - predicate: the predicate used to associate the subject and object
+    - predicate start index: first predicate's character's location in the sentence
+    - predicate end index: last predicate's character's location in the sentence
     - Drug UMLS CUI: UMLS CUI of the subject (drug)
     - drug RxNorm: RxNorm drug CUI
     - drug MeSH: MeSH drug CUI
     - drug Preferred Term: name of the drug from SEMMED
     - drug UMLS entity type: name of the drug's UMLS Entity Type
+    - drug start index: drug's first character's location in the sentence
+    - drug end index: drug's last character's location in the sentence
+    - drug distance: The distance of the subject mention (counted in noun phrases) from the predicate mention (0 for certain indicator types, such as NOM)
+    - drug max distance: The number of potential arguments (in noun phrases) from the predicate mention in the direction of the subject mention (0 for certain indicator types, such as NOM)
+    - drug max score: (note should not have max in the header...)
     - HOI UMLS CUI: Health Outcome of Interest UMLS CUI
     - HOI SNOMED: Health Outcome of Interest SNOMED CUI
     - HOI MedDRA: Health Outcome of Interest MedDRA CUI
     - HOI MeSH: Health Outcome of Interest MeSH CUI
     - HOI Preferred Term: name of the HOI from SEMMED
     - HOI entity type: name of the HOI's UMLS Entity type
+    - HOI start index: HOI's first character's location in the sentence
+    - HOI end index: HOI's last character's location in the sentence
+    - HOI distance: The distance of the subject mention (counted in noun phrases) from the predicate mention (0 for certain indicator types, such as NOM)
+    - HOI max distance: The number of potential arguments (in noun phrases) from the predicate mention in the direction of the subject mention (0 for certain indicator types, such as NOM)
+    - HOI max score: (note should not have max in the header...)
     - sentence: the actual sentence of the finding
     - sentence location: number that represents the location of the sentence found from its source from PM
     - sentence type: sentence was extracted from this type
@@ -197,6 +209,7 @@ Central PMCID: PMC3281188.
        
         tsv = csv.writer(fil, delimiter="\t")
         umlsCUIs = pickle.load(open('umlsStructure.cPickle', 'rb'))
+        #TODO change the 'drug max score' to 'drug score'
         tsv.writerow(['pmid', 'predicate', 'predicate start index', 'predicate end index', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH','drug Preferred Term','drug UMLS entity type', 'drug start index', 'drug end index', 'drug distance', 'drug max distance', 'drug max score', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'HOI start index', 'HOI end index', 'HOI distance', 'HOI max distance', 'HOI score', 'sentence','sentence location', 'sentence type'])
         for predicate in cursor:
             tsv.writerow([predicate[0], predicate[1], predicate[11], predicate[12],predicate[2], umlsCUIs.getRxnormCui(predicate[2]), umlsCUIs.getMeshCui(predicate[2]), predicate[3], srdefdic[predicate[4]], predicate[13], predicate[14], predicate[15], predicate[16], predicate[17], predicate[5], umlsCUIs.getSnomedct_usCui(predicate[5]), umlsCUIs.getMeddraCui(predicate[5]), umlsCUIs.getMeshCui(predicate[5]), predicate[6], srdefdic[predicate[7]], predicate[18], predicate[19], predicate[20], predicate[21], predicate[22], predicate[8], predicate[9], predicate[10]])
