@@ -5,7 +5,7 @@
 # Author: Richard D Boyce, PhD
 # Summer/Fall 2014
 #
-import urllib2, urllib, re
+import urllib2, urllib, re, sys
 
 ## count data retrieved from the SPARQL endpoint
 ## (http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql) using the
@@ -62,7 +62,7 @@ def shortenURL(longurl):
         return urlL[0]
 
 # replace the @IMEDS_DRUG@ and @IMEDS_HOI@ strings with the appropriate values
-TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+dailymed%3A%3Chttp%3A%2F%2Fdbmi-icode-01.dbmi.pitt.edu%2FlinkedSPLs%2Fvocab%2Fresource%2F%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0A+%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG.%0D%0A+%3Fbody+ohdsi%3AMeddrraHoi+meddra%3A@IMEDS_HOI.%0D%0A%0D%0A+%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+%3Fselector+dailymed%3AsplSection+%3Fsection.%0D%0A%0D%0A+%3Fspl+a+ncbit%3ALabel%3B%0D%0A++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A++%3Fsection+%3Ftext.%0D%0A}%0D%0ALIMIT+10&format=text%2Fhtml&timeout=0&debug=on"
+TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+dailymed%3A%3Chttp%3A%2F%2Fdbmi-icode-01.dbmi.pitt.edu%2FlinkedSPLs%2Fvocab%2Fresource%2F%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0A+%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+%3Fbody+ohdsi%3AMeddrraHoi+meddra%3A@IMEDS_HOI@.%0D%0A%0D%0A+%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+%3Fselector+dailymed%3AsplSection+%3Fsection.%0D%0A%0D%0A+%3Fspl+a+ncbit%3ALabel%3B%0D%0A++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A++%3Fsection+%3Ftext.%0D%0A}%0D%0ALIMIT+10&format=text%2Fhtml&timeout=0&debug=on"
 
 
 f = open(DATAFILE)
@@ -76,7 +76,11 @@ for elt in l:
     i += 1
     (cnt,drug,hoi) = [x.strip() for x in elt.split(",")]
     q = TEMPLATE.replace("@IMEDS_DRUG@",drug).replace("@IMEDS_HOI@",hoi)
-    turl = tinyurl.create_one(q)
+    turl = shortenURL(q)
+    if turl == None:
+        print "Not continuing because of error shortening the URL for the drill down query"
+        sys.exit(1)
+
     key = "%s-%s" % (drug,hoi)
     print "\t".join([key,EVTYPE,'positive',"2",str(cnt),turl,"COUNT"])
 
