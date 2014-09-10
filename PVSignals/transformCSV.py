@@ -78,7 +78,7 @@ def main():
         csvout2.writerow([table_id, drug_HOI_rel, 'aers_ebgm', None, 5, row[5], linkouts['aers_ebgm'], 'aers_ebgm'])
         table_id += 1
         csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_eb05', None, 5, row[6], linkouts['aers_eb05'], 'EB05'])
-        csvout2.writerow([table_id, drug_HOI_rel, 'aers_eb05', None, 5, row[5], linkouts['aers_eb05'], 'EB05'])
+        csvout2.writerow([table_id, drug_HOI_rel, 'aers_eb05', None, 5, row[6], linkouts['aers_eb05'], 'EB05'])
         table_id += 1
     infile.close()
     outfile.close()
