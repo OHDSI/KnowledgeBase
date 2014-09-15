@@ -159,20 +159,23 @@ PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>
 
 SELECT *
 WHERE {
- ?an a ohdsi:ADRAnnotation;
+ GRAPH <http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc> {
+  ?an a ohdsi:ADRAnnotation;
    oa:hasBody ?body;
    oa:hasTarget ?target.
 
- ?body ohdsi:ImedsDrug ohdsi:40172167.
- ?body ohdsi:MeddrraHoi meddra:35205272.
+   ?body ohdsi:ImedsDrug ohdsi:40172167.
+   ?body ohdsi:MeddrraHoi meddra:35205272.
 
- ?target oa:hasSource ?sourceURL.
- ?target oa:hasSelector ?selector.
+   ?target oa:hasSource ?sourceURL.
+   ?target oa:hasSelector ?selector.
 
- ?selector dailymed:splSection ?section.
-
- ?spl a ncbit:Label;
-  foaf:homepage ?sourceURL;
-  ?section ?text.
+   ?selector dailymed:splSection ?section.
+  }
+ GRAPH <http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/> {
+  ?spl a ncbit:Label;
+   foaf:homepage ?sourceURL;
+   ?section ?text.
+ }
 }
 LIMIT 10
