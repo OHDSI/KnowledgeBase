@@ -130,46 +130,98 @@ COMMIT;
 
 START TRANSACTION;
 Create view drug_HOI_evidences as
-    select 
-        drug,
-        rxnorm_drug,
-        hoi,
-        meddra_hoi,
-        modality,
-        aers_report_count,
-        aers_ebgm,
-        aers_eb05,
-        report_count_linkout,
-        aers_ebgm_linkout,
-        aers_eb05_linkout
-    from
-        (((
-            select 
-                drug_hoi_relationship, 
-                evidence_source_code_id,
-                modality,
-                statistic_value as aers_report_count,
-                evidence_linkout as report_count_linkout
-            from drug_hoi_evidence as count
-            where
-                evidence_type='aers_report_count'
-        ) as count NATURAL JOIN (
-            select
-                drug_hoi_relationship,
-                statistic_value as aers_ebgm,
-                evidence_linkout as aers_ebgm_linkout
-            from drug_hoi_evidence as ebgm
-            where evidence_type='aers_ebgm'
-        )as ebgm ) as count_ebgm NATURAL JOIN (
-            select
-                drug_hoi_relationship,
-                statistic_value as aers_eb05,
-                evidence_linkout as aers_eb05_linkout
-            from drug_hoi_evidence as eb05
-            where evidence_type = 'aers_eb05'
-        ) as eb05) as all_stats
-     JOIN drug_hoi_relationship ON
-        all_stats.drug_hoi_relationship=drug_hoi_relationship.id;
+select * from (
+SELECT * FROM drug_hoi_relationship
+) as drugs
+NATURAL JOIN (
+select * 
+from
+	(
+		(
+			select * from crosstab(
+				'select
+					drug_hoi_relationship,
+					evidence_type,
+					statistic_value
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as stats (
+				id text,
+				aers_eb05 numeric,
+				aers_ebgm numeric,
+				aers_report_count numeric,
+				spl_splicer_count numeric
+			)
+		) as stats
+	NATURAL JOIN
+		(
+			select * from crosstab (
+				'select
+					drug_hoi_relationship,
+					evidence_type,
+					evidence_source_code_id
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as sourcecode (
+				id text,
+				aers_eb05_source_id numeric,
+				aers_ebgm_source_id numeric,
+				aers_report_count_source_id numeric,
+				spl_splicer_source_id numeric
+			)
+		) as sourcecode
+	) as statsource 
+
+	NATURAL JOIN 
+	(
+		(select * from crosstab(
+			'select
+				drug_hoi_relationship,
+				evidence_type,
+				modality
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as modality(
+				id text,
+				aers_eb05_modality boolean,
+				aers_ebgm_modality boolean,
+				aers_report_count_modality boolean,
+				spl_splicer_modality boolean
+			)
+		) as modality 
+
+		NATURAL JOIN
+
+		(
+			select * from crosstab(
+				'select
+					drug_hoi_relationship,
+					evidence_type,
+					evidence_linkout
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as links (
+				id text,
+				aers_eb05_link text,
+				aers_ebgm_link text,
+				aers_report_link text,
+				spl_splicer_link text
+			)
+		) as linkus
+	)
+) as info;
 COMMIT;
 
 START TRANSACTION;
