@@ -26,35 +26,35 @@ DROP TABLE IF EXISTS evidence_sources;
 
 CREATE TABLE evidence_sources (
     id serial,
-    title varchar(100) ,
-    description varchar(200) ,
-    contributer varchar(100) ,
-    creator varchar(100) ,
+    title text ,
+    description text,
+    contributer text,
+    creator text,
     creation_date date NOT NULL , -- 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010',
-    rights varchar(400) ,
-    source varchar(200) ,
+    rights text,
+    source text,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE drug_HOI_relationship (
     id varchar(50) PRIMARY KEY,
     drug integer,
-    RxNorm_drug varchar(300),
+    RxNorm_drug text,
     HOI integer,
-    MedDRA_HOI varchar(300)
+    MedDRA_HOI text
 );
 
 
 
 CREATE TABLE drug_HOI_evidence (
     id serial PRIMARY KEY,
-    drug_HOI_relationship varchar(50),
-    evidence_type varchar(60) ,
+    drug_HOI_relationship text,
+    evidence_type text,
     modality boolean,
     evidence_source_code_id integer ,
     statistic_value numeric NOT NULL, -- 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.' ,
-    evidence_linkout varchar(100) NOT NULL,
-    statistic_type varchar(60) ,
+    evidence_linkout text,
+    statistic_type text,
     FOREIGN KEY (drug_HOI_relationship) REFERENCES drug_HOI_relationship (id),
     FOREIGN KEY(evidence_source_code_id) REFERENCES evidence_sources(id)
 );
