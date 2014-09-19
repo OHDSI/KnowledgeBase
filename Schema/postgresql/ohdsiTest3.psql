@@ -127,7 +127,7 @@ COMMIT;
 START TRANSACTION;
 \copy drug_HOI_evidence from 'example_drug_HOI_evidence_input_2.csv' DELIMITER '|' CSV HEADER;
 COMMIT;
-
+-- creates the view for flattened sql...
 START TRANSACTION;
 Create view drug_HOI_evidences as
 select * from (
@@ -156,48 +156,48 @@ from
 				spl_splicer_count numeric
 			)
 		) as stats
-	NATURAL JOIN
-		(
-			select * from crosstab (
-				'select
-					drug_hoi_relationship,
-					evidence_type,
-					evidence_source_code_id
-				from drug_hoi_evidence
-				order by (1,2)',
-				'select distinct evidence_type
-				from drug_hoi_evidence
-				order by 1'
-			) as sourcecode (
-				id text,
-				aers_eb05_source_id numeric,
-				aers_ebgm_source_id numeric,
-				aers_report_count_source_id numeric,
-				spl_splicer_source_id numeric
-			)
-		) as sourcecode
-	) as statsource 
+	-- NATURAL JOIN
+		-- (
+			-- select * from crosstab (
+				-- 'select
+					-- drug_hoi_relationship,
+					-- evidence_type,
+					-- evidence_source_code_id
+				-- from drug_hoi_evidence
+				-- order by (1,2)',
+				-- 'select distinct evidence_type
+				-- from drug_hoi_evidence
+				-- order by 1'
+			-- ) as sourcecode (
+				-- id text,
+				-- aers_eb05_source_id numeric,
+				-- aers_ebgm_source_id numeric,
+				-- aers_report_count_source_id numeric,
+				-- spl_splicer_source_id numeric
+			-- )
+		-- ) as sourcecode
+	-- ) as statsource 
 
-	NATURAL JOIN 
-	(
-		(select * from crosstab(
-			'select
-				drug_hoi_relationship,
-				evidence_type,
-				modality
-				from drug_hoi_evidence
-				order by (1,2)',
-				'select distinct evidence_type
-				from drug_hoi_evidence
-				order by 1'
-			) as modality(
-				id text,
-				aers_eb05_modality boolean,
-				aers_ebgm_modality boolean,
-				aers_report_count_modality boolean,
-				spl_splicer_modality boolean
-			)
-		) as modality 
+	-- NATURAL JOIN 
+	-- (
+		-- (select * from crosstab(
+			-- 'select
+				-- drug_hoi_relationship,
+				-- evidence_type,
+				-- modality
+				-- from drug_hoi_evidence
+				-- order by (1,2)',
+				-- 'select distinct evidence_type
+				-- from drug_hoi_evidence
+				-- order by 1'
+			-- ) as modality(
+				-- id text,
+				-- aers_eb05_modality boolean,
+				-- aers_ebgm_modality boolean,
+				-- aers_report_count_modality boolean,
+				-- spl_splicer_modality boolean
+			-- )
+		-- ) as modality 
 
 		NATURAL JOIN
 
