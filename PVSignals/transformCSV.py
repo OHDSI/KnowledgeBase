@@ -24,6 +24,7 @@ inp = 'example output from OMOP KBv01.csv'
 out = 'example_drug_HOI_evidence_input.csv'
 out2 = 'example_drug_HOI_evidence_input_2.csv'
 rel = 'example_drug_HOI_relationship_input.csv'
+splicer = 'splicer.tsv'
 
 def main():
     """
@@ -48,7 +49,7 @@ def main():
     
     outfile = open(out, 'w')
     outfile2 = open(out2, 'w')
-    
+    splicerIn = open(splicer, 'r')
     relout = open(rel, 'w')
     
     #dict for the drug-HOI relationship entity
@@ -74,15 +75,29 @@ def main():
         csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_report_count', None, 5, row[4], linkouts['aers_report_count'], 'COUNT'])
         csvout2.writerow([table_id, drug_HOI_rel, 'aers_report_count', None, 5, row[4], linkouts['aers_report_count'], 'COUNT'])
         table_id += 1
-        csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_ebgm', None, 5, row[5], linkouts['aers_ebgm'], 'EBGM'])
-        csvout2.writerow([table_id, drug_HOI_rel, 'aers_ebgm', None, 5, row[5], linkouts['aers_ebgm'], 'aers_ebgm'])
+        csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_ebgm', None, 5, row[5], linkouts['aers_ebgm'], 'AERS_EBGM'])
+        csvout2.writerow([table_id, drug_HOI_rel, 'aers_ebgm', None, 5, row[5], linkouts['aers_ebgm'], 'AERS_EBGM'])
         table_id += 1
-        csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_eb05', None, 5, row[6], linkouts['aers_eb05'], 'EB05'])
-        csvout2.writerow([table_id, drug_HOI_rel, 'aers_eb05', None, 5, row[5], linkouts['aers_eb05'], 'EB05'])
+        csvout.writerow([table_id, row[0], row[1], row[2], row[3], 'aers_eb05', None, 5, row[6], linkouts['aers_eb05'], 'AERS_EB05'])
+        csvout2.writerow([table_id, drug_HOI_rel, 'aers_eb05', None, 5, row[6], linkouts['aers_eb05'], 'AERS_EB05'])
+        table_id += 1
+        
+    for line in splicerIn:
+        row = line.split("\t")
+        if 'NULL' in row[0]:
+            continue
+        csvout2.writerow((table_id, row[0], row[1], setBoolean(row[2]), row[3], row[4], row[5], row[6].strip()))
         table_id += 1
     infile.close()
     outfile.close()
     outfile2.close()
     relout.close()
+    
+def setBoolean(inp):
+    if inp == 'positive':
+        return 'true'
+    if inp == 'negative':
+        return 'false'
+    return ''
 if __name__ == '__main__':
     main()

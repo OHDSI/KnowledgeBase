@@ -26,35 +26,35 @@ DROP TABLE IF EXISTS evidence_sources;
 
 CREATE TABLE evidence_sources (
     id serial,
-    title varchar(100) ,
-    description varchar(200) ,
-    contributer varchar(100) ,
-    creator varchar(100) ,
+    title text ,
+    description text,
+    contributer text,
+    creator text,
     creation_date date NOT NULL , -- 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010',
-    rights varchar(400) ,
-    source varchar(200) ,
+    rights text,
+    source text,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE drug_HOI_relationship (
     id varchar(50) PRIMARY KEY,
     drug integer,
-    RxNorm_drug varchar(300),
+    RxNorm_drug text,
     HOI integer,
-    MedDRA_HOI varchar(300)
+    MedDRA_HOI text
 );
 
 
 
 CREATE TABLE drug_HOI_evidence (
     id serial PRIMARY KEY,
-    drug_HOI_relationship varchar(50),
-    evidence_type varchar(60) ,
+    drug_HOI_relationship text,
+    evidence_type text,
     modality boolean,
     evidence_source_code_id integer ,
     statistic_value numeric NOT NULL, -- 'For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown.' ,
-    evidence_linkout varchar(100) NOT NULL,
-    statistic_type varchar(60) ,
+    evidence_linkout text,
+    statistic_type text,
     FOREIGN KEY (drug_HOI_relationship) REFERENCES drug_HOI_relationship (id),
     FOREIGN KEY(evidence_source_code_id) REFERENCES evidence_sources(id)
 );
@@ -130,46 +130,98 @@ COMMIT;
 
 START TRANSACTION;
 Create view drug_HOI_evidences as
-    select 
-        drug,
-        rxnorm_drug,
-        hoi,
-        meddra_hoi,
-        modality,
-        aers_report_count,
-        aers_ebgm,
-        aers_eb05,
-        report_count_linkout,
-        aers_ebgm_linkout,
-        aers_eb05_linkout
-    from
-        (((
-            select 
-                drug_hoi_relationship, 
-                evidence_source_code_id,
-                modality,
-                statistic_value as aers_report_count,
-                evidence_linkout as report_count_linkout
-            from drug_hoi_evidence as count
-            where
-                evidence_type='aers_report_count'
-        ) as count NATURAL JOIN (
-            select
-                drug_hoi_relationship,
-                statistic_value as aers_ebgm,
-                evidence_linkout as aers_ebgm_linkout
-            from drug_hoi_evidence as ebgm
-            where evidence_type='aers_ebgm'
-        )as ebgm ) as count_ebgm NATURAL JOIN (
-            select
-                drug_hoi_relationship,
-                statistic_value as aers_eb05,
-                evidence_linkout as aers_eb05_linkout
-            from drug_hoi_evidence as eb05
-            where evidence_type = 'aers_eb05'
-        ) as eb05) as all_stats
-     JOIN drug_hoi_relationship ON
-        all_stats.drug_hoi_relationship=drug_hoi_relationship.id;
+select * from (
+SELECT * FROM drug_hoi_relationship
+) as drugs
+NATURAL JOIN (
+select * 
+from
+	(
+		(
+			select * from crosstab(
+				'select
+					drug_hoi_relationship,
+					evidence_type,
+					statistic_value
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as stats (
+				id text,
+				aers_eb05 numeric,
+				aers_ebgm numeric,
+				aers_report_count numeric,
+				spl_splicer_count numeric
+			)
+		) as stats
+	NATURAL JOIN
+		(
+			select * from crosstab (
+				'select
+					drug_hoi_relationship,
+					evidence_type,
+					evidence_source_code_id
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as sourcecode (
+				id text,
+				aers_eb05_source_id numeric,
+				aers_ebgm_source_id numeric,
+				aers_report_count_source_id numeric,
+				spl_splicer_source_id numeric
+			)
+		) as sourcecode
+	) as statsource 
+
+	NATURAL JOIN 
+	(
+		(select * from crosstab(
+			'select
+				drug_hoi_relationship,
+				evidence_type,
+				modality
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as modality(
+				id text,
+				aers_eb05_modality boolean,
+				aers_ebgm_modality boolean,
+				aers_report_count_modality boolean,
+				spl_splicer_modality boolean
+			)
+		) as modality 
+
+		NATURAL JOIN
+
+		(
+			select * from crosstab(
+				'select
+					drug_hoi_relationship,
+					evidence_type,
+					evidence_linkout
+				from drug_hoi_evidence
+				order by (1,2)',
+				'select distinct evidence_type
+				from drug_hoi_evidence
+				order by 1'
+			) as links (
+				id text,
+				aers_eb05_link text,
+				aers_ebgm_link text,
+				aers_report_link text,
+				spl_splicer_link text
+			)
+		) as linkus
+	)
+) as info;
 COMMIT;
 
 START TRANSACTION;
