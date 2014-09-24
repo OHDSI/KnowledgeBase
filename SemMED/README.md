@@ -81,23 +81,25 @@ Prerequisites:
 The UMLS CUI to RxNorm, MeSH, SNOMED, and MedDRA Conversion was done with 
 UMLS_CUIs.py class which takes the TRIADS data from Dr. Boyce's server, 
 process it into its own class (well documented), processed, and then 
-pickled using cPickle (in its main). This had to be done because
+pickled using cPickle (in its main). This had to be done in this way 
+because it would be impossible otherwise to get the the CUIs as far as 
+I was concerned.
 
--File prerequisites:
-    - UMLS_CUIs.py (python UMLS_CUIs.py)
-    - umlsStructure.cPickle - UMLS_CUIs class postprocessed file created
-    from above python class file
-    - can only be run on Dr. Boyce's server
+File prerequisites:
+- UMLS_CUIs.py (python UMLS_CUIs.py)
+- umlsStructure.cPickle - UMLS_CUIs class postprocessed file created
+  from above python class file
+- can only be run on Dr. Boyce's server
 
 Steps that the program does:
 
 1. Query the SemMED DB from the OHDSI dev server
 2. open the UMLS_CUIs pickle
-3. writes the results via this in a TSV semmedTriplesPlusSentence.tsv:
-['pmid', 'predicate', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH', 'drug Preferred Term', 'drug UMLS entity type', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'sentence', 'sentence location', 'sentence type']
-    
+3. writes the results via this in [semmedTriplesPlusSentence.tsv](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/semmedTriplesPlusSentence.tsv) tab-delimited    
+
 Take Note:
 - SEMMED supplies the UMLS CUI
 - I used the UMLS CUI to get the RxNorm, MeSH, MedDRA, and SNOMED CUIs
 - However, as of right now, there is a one-to-many mapping between UMLS and SNOMED+MEDDRA
+
 so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
