@@ -7,23 +7,40 @@ The Semantic Knowledge Representation project conducts basic research in symboli
 The python script below was used to get our final tab-delimited output:
 [semmedTriplesPlusSentence.tsv](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/semmedTriplesPlusSentence.tsv)
 
-Explanation of the columns are described below:
+This outputs the Drug CUIs, HOI CUIs, their positions in the sentence, the confidence score of the selection, sentence itself, and location of the sentence within the Pubmed source.
+
+######Explanation of the columns are described below:
 - pmid: the PMID
 - predicate: the predicate used to associate the subject and object
+- predicate start index: first predicate's character's location in the sentence
+- predicate end index: last predicate's character's location in the sentence
 - Drug UMLS CUI: UMLS CUI of the subject (drug)
 - drug RxNorm: RxNorm drug CUI
 - drug MeSH: MeSH drug CUI
 - drug Preferred Term: name of the drug from SEMMED
 - drug UMLS entity type: name of the drug's UMLS Entity Type
+- drug start index: drug's first character's location in the sentence
+- drug end index: drug's last character's location in the sentence
+- drug distance: The distance of the subject mention (counted in noun phrases) from the predicate mention (0 for certain indicator types, such as NOM)
+- drug max distance: The number of potential arguments (in noun phrases) from the predicate mention in the direction of the subject mention (0 for certain indicator types, such as NOM)
+- drug max score: (note should not have max in the header...)
 - HOI UMLS CUI: Health Outcome of Interest UMLS CUI
 - HOI SNOMED: Health Outcome of Interest SNOMED CUI
 - HOI MedDRA: Health Outcome of Interest MedDRA CUI
 - HOI MeSH: Health Outcome of Interest MeSH CUI
 - HOI Preferred Term: name of the HOI from SEMMED
 - HOI entity type: name of the HOI's UMLS Entity type
+- HOI start index: HOI's first character's location in the sentence
+- HOI end index: HOI's last character's location in the sentence
+- HOI distance: The distance of the subject mention (counted in noun phrases) from the predicate mention (0 for certain indicator types, such as NOM)
+- HOI max distance: The number of potential arguments (in noun phrases) from the predicate mention in the direction of the subject mention (0 for certain indicator types, such as NOM)
+- HOI max score: (note should not have max in the header...)
 - sentence: the actual sentence of the finding
 - sentence location: number that represents the location of the sentence found from its source from PM
 - sentence type: sentence was extracted from this type
+
+######Problems:
+- There is a one-to-many mapping between UMLS and SNOMED+MEDDRA so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
 
 ####Info retrieved...
 List of subject/object types obtained from:
@@ -50,8 +67,6 @@ PREDICATES: See Kilicoglu H, Rosemblat G, Fiszman M, Rindflesch TC. Constructing
 predication gold standard from the biomedical literature. BMC Bioinformatics.
 2011 Dec 20;12:486. doi: 10.1186/1471-2105-12-486. PubMed PMID: 22185221; PubMed 
 Central PMCID: PMC3281188.
-
-
 
 
 ### [selectTriplesPlusSentence.py](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/selectTriplesPlusSentence.py)
