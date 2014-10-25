@@ -162,7 +162,7 @@ graph.add((poc[currentAnnotSet], oa["annotatedBy"], URIRef(u"http://www.pitt.edu
 
 outf = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
-f.write(s)
+outf.write(s)
 
 # DEBUG
 cntr = 0 
@@ -171,8 +171,11 @@ inf = open(DATA_FILE, 'r')
 buf = inf.read()
 inf.close()
 lines = buf.split("\n")
-it = [x.strip().split("\t") for x in lines[1:]] # skip header
+it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[1:]] # skip header
 for elt in it:
+    if elt == [u'']:
+        break 
+
     #if cntr == 50000:
     #    break
     cntr += 1
@@ -188,6 +191,15 @@ for elt in it:
     else:
         print "WARNING: skipping rxcuiDrug, no mapping to OMOP : %s" % rxcuiDrug
         continue
+
+    imedsHoi = None
+    if MEDDRA_D_OMOP.has_key(elt[PT_CODE]):
+        imedsHoi = MEDDRA_D_OMOP[elt[PT_CODE]]
+        print "INFO: meddraHoi : %s" % elt[PT_CODE]
+    else:
+        print "WARNING: skipping rxcuiDrug %s + meddra HOI %s : unable to map HOI to OMOP" % (rxcuiDrug, elt[PT_CODE])
+        continue
+
 
     ###################################################################
     ### Each annotations holds one target that points to the source
@@ -237,25 +249,19 @@ for elt in it:
     
     tplL = []
     tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s-%s" % (imedsDrug, elt["CONDITION_CONCEPT_ID"]))))
+    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(u"Drug-HOI tag for %s-%s" % (imedsDrug, imedsHoi))))
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
-    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt[MEDDRA_ PT]))))
+    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt[MEDDRA_PT]))))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
                         
     tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt[PT_CODE]])) # TODO: consider adding the values as a collection
-    if MEDDRA_D_OMOP.has_key(elt[PT_CODE]):
-        imedsHoi = MEDDRA_D_OMOP[elt[PT_CODE]]
-        print "INFO: meddraHoi : %s" % elt[PT_CODE]
-    else:
-        print "WARNING: unable to map meddra HOI to OMOP : %s" % elt[PT_CODE]
-        
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
-    outf.write(s)
+    outf.write(unicode(s,'utf-8', 'replace'))
 
 outf.close
 
