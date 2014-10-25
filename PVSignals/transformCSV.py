@@ -24,7 +24,7 @@ inp = 'example output from OMOP KBv01.csv'
 out = 'example_drug_HOI_evidence_input.csv'
 out2 = 'example_drug_HOI_evidence_input_2.csv'
 rel = 'example_drug_HOI_relationship_input.csv'
-splicer = 'splicer.tsv'
+splicer = 'splicer.tsv'   ## RDB 10/16/14: I think that this comes from the output of SPLICER/writeLoadableSPLICERcounts.py (e.g., test-query-of-counts-09102014.csv)
 
 def main():
     """

@@ -1,21 +1,23 @@
-
-v.02 
+OHDSI KB v.02 
 
 Conceptually, the data model is a hybrid relational/RDF schema where
-the RDF component apply the Open Data Annotation (OA) model
-(http://www.openannotation.org/spec/core/) to model drug-HOI evidence
-from any variety of sources, and the relational component provides a
-summary and index for drug-HOI evidence modeled in the RDF component.
+the RDF component applies the Open Data Annotation (OA) model
+(http://www.openannotation.org/spec/core/) to represent specific
+evidence items for or against an association between a drug and a
+health outcome of interest (HOIs) from any of a variety of sources,
+and the relational component provides a summary and index for drug-HOI
+evidence represented in the RDF component.
 
-The relational component enumerates the evidence data sources provides
-counts for the records associated with every drug-HOI pair in each
-source (TODO: noting the modality of the association). Associated with the
-counts from a given source is a URI that can be used in the RDF
-component to pull back a list of OA records typed using custom OHDSI
-types. Each OA record provides data that client programs can use to
-render data about the source of the evidence (the "target") and the
-semantic tags used to identify the record as a source of evidence for
-a drug-HOI pair (the "body" or "bodies").
+The relational component enumerates the evidence data sources and
+provides counts for the records associated with every drug-HOI pair in
+each source noting the modality of the association (i.e., a positive
+or negative association). Associated with the counts from a given
+source is a URL that can be used in the RDF component to pull back a
+list of OA records typed using custom OHDSI evidence types. Each OA
+record provides data that client programs can use to render data about
+the source of the evidence (the "target") and the semantic tags used
+to identify the record as a source of evidence for a drug-HOI pair
+(the "body" or "bodies").
 
 This model decouples the data sources from the variouss copies of the
 sources that might have been processed in many different ways. It also
@@ -30,9 +32,7 @@ This model will be developed to support all of the sources here:
 https://docs.google.com/document/d/13UwoqjPyqKr-MLpcflzNs8WD5Za4Ynqnue1xWU2cgaA/edit# 
 
 The OHDSI standard vocabulary may require extensions from the
-follwing terminologies:
-- http://www.openannotation.org/spec/core/#Terminology
-- http://www.openannotation.org/spec/core/#Terminology
+following terminologies:
 - http://www.openannotation.org/spec/core/#Terminology
 - http://xmlns.com/foaf/spec/
 - http://www.w3.org/TR/prov-o/
@@ -47,33 +47,33 @@ FROM `drug_HOI_evidence`, evidence_sources
 WHERE evidence_source_code_id = evidence_sources.id
 
 
-
---- TODO : REVISE THESE for v0.2
--- Get back all evidence for 'metronidazole' and 'renal failure' using standard vocab codes
-SELECT "drug_HOI_evidence"."evidence_type", "evidence_sources"."title", "evidence_sources"."description", "evidence_targets"."uri", "evidence_bodies"."semantic_tag_label", "evidence_bodies"."value_as_string", "evidence_bodies"."value_as_int", "evidence_bodies"."value_as_double", "evidence_bodies"."value_as_date"
-FROM "drug_HOI_evidence","evidence_sources", "evidence_targets", "evidence_bodies"  
+-- Get back all evidence for 'Lisinopril' and 'Uterine leiomyoma' using standard vocab codes
+SELECT *
+FROM drug_hoi_evidences  
 WHERE 
-"drug_HOI_evidence".drug = 1707164 AND
-"drug_HOI_evidence"."HOI" = 37019318 AND
-"drug_HOI_evidence"."evidence_source_code_id" = evidence_sources.id AND
-"drug_HOI_evidence".evidence_target_id = evidence_targets.id AND
-"drug_HOI_evidence".evidence_body_id = evidence_bodies.body_id 
+drug = 1308216 AND
+hoi = 36617553;
 
 
--- Get back all evidence for 'metronidazole' and 'renal failure' reporting results with standard RxNorm and MedDRA codes
-SELECT "drug_HOI_evidence"."evidence_type", "evidence_sources"."title", "evidence_sources"."description", "evidence_targets"."uri", "evidence_bodies"."semantic_tag_label", "evidence_bodies"."value_as_string", "evidence_bodies"."value_as_int", "evidence_bodies"."value_as_double", "evidence_bodies"."value_as_date", c1.concept_code, c2.concept_code
-FROM "drug_HOI_evidence","evidence_sources", "evidence_targets", "evidence_bodies", concept c1, concept c2
+-- Get back all evidence for 'amoxacillin' and 'Pruritis' using
+-- standard vocab codes. Returns the following linkout that can be put
+-- into the browser to retrieve an OA representation of the data in
+-- the product label:
+-- http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=i9b  
+SELECT *
+FROM drug_hoi_evidences  
 WHERE 
-"drug_HOI_evidence".drug = 1707164 AND
-"drug_HOI_evidence"."HOI" = 37019318 AND
-"drug_HOI_evidence"."evidence_source_code_id" = evidence_sources.id AND
-"drug_HOI_evidence".evidence_target_id = evidence_targets.id AND
-"drug_HOI_evidence".evidence_body_id = evidence_bodies.body_id AND
-c1.concept_id = 1707164 AND
-c2.concept_id = 37019318
+drug = 19123591 AND
+hoi = 37320197;
 
 
-
+------------------------------------------------------------ 
+-- Queries below this line need to get ported but first the
+-- Evidence_sources table needs to be revised to tag each evidence
+-- source with a type such as literature, labeling,
+-- pharmacovigilance_signal_spontaneous_reporting,
+-- pharmacovigilance_signal_EHR
+------------------------------------------------------------
 -- Count literature evidence for 'metronidazole' and 'renal failure'
 SELECT COUNT("drug_HOI_evidence".evidence_type)
 FROM "drug_HOI_evidence"
@@ -106,20 +106,3 @@ evidence_targets.id = "drug_HOI_evidence".evidence_target_id
 
 Note instructions on faceted browser installation:
 http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtFacetBrowserInstallConfig
-
-----
-
-Jeremy Jao - epicstar
-7/14/2014
-
-ohdsiTest.sql is a dump in mysql format. I change the dump to postgres format.
-
-instructions...
-1. mysql dump -> mysqldump --compatible=postgresql ...
-2. clone mysql-postgresql-converter: 
-	https://github.com/lanyrd/mysql-postgresql-converter
-3. replace '`' with '"'
-4. move the comments out (http://www.postgresql.org/docs/8.2/interactive/sql-comment.html)
-5. eliminated the '"' (we want to create the tables and columns without double quotes so there's no case sensitivity)
-6. then run the db_converter <mysql> <psql>
-

@@ -1,14 +1,21 @@
-Adverse Drug Reactions Database Import 
-=======================================
+European Union Adverse Drug Reactions from Summary of Product Characteristics (EU SPC) Database Import 
+=============================================================================================
 
-This table of adverse events from the EU SPCs as downloaded from [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
+This table of adverse events from the EU SPCs as downloaded from
+[PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
 
-The scripts in this folder add RxCUIs and MeSH CUIs to the EU SPC drug list. In most cases, there was a simple string match betwee an entry in the 'substance' column with an RxNorm or MeSH preferred term. However, there are many cases of combination products, and a few things that were unable to be mapped. The combination products were manually mapped where possibly using the Bioportal's ontology search. 
+The scripts in this folder add RxCUIs and MeSH CUIs to the EU SPC drug
+list. In most cases, there was a simple string match between an entry
+in the 'substance' column with an RxNorm or MeSH preferred
+term. However, there are many cases of combination products, and a few
+things that were unable to be mapped. The combination products were
+manually mapped where possibly using the Bioportal's ontology search.
 
-The final dataset with the RxCUIs and MeSH CUIs is in [FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv) after running the Usage as said below.
+The final dataset with the RxCUIs and MeSH CUIs is in
+[FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv).
 
 
-## USAGE:
+### Generating the table:
 1. `cd scripts`
 2. `python processEuSPCToAddRxNormAndMeSH.py`
 3. `python3 getMissingMappings.py ../data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv ../data/missing`
