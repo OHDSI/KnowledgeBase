@@ -2,29 +2,28 @@ OHDSI KB Source : SPLICER - Adverse Drug Events from FDA Structured Product Labe
 
 Convert SPLICER output to RDF to support the OHDSI KB use cases.
 
-- splicer2rdf.py : Accepts as input a tab delimitted file containing adverse drug events extracted from FDA SPLs by SPLICER and produces as output a ntriples file that representes the SPLICER data using the Open Annotation Data (OA) schema
+- splicer2rdf.py : Accepts as input a tab delimitted file containing
+  adverse drug events extracted from FDA SPLs by SPLICER and produces
+  as output a ntriples file that representes the SPLICER data using
+  the Open Annotation Data (OA) schema
 
-- ADR-ER-diagram.dia : an editable diagram of the OA model for SPLICER ADE records (see ADR-ER-diagram.png for a static version)
+NOTE: an editable diagram of the OA model for SPLICER ADE records can
+be found in [Schema/OpenAnnotationSchemaERDiagrams/](https://github.com/OHDSI/KnowledgeBase/tree/master/Schema/OpenAnnotationSchemaERDiagrams}
+
+NOTE: The output of this script is too large to load into virtuoso
+through the web interface. See below for instructions on loading the
+dataset using isql-vt
 
 ------------------------------------------------------------
 
 LOADING THE RDF DATA INTO VIRTUOSO:
 
 -- FIRST TIME ONLY
+-- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed LIST OF virtuoso.ini AND RESTART VIRTUOSO
 $ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<PATH TO drug-hoi-splicer.n3>', 'http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc');
--- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed list of virtuoso.ini 
 -- END OF FIRST TIME ONLY
 
 $ select * from DB.DBA.load_list
-
-------------------------------------------------------------
-ll_file                                                                           ll_graph                                                                          ll_state    ll_started           ll_done              ll_host     ll_work_time  ll_error
-VARCHAR NOT NULL                                                                  VARCHAR                                                                           INTEGER     TIMESTAMP            TIMESTAMP            INTEGER     INTEGER     VARCHAR
-_______________________________________________________________________________
-
-/home/rdb20/OHDSI/KnowledgeBase/SPLICER/drug-hoi-splicer.n3                   http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc                          2           2014.9.9 7:22.2 0    2014.9.9 7:23.18 0   0           NULL        NULL
-------------------------------------------------------------
-
 -- IF LL_STATE = 0 THEN THE DATASET IS READY TO LOAD
 
 $ rdf_loader_run();
