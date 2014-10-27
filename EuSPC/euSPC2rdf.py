@@ -252,9 +252,9 @@ for elt in it:
     tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(u"Drug-HOI tag for %s-%s" % (imedsDrug, imedsHoi))))
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
-    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt[MEDDRA_PT]))))
+    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s (rxnorm:%s) - %s (MedDRA:%s" % (elt[SUBSTANCE], rxcuiDrug, elt[MEDDRA_PT], elt[PT_CODE]))))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
+    tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[elt[RxNorm]]))
                         
     tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt[PT_CODE]])) # TODO: consider adding the values as a collection
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
