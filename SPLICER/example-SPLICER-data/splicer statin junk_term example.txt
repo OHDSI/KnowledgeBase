@@ -1,0 +1,144 @@
+DRUG_CONCEPT_ID	SPL_ID	SET_ID	TRADE_NAME	SPL_DATE	SPL_SECTION	CONDITION_CONCEPT_ID	CONDITION_LLT	CONDITION_SOURCE_VALUE	parseMethod	sentenceNum	labdirection	drugfreq	CONDITION_PT	exclude
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions		incidence	incidence	L1	1		5.0		
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions		incidence	incidence	L1	10		5		
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions		cardiovascular system disorder	cardiovascular system disorders	T1L1	15		unk		
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions		digestive system disorder	digestive system disorders	T1L1	15		unk		
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions		or psychiatric disorder	nervous system or psychiatric disorders	T1L1	15		unk		
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions		skin or skin appendage disorder	skin or skin appendage disorders	T1L1	15		unk		
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions		urogenital system disorder	urogenital system disorders	T1L1	15		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		incidence	incidence	L1	7		5		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		greater than in s	greater than in s	T1L1	12		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		cardiovascular system disorder	cardiovascular system disorders	T1L1	12		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		digestive system disorder	digestive system disorders	T1L1	12		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		or psychiatric disorder	nervous system or psychiatric disorders	T1L1	12		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		skin or skin appendage disorder	skin or skin appendage disorders	T1L1	12		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		urogenital system disorder	urogenital system disorders	T1L1	12		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		adolescent patients	adolescent patients	L1	31		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions		ages to years	ages to years	L1	31		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		lupus erythematous like syndrome	lupus erythematous like syndrome	L1	40		rare		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		with statin use	associated with statin use	L1	42		rare		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		generally nonserious	are generally nonserious	L1	44		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		reversible upon statin discontinuation	reversible upon statin discontinuation	L1	44		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		day to years	day to years	L1	44		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		symptom resolution	symptom resolution	L1	44		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		median of weeks	median of weeks	L1	44		unk		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		most common adverse reactions	most common adverse reactions	L1	46		5		
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing		incidence	incidence	L1	46		5		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		excel	excel	L1	11		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		study	study	L1	11		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		in the randomized	in the randomized	L1	12		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		parallel	parallel	L1	12		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		week excel study	week excel study	L1	12		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		afcaps or texcaps	afcaps or texcaps	L1	21		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		in afcaps or texcaps	in afcaps or texcaps	L1	22		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		see clinical pharmacology	see clinical pharmacology	L1	22		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		clinical studies in adults	clinical studies in adults	L1	22		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		involving	involving	L1	22		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		see adverse reactions	see adverse reactions	L1	23		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		excel	excel	L1	23		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		study	study	L1	23		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		in uncontrolled clinical studies	in uncontrolled clinical studies	L1	30		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		gemfibrozil or niacin	gemfibrozil or niacin	L1	30		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		nicotinic acid	nicotinic acid	L1	30		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		g or day	g or day	L1	32		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		of niacin with lovastatin	of niacin with lovastatin	L1	32		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions		impairment of extra ocular movement	impairment of extra ocular movement	L1	41		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		with statin use	associated with statin use	L1	43		rare		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		generally nonserious	are generally nonserious	L1	45		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		reversible upon statin discontinuation	reversible upon statin discontinuation	L1	45		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		day to years	day to years	L1	45		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		symptom resolution	symptom resolution	L1	45		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		median of weeks	median of weeks	L1	45		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		lupus erythematous like syndrome	lupus erythematous like syndrome	L1	47		rare		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		fatty change in liver	fatty change in liver	L1	49		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		glutamyl transpeptidase	glutamyl transpeptidase	L1	58		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		adolescent patients	adolescent patients	L1	60		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		ages to years	ages to years	L1	60		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		to mg daily	to mg daily	L1	61		unk		
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing		see clinical pharmacology	see clinical pharmacology	L1	61		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions		incidence	incidence	L1	1		5.0		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions		incidence	incidence	L1	10		5		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions		tablets n n	tablets n n	T1L1	16		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions		adolescent patients	adolescent patients	L1	35		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions		ages to years	ages to years	L1	35		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions		lupus erythematous like syndrome	lupus erythematous like syndrome	L1	44		rare		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing		with statin use	associated with statin use	L1	46		rare		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing		generally nonserious	are generally nonserious	L1	48		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing		reversible upon statin discontinuation	reversible upon statin discontinuation	L1	48		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing		day to years	day to years	L1	48		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing		symptom resolution	symptom resolution	L1	48		unk		
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing		median of weeks	median of weeks	L1	48		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		incidence	incidence	L1	5		5		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		greater than in s	greater than in s	T1L1	10		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		cardiovascular system disorder	cardiovascular system disorders	T1L1	10		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		digestive system disorder	digestive system disorders	T1L1	10		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		or psychiatric disorder	nervous system or psychiatric disorders	T1L1	10		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		skin or skin appendage disorder	skin or skin appendage disorders	T1L1	10		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		urogenital system disorder	urogenital system disorders	T1L1	10		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		adolescent patients	adolescent patients	L1	30		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions		ages to years	ages to years	L1	30		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		non fatal	non fatal	L1	35		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		lupus erythematous like syndrome	lupus erythematous like syndrome	L1	39		rare		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		with statin use	associated with statin use	L1	42		rare		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		generally nonserious	are generally nonserious	L1	44		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		reversible upon statin discontinuation	reversible upon statin discontinuation	L1	44		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		day to years	day to years	L1	44		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		symptom resolution	symptom resolution	L1	44		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		median of weeks	median of weeks	L1	44		unk		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		most common adverse reactions	most common adverse reactions	L1	46		5.0		
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing		incidence	incidence	L1	46		5.0		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions		incidence	incidence	L1	1		5.0		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions		incidence	incidence	L1	10		5		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions		tablets n n	tablets n n	T1L1	16		unk		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions		adolescent patients	adolescent patients	L1	35		unk		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions		ages to years	ages to years	L1	35		unk		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions		lupus erythematous like syndrome	lupus erythematous like syndrome	L1	44		rare		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing		with statin use	associated with statin use	L1	46		rare		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing		generally nonserious	are generally nonserious	L1	48		unk		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing		reversible upon statin discontinuation	reversible upon statin discontinuation	L1	48		unk		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing		day to years	day to years	L1	48		unk		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing		symptom resolution	symptom resolution	L1	48		unk		
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing		median of weeks	median of weeks	L1	48		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		in the randomized	in the randomized	L1	10		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		parallel	parallel	L1	10		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		week excel study	week excel study	L1	10		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		in afcaps or texcaps	in afcaps or texcaps	L1	20		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		see clinical pharmacology	see clinical pharmacology	L1	20		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		clinical studies	clinical studies	L1	20		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		involving	involving	L1	20		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		see adverse reactions	see adverse reactions	L1	21		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		excel	excel	L1	21		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		study	study	L1	21		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		in uncontrolled clinical studies	in uncontrolled clinical studies	L1	27		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		gemfibrozil or niacin	gemfibrozil or niacin	L1	27		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		nicotinic acid	nicotinic acid	L1	27		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		gemfibrozil	gemfibrozil	L1	28		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		g or day	g or day	L1	28		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		impairment of extra ocular movement	impairment of extra ocular movement	L1	35		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		lupus erythematous like syndrome	lupus erythematous like syndrome	L1	37		rare		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		fatty change in liver	fatty change in liver	L1	39		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		glutamyl transpeptidase	glutamyl transpeptidase	L1	48		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		adolescent patients	adolescent patients	L1	50		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		ages years	ages years	L1	50		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		to mg daily	to mg daily	L1	50		unk		
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions		see clinical pharmacology	see clinical pharmacology	L1	50		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions		incidence	incidence	L1	1		5.0		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions		incidence	incidence	L1	9		5		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions		tablets n n	tablets n n	T1L1	15		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions		adolescent patients	adolescent patients	L1	34		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions		ages to years	ages to years	L1	34		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing		lupus erythematous like syndrome	lupus erythematous like syndrome	L1	42		rare		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing		with statin use	associated with statin use	L1	44		rare		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing		generally nonserious	are generally nonserious	L1	46		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing		reversible upon statin discontinuation	reversible upon statin discontinuation	L1	46		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing		day to years	day to years	L1	46		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing		symptom resolution	symptom resolution	L1	46		unk		
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing		median of weeks	median of weeks	L1	46		unk		
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions			adverse reaction	adver	0	6		unk	Y
+	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions			adverse reaction	adver	0	3		unk	Y
+	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions			blind	doubl	0	12		unk	Y
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions			adverse reaction	adver	0	6		unk	Y
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions			adverse reaction	adver	0	2		unk	Y
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions			adverse reaction	adver	0	6		unk	Y
+	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions			blind	doubl	0	10		unk	Y
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions			adverse reaction	adver	0	5		unk	Y

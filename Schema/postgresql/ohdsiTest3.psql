@@ -113,6 +113,7 @@ GRANT ALL ON TABLE evidence_sources TO administrator;
 ALTER TABLE drug_HOI_relationship
   OWNER TO jeremy;
 GRANT ALL ON TABLE drug_HOI_relationship TO jeremy;
+GRANT ALL ON TABLE drug_HOI_relationship TO rich;
 GRANT ALL ON TABLE drug_HOI_relationship TO ohdsi;
 GRANT ALL ON TABLE drug_HOI_relationship TO administrator;
 
@@ -227,5 +228,6 @@ COMMIT;
 START TRANSACTION;
 GRANT ALL PRIVILEGES ON drug_HOI_evidences TO administrator;
 GRANT ALL PRIVILEGES ON drug_HOI_evidences TO ohdsi;
+GRANT ALL PRIVILEGES ON drug_HOI_evidences TO rich;
 
 COMMIT;

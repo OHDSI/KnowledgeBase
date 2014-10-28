@@ -20,6 +20,27 @@ NOTE: The output of this script is too large to load into virtuoso
 through the web interface. See below for instructions on loading the
 dataset using isql-vt
 
+- writeLoadableEUSPCcounts.py : Once the RDF output of the
+euSPC2rdf.py script is loaded into a virtuoso endpoint, a query in the
+following form is ran at the endpoint (see
+RDF-count-and-drill-down-queries.sparql or the comments in writeLoadableEUSPCcounts.py): 
+
+SELECT count(distinct ?an) ?drug ?hoi
+...
+
+This query give the counts for records present in the EU SPC for all
+drugs and HOIs present in the database. This data is saved into a tab
+delimitted file (most recently test-query-of-counts-10272014.csv) that
+is loaded by writeLoadableEUSPCcounts.py. The script then generates a
+file (most recently drug-hoi-counts-with-linkouts-EU-SPC-10272014.tsv) that can be loaded into the relational Schema table
+'drug_hoi_evidence'. An example record:
+
+drug_hoi_relationship	evidence_type	modality	evidence_source_code_id	statistic_value	evidence_linkout	statistic_type
+757688-35708164 SPL_EU_SPC      positive        1       2       http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kza   COUNT
+
+The data in this file can then be used 
+
+
 ### Generating the table of EU SPC data:
 
 The scripts in this folder add RxCUIs and MeSH CUIs to the EU SPC drug

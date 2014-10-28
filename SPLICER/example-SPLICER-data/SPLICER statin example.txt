@@ -1,0 +1,1081 @@
+DRUG_CONCEPT_ID	SPL_ID	SET_ID	TRADE_NAME	SPL_DATE	SPL_SECTION	CONDITION_CONCEPT_ID	CONDITION_PT	CONDITION_LLT	CONDITION_SOURCE_VALUE	parseMethod	sentenceNum	labdirection	drugfreq	exclude
+922802	0938bea4-cb7e-453d-bcb9-62b04d6b45e6	e630aa3d-11a6-4300-942a-cbdf2d016f77	nystatin	10/24/2013	Adverse Reactions	37320143	Eczema	eczema	eczema	M1	1		0.1	
+922802	0938bea4-cb7e-453d-bcb9-62b04d6b45e6	e630aa3d-11a6-4300-942a-cbdf2d016f77	nystatin	10/24/2013	Adverse Reactions	37320197	Pruritus	itching	itching	M1	1		0.1	
+922802	0938bea4-cb7e-453d-bcb9-62b04d6b45e6	e630aa3d-11a6-4300-942a-cbdf2d016f77	nystatin	10/24/2013	Adverse Reactions	35809243	Pain	pain	pain	M1	1		0.1	
+922802	0938bea4-cb7e-453d-bcb9-62b04d6b45e6	e630aa3d-11a6-4300-942a-cbdf2d016f77	nystatin	10/24/2013	Adverse Reactions	37320212	Rash	rash	rash	M1	1		0.1	
+922802	0938bea4-cb7e-453d-bcb9-62b04d6b45e6	e630aa3d-11a6-4300-942a-cbdf2d016f77	nystatin	10/24/2013	Adverse Reactions	36718382	Skin burning sensation	burning skin	burning skin	M1	1		0.1	
+922802	0938bea4-cb7e-453d-bcb9-62b04d6b45e6	e630aa3d-11a6-4300-942a-cbdf2d016f77	nystatin	10/24/2013	Adverse Reactions	36009711	Hypersensitivity	allergic reaction	allergic reaction	M1	1		0.1	
+922802	0938bea4-cb7e-453d-bcb9-62b04d6b45e6	e630aa3d-11a6-4300-942a-cbdf2d016f77	nystatin	10/24/2013	Precautions (beta)	36110552	Infection	infection	infection	M1	4		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	L1	1		5.0	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	1		5.0	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	1		5.0	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	1		5.0	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	1		5.0	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35707763	Gastrointestinal disorder	gastrointestinal disorder	gastrointestinal disorders	L1	9		0.5	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	9		0.1	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	9		0.1	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infections	L1	10		9.0	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	10		7.4	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	10		7.3	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	10		6.6	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	10		5.4	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35809225	Oedema	edema	edema or swelling	L2M	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35809166	Swelling	swelling	edema or swelling	L2M	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35204953	Atrial fibrillation	atrial fibrillation	atrial fibrillation	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708050	Gastritis	gastritis	gastritis	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35506542	Endocrine disorder	endocrine disorder	endocrine disorders	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516972	Musculoskeletal disorder	musculoskeletal disorder	musculoskeletal disorders	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36718132	Headache	headache	headache	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	37219945	Respiratory disorder	respiratory system disorder	respiratory system disorders	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36110584	Bronchitis	bronchitis	bronchitis	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36110708	Sinusitis	sinusitis	sinusitis	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	37320143	Eczema	eczema	eczema	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36110736	Urinary tract infection	infection urinary tract	infection urinary tract	T1L1	15		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	18		0.1	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	18		0.1	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	21	unstated	0.9	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	21		0.9	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	21		0.9	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35809243	Pain	pain	pain	M1	21		0.9	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36315567	Blood creatine	serum creatine	serum creatine	M1	21	unstated	0.9	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	22		0.4	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	22		0.4	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	23		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	23		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	L1	26		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	37320212	Rash	rash	rash	L1	26		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	L1	26		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	L1	26		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	26		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	cpk	cpk	M1	29		unk	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	29		unk	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36718530	Epilepsy	epilepsy	epilepsy	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)			hba c	hba c	M1	29		unk	Y
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35909518	Hepatic failure	hepatic failure	hepatic failure	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35104304	Hyperbilirubinaemia	hyperbilirubinemia	hyperbilirubinemia	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	37622449	Hypotension	hypotension	hypotension	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35506797	Hypothyroidism	hypothyroidism	hypothyroidism	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36313593	Liver function test	liver function tests	liver function tests	M1	29		unk	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35909503	Liver injury	liver injury	liver injury	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	37019321	Renal impairment	renal impairment	renal impairment	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36110642	Sepsis	sepsis	sepsis	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36315567	Blood creatine	serum creatine	serum creatine	M1	29		unk	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36314155	Blood glucose	serum glucose	serum glucose	M1	29		unk	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	29		unk	
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	29		unk	LAB
+	105e5e20-8501-461e-b9cc-50e05b879157	dc6c3d16-b7ab-46ee-83dc-846445beeee7	simvastatin	10/3/2013	Precautions (beta)	36211303	Injury	trauma	trauma	M1	29		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35707763	Gastrointestinal disorder	gastrointestinal disorder	gastrointestinal disorders	L1	6		0.5	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	6		0.1	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	6		0.1	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infections	L1	7		9	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	7		7.4	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	7		7.3	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	7		6.6	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	7		5.4	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35809225	Oedema	edema	edema or swelling	L2M	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35809166	Swelling	swelling	edema or swelling	L2M	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35204953	Atrial fibrillation	atrial fibrillation	atrial fibrillation	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708050	Gastritis	gastritis	gastritis	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35506542	Endocrine disorder	endocrine disorder	endocrine disorders	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516972	Musculoskeletal disorder	musculoskeletal disorder	musculoskeletal disorders	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36718132	Headache	headache	headache	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	37219945	Respiratory disorder	respiratory system disorder	respiratory system disorders	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36110584	Bronchitis	bronchitis	bronchitis	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36110708	Sinusitis	sinusitis	sinusitis	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	37320143	Eczema	eczema	eczema	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36110736	Urinary tract infection	infection urinary tract	infection urinary tract	T1L1	12		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	15		0.1	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	15		0.1	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	18	unstated	0.9	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	18		0.9	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	18		0.9	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35809243	Pain	pain	pain	M1	18		0.9	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36315567	Blood creatine	serum creatine	serum creatine	M1	18	unstated	0.9	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	19		0.4	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	19		0.4	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	20		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	20		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	L1	23		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	37320212	Rash	rash	rash	L1	23		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	L1	23		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	L1	23		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	23		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36313605	Transaminases increased	transaminases increased	transaminases	LM	26	transformed	unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36312568	Blood alkaline phosphatase increased	alkaline phosphatase increased	alkaline phosphatase	LM	27	transformed	unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	M1	32		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36718132	Headache	headache	headache	M1	32		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	M1	32		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	M1	32		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	37320197	Pruritus	pruritus	pruritus	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	37320268	Alopecia	alopecia	alopecia	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35809387	Nodule	nodule	nodules	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35205025	Dizziness	dizziness	dizziness	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36516848	Muscle spasms	muscle cramps	muscle cramps	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36516837	Myalgia	myalgia	myalgia	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35707713	Pancreatitis	pancreatitis	pancreatitis	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718379	Paraesthesia	paresthesia	paresthesia	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing			peripheral neuropathies	peripheral neuropathy	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35708208	Vomiting	vomiting	vomiting	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35104074	Anaemia	anemia	anemia	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36919183	Erectile dysfunction	erectile dysfunction	erectile dysfunction	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	37219831	Interstitial lung disease	interstitial lung disease	interstitial lung disease	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35909613	Hepatitis	hepatitis	hepatitis or jaundice	L2M	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35104306	Jaundice	jaundice	hepatitis or jaundice	L2M	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35909518	Hepatic failure	hepatic failure	non fatal hepatic failure	L2M	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36918942	Depression	depression	depression	L1	36		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36516886	Myopathy	myopathy	myopathy	M1	38		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009756	Anaphylactic reaction	anaphylaxis	anaphylaxis	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009762	Angioedema	angioedema	angioedema	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009828	Polymyalgia rheumatica	polymyalgia rheumatica	polymyalgia rheumatica	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009843	Dermatomyositis	dermatomyositis	dermatomyositis	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009918	Vasculitis	vasculitis	vasculitis	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35104181	Purpura	purpura	purpura	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35104691	Thrombocytopenia	thrombocytopenia	thrombocytopenia	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35104868	Leukopenia	leukopenia	leukopenia	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35104281	Haemolytic anaemia	hemolytic anemia	hemolytic anemia	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36313661	Antinuclear antibody positive	ana positive	positive ana	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36313153	Red blood cell sedimentation rate increased	esr increased	esr increase	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35104826	Eosinophilia	eosinophilia	eosinophilia	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36516779	Arthritis	arthritis	arthritis	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36516812	Arthralgia	arthralgia	arthralgia	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009783	Urticaria	urticaria	urticaria	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35809072	Asthenia	asthenia	asthenia	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35809054	Pyrexia	fever	fever	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35809082	Chills	chills	chills	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35809130	Flushing	flushing	flushing	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35809079	Malaise	malaise	malaise	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35205038	Dyspnoea	dyspnea	dyspnea	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	40		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718179	Cognitive disorder	cognitive impairment	cognitive impairment	M1	42		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718171	Amnesia	memory loss	memory loss	L1	42		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718175	Memory impairment	forgetfulness	forgetfulness	L1	42		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718171	Amnesia	amnesia	amnesia	L1	42		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718175	Memory impairment	memory impairment	memory impairment	L1	42		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718301	Confusional state	confusion	confusion	L1	42		rare	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	L1	46		5	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	36718132	Headache	headache	headache	L1	46		5	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	46		5	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35708100	Constipation	constipation	constipation	L1	46		5	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Post Marketing	35708202	Nausea	nausea	nausea	L1	46		5	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	cpk	cpk	M1	50		unk	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	50		unk	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36718530	Epilepsy	epilepsy	epilepsy	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35809054	Pyrexia	fever	fever	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)			hba c	hba c	M1	50		unk	Y
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35909518	Hepatic failure	hepatic failure	hepatic failure	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35104304	Hyperbilirubinaemia	hyperbilirubinemia	hyperbilirubinemia	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	37622449	Hypotension	hypotension	hypotension	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35506797	Hypothyroidism	hypothyroidism	hypothyroidism	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35809181	Inflammation	inflammation	inflammation	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36313593	Liver function test	liver function tests	liver function tests	M1	50		unk	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35909503	Liver injury	liver injury	liver injury	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35809079	Malaise	malaise	malaise	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36314834	Biopsy muscle	muscle biopsy	muscle biopsy	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	37019321	Renal impairment	renal impairment	renal impairment	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36110642	Sepsis	sepsis	sepsis	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36315567	Blood creatine	serum creatine	serum creatine	M1	50		unk	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36314155	Blood glucose	serum glucose	serum glucose	M1	50		unk	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	50		unk	
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	50		unk	LAB
+1539463	e3818968-d24a-4f44-ad50-4866a06e828b	1c5178c9-270f-4a5b-a52b-68a56972f035	simvastatin	10/22/2013	Precautions (beta)	36211303	Injury	trauma	trauma	M1	50		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36313605	Transaminases increased	transaminases increased	transaminases	LM	6	transformed	unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35909501	Liver disorder	Liver disorder	liver dysfunction	L1	6		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	9		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	9		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36416634	Hypercholesterolaemia	hypercholesterolemia	patients with hypercholesterolemia	L2M	12		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516848	Muscle spasms	muscle cramps	muscle cramps	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35205025	Dizziness	dizziness	dizziness	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718132	Headache	headache	headache	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	37320212	Rash	rash	rash	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35607483	Vision blurred	blurred vision	blurred vision	T1L1	16		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35205185	Chest pain	chest pain	chest pain	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708206	Regurgitation	regurgitation	acid regurgitation	L2M	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708690	Dry mouth	dry mouth	dry mouth	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708208	Vomiting	vomiting	vomiting	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516959	Pain in extremity	leg pain	leg pain	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516957	Musculoskeletal pain	shoulder pain	shoulder pain	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718379	Paraesthesia	paresthesia	paresthesia	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	37320268	Alopecia	alopecia	alopecia	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	37320197	Pruritus	pruritus	pruritus	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35607122	Eye irritation	eye irritation	eye irritation	L1	17		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	30		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy or rhabdomyolysis	L2M	32		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	myopathy or rhabdomyolysis	L2M	32		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516848	Muscle spasms	muscle cramps	muscle cramps	L1	37		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	37		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	L1	37		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	L1	37		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgias	L1	37		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy or rhabdomyolysis	L2M	39		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	myopathy or rhabdomyolysis	L2M	39		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35708724	Dysgeusia	taste alteration	alteration of taste	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718079	Facial paresis	facial paresis	facial paresis	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718265	Tremor	tremor	tremor	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35205025	Dizziness	dizziness	dizziness	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718379	Paraesthesia	paresthesia	paresthesia	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions			peripheral neuropathies	peripheral neuropathy	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718477	Peripheral nerve palsy	peripheral nerve palsy	peripheral nerve palsy	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36919117	Mental disorder	psychic disturbance	psychic disturbances	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36918858	Anxiety	anxiety	anxiety	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Adverse Reactions	36918942	Depression	depression	depression	L1	41		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36718179	Cognitive disorder	cognitive impairment	cognitive impairment	M1	43		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36718171	Amnesia	memory loss	memory loss	L1	43		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36718175	Memory impairment	forgetfulness	forgetfulness	L1	43		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36718171	Amnesia	amnesia	amnesia	L1	43		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36718175	Memory impairment	memory impairment	memory impairment	L1	43		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36718301	Confusional state	confusion	confusion	L1	43		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009756	Anaphylactic reaction	anaphylaxis	anaphylaxis	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009762	Angioedema	angioedema	angioedema	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009828	Polymyalgia rheumatica	polymyalgia rheumatica	polymyalgia rheumatica	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009843	Dermatomyositis	dermatomyositis	dermatomyositis	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009918	Vasculitis	vasculitis	vasculitis	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35104181	Purpura	purpura	purpura	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35104691	Thrombocytopenia	thrombocytopenia	thrombocytopenia	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35104868	Leukopenia	leukopenia	leukopenia	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35104281	Haemolytic anaemia	hemolytic anemia	hemolytic anemia	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36313661	Antinuclear antibody positive	ana positive	positive ana	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36313153	Red blood cell sedimentation rate increased	esr increased	esr increase	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35104826	Eosinophilia	eosinophilia	eosinophilia	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36516779	Arthritis	arthritis	arthritis	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36516812	Arthralgia	arthralgia	arthralgia	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009783	Urticaria	urticaria	urticaria	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35809072	Asthenia	asthenia	asthenia	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35809054	Pyrexia	fever	fever	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35809082	Chills	chills	chills	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35809130	Flushing	flushing	flushing	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35809079	Malaise	malaise	malaise	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35205038	Dyspnoea	dyspnea	dyspnea	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	47		rare	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35707713	Pancreatitis	pancreatitis	pancreatitis	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35909616	Hepatitis chronic active	chronic active hepatitis	chronic active hepatitis	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35909473	Jaundice cholestatic	cholestatic jaundice	cholestatic jaundice	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35909527	Hepatic cirrhosis	Liver cirrhosis	cirrhosis	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35909611	Hepatic necrosis	Hepatic necrosis	fulminant hepatic necrosis	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35909670	Hepatic neoplasm malignant	hepatoma	hepatoma	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36416512	Anorexia	anorexia	anorexia	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35708208	Vomiting	vomiting	vomiting	L1	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35909518	Hepatic failure	hepatic failure	non fatal hepatic failure	L2M	49		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	37320268	Alopecia	alopecia	alopecia	L1	51		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	37320197	Pruritus	pruritus	pruritus	L1	51		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35809387	Nodule	nodule	nodules	L1	52		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35506601	Gynaecomastia	gynecomastia	gynecomastia	L1	54		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36919197	Loss of libido	loss of libido	loss of libido	L1	54		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36919183	Erectile dysfunction	erectile dysfunction	erectile dysfunction	L1	54		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35606824	Cataract	cataracts	progression of cataracts	L2M	56		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35606828	Lenticular opacities	lens opacity	lens opacities	L1	56		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	35607288	Ophthalmoplegia	ophthalmoplegia	ophthalmoplegia	L1	56		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36313605	Transaminases increased	Transaminases increased	elevated transaminases	L1	58		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36312565	Blood alkaline phosphatase	alkaline phosphatase	alkaline phosphatase	L1	58		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36313547	Blood bilirubin	bilirubin	bilirubin	L1	58		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Post Marketing	36312473	Thyroid function test abnormal	thyroid function abnormal	thyroid function abnormalities	L1	58		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36313521	Alanine aminotransferase	alanine aminotransferase	alanine aminotransferase	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36416512	Anorexia	anorexia	anorexia	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36313531	Aspartate aminotransferase	aspartate aminotransferase	aspartate aminotransferase	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	37622403	Arteriosclerosis	atherosclerosis	atherosclerosis	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	37622518	Haemorrhage	bleeding	bleeding	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36617300	Neoplasm malignant	carcinogenicity	carcinogenicity	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35606824	Cataract	cataracts	cataracts	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35205185	Chest pain	chest pain	chest pain	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	cpk	cpk	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine phosphokinase	creatine phosphokinase	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetic	diabetic	M1	64		unk	Y
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36316180	Drug level	drug level	drug level	M1	64		unk	Y
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809225	Oedema	edema	edema	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36718530	Epilepsy	epilepsy	epilepsy	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809076	Fatigue	fatigue	fatigue	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809054	Pyrexia	fever	fever	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36313029	Fibrin	fibrin	fibrin	M1	64		unk	Y
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36517123	Synovial cyst	ganglion	ganglion	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)			hba c	hba c	M1	64		unk	Y
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	37622518	Haemorrhage	hemorrhage	hemorrhage	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35909518	Hepatic failure	hepatic failure	hepatic failure	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35305820	Type IIa hyperlipidaemia	homozygous familial hypercholesterolemia	homozygous familial hypercholesterolemia	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35104304	Hyperbilirubinaemia	hyperbilirubinemia	hyperbilirubinemia	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	37622449	Hypotension	hypotension	hypotension	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809181	Inflammation	inflammation	inflammation	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36314006	Low density lipoprotein	ldl	ldl	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35909503	Liver injury	liver injury	liver injury	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809079	Malaise	malaise	malaise	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36314834	Biopsy muscle	muscle biopsy	muscle biopsy	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809392	Necrosis	necrosis	necrosis	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36718337	Nerve degeneration	nerve degeneration	nerve degeneration	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36617253	Papilloma	papilloma	papilloma	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809310	Drug interaction	pharmacodynamic interaction	pharmacodynamic interaction	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36312159	Blood cortisol	plasma cortisol	plasma cortisol	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36312380	Blood testosterone	plasma testosterone	plasma testosterone	M1	64		unk	Y
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36818833	Pregnancy	pregnancy	pregnancy	M1	64		unk	Y
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36313088	Prothrombin time	prothrombin time	prothrombin time	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36110212	Salmonellosis	salmonella	salmonella	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36110642	Sepsis	sepsis	sepsis	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36315567	Blood creatine	serum creatine	serum creatine	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36314155	Blood glucose	serum glucose	serum glucose	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35506603	Testicular atrophy	testicular atrophy	testicular atrophy	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35506811	Thyroid neoplasm	thyroid neoplasms	thyroid neoplasms	M1	64		unk	Y
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	64		unk	LAB
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	36211303	Injury	trauma	trauma	M1	64		unk	
+19019115	f5babccb-d26e-44a0-843b-7ece78c94cb8	165c9a95-de9b-44fc-a26a-40737a0d6bfd	lovastatin	10/22/2013	Precautions (beta)	35708164	Abdominal discomfort	upper abdominal discomfort	upper abdominal discomfort	M1	64		unk	
+922802	2499741b-179c-48ec-aeac-f21704ef9e3b	c9e28323-21fa-4547-b70c-27dc13a5bd7e	nystatin	10/17/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	5		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	35708642	Stomatitis	Mouth irritation	oral irritation	L1	2		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	gastrointestinal diarrhea	L2M	4		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	35708094	Diarrhoea haemorrhagic	bloody diarrhea	bloody diarrhea	M1	4		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	4		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	35708208	Vomiting	vomiting	vomiting	L1	4		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	35708164	Abdominal discomfort	gastrointestinal upset	gastrointestinal upset or disturbances	L1	4		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	37320212	Rash	rash	rash	M1	6		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	36009783	Urticaria	urticaria	urticaria	M1	6		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	M1	7		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	35204948	Tachycardia	tachycardia	other tachycardia	L1	9		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	36009703	Bronchospasm	bronchospasm	bronchospasm	L1	9		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	37320136	Swelling face	facial swelling	facial swelling	L1	9		unk	
+19079133	28415493-e4d9-4d63-a557-9ee7d9433fdd	f03b294d-10cd-4bba-92c8-42ae9b110cd0	nystatin	10/15/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	M1	9		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	L1	1		5.0	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	1		5.0	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	1		5.0	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	1		5.0	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	1		5.0	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35707763	Gastrointestinal disorder	gastrointestinal disorder	gastrointestinal disorders	L1	9		0.5	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	9		0.1	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	9		0.1	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infections	L1	10		9.0	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	10		7.4	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	10		7.3	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	10		6.6	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	10		5.4	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1M1	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809225	Oedema	edema	edema	T1M1	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809166	Swelling	swelling	swelling	T1M1	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35204953	Atrial fibrillation	atrial fibrillation	cardiovascular system disorders atrial fibrillation	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708100	Constipation	constipation	digestive system disorders constipation gastritis	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708050	Gastritis	gastritis	digestive system disorders constipation gastritis	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35506609	Diabetes mellitus	diabetes mellitus	endocrine disorders diabetes mellitus	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516972	Musculoskeletal disorder	musculoskeletal disorder	musculoskeletal disorders myalgia	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516837	Myalgia	myalgia	musculoskeletal disorders myalgia	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36718132	Headache	headache	headache	T1M1	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	T1M1	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	T1M1	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36110584	Bronchitis	bronchitis	respiratory system disorders bronchitis sinusitis	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	37219945	Respiratory disorder	respiratory system disorder	respiratory system disorders bronchitis sinusitis	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36110708	Sinusitis	sinusitis	respiratory system disorders bronchitis sinusitis	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	37320143	Eczema	eczema	skin or skin appendage disorders eczema	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36110736	Urinary tract infection	infection urinary tract	urogenital system disorders infection urinary tract	L2M	16		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	19		0.1	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	19		0.1	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	22		0.9	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	22		0.9	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35205189	Myocardial infarction	myocardial infarction	myocardial infarction	M1	22		0.9	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	22		0.9	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809243	Pain	pain	pain	M1	22		0.9	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36315567	Blood creatine	serum creatine	serum creatine	M1	22		0.9	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	23		0.4	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	23		0.4	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	24		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	24		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	L1	27		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	37320212	Rash	rash	rash	L1	27		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	L1	27		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	L1	27		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	27		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36313602	Transaminases	transaminases	transaminases	M1	30		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36312565	Blood alkaline phosphatase	alkaline phosphatase	alkaline phosphatase	M1	31		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	M1	36		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36718132	Headache	headache	headache	M1	36		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35305820	Type IIa hyperlipidaemia	heterozygous familial hypercholesterolemia	heterozygous familial hypercholesterolemia	M1	36		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	M1	36		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	M1	36		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	37320197	Pruritus	pruritus	pruritus	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	37320268	Alopecia	alopecia	alopecia	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809387	Nodule	nodule	nodules	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35205025	Dizziness	dizziness	dizziness	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516848	Muscle spasms	muscle cramps	muscle cramps	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35707713	Pancreatitis	pancreatitis	pancreatitis	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36718379	Paraesthesia	paresthesia	paresthesia	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions			peripheral neuropathies	peripheral neuropathy	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35708208	Vomiting	vomiting	vomiting	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35104074	Anaemia	anemia	anemia	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36919183	Erectile dysfunction	erectile dysfunction	erectile dysfunction	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	37219831	Interstitial lung disease	interstitial lung disease	interstitial lung disease	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35909613	Hepatitis	hepatitis	hepatitis or jaundice	L2M	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35104306	Jaundice	jaundice	hepatitis or jaundice	L2M	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35909518	Hepatic failure	hepatic failure	non fatal hepatic failure	L2M	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36918942	Depression	depression	depression	L1	40		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	42		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009756	Anaphylactic reaction	anaphylaxis	anaphylaxis	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009762	Angioedema	angioedema	angioedema	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009828	Polymyalgia rheumatica	polymyalgia rheumatica	polymyalgia rheumatica	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009843	Dermatomyositis	dermatomyositis	dermatomyositis	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009918	Vasculitis	vasculitis	vasculitis	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35104181	Purpura	purpura	purpura	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35104691	Thrombocytopenia	thrombocytopenia	thrombocytopenia	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35104868	Leukopenia	leukopenia	leukopenia	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35104281	Haemolytic anaemia	hemolytic anemia	hemolytic anemia	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36313661	Antinuclear antibody positive	ana positive	positive ana	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36313153	Red blood cell sedimentation rate increased	esr increased	esr increase	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35104826	Eosinophilia	eosinophilia	eosinophilia	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516779	Arthritis	arthritis	arthritis	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009783	Urticaria	urticaria	urticaria	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809054	Pyrexia	fever	fever	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809082	Chills	chills	chills	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809130	Flushing	flushing	flushing	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35809079	Malaise	malaise	malaise	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	35205038	Dyspnoea	dyspnea	dyspnea	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Adverse Reactions	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	44		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing	36718179	Cognitive disorder	cognitive impairment	cognitive impairment	M1	46		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing	36718171	Amnesia	memory loss	memory loss	L1	46		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing	36718175	Memory impairment	forgetfulness	forgetfulness	L1	46		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing	36718171	Amnesia	amnesia	amnesia	L1	46		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing	36718175	Memory impairment	memory impairment	memory impairment	L1	46		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Post Marketing	36718301	Confusional state	confusion	confusion	L1	46		rare	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	cpk	cpk	M1	52		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	52		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36718530	Epilepsy	epilepsy	epilepsy	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35809054	Pyrexia	fever	fever	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)			hba c	hba c	M1	52		unk	Y
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35909518	Hepatic failure	hepatic failure	hepatic failure	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35104304	Hyperbilirubinaemia	hyperbilirubinemia	hyperbilirubinemia	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	37622449	Hypotension	hypotension	hypotension	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35506797	Hypothyroidism	hypothyroidism	hypothyroidism	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35809181	Inflammation	inflammation	inflammation	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36313593	Liver function test	liver function tests	liver function tests	M1	52		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35909503	Liver injury	liver injury	liver injury	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35809079	Malaise	malaise	malaise	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36314834	Biopsy muscle	muscle biopsy	muscle biopsy	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35205189	Myocardial infarction	myocardial infarction	myocardial infarction	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	37019321	Renal impairment	renal impairment	renal impairment	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36110642	Sepsis	sepsis	sepsis	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36315567	Blood creatine	serum creatine	serum creatine	M1	52		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36314155	Blood glucose	serum glucose	serum glucose	M1	52		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	52		unk	
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	52		unk	LAB
+	3c1027ef-719c-491a-ae3c-0a06eaa11089	56f98ef5-e8c5-4b96-82d9-683b2f7c3dcc	simvastatin	7/22/2013	Precautions (beta)	36211303	Injury	trauma	trauma	M1	52		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35707763	Gastrointestinal disorder	gastrointestinal disorder	gastrointestinal disorders	L1	4		0.5	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	4		0.1	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	4		0.1	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infections	L1	5		9.0	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	5		7.4	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	5		7.3	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	5		6.6	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	5		5.4	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35809225	Oedema	edema	edema or swelling	L2M	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35809166	Swelling	swelling	edema or swelling	L2M	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35204953	Atrial fibrillation	atrial fibrillation	atrial fibrillation	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708050	Gastritis	gastritis	gastritis	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35506542	Endocrine disorder	endocrine disorder	endocrine disorders	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516972	Musculoskeletal disorder	musculoskeletal disorder	musculoskeletal disorders	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36718132	Headache	headache	headache	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	37219945	Respiratory disorder	respiratory system disorder	respiratory system disorders	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36110584	Bronchitis	bronchitis	bronchitis	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36110708	Sinusitis	sinusitis	sinusitis	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	37320143	Eczema	eczema	eczema	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36110736	Urinary tract infection	infection urinary tract	infection urinary tract	T1L1	10		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	13		0.1	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	13		0.1	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	16	unstated	0.9	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	16		0.9	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	16		0.9	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35809243	Pain	pain	pain	M1	16		0.9	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36315567	Blood creatine	serum creatine	serum creatine	M1	16	unstated	0.9	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	17		0.4	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	17		0.4	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	18		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	18		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	L1	21		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	37320212	Rash	rash	rash	L1	21		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	L1	21		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	L1	21		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	21		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36313605	Transaminases increased	transaminases increased	transaminases	LM	24	transformed	unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36312568	Blood alkaline phosphatase increased	alkaline phosphatase increased	alkaline phosphatase	LM	26	transformed	unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	M1	31		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36718132	Headache	headache	headache	M1	31		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	M1	31		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	M1	31		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	37320197	Pruritus	pruritus	pruritus	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	37320268	Alopecia	alopecia	alopecia	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809387	Nodule	nodule	nodules	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35205025	Dizziness	dizziness	dizziness	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36516848	Muscle spasms	muscle cramps	muscle cramps	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36516837	Myalgia	myalgia	myalgia	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35707713	Pancreatitis	pancreatitis	pancreatitis	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718379	Paraesthesia	paresthesia	paresthesia	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing			peripheral neuropathies	peripheral neuropathy	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35708208	Vomiting	vomiting	vomiting	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35104074	Anaemia	anemia	anemia	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36919183	Erectile dysfunction	erectile dysfunction	erectile dysfunction	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	37219831	Interstitial lung disease	interstitial lung disease	interstitial lung disease	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35909613	Hepatitis	hepatitis	hepatitis or jaundice	L2M	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35104306	Jaundice	jaundice	hepatitis or jaundice	L2M	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35909518	Hepatic failure	hepatic failure	hepatic failure	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36918942	Depression	depression	depression	L1	35		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36516886	Myopathy	myopathy	myopathy	M1	37		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009756	Anaphylactic reaction	anaphylaxis	anaphylaxis	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009762	Angioedema	angioedema	angioedema	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009828	Polymyalgia rheumatica	polymyalgia rheumatica	polymyalgia rheumatica	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009843	Dermatomyositis	dermatomyositis	dermatomyositis	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009918	Vasculitis	vasculitis	vasculitis	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35104181	Purpura	purpura	purpura	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35104691	Thrombocytopenia	thrombocytopenia	thrombocytopenia	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35104868	Leukopenia	leukopenia	leukopenia	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35104281	Haemolytic anaemia	hemolytic anemia	hemolytic anemia	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36313661	Antinuclear antibody positive	ana positive	positive ana	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36313153	Red blood cell sedimentation rate increased	esr increased	esr increase	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35104826	Eosinophilia	eosinophilia	eosinophilia	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36516779	Arthritis	arthritis	arthritis	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36516812	Arthralgia	arthralgia	arthralgia	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009783	Urticaria	urticaria	urticaria	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809072	Asthenia	asthenia	asthenia	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809054	Pyrexia	fever	fever	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809082	Chills	chills	chills	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809130	Flushing	flushing	flushing	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809079	Malaise	malaise	malaise	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35205038	Dyspnoea	dyspnea	dyspnea	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	39		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36516812	Arthralgia	arthralgia	arthralgia	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009783	Urticaria	urticaria	urticaria	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809072	Asthenia	asthenia	asthenia	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809054	Pyrexia	fever	fever	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809082	Chills	chills	chills	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809130	Flushing	flushing	flushing	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35809079	Malaise	malaise	malaise	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35205038	Dyspnoea	dyspnea	dyspnea	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	40		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718179	Cognitive disorder	cognitive impairment	cognitive impairment	M1	42		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718171	Amnesia	memory loss	memory loss	L1	42		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718175	Memory impairment	forgetfulness	forgetfulness	L1	42		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718171	Amnesia	amnesia	amnesia	L1	42		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718175	Memory impairment	memory impairment	memory impairment	L1	42		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718301	Confusional state	confusion	confusion	L1	42		rare	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	L1	46		5.0	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	36718132	Headache	headache	headache	L1	46		5.0	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	46		5.0	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35708100	Constipation	constipation	constipation	L1	46		5.0	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Post Marketing	35708202	Nausea	nausea	nausea	L1	46		5.0	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	cpk	cpk	M1	51		unk	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	51		unk	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36718530	Epilepsy	epilepsy	epilepsy	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35809054	Pyrexia	fever	fever	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)			hba c	hba c	M1	51		unk	Y
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35909518	Hepatic failure	hepatic failure	hepatic failure	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35104304	Hyperbilirubinaemia	hyperbilirubinemia	hyperbilirubinemia	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	37622449	Hypotension	hypotension	hypotension	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35506797	Hypothyroidism	hypothyroidism	hypothyroidism	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35809181	Inflammation	inflammation	inflammation	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36313593	Liver function test	liver function tests	liver function tests	M1	51		unk	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35909503	Liver injury	liver injury	liver injury	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35809079	Malaise	malaise	malaise	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36314834	Biopsy muscle	muscle biopsy	muscle biopsy	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	37019321	Renal impairment	renal impairment	renal impairment	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36110642	Sepsis	sepsis	sepsis	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36315567	Blood creatine	serum creatine	serum creatine	M1	51		unk	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36314155	Blood glucose	serum glucose	serum glucose	M1	51		unk	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	51		unk	
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	51		unk	LAB
+	aba90fb1-4385-4722-b105-27f2fe696711	5a02aabc-506d-44e7-a96e-3af084348cab	simvastatin	10/17/2013	Precautions (beta)	36211303	Injury	trauma	trauma	M1	51		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	L1	1		5.0	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	1		5.0	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	1		5.0	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	1		5.0	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	1		5.0	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35707763	Gastrointestinal disorder	gastrointestinal disorder	gastrointestinal disorders	L1	9		0.5	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	9		0.1	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	9		0.1	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infections	L1	10		9.0	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	10		7.4	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	10		7.3	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	10		6.6	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	10		5.4	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1M1	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809225	Oedema	edema	edema	T1M1	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809166	Swelling	swelling	swelling	T1M1	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35204953	Atrial fibrillation	atrial fibrillation	cardiovascular system disorders atrial fibrillation	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708100	Constipation	constipation	digestive system disorders constipation gastritis	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708050	Gastritis	gastritis	digestive system disorders constipation gastritis	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35506609	Diabetes mellitus	diabetes mellitus	endocrine disorders diabetes mellitus	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516972	Musculoskeletal disorder	musculoskeletal disorder	musculoskeletal disorders myalgia	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516837	Myalgia	myalgia	musculoskeletal disorders myalgia	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36718132	Headache	headache	headache	T1M1	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	T1M1	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	T1M1	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36110584	Bronchitis	bronchitis	respiratory system disorders bronchitis sinusitis	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	37219945	Respiratory disorder	respiratory system disorder	respiratory system disorders bronchitis sinusitis	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36110708	Sinusitis	sinusitis	respiratory system disorders bronchitis sinusitis	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	37320143	Eczema	eczema	skin or skin appendage disorders eczema	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36110736	Urinary tract infection	infection urinary tract	urogenital system disorders infection urinary tract	L2M	16		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	19		0.1	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	19		0.1	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	22		0.9	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	22		0.9	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35205189	Myocardial infarction	myocardial infarction	myocardial infarction	M1	22		0.9	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	22		0.9	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809243	Pain	pain	pain	M1	22		0.9	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36315567	Blood creatine	serum creatine	serum creatine	M1	22		0.9	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	23		0.4	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	23		0.4	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	24		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	24		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	L1	27		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	37320212	Rash	rash	rash	L1	27		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	L1	27		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	L1	27		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	27		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36313602	Transaminases	transaminases	transaminases	M1	30		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36312565	Blood alkaline phosphatase	alkaline phosphatase	alkaline phosphatase	M1	31		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	M1	36		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36718132	Headache	headache	headache	M1	36		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35305820	Type IIa hyperlipidaemia	heterozygous familial hypercholesterolemia	heterozygous familial hypercholesterolemia	M1	36		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	M1	36		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	M1	36		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	37320197	Pruritus	pruritus	pruritus	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	37320268	Alopecia	alopecia	alopecia	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809387	Nodule	nodule	nodules	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35205025	Dizziness	dizziness	dizziness	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516848	Muscle spasms	muscle cramps	muscle cramps	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35707713	Pancreatitis	pancreatitis	pancreatitis	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36718379	Paraesthesia	paresthesia	paresthesia	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions			peripheral neuropathies	peripheral neuropathy	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35708208	Vomiting	vomiting	vomiting	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35104074	Anaemia	anemia	anemia	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36919183	Erectile dysfunction	erectile dysfunction	erectile dysfunction	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	37219831	Interstitial lung disease	interstitial lung disease	interstitial lung disease	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35909613	Hepatitis	hepatitis	hepatitis or jaundice	L2M	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35104306	Jaundice	jaundice	hepatitis or jaundice	L2M	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35909518	Hepatic failure	hepatic failure	non fatal hepatic failure	L2M	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36918942	Depression	depression	depression	L1	40		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	42		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009756	Anaphylactic reaction	anaphylaxis	anaphylaxis	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009762	Angioedema	angioedema	angioedema	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009828	Polymyalgia rheumatica	polymyalgia rheumatica	polymyalgia rheumatica	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009843	Dermatomyositis	dermatomyositis	dermatomyositis	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009918	Vasculitis	vasculitis	vasculitis	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35104181	Purpura	purpura	purpura	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35104691	Thrombocytopenia	thrombocytopenia	thrombocytopenia	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35104868	Leukopenia	leukopenia	leukopenia	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35104281	Haemolytic anaemia	hemolytic anemia	hemolytic anemia	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36313661	Antinuclear antibody positive	ana positive	positive ana	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36313153	Red blood cell sedimentation rate increased	esr increased	esr increase	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35104826	Eosinophilia	eosinophilia	eosinophilia	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516779	Arthritis	arthritis	arthritis	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009783	Urticaria	urticaria	urticaria	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809054	Pyrexia	fever	fever	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809082	Chills	chills	chills	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809130	Flushing	flushing	flushing	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35809079	Malaise	malaise	malaise	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	35205038	Dyspnoea	dyspnea	dyspnea	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Adverse Reactions	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	44		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing	36718179	Cognitive disorder	cognitive impairment	cognitive impairment	M1	46		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing	36718171	Amnesia	memory loss	memory loss	L1	46		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing	36718175	Memory impairment	forgetfulness	forgetfulness	L1	46		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing	36718171	Amnesia	amnesia	amnesia	L1	46		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing	36718175	Memory impairment	memory impairment	memory impairment	L1	46		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Post Marketing	36718301	Confusional state	confusion	confusion	L1	46		rare	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	cpk	cpk	M1	52		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	52		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36718530	Epilepsy	epilepsy	epilepsy	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35809054	Pyrexia	fever	fever	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)			hba c	hba c	M1	52		unk	Y
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35909518	Hepatic failure	hepatic failure	hepatic failure	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35104304	Hyperbilirubinaemia	hyperbilirubinemia	hyperbilirubinemia	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	37622449	Hypotension	hypotension	hypotension	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35506797	Hypothyroidism	hypothyroidism	hypothyroidism	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35809181	Inflammation	inflammation	inflammation	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36313593	Liver function test	liver function tests	liver function tests	M1	52		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35909503	Liver injury	liver injury	liver injury	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35809079	Malaise	malaise	malaise	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36314834	Biopsy muscle	muscle biopsy	muscle biopsy	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35205189	Myocardial infarction	myocardial infarction	myocardial infarction	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	37019321	Renal impairment	renal impairment	renal impairment	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36110642	Sepsis	sepsis	sepsis	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36315567	Blood creatine	serum creatine	serum creatine	M1	52		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36314155	Blood glucose	serum glucose	serum glucose	M1	52		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	52		unk	
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	52		unk	LAB
+	47fd15ed-2686-4355-81b5-8ccce2ae7f86	ca1aba02-cba1-47cf-b796-d5fee705c0c6	simvastatin	7/30/2013	Precautions (beta)	36211303	Injury	trauma	trauma	M1	52		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36313605	Transaminases increased	transaminases increased	transaminases	LM	5	transformed	unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35909501	Liver disorder	Liver disorder	liver dysfunction	L1	5		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	8		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	8		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36416634	Hypercholesterolaemia	hypercholesterolemia	patients with hypercholesterolemia	L2M	10		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516848	Muscle spasms	muscle cramps	muscle cramps	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35205025	Dizziness	dizziness	dizziness	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718132	Headache	headache	headache	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	37320212	Rash	rash	rash	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35607483	Vision blurred	blurred vision	blurred vision	T1L1	14		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35205185	Chest pain	chest pain	chest pain	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708206	Regurgitation	regurgitation	acid regurgitation	L2M	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708690	Dry mouth	dry mouth	dry mouth	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708208	Vomiting	vomiting	vomiting	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516959	Pain in extremity	leg pain	leg pain	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516957	Musculoskeletal pain	shoulder pain	shoulder pain	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718379	Paraesthesia	paresthesia	paresthesia	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	37320268	Alopecia	alopecia	alopecia	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	37320197	Pruritus	pruritus	pruritus	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35607122	Eye irritation	eye irritation	eye irritation	L1	16		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	27		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy or rhabdomyolysis	L2M	28		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	myopathy or rhabdomyolysis	L2M	28		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516848	Muscle spasms	muscle cramps	muscle cramps	L1	33		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	33		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	L1	33		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	L1	33		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgias	L1	33		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708724	Dysgeusia	taste alteration	alteration of taste	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718079	Facial paresis	facial paresis	facial paresis	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718265	Tremor	tremor	tremor	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35205025	Dizziness	dizziness	dizziness	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718171	Amnesia	memory loss	memory loss	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718379	Paraesthesia	paresthesia	paresthesia	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions			peripheral neuropathies	peripheral neuropathy	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718477	Peripheral nerve palsy	peripheral nerve palsy	peripheral nerve palsy	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36919117	Mental disorder	psychic disturbance	psychic disturbances	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36918858	Anxiety	anxiety	anxiety	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36918942	Depression	depression	depression	L1	35		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009756	Anaphylactic reaction	anaphylaxis	anaphylaxis	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009762	Angioedema	angioedema	angioedema	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009828	Polymyalgia rheumatica	polymyalgia rheumatica	polymyalgia rheumatica	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009843	Dermatomyositis	dermatomyositis	dermatomyositis	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009918	Vasculitis	vasculitis	vasculitis	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35104181	Purpura	purpura	purpura	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35104691	Thrombocytopenia	thrombocytopenia	thrombocytopenia	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35104868	Leukopenia	leukopenia	leukopenia	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35104281	Haemolytic anaemia	hemolytic anemia	hemolytic anemia	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36313661	Antinuclear antibody positive	ana positive	positive ana	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36313153	Red blood cell sedimentation rate increased	esr increased	esr increase	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35104826	Eosinophilia	eosinophilia	eosinophilia	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516779	Arthritis	arthritis	arthritis	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009783	Urticaria	urticaria	urticaria	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35809054	Pyrexia	fever	fever	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35809082	Chills	chills	chills	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35809130	Flushing	flushing	flushing	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35809079	Malaise	malaise	malaise	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35205038	Dyspnoea	dyspnea	dyspnea	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	37		rare	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35707713	Pancreatitis	pancreatitis	pancreatitis	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35909616	Hepatitis chronic active	chronic active hepatitis	chronic active hepatitis	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35909473	Jaundice cholestatic	cholestatic jaundice	cholestatic jaundice	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35909527	Hepatic cirrhosis	Liver cirrhosis	cirrhosis	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35909611	Hepatic necrosis	Hepatic necrosis	fulminant hepatic necrosis	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35909670	Hepatic neoplasm malignant	hepatoma	hepatoma	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36416512	Anorexia	anorexia	anorexia	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35708208	Vomiting	vomiting	vomiting	L1	39		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	37320268	Alopecia	alopecia	alopecia	L1	41		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	37320197	Pruritus	pruritus	pruritus	L1	41		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35809387	Nodule	nodule	nodules	L1	42		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35506601	Gynaecomastia	gynecomastia	gynecomastia	L1	44		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36919197	Loss of libido	loss of libido	loss of libido	L1	44		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36919183	Erectile dysfunction	erectile dysfunction	erectile dysfunction	L1	44		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35606824	Cataract	cataracts	progression of cataracts	L2M	46		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35606828	Lenticular opacities	lens opacity	lens opacities	L1	46		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	35607288	Ophthalmoplegia	ophthalmoplegia	ophthalmoplegia	L1	46		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36313605	Transaminases increased	Transaminases increased	elevated transaminases	L1	48		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36312568	Blood alkaline phosphatase increased	alkaline phosphatase increased	alkaline phosphatase	LM	48	transformed	unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36313550	Blood bilirubin increased	bilirubin increased	bilirubin	LM	48	transformed	unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Adverse Reactions	36312473	Thyroid function test abnormal	thyroid function abnormal	thyroid function abnormalities	L1	48		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36313521	Alanine aminotransferase	alanine aminotransferase	alanine aminotransferase	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36313531	Aspartate aminotransferase	aspartate aminotransferase	aspartate aminotransferase	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35205185	Chest pain	chest pain	chest pain	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	53		unk	LAB
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine phosphokinase	creatine phosphokinase	M1	53		unk	LAB
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35305820	Type IIa hyperlipidaemia	homozygous familial hypercholesterolemia	homozygous familial hypercholesterolemia	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36314006	Low density lipoprotein	ldl	ldl	M1	53		unk	LAB
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36313593	Liver function test	liver function tests	liver function tests	M1	53		unk	LAB
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	53		unk	
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	53		unk	LAB
+19019115	b0ef9f29-1057-49bf-a097-b9dde090293d	18fae555-8c03-4cec-8c65-c7fdaea4b958	lovastatin	1/3/2013	Precautions (beta)	35809072	Asthenia	weakness	weakness	M1	53		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	35708642	Stomatitis	mouth irritation	mouth irritation	M1	2		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	35708094	Diarrhoea haemorrhagic	bloody diarrhea	bloody diarrhea	M1	5		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	5		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	35708208	Vomiting	vomiting	vomiting	L1	5		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	35708164	Abdominal discomfort	gastrointestinal upset	gastrointestinal upset or disturbances	L1	5		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	37320212	Rash	rash	rash	L1	7		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	36009783	Urticaria	urticaria	urticaria	M1	7		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	M1	8		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	35204948	Tachycardia	tachycardia	tachycardia	L1	10		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	36009703	Bronchospasm	bronchospasm	bronchospasm	L1	10		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	37320136	Swelling face	facial swelling	facial swelling	L1	10		unk	
+	ba531b47-6a96-432b-ae01-6d8e18634463	ba531b47-6a96-432b-ae01-6d8e18634463	nystatin	10/24/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	M1	10		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	L1	1		5.0	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	1		5.0	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	1		5.0	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	1		5.0	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	1		5.0	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35707763	Gastrointestinal disorder	gastrointestinal disorder	gastrointestinal disorders	L1	8		0.5	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516837	Myalgia	myalgia	myalgia	L1	8		0.1	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516812	Arthralgia	arthralgia	arthralgia	L1	8		0.1	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infections	L1	9		9.0	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36718132	Headache	headache	headache	L1	9		7.4	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	L1	9		7.3	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708100	Constipation	constipation	constipation	L1	9		6.6	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	L1	9		5.4	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	T1M1	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35809225	Oedema	edema	edema	T1M1	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35809166	Swelling	swelling	swelling	T1M1	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35204953	Atrial fibrillation	atrial fibrillation	cardiovascular system disorders atrial fibrillation	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708100	Constipation	constipation	digestive system disorders constipation gastritis	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708050	Gastritis	gastritis	digestive system disorders constipation gastritis	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35506609	Diabetes mellitus	diabetes mellitus	endocrine disorders diabetes mellitus	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516972	Musculoskeletal disorder	musculoskeletal disorder	musculoskeletal disorders myalgia	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516837	Myalgia	myalgia	musculoskeletal disorders myalgia	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36718132	Headache	headache	headache	T1M1	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36718555	Insomnia	insomnia	insomnia	T1M1	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35406392	Vertigo	vertigo	vertigo	T1M1	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36110584	Bronchitis	bronchitis	respiratory system disorders bronchitis sinusitis	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	37219945	Respiratory disorder	respiratory system disorder	respiratory system disorders bronchitis sinusitis	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36110708	Sinusitis	sinusitis	respiratory system disorders bronchitis sinusitis	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	37320143	Eczema	eczema	skin or skin appendage disorders eczema	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36110736	Urinary tract infection	infection urinary tract	urogenital system disorders infection urinary tract	L2M	15		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	18		0.1	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	18		0.1	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	21		0.9	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	21		0.9	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	21		0.9	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35809243	Pain	pain	pain	M1	21		0.9	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36315567	Blood creatine	serum creatine	serum creatine	M1	21		0.9	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	22		0.4	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	22		0.4	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516886	Myopathy	myopathy	myopathy	M1	23		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	23		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708093	Diarrhoea	diarrhea	diarrhea	L1	26		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	37320212	Rash	rash	rash	L1	26		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708139	Dyspepsia	dyspepsia	dyspepsia	L1	26		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708153	Flatulence	flatulence	flatulence	L1	26		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35809072	Asthenia	asthenia	asthenia	L1	26		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36313602	Transaminases	transaminases	transaminases	M1	29		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36312565	Blood alkaline phosphatase	alkaline phosphatase	alkaline phosphatase	M1	30		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708154	Abdominal pain	abdominal pain	abdominal pain	M1	35		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36718132	Headache	headache	headache	M1	35		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	35708202	Nausea	nausea	nausea	M1	35		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Adverse Reactions	36110715	Upper respiratory tract infection	upper respiratory infection	upper respiratory infection	M1	35		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	37320197	Pruritus	pruritus	pruritus	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	37320268	Alopecia	alopecia	alopecia	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35809387	Nodule	nodule	nodules	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35205025	Dizziness	dizziness	dizziness	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36516848	Muscle spasms	muscle cramps	muscle cramps	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36516837	Myalgia	myalgia	myalgia	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35707713	Pancreatitis	pancreatitis	pancreatitis	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36718379	Paraesthesia	paresthesia	paresthesia	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing			peripheral neuropathies	peripheral neuropathy	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35708208	Vomiting	vomiting	vomiting	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35104074	Anaemia	anemia	anemia	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36919183	Erectile dysfunction	erectile dysfunction	erectile dysfunction	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	37219831	Interstitial lung disease	interstitial lung disease	interstitial lung disease	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35909613	Hepatitis	hepatitis	hepatitis or jaundice	L2M	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35104306	Jaundice	jaundice	hepatitis or jaundice	L2M	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35909518	Hepatic failure	hepatic failure	non fatal hepatic failure	L2M	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36918942	Depression	depression	depression	L1	38		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36516886	Myopathy	myopathy	myopathy	M1	40		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009756	Anaphylactic reaction	anaphylaxis	anaphylaxis	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009762	Angioedema	angioedema	angioedema	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009828	Polymyalgia rheumatica	polymyalgia rheumatica	polymyalgia rheumatica	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009843	Dermatomyositis	dermatomyositis	dermatomyositis	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009918	Vasculitis	vasculitis	vasculitis	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35104181	Purpura	purpura	purpura	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35104691	Thrombocytopenia	thrombocytopenia	thrombocytopenia	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35104868	Leukopenia	leukopenia	leukopenia	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35104281	Haemolytic anaemia	hemolytic anemia	hemolytic anemia	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36313661	Antinuclear antibody positive	ana positive	positive ana	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36313153	Red blood cell sedimentation rate increased	esr increased	esr increase	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35104826	Eosinophilia	eosinophilia	eosinophilia	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36516779	Arthritis	arthritis	arthritis	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36516812	Arthralgia	arthralgia	arthralgia	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009783	Urticaria	urticaria	urticaria	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35809072	Asthenia	asthenia	asthenia	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	37320193	Photosensitivity reaction	photosensitivity	photosensitivity	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35809054	Pyrexia	fever	fever	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35809082	Chills	chills	chills	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35809130	Flushing	flushing	flushing	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35809079	Malaise	malaise	malaise	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	35205038	Dyspnoea	dyspnea	dyspnea	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009754	Toxic epidermal necrolysis	toxic epidermal necrolysis	toxic epidermal necrolysis	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009707	Erythema multiforme	erythema multiforme	erythema multiforme	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36009724	Stevens-Johnson syndrome	stevens johnson syndrome	stevens johnson syndrome	L1	42		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36718179	Cognitive disorder	cognitive impairment	cognitive impairment	M1	44		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36718171	Amnesia	memory loss	memory loss	L1	44		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36718175	Memory impairment	forgetfulness	forgetfulness	L1	44		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36718171	Amnesia	amnesia	amnesia	L1	44		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36718175	Memory impairment	memory impairment	memory impairment	L1	44		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Post Marketing	36718301	Confusional state	confusion	confusion	L1	44		rare	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	37019319	Renal failure acute	acute renal failure	acute renal failure	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	cpk	cpk	M1	49		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36312525	Blood creatine phosphokinase	creatine kinase	creatine kinase	M1	49		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35506609	Diabetes mellitus	diabetes mellitus	diabetes mellitus	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36718530	Epilepsy	epilepsy	epilepsy	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35809054	Pyrexia	fever	fever	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)			hba c	hba c	M1	49		unk	Y
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35909518	Hepatic failure	hepatic failure	hepatic failure	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35104304	Hyperbilirubinaemia	hyperbilirubinemia	hyperbilirubinemia	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36009711	Hypersensitivity	hypersensitivity	hypersensitivity	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	37622449	Hypotension	hypotension	hypotension	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35506797	Hypothyroidism	hypothyroidism	hypothyroidism	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35809181	Inflammation	inflammation	inflammation	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35809310	Drug interaction	interactions	interactions	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35104306	Jaundice	jaundice	jaundice	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36313593	Liver function test	liver function tests	liver function tests	M1	49		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35909503	Liver injury	liver injury	liver injury	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35809079	Malaise	malaise	malaise	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36314834	Biopsy muscle	muscle biopsy	muscle biopsy	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36516837	Myalgia	muscle pain	muscle pain	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36516876	Muscular weakness	muscle weakness	muscle weakness	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35205334	Myoglobinuria	myoglobinuria	myoglobinuria	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36516886	Myopathy	myopathy	myopathy	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	37019321	Renal impairment	renal impairment	renal impairment	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	37019318	Renal failure	renal insufficiency	renal insufficiency	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36516888	Rhabdomyolysis	rhabdomyolysis	rhabdomyolysis	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36110642	Sepsis	sepsis	sepsis	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36315567	Blood creatine	serum creatine	serum creatine	M1	49		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36314155	Blood glucose	serum glucose	serum glucose	M1	49		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	35809252	Tenderness	tenderness	tenderness	M1	49		unk	
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36313602	Transaminases	transaminases	transaminases	M1	49		unk	LAB
+	c4bdd8c1-d350-44c7-94ac-48097852bef0	576a2482-6fbf-4937-b2fa-750dc357ed56	simvastatin	8/13/2013	Precautions (beta)	36211303	Injury	trauma	trauma	M1	49		unk	
