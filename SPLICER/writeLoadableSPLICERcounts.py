@@ -7,6 +7,8 @@
 #
 import urllib2, urllib, re, sys
 
+
+DATAFILE = "test-query-of-counts-09102014.csv" # NOTE: this data comes a CSV export of the following query
 ## count data retrieved from the SPARQL endpoint
 ## (http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql) using the
 ## following query. Please note that the ohdsi:MeddrraHoi is
@@ -19,7 +21,8 @@ import urllib2, urllib, re, sys
 # PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 # PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>
 
-# SELECT count(distinct ?an) ?drug ?hoi 
+# SELECT *
+# FROM <http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc>
 # WHERE {
 #  ?an a ohdsi:ADRAnnotation;
 #    oa:hasBody ?body;
@@ -29,7 +32,6 @@ import urllib2, urllib, re, sys
 #  ?body ohdsi:MeddrraHoi ?hoi. 
 
 # }
-DATAFILE = "test-query-of-counts-09102014.csv"
 
 EVTYPE = "SPL_SPLICER"
 
@@ -67,6 +69,7 @@ TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&qu
 f = open(DATAFILE)
 buf = f.read()
 f.close()
+# TODO: this is a work around for a bug in the model. This will need to be fixed.
 buf = buf.replace("http://purl.org/net/ohdsi#","").replace("http://purl.bioontology.org/ontology/MEDDRA/","").replace('"',"")
 l = buf.split("\n")[1:]
 
