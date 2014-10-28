@@ -1,4 +1,5 @@
-OHDSI KB v.02 
+The relation and RDF Schemas for LAERTES
+=========================================
 
 Conceptually, the data model is a hybrid relational/RDF schema where
 the RDF component applies the Open Data Annotation (OA) model
@@ -8,18 +9,19 @@ health outcome of interest (HOIs) from any of a variety of sources,
 and the relational component provides a summary and index for drug-HOI
 evidence represented in the RDF component.
 
-The relational component enumerates the evidence data sources and
-provides counts for the records associated with every drug-HOI pair in
-each source noting the modality of the association (i.e., a positive
-or negative association). Associated with the counts from a given
-source is a URL that can be used in the RDF component to pull back a
-list of OA records typed using custom OHDSI evidence types. Each OA
-record provides data that client programs can use to render data about
-the source of the evidence (the "target") and the semantic tags used
-to identify the record as a source of evidence for a drug-HOI pair
-(the "body" or "bodies").
+The relational component extends the OHDSI Standard Vocabulary,
+enumerates the evidence data sources, and provides counts for the
+records associated with every drug-HOI pair in each source noting the
+modality of the association (i.e., a positive or negative
+association). Associated with the counts from a given source is a URL
+that can be used in the RDF component to pull back a list of OA
+records typed using custom OHDSI evidence types. Each OA record
+provides data that client programs can use to render data about the
+source of the evidence (the "target") and the semantic tags used to
+identify the record as a source of evidence for a drug-HOI pair (the
+"body" or "bodies").
 
-This model decouples the data sources from the variouss copies of the
+This model decouples the data sources from the various copies of the
 sources that might have been processed in many different ways. It also
 decouples what can be said about and evidence item (i.e., the semantic
 tags) from the information artifact. All of this allows for greater
@@ -31,7 +33,21 @@ Data resources.
 This model will be developed to support all of the sources here:
 https://docs.google.com/document/d/13UwoqjPyqKr-MLpcflzNs8WD5Za4Ynqnue1xWU2cgaA/edit# 
 
-The OHDSI standard vocabulary may require extensions from the
+--------------------------------------------------------------------------------
+FOLDER LAYOUT
+
+- RDF-count-and-drill-down-queries.sparql : various queries against the RDF schema (various sources published as RDF using the Open Annotation Data standard)
+
+- example-queries-against-the-relational-schema.sql : various queries against the relational model when loaded into the OHDSI Standard Vocabulary
+
+- postgresql/ : the load script to create the relational schema within postgres. Also, there is a script to merge together the drug-HOI evidence statistics from all integrated datasources
+
+- OpenAnnotationSchemaERDiagrams/ : Entity-relationships diagrams of the RDF Schema for various source types
+
+
+
+--------------------------------------------------------------------------------
+NOTE: The OHDSI standard vocabulary may require extensions from the
 following terminologies:
 - http://www.openannotation.org/spec/core/#Terminology
 - http://xmlns.com/foaf/spec/
@@ -39,70 +55,6 @@ following terminologies:
 - http://www.w3.org/TR/skos-reference/
 
 
-EXAMPLE QUERIES:
-
--- A general query showing how to bridge all tables
-SELECT `drug`,`HOI`,`evidence_type`,`evidence_count`,`evidence_linkout`,evidence_sources.title, evidence_sources.description
-FROM `drug_HOI_evidence`, evidence_sources
-WHERE evidence_source_code_id = evidence_sources.id
-
-
--- Get back all evidence for 'Lisinopril' and 'Uterine leiomyoma' using standard vocab codes
-SELECT *
-FROM drug_hoi_evidences  
-WHERE 
-drug = 1308216 AND
-hoi = 36617553;
-
-
--- Get back all evidence for 'amoxacillin' and 'Pruritis' using
--- standard vocab codes. Returns the following linkout that can be put
--- into the browser to retrieve an OA representation of the data in
--- the product label:
--- http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=i9b  
-SELECT *
-FROM drug_hoi_evidences  
-WHERE 
-drug = 19123591 AND
-hoi = 37320197;
-
-
------------------------------------------------------------- 
--- Queries below this line need to get ported but first the
--- Evidence_sources table needs to be revised to tag each evidence
--- source with a type such as literature, labeling,
--- pharmacovigilance_signal_spontaneous_reporting,
--- pharmacovigilance_signal_EHR
-------------------------------------------------------------
--- Count literature evidence for 'metronidazole' and 'renal failure'
-SELECT COUNT("drug_HOI_evidence".evidence_type)
-FROM "drug_HOI_evidence"
-WHERE 
-drug = 1707164 AND
-"HOI" = 37019318 AND
-evidence_type LIKE 'literature%'
-
-
--- Count case report evidence for 'metronidazole' and 'renal failure'
-SELECT COUNT(evidence_type)
-FROM "drug_HOI_evidence"
-WHERE 
-drug = 1707164 AND
-"HOI" = 37019318 AND 
-evidence_type = 'literature_case_report'
-
-
--- get the target URIs for product label evidence for Simvastatin and Upper respiratory tract infection
-SELECT evidence_targets.uri
-FROM "drug_HOI_evidence", evidence_targets
-WHERE 
-"drug_HOI_evidence".drug = 1539403 AND
-"drug_HOI_evidence"."HOI" = 36110715 AND
-"drug_HOI_evidence".evidence_type = 'product_label' AND
-evidence_targets.id = "drug_HOI_evidence".evidence_target_id
-
-
-----
-
-Note instructions on faceted browser installation:
+--------------------------------------------------------------------------------
+NOTE: instructions on faceted browser installation:
 http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtFacetBrowserInstallConfig

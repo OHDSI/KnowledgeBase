@@ -1,16 +1,17 @@
--- Jeremy Jao
--- 09.09.2014
--- Made created from ohdsiTest3.mysql in the mysql folder of the Schema in Github.
--- Then I added some tables and whatnot.
--- I had to pipe the port so I can load this script using pgadmin3 (psql should be fine)
-
+--------------------------------------------------------------------
+-- Load script for the LAERTES relational model (extension to the OHDSI Standard Vocabulary)
+--
+--
+-- Authors: Jeremy Jao, Richard Boyce
+-- Fall/Winter 2014
+-- 
+--
 -- USAGE:
--- -prerequisites from PVSignals folder in the Knowledgebase Repository:
-    -- - uniq_drug_hoi_relationships.csv - example input file for the drug_HOI_relationship table
-    -- - example_drug_HOI_evidence_input_2.csv - example input file for the drug_HOI_evidence table
--- - make sure that all these files including the script are in:
-    -- - /mnt/vol1/inbound folder of the OHDSI dev server!!!!
--- - & psql vocabulary < ohdsiTest3.psql (cannot use pgadmin3 to load -> need \copy command)
+-- 1) Prerequisite: Run the script 'mergeCountsFromIntegratedSources.py'. This creates the file drug-hoi-evidence-data.tsv
+-- 2) load drug-hoi-evidence-data.tsv to the /mnt/vol1/inbound folder on the OHDSI dev server and make sure that uniq_drug_hoi_relationships.csv is loaded on the server. NOTE: uniq_drug_hoi_relationships.csv is a temporary and partial listing of all possible drug-HOI relationships. TODO: generate a complete listing of all possible drug-HOI pairs.
+-- 3) ssh to the OHDSI dev server and run:
+--    psql vocabulary < ohdsiTest3.psql 
+-- 4) Wait - estimated time - more than a couple of hours
 
 -- Converted by db_converter
 START TRANSACTION;
@@ -20,7 +21,6 @@ SET CONSTRAINTS ALL DEFERRED;
 
 DROP VIEW IF EXISTS drug_HOI_evidences;
 DROP TABLE IF EXISTS drug_HOI_evidence;
-DROP TABLE IF EXISTS drug_HOI_evidence2;
 DROP TABLE IF EXISTS drug_HOI_relationship;
 DROP TABLE IF EXISTS evidence_sources;
 
@@ -93,16 +93,10 @@ COMMENT ON COLUMN drug_HOI_evidence.evidence_linkout IS 'For literature-like (e.
 COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)';
 
 ALTER TABLE drug_HOI_evidence
-  OWNER TO jeremy;
-GRANT ALL ON TABLE drug_HOI_evidence TO jeremy;
+  OWNER TO rich;
+GRANT ALL ON TABLE drug_HOI_evidence TO rich;
 GRANT ALL ON TABLE drug_HOI_evidence TO public;
 GRANT ALL ON TABLE drug_HOI_evidence TO administrator;
-
--- ALTER TABLE drug_HOI_evidence2
-  -- OWNER TO jeremy;
--- GRANT ALL ON TABLE drug_HOI_evidence2 TO jeremy;
--- GRANT ALL ON TABLE drug_HOI_evidence2 TO public;
--- GRANT ALL ON TABLE drug_HOI_evidence2 TO administrator;
 
 ALTER TABLE evidence_sources
   OWNER TO jeremy;
@@ -126,9 +120,11 @@ START TRANSACTION;
 COMMIT;
 
 START TRANSACTION;
-\copy drug_HOI_evidence from 'example_drug_HOI_evidence_input_2.csv' DELIMITER '|' CSV HEADER;
+\copy drug_HOI_evidence from 'drug-hoi-evidence-data.tsv' DELIMITER '\t' CSV;
 COMMIT;
--- creates the view for flattened sql...
+
+
+-- creates the view for flattened sql. This table is the one most useful for users of the Standard Vocabulary
 START TRANSACTION;
 Create view drug_HOI_evidences as
 select * from (
