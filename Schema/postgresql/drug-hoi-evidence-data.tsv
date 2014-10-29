@@ -1,0 +1,30 @@
+1	1308216-36617553	aers_report_count		5	3	https://open.fda.gov/drug/event/reference/	COUNT
+2	1308216-36617553	aers_ebgm		5	0.5059999824	http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1884980/	AERS_EBGM
+3	1308216-36617553	aers_eb05		5	0.1949999928	http://www.ncbi.nlm.nih.gov/pubmed/23657824	AERS_EB05
+4	1308216-35205025	aers_report_count		5	938	https://open.fda.gov/drug/event/reference/	COUNT
+5	1308216-35205025	aers_ebgm		5	1.4900000095	http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1884980/	AERS_EBGM
+6	1308216-35205025	aers_eb05		5	1.4099999666	http://www.ncbi.nlm.nih.gov/pubmed/23657824	AERS_EB05
+7	1308216-35607082	aers_report_count		5	1	https://open.fda.gov/drug/event/reference/	COUNT
+8	1308216-35607082	aers_ebgm		5	0.248999998	http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1884980/	AERS_EBGM
+9	1308216-35607082	aers_eb05		5	0.0560000017	http://www.ncbi.nlm.nih.gov/pubmed/23657824	AERS_EB05
+10	1308216-36110649	aers_report_count		5	9	https://open.fda.gov/drug/event/reference/	COUNT
+11	40184727-35809076	SPL_SPLICER	true	2	7	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=0	COUNT
+12	40184727-35708202	SPL_SPLICER	true	2	7	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=1	COUNT
+13	40184727-35708134	SPL_SPLICER	true	2	14	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=2	COUNT
+14	40184727-37019321	SPL_SPLICER	true	2	14	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=3	COUNT
+15	40184727-35708154	SPL_SPLICER	true	2	7	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=4	COUNT
+16	40184727-36009707	SPL_SPLICER	true	2	6	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=5	COUNT
+17	40184727-35708208	SPL_SPLICER	true	2	7	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=6	COUNT
+18	40184727-35909501	SPL_SPLICER	true	2	14	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=7	COUNT
+19	40184727-35708690	SPL_SPLICER	true	2	7	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=8	COUNT
+20	40184727-35708100	SPL_SPLICER	true	2	14	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=9	COUNT
+21	757688-35708164	SPL_EU_SPC	true	1	2	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kza	COUNT
+22	757688-36718347	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzb	COUNT
+23	757688-36718193	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzc	COUNT
+24	757688-36009711	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzd	COUNT
+25	757688-37320268	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kze	COUNT
+26	757688-36045300	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzf	COUNT
+27	757688-36045336	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzg	COUNT
+28	757688-36416514	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzh	COUNT
+29	757688-36918858	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzi	COUNT
+30	757688-37282586	SPL_EU_SPC	true	1	1	http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kzj	COUNT

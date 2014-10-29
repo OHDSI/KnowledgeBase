@@ -149,7 +149,8 @@ from
 				aers_eb05 numeric,
 				aers_ebgm numeric,
 				aers_report_count numeric,
-				spl_splicer_count numeric
+				spl_eu_spc_count numeric,				
+				spl_splicer_count numeric								
 			)
 		) as stats
 	-- NATURAL JOIN
@@ -213,6 +214,7 @@ from
 				aers_eb05_link text,
 				aers_ebgm_link text,
 				aers_report_link text,
+				spl_eu_spc_link text,
 				spl_splicer_link text
 			)
 		) as linkus
