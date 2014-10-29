@@ -7,7 +7,7 @@
 ## Author: Richard D Boyce, PhD
 ## Fall/Winter 2014
 
-import psycopg2
+import psycopg2 # for postgres 
 
 DB_CONNECTION_INFO="db-connection.conf"
 SOURCE_LISTING_FILE="integratedSources.conf"
@@ -53,11 +53,15 @@ for src in srcL:
             break
 
         elt = elt.replace("positive","true").replace("negative","false") # the schema calls for a bool type for 'modality'
-        drugHoiDataOutF.write("%d\t%s\n" % (cntr, elt)) # just need to add the id column
+        s = "%d\t%s\n" % (cntr, elt)
+        if s.find("NULL") != -1:
+            print "WARNING: skipping creation of DRUG_HOI_DATA_FILE entry with NULL. TODO: edit this the script to avoid capturing NULLS to begin with."
+            continue
+        drugHoiDataOutF.write(s) # just need to add the id column
         
         if not dhKeyD.has_key(tpl[KEY]):
             (drug,hoi) = tpl[KEY].split("-")
-            dhKeyD[KEY] = {'drug_id':drug, 'drug_label':None, 'hoi_id':hoi, 'hoi_label':None}
+            dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':hoi, 'hoi_label':None}
 
 drugHoiDataOutF.close()
 
@@ -82,6 +86,8 @@ for elt in cachedDhrL:
         capturedDrugsD[dhKeyD[k]['drug_id']] = dhKeyD[k]['drug_label']
         capturedHoisD[dhKeyD[k]['hoi_id']] = dhKeyD[k]['hoi_label']
 
+print "INFO: number of cached keys: %d; number of keys needed: %d" % (len(capturedKeysD.keys()), len(dhKeyD.keys()))
+
 # NOTE: If you are running outside of the OHDSI dev server, be sure
 # set up the SSH tunnel to postgres on the dev server first.
 try:
@@ -99,7 +105,6 @@ for key in dhKeyD.keys():
     if capturedDrugsD.has_key(dhKeyD[key]['drug_id']):
        dLab  = capturedDrugsD[dhKeyD[key]['drug_id']]
     else:
-        print "CHECK 1"
         try:
             print "INFO: Attempting to SELECT from concept table where concept id - %d" % int(dhKeyD[key]['drug_id'])
             cur.execute("""SELECT concept_name from concept where concept_id = %d;""" % int(dhKeyD[key]['drug_id']))
@@ -107,24 +112,21 @@ for key in dhKeyD.keys():
             print "ERROR: Attempt to SELECT from concept table failed. Error string: %s" % e
 
         rows = cur.fetchall()
-        print "INFO: result count: %d" % len(rows)
         if len(rows) > 0:
-            print "   ", rows[0]
-            dLab = rows[0]
+            print "   ", rows[0][0]
+            dLab = rows[0][0]
     dhKeyD[key]['drug_label'] = dLab
     capturedDrugsD[dhKeyD[key]['drug_id']] = dhKeyD[key]['drug_label']
 
     if capturedHoisD.has_key(dhKeyD[key]['hoi_id']):
        hLab  = capturedHoisD[dhKeyD[key]['hoi_id']]
     else:
-        print "CHECK 2"
         try:
             print "INFO: Attempting to SELECT from concept table where concept id - %d" % int(dhKeyD[key]['hoi_id'])
             cur.execute("""SELECT concept_name from concept where concept_id = %d;""" % int(dhKeyD[key]['hoi_id']))
         except Exception as e:
             print "ERROR: Attempt to SELECT from concept table failed. Error string: %s" % e
         rows = cur.fetchall()
-        print "INFO: result count: %d" % len(rows)
         if len(rows) > 0:
             print "   ", rows[0][0]
             hLab = rows[0][0]
@@ -133,8 +135,16 @@ for key in dhKeyD.keys():
 
 ## write out the DRUG_HOI_RELATIONSHIP_FILE from dhKeyD
 dHROutf = open(DRUG_HOI_RELATIONSHIP_FILE,'w')
-for k,v in dhKeyD.iteritems():
-    s = "|".join([k,v['drug_id'],v['drug_label'],v['hoi_id'],v['hoi_label']]) + "\n"
+srtdKeys = dhKeyD.keys()
+srtdKeys.sort()
+for k in srtdKeys:
+    v = dhKeyD[k]
+    s = "|".join([str(k),str(v['drug_id']),str(v['drug_label']),str(v['hoi_id']),str(v['hoi_label'])]) + "\n"
+    if s.find("NULL") != -1:
+        print "WARNING: skipping creation of DRUG_HOI_RELATIONSHIP_FILE entry with NULL. TODO: edit this the script to avoid capturing NULLS to begin with."
+        continue
+
     dHROutf.write(s)
-dHROutf.write("\n")
 dHROutf.close()
+
+print "INFO: To make future use of this script more efficient, be sure to APPEND (i.e., copy without overwriting) the data in the file %s to %s" % (DRUG_HOI_RELATIONSHIP_FILE,CACHED_DRUG_HOI_RELATIONSHIP_FILE)
