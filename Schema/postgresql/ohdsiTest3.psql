@@ -10,7 +10,7 @@
 -- 1) Prerequisite: Run the script 'mergeCountsFromIntegratedSources.py'. This creates the file drug-hoi-evidence-data.tsv
 -- 2) load drug-hoi-evidence-data.tsv to the /mnt/vol1/inbound folder on the OHDSI dev server and make sure that uniq_drug_hoi_relationships.csv is loaded on the server. NOTE: uniq_drug_hoi_relationships.csv is a temporary and partial listing of all possible drug-HOI relationships. TODO: generate a complete listing of all possible drug-HOI pairs.
 -- 3) ssh to the OHDSI dev server and run:
---    psql vocabulary < ohdsiTest3.psql 
+--    psql -U <user name> -h 127.0.0.1 -W -d vocabulary < ohdsiTest3.psql
 -- 4) Wait - estimated time - more than a couple of hours
 
 -- Converted by db_converter
@@ -93,20 +93,19 @@ COMMENT ON COLUMN drug_HOI_evidence.evidence_linkout IS 'For literature-like (e.
 COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)';
 
 ALTER TABLE drug_HOI_evidence
-  OWNER TO rich;
+  OWNER TO jeremy;
 GRANT ALL ON TABLE drug_HOI_evidence TO rich;
 GRANT ALL ON TABLE drug_HOI_evidence TO public;
 GRANT ALL ON TABLE drug_HOI_evidence TO administrator;
 
 ALTER TABLE evidence_sources
   OWNER TO jeremy;
-GRANT ALL ON TABLE evidence_sources TO jeremy;
+GRANT ALL ON TABLE evidence_sources TO rich;
 GRANT ALL ON TABLE evidence_sources TO ohdsi;
 GRANT ALL ON TABLE evidence_sources TO administrator;
 
 ALTER TABLE drug_HOI_relationship
   OWNER TO jeremy;
-GRANT ALL ON TABLE drug_HOI_relationship TO jeremy;
 GRANT ALL ON TABLE drug_HOI_relationship TO rich;
 GRANT ALL ON TABLE drug_HOI_relationship TO ohdsi;
 GRANT ALL ON TABLE drug_HOI_relationship TO administrator;
