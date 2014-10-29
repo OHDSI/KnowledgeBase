@@ -7,10 +7,18 @@
 -- 
 --
 -- USAGE:
--- 1) Prerequisite: Run the script 'mergeCountsFromIntegratedSources.py'. This creates the file drug-hoi-evidence-data.tsv
--- 2) load drug-hoi-evidence-data.tsv to the /mnt/vol1/inbound folder on the OHDSI dev server and make sure that uniq_drug_hoi_relationships.csv is loaded on the server. NOTE: uniq_drug_hoi_relationships.csv is a temporary and partial listing of all possible drug-HOI relationships. TODO: generate a complete listing of all possible drug-HOI pairs.
--- 3) ssh to the OHDSI dev server and run:
+-- 1) Edit integratedSources.conf and the run the script
+--    'mergeCountsFromIntegratedSources.py'. This creates the files
+--    uniq_drug_hoi_relationships.csv and drug-hoi-evidence-data.tsv
+
+-- 2) load uniq_drug_hoi_relationships.csv, drug-hoi-evidence-data.tsv,
+--    and ohdsiTest3.psql to the /mnt/vol1/inbound folder on the OHDSI
+--    dev server.
+
+-- 3) ssh to the OHDSI dev server, change to the /mnt/vol1/inbound folder
+--    and run:
 --    psql -U <user name> -h 127.0.0.1 -W -d vocabulary < ohdsiTest3.psql
+
 -- 4) Wait - estimated time - more than a couple of hours
 
 -- Converted by db_converter
