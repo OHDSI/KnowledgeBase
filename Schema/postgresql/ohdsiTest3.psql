@@ -68,7 +68,7 @@ CREATE TABLE drug_HOI_evidence (
 );
 
 
-INSERT INTO evidence_sources VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','',''), (5, 'Federal Adverse Event Reporting Table', 'Spontaneous reports from FAERS up to QX of 20XX', 'Jeremy Jao', 'FDA', '2014-09-09', '','');
+INSERT INTO evidence_sources VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','',''), (5, 'FDA Adverse Event Reporting System', 'Spontaneous reports and signals from FAERS up to QX of 20XX', 'Jeremy Jao', 'FDA', '2014-09-09', '','');
 
 -- Post-data save --
 COMMIT;

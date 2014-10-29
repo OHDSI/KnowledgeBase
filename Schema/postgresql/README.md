@@ -5,7 +5,7 @@ tables that can them be loaded into the Schema relational DB model
 LOADING THE SCHEMA AND DATA INTO THE OHDSI STANDARD VOCABULARY: 
 
 1) Edit integratedSources.conf and the run the script
-   'mergeCountsFromIntegratedSources.py'. This creates the files
+   mergeCountsFromIntegratedSources.py. This creates the files
    uniq_drug_hoi_relationships.csv and drug-hoi-evidence-data.tsv
 
 2) load uniq_drug_hoi_relationships.csv, drug-hoi-evidence-data.tsv,
