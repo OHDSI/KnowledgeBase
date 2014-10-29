@@ -1,0 +1,100 @@
+http://bio2rdf.org/umls:C0035222	"adult respiratory distress syndrome [umls:C0035222]"@en
+http://bio2rdf.org/umls:C0012739	"disseminated intravascular coagulation [umls:C0012739]"@en
+http://bio2rdf.org/umls:C0877211	"general physical health deterioration [umls:C0877211]"@en
+http://bio2rdf.org/umls:C0853998	"pupillary light reflex tests abnormal [umls:C0853998]"@en
+http://bio2rdf.org/umls:C0277890	"decrease in diastolic blood pressure [umls:C0277890]"@en
+http://bio2rdf.org/umls:C0393819	"chronic inflammatory demyelinating polyneuropathy [umls:C0393819]"@en
+http://bio2rdf.org/umls:C0014059	"acute disseminated encephalomyelitis [umls:C0014059]"@en
+http://bio2rdf.org/umls:C2242711	"arteritic anterior ischemic optic neuropathy [umls:C2242711]"@en
+http://bio2rdf.org/umls:C0398349	"distal intestinal obstruction syndrome [umls:C0398349]"@en
+http://bio2rdf.org/umls:C0948862	"detachment of retinal pigment epithelium [umls:C0948862]"@en
+http://bio2rdf.org/umls:C1112525	"ulcer and gastrointestinal bleeding [umls:C1112525]"@en
+http://bio2rdf.org/umls:C0748019	"prostatic acid phosphatase increased [umls:C0748019]"@en
+http://bio2rdf.org/umls:C0521494	"application site pigmentation changes [umls:C0521494]"@en
+http://bio2rdf.org/umls:C0240671	"partial thromboplastin time prolonged [umls:C0240671]"@en
+http://bio2rdf.org/umls:C0854134	"blood bilirubin unconjugated increased [umls:C0854134]"@en
+http://bio2rdf.org/umls:C0858899	"difficulty with concentration or attention [umls:C0858899]"@en
+http://bio2rdf.org/umls:C3160858	"posterior reversible encephalopathy syndrome [umls:C3160858]"@en
+http://bio2rdf.org/umls:C0948811	"artificial kidney clotting during dialysis [umls:C0948811]"@en
+http://bio2rdf.org/umls:C0221239	"rapidly progressive glomerulonephritis [umls:C0221239]"@en
+http://bio2rdf.org/umls:C0876986	"congestive cardiac failure aggravated [umls:C0876986]"@en
+http://bio2rdf.org/umls:C0236171	"increased susceptibility to infection [umls:C0236171]"@en
+http://bio2rdf.org/umls:C0342881	"homozygous familial hypercholesterolemia [umls:C0342881]"@en
+http://bio2rdf.org/umls:C1168174	"absolute neutrophil count decreased [umls:C1168174]"@en
+http://bio2rdf.org/umls:C0344431	"monomorphic ventricular tachycardia [umls:C0344431]"@en
+http://bio2rdf.org/umls:C0855622	"aspartate aminotransferase decreased [umls:C0855622]"@en
+http://bio2rdf.org/umls:C1867423	"increased pulmonary vascular resistance [umls:C1867423]"@en
+http://bio2rdf.org/umls:C0854506	"urinary tract infection enterococcal [umls:C0854506]"@en
+http://bio2rdf.org/umls:C0277885	"decrease in systolic blood pressure [umls:C0277885]"@en
+http://bio2rdf.org/umls:C1167648	"abdominal and gastrointestinal infections [umls:C1167648]"@en
+http://bio2rdf.org/umls:C0853149	"blood lactate dehydrogenase increased [umls:C0853149]"@en
+http://bio2rdf.org/umls:C1963916	"diabetic peripheral neuropathic pain [umls:C1963916]"@en
+http://bio2rdf.org/umls:C1096266	"alpha haemolytic streptococcal infection [umls:C1096266]"@en
+http://bio2rdf.org/umls:C0553690	"reversible ischaemic neurological deficit [umls:C0553690]"@en
+http://bio2rdf.org/umls:C0877266	"upper respiratory tract inflammation [umls:C0877266]"@en
+http://bio2rdf.org/umls:C0919892	"blood pressure inadequately controlled [umls:C0919892]"@en
+http://bio2rdf.org/umls:C0853223	"activated partial thromboplastin time prolonged [umls:C0853223]"@en
+http://bio2rdf.org/umls:C0855335	"electrocardiogram st segment abnormal [umls:C0855335]"@en
+http://bio2rdf.org/umls:C0854329	"herpes zoster infection neurological [umls:C0854329]"@en
+http://bio2rdf.org/umls:C0853034	"blood creatine phosphokinase increased [umls:C0853034]"@en
+http://bio2rdf.org/umls:C0038522	"measles inclusion body encephalitis [umls:C0038522]"@en
+http://bio2rdf.org/umls:C0021141	"syndrome of inappropriate antidiuretic hormone [umls:C0021141]"@en
+http://bio2rdf.org/umls:C0011757	"developmental coordination disorder [umls:C0011757]"@en
+http://bio2rdf.org/umls:C0750857	"serum alkaline phosphatase increased [umls:C0750857]"@en
+http://bio2rdf.org/umls:C0151490	"congenital central nervous system anomaly [umls:C0151490]"@en
+http://bio2rdf.org/umls:C0025295	"streptococcus pneumoniae meningitis [umls:C0025295]"@en
+http://bio2rdf.org/umls:C0020522	"cell mediated immunological reaction [umls:C0020522]"@en
+http://bio2rdf.org/umls:C0178298	"skin and subcutaneous tissue disorders [umls:C0178298]"@en
+http://bio2rdf.org/umls:C0860160	"diabetes mellitus inadequate control [umls:C0860160]"@en
+http://bio2rdf.org/umls:C0852911	"blood alkaline phosphatase increased [umls:C0852911]"@en
+http://bio2rdf.org/umls:C0269815	"complications of labor and delivery [umls:C0269815]"@en
+http://bio2rdf.org/umls:C0948014	"red cell distribution width increased [umls:C0948014]"@en
+http://bio2rdf.org/umls:C0852354	"apocrine and eccrine gland disorders [umls:C0852354]"@en
+http://bio2rdf.org/umls:C0857801	"inappropriate schedule of drug administration [umls:C0857801]"@en
+http://bio2rdf.org/umls:C0149670	"abnormalities of carbohydrate metabolism [umls:C0149670]"@en
+http://bio2rdf.org/umls:C0037089	"gastrointestinal signs and symptoms [umls:C0037089]"@en
+http://bio2rdf.org/umls:C0853958	"blood creatine phosphokinase mb increased [umls:C0853958]"@en
+http://bio2rdf.org/umls:C0853979	"acoustic stimulation tests abnormal [umls:C0853979]"@en
+http://bio2rdf.org/umls:C1277187	"left ventricular systolic dysfunction [umls:C1277187]"@en
+http://bio2rdf.org/umls:C0344432	"polymorphic ventricular tachycardia [umls:C0344432]"@en
+http://bio2rdf.org/umls:C1299624	"postural orthostatic tachycardia syndrome [umls:C1299624]"@en
+http://bio2rdf.org/umls:C0241005	"elevated serum creatine phosphokinase [umls:C0241005]"@en
+http://bio2rdf.org/umls:C1142084	"application site photosensitivity reaction [umls:C1142084]"@en
+http://bio2rdf.org/umls:C0004606	"nonproliferative diabetic retinopathy [umls:C0004606]"@en
+http://bio2rdf.org/umls:C0149709	"hepatitis b surface antigen positive [umls:C0149709]"@en
+http://bio2rdf.org/umls:C0242966	"systemic inflammatory response syndrome [umls:C0242966]"@en
+http://bio2rdf.org/umls:C1112559	"pancreatitis due to biliary obstruction [umls:C1112559]"@en
+http://bio2rdf.org/umls:C0279680	"bladder transitional cell carcinoma [umls:C0279680]"@en
+http://bio2rdf.org/umls:C0858556	"involuntary movements of extremities [umls:C0858556]"@en
+http://bio2rdf.org/umls:C1261959	"respiratory tract infection bacterial [umls:C1261959]"@en
+http://bio2rdf.org/umls:C0024790	"paroxysmal nocturnal hemoglobinuria [umls:C0024790]"@en
+http://bio2rdf.org/umls:C0034155	"thrombotic thrombocytopenic purpura [umls:C0034155]"@en
+http://bio2rdf.org/umls:C0851467	"stenosis and obstruction gastrointestinal [umls:C0851467]"@en
+http://bio2rdf.org/umls:C0853068	"decreased glomerular filtration rate [umls:C0853068]"@en
+http://bio2rdf.org/umls:C0855333	"electrocardiogram qt corrected interval prolonged [umls:C0855333]"@en
+http://bio2rdf.org/umls:C0851366	"reproductive system and breast disorders [umls:C0851366]"@en
+http://bio2rdf.org/umls:C1504439	"reversible posterior leukoencephalopathy syndrome [umls:C1504439]"@en
+http://bio2rdf.org/umls:C0151632	"elevated erythrocyte sedimentation rate [umls:C0151632]"@en
+http://bio2rdf.org/umls:C0342882	"heterozygous familial hypercholesterolemia [umls:C0342882]"@en
+http://bio2rdf.org/umls:C0262525	"incomplete right bundle branch block [umls:C0262525]"@en
+http://bio2rdf.org/umls:C0043117	"idiopathic thrombocytopenic purpura [umls:C0043117]"@en
+http://bio2rdf.org/umls:C1135868	"gestational trophoblastic neoplasia [umls:C1135868]"@en
+http://bio2rdf.org/umls:C0851933	"cerebellar coordination and balance disturbances [umls:C0851933]"@en
+http://bio2rdf.org/umls:C0948857	"electrocardiogram repolarization abnormality [umls:C0948857]"@en
+http://bio2rdf.org/umls:C0178415	"prostatic specific antigen increase [umls:C0178415]"@en
+http://bio2rdf.org/umls:C0855331	"electrocardiogram qt corrected interval [umls:C0855331]"@en
+http://bio2rdf.org/umls:C0851813	"gastrointestinal signs and symptoms nec [umls:C0851813]"@en
+http://bio2rdf.org/umls:C0036400	"total anomalous pulmonary venous return [umls:C0036400]"@en
+http://bio2rdf.org/umls:C0856695	"acute exacerbation of chronic bronchitis [umls:C0856695]"@en
+http://bio2rdf.org/umls:C1261281	"complications of transplanted kidney [umls:C1261281]"@en
+http://bio2rdf.org/umls:C1142029	"necrotizing granulomatous lymphadenitis [umls:C1142029]"@en
+http://bio2rdf.org/umls:C0851435	"endocrine neoplasms malignant and unspecified [umls:C0851435]"@en
+http://bio2rdf.org/umls:C0339916	"viral upper respiratory tract infection [umls:C0339916]"@en
+http://bio2rdf.org/umls:C0392784	"metastatic dermatofibrosarcoma protuberans [umls:C0392784]"@en
+http://bio2rdf.org/umls:C0855931	"cardioactive drug level above therapeutic [umls:C0855931]"@en
+http://bio2rdf.org/umls:C0024140	"subacute cutaneous lupus erythematosus [umls:C0024140]"@en
+http://bio2rdf.org/umls:C1536075	"sudden unexplained death in epilepsy [umls:C1536075]"@en
+http://bio2rdf.org/umls:C0023524	"progressive multifocal leukoencephalopathy [umls:C0023524]"@en
+http://bio2rdf.org/umls:C0263660	"musculoskeletal and connective tissue disorders [umls:C0263660]"@en
+http://bio2rdf.org/umls:C1096275	"increased viscosity of bronchial secretion [umls:C1096275]"@en
+http://bio2rdf.org/umls:C0242770	"bronchiolitis obliterans organizing pneumonia [umls:C0242770]"@en
