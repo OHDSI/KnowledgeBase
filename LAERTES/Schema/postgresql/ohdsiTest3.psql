@@ -17,9 +17,9 @@
 
 -- 3) ssh to the OHDSI dev server, change to the /mnt/vol1/inbound folder
 --    and run:
---    psql -U <user name> -h 127.0.0.1 -W -d vocabulary < ohdsiTest3.psql
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d vocabulary < ohdsiTest3.psql
 
--- 4) Wait - estimated time - more than a couple of hours
+-- 4) Wait - could take more than a couple of hours. Check nohup.out for progress
 
 -- Converted by db_converter
 START TRANSACTION;
@@ -27,8 +27,8 @@ SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
 
-DROP VIEW IF EXISTS drug_HOI_evidences;
-DROP TABLE IF EXISTS drug_HOI_evidence;
+DROP VIEW IF EXISTS drug_HOI_evidences; # TODO: change the name to drug_HOI_evidence_view
+DROP TABLE IF EXISTS drug_HOI_evidence; # TODO: change the evidence_types to hold literature, product label, pharmacovigilance, EHR. Right now it just repeats the 'title' in the evidence_sources table
 DROP TABLE IF EXISTS drug_HOI_relationship;
 DROP TABLE IF EXISTS evidence_sources;
 
@@ -131,9 +131,11 @@ START TRANSACTION;
 COMMIT;
 
 
--- creates the view for flattened sql. This table is the one most useful for users of the Standard Vocabulary
+-- creates a view representing a pivot table of the
+-- drug_hoi_relationship table. This table is intended to be useful
+-- for users of the Standard Vocabulary
 START TRANSACTION;
-Create view drug_HOI_evidences as
+Create materialized view drug_HOI_evidences as
 select * from (
 SELECT * FROM drug_hoi_relationship
 ) as drugs
