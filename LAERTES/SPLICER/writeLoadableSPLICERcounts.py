@@ -1,19 +1,24 @@
-# writeLoadableSPLICERcounts.py
-#
-# Write a summary and index of splicer drug-hoi data 
-#
-# Author: Richard D Boyce, PhD
-# Summer/Fall 2014
-#
-import urllib2, urllib, re, sys
+# writeLoadableSPLICERcounts.py Write a summary and index of splicer
+#drug-hoi data Author: Richard D Boyce, PhD Summer/Fall 2014 import
+#urllib2, urllib, re, sys
 
 
-DATAFILE = "test-query-of-counts-09102014.csv" # NOTE: this data comes a CSV export of the following query
-## count data retrieved from the SPARQL endpoint
-## (http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql) using the
-## following query. Please note that the ohdsi:MeddrraHoi is
-## misleading because its actually the HOI concept code from OMOP
+DATAFILE = "test-query-of-counts-12162014.csv" # NOTE: this data comes from CSV export of the following query
 
+## count data retrieved from the Virtuoso SPARQL endpoint using the
+## following  query. 
+##
+## NOTE: that the ohdsi:MeddrraHoi is misleading because its actually
+## the HOI concept code from OMOP.
+##
+## NOTE: run the query using the following isql command because
+## queries from curl or the virtuoso sparql web form truncate the
+## results:
+##
+## $ isql-vt -H localhost -S 1111  -U <user name> -P <password> errors=stdout < /tmp/test.sparql > /tmp/test.out
+## $ egrep "^[0-9]+ +http.*" /tmp/test.out | tr -s ' ' ',' > /tmp/test-query-of-counts.csv
+##
+## QUERY (paste into /tmp/test.sparql):
 # PREFIX ohdsi:<http://purl.org/net/ohdsi#>
 # PREFIX oa:<http://www.w3.org/ns/oa#>
 # PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/>
@@ -21,7 +26,7 @@ DATAFILE = "test-query-of-counts-09102014.csv" # NOTE: this data comes a CSV exp
 # PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 # PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>
 
-# SELECT *
+# SELECT count(distinct ?an) ?drug ?hoi 
 # FROM <http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc>
 # WHERE {
 #  ?an a ohdsi:ADRAnnotation;
@@ -71,7 +76,7 @@ buf = f.read()
 f.close()
 # TODO: this is a work around for a bug in the model. This will need to be fixed.
 buf = buf.replace("http://purl.org/net/ohdsi#","").replace("http://purl.bioontology.org/ontology/MEDDRA/","").replace('"',"")
-l = buf.split("\n")[1:]
+l = buf.split("\n") # assumes no header. Format should be count,drug,hoi
 
 i = 0
 for elt in l:

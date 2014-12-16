@@ -10,7 +10,7 @@ LIMIT 10;
 
 -- Get back all evidence for 'Lisinopril' and 'Uterine leiomyoma' using standard vocab codes
 SELECT *
-FROM drug_hoi_evidences  
+FROM drug_hoi_evidence_view  
 WHERE 
 drug = 1308216 AND
 hoi = 36617553;
@@ -22,18 +22,18 @@ hoi = 36617553;
 -- the product label:
 -- http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=i9b  
 SELECT *
-FROM drug_hoi_evidences  
+FROM drug_hoi_evidence_view  
 WHERE 
 drug = 19123591 AND
 hoi = 37320197;
 
 -- get the target URIs for product label evidence for Simvastatin and Upper respiratory tract infection
 -- TODO: change the evidence_types to hold literature, product label, pharmacovigilance, EHR. Right now it just repeats the 'title' in the evidence_sources table
-SELECT evidence_targets.uri
-FROM drug_HOI_evidence, evidence_targets
+SELECT *
+FROM drug_hoi_evidence_view  
 WHERE 
-drug_HOI_evidence.drug = 1539403 AND
-drug_HOI_evidence.HOI = 36110715 AND
+drug = 1539403 AND
+hoi = 36110715 AND
 drug_HOI_evidence.evidence_type in ('SPL_SPLICER','SPL_EU_SPC') AND
 evidence_targets.id = drug_HOI_evidence.evidence_target_id
 
