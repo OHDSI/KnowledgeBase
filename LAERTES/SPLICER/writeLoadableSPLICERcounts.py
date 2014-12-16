@@ -1,7 +1,7 @@
 # writeLoadableSPLICERcounts.py Write a summary and index of splicer
-#drug-hoi data Author: Richard D Boyce, PhD Summer/Fall 2014 import
-#urllib2, urllib, re, sys
+#drug-hoi data Author: Richard D Boyce, PhD Summer/Fall 2014 
 
+import urllib2, urllib, re, sys
 
 DATAFILE = "test-query-of-counts-12162014.csv" # NOTE: this data comes from CSV export of the following query
 
