@@ -2,10 +2,18 @@
 -- Load script for the LAERTES relational model (extension to the OHDSI Standard Vocabulary)
 --
 --
--- Authors: Jeremy Jao, Richard Boyce
+-- Authors: Jeremy Jao, Richard D Boyce, Erica Voss
 -- Fall/Winter 2014
--- 
 --
+-- NOTE: The 'tablefunc' extension must be created on the schema that
+-- you run this script against. 
+--
+-- 1) install the extension (e.g., Ubuntu package postgresql-contrib-9.3)
+-- 2) Open the schema in pgadmin and run:
+--
+--     CREATE EXTENSION tablefunc
+--
+----------------------------
 -- USAGE:
 -- 1) Edit integratedSources.conf and the run the script
 --    'mergeCountsFromIntegratedSources.py'. This creates the files
@@ -17,7 +25,7 @@
 
 -- 3) ssh to the OHDSI dev server, change to the /mnt/vol1/inbound folder
 --    and run:
---    nohup psql -U <user name> -h 127.0.0.1 -W -d vocabulary < ohdsiTest3.psql
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 < ohdsiTest3.psql
 
 -- 4) Wait - could take more than a couple of hours. Check nohup.out for progress
 
@@ -27,8 +35,8 @@ SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
 
-DROP VIEW IF EXISTS drug_HOI_evidences; # TODO: change the name to drug_HOI_evidence_view
-DROP TABLE IF EXISTS drug_HOI_evidence; # TODO: change the evidence_types to hold literature, product label, pharmacovigilance, EHR. Right now it just repeats the 'title' in the evidence_sources table
+DROP VIEW IF EXISTS drug_HOI_evidence_view; 
+DROP TABLE IF EXISTS drug_HOI_evidence; -- TODO: change the evidence_types to hold literature, product label, pharmacovigilance, EHR. Right now it just repeats the 'title' in the evidence_sources table
 DROP TABLE IF EXISTS drug_HOI_relationship;
 DROP TABLE IF EXISTS evidence_sources;
 
@@ -101,20 +109,20 @@ COMMENT ON COLUMN drug_HOI_evidence.evidence_linkout IS 'For literature-like (e.
 COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)';
 
 ALTER TABLE drug_HOI_evidence
-  OWNER TO jeremy;
-GRANT ALL ON TABLE drug_HOI_evidence TO rich;
+  OWNER TO rich;
+GRANT ALL ON TABLE drug_HOI_evidence TO yin2;
 GRANT ALL ON TABLE drug_HOI_evidence TO public;
 GRANT ALL ON TABLE drug_HOI_evidence TO administrator;
 
 ALTER TABLE evidence_sources
-  OWNER TO jeremy;
-GRANT ALL ON TABLE evidence_sources TO rich;
+  OWNER TO rich;
+GRANT ALL ON TABLE evidence_sources TO yin2;
 GRANT ALL ON TABLE evidence_sources TO ohdsi;
 GRANT ALL ON TABLE evidence_sources TO administrator;
 
 ALTER TABLE drug_HOI_relationship
-  OWNER TO jeremy;
-GRANT ALL ON TABLE drug_HOI_relationship TO rich;
+  OWNER TO rich;
+GRANT ALL ON TABLE drug_HOI_relationship TO yin2;
 GRANT ALL ON TABLE drug_HOI_relationship TO ohdsi;
 GRANT ALL ON TABLE drug_HOI_relationship TO administrator;
 
@@ -135,7 +143,7 @@ COMMIT;
 -- drug_hoi_relationship table. This table is intended to be useful
 -- for users of the Standard Vocabulary
 START TRANSACTION;
-Create materialized view drug_HOI_evidences as
+Create materialized view drug_HOI_evidence_view as
 select * from (
 SELECT * FROM drug_hoi_relationship
 ) as drugs
@@ -227,14 +235,15 @@ from
 				spl_eu_spc_link text,
 				spl_splicer_link text
 			)
-		) as linkus
+		) as links
 	)
 ) as info;
 COMMIT;
 
 START TRANSACTION;
-GRANT ALL PRIVILEGES ON drug_HOI_evidences TO administrator;
-GRANT ALL PRIVILEGES ON drug_HOI_evidences TO ohdsi;
-GRANT ALL PRIVILEGES ON drug_HOI_evidences TO rich;
+GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO administrator;
+GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO ohdsi;
+GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO rich;
+GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO yin2;
 
 COMMIT;
