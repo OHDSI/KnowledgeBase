@@ -1,4 +1,4 @@
-concept_code|concept_name|concept_code|concept_name|concept_id|concept_class_id
+source_concept_code|source_concept_name|concept_code|concept_name|concept_id|concept_class_id
 C017673|fluindione|50097|fluindione|19113013|Ingredient
 C013459|cyclopentamine|59094|cyclopentamine|19080427|Ingredient
 C012021|quinestradol|35215|quinestradol|19098415|Ingredient
