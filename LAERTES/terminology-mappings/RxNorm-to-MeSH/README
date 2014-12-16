@@ -1,23 +1,18 @@
-meddra-to-rxnorm-standard-vocab-v4.txt - This mapping is from the
-standard vocabulary and comes from the following query which works
-because MeSH drug concepts are ancestor to RxNorm Clinical Drug
-concepts:
+meddra-to-rxnorm-standard-vocab-v5.txt - This mapping is from the
+standard vocabulary and comes from the following query :
 
-select map.source_code, map.source_code_description, concept.concept_code, concept.concept_name, concept.concept_id 
-from source_to_concept_map as map, 
-     concept_ancestor, 
-     concept
-where 
-  map.mapping_type = 'DRUG' AND
-  map.source_vocabulary_id = 46 AND 
-  map.target_vocabulary_id = 8 AND
-  map.target_concept_id = concept_ancestor.ancestor_concept_id AND
-  concept_ancestor.descendant_concept_id = concept.concept_id;
+SELECT A.CONCEPT_CODE, A.CONCEPT_NAME, B.CONCEPT_CODE, B.CONCEPT_NAME, B.CONCEPT_ID, B.CONCEPT_CLASS_ID 
+FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR
+WHERE A.VOCABULARY_ID = 'Mesh' AND
+      CR.CONCEPT_ID_2 = A.CONCEPT_ID AND 
+      B.CONCEPT_ID = CR.CONCEPT_ID_1 AND
+      B.VOCABULARY_ID = 'RxNorm' AND
+      CR.RELATIONSHIP_ID = 'Mapped from';
 
-The format is as follows:
-source_code|source_code_description|concept_code|concept_name|concept_id 
+The format (slightly edited from the exported results) is as follows:
+source_concept_code|source_concept_name|concept_code|concept_name|concept_id|concept_class_id
 
-...where source_code is MeSH, concept_code is RxNorm, and concept_id is OHDSI/OMOP/IMEDS
+...where source_concept_code is MeSH, concept_code is RxNorm, and concept_id is OHDSI/OMOP/IMEDS
 
 ------------------------------------------------------------
 
