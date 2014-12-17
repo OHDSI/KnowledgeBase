@@ -78,12 +78,17 @@ for src in srcL[1:]: # skip header
             break
 
         if src[HOI_VOCAB_ID] == "SNOMED":
-            drugHoiDataOutF.write("\t".join(tpl) + "\n") 
+            drugHoiDataOutF.write("\t".join(tpl)) 
             if not dhKeyD.has_key(tpl[KEY]):
                 (drug,hoi) = tpl[KEY].split("-")
                 dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':hoi, 'hoi_label':None}
         else:
-            (drug,hoi) = tpl[KEY].split("-")
+            try:
+                (drug,hoi) = tpl[KEY].split("-")
+            except ValueError:
+                print "WARNING: could not split out drug and hoi from tpl[KEY]: %s" % tpl[KEY]
+                continue
+
             rows = []
             if src[HOI_VOCAB_ID] == "Mesh":
                 try:
@@ -111,7 +116,7 @@ for src in srcL[1:]: # skip header
                 snomedHoi = row[B_CONCEPT_ID]
                 print "INFO: mapped HOI concept id from %s (%s - %s : %s) to %s (SNOMED - %s : %s)" % (hoi, src[HOI_VOCAB_ID], row[A_CONCEPT_CODE], row[A_CONCEPT_NAME], snomedHoi, row[B_CONCEPT_CODE], row[B_CONCEPT_NAME])
                 tpl[KEY] = "%s-%s" % (drug, snomedHoi)
-                drugHoiDataOutF.write("\t".join(tpl) + "\n")
+                drugHoiDataOutF.write("\t".join(tpl))
                 if not dhKeyD.has_key(tpl[KEY]):
                     dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':snomedHoi, 'hoi_label':None}
 

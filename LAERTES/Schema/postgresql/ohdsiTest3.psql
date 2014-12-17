@@ -35,7 +35,8 @@ SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
 
-DROP VIEW IF EXISTS drug_HOI_evidence_view; 
+DROP MATERIALIZED VIEW IF EXISTS drug_HOI_evidence_view; 
+--REFRESH MATERIALIZED VIEW drug_HOI_evidence_view  WITH NO DATA; 
 DROP TABLE IF EXISTS drug_HOI_evidence; -- TODO: change the evidence_types to hold literature, product label, pharmacovigilance, EHR. Right now it just repeats the 'title' in the evidence_sources table
 DROP TABLE IF EXISTS drug_HOI_relationship;
 DROP TABLE IF EXISTS evidence_sources;
@@ -76,7 +77,15 @@ CREATE TABLE drug_HOI_evidence (
 );
 
 
-INSERT INTO evidence_sources VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),(2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),(3,'MEDLINE_MeSH','MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),(4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','',''), (5, 'FDA Adverse Event Reporting System', 'Spontaneous reports and signals from FAERS up to QX of 20XX', 'Jeremy Jao', 'FDA', '2014-09-09', '','');
+INSERT INTO evidence_sources 
+VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),
+       (2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),
+       (3,'MEDLINE_MeSH','DEPRECATED (see more specific types) MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),
+       (4,'MEDLINE_SemMedDB','Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','',''), 
+       (5, 'FDA Adverse Event Reporting System', 'Spontaneous reports and signals from FAERS up to QX of 20XX', 'Jeremy Jao', 'FDA', '2014-09-09', '',''),
+       (6,'MEDLINE_MeSH Case Reports','MeSH tagged titles and abstracts for CASE REPORTS in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),
+       (7,'MEDLINE_MeSH Clinical Trial','MeSH tagged titles and abstracts for CLINICAL TRIALS in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),
+       (8,'MEDLINE_MeSH Other','MeSH tagged titles and abstracts for things other than case reports or clinical trials in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','','');
 
 -- Post-data save --
 COMMIT;
@@ -143,13 +152,13 @@ COMMIT;
 -- drug_hoi_relationship table. This table is intended to be useful
 -- for users of the Standard Vocabulary
 START TRANSACTION;
-Create materialized view drug_HOI_evidence_view as
-select * from (
+CREATE MATERIALIZED VIEW drug_HOI_evidence_view AS
+SELECT * from (
 SELECT * FROM drug_hoi_relationship
 ) as drugs
 NATURAL JOIN (
-select * 
-from
+SELECT * 
+FROM
 	(
 		(
 			select * from crosstab(
@@ -237,7 +246,7 @@ from
 			)
 		) as links
 	)
-) as info;
+) AS info;
 COMMIT;
 
 START TRANSACTION;
