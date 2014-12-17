@@ -19,6 +19,7 @@ SEARCH_RESULTS = "drug-hoi-test.pickle"
 # TERMINOLOGY MAPPING FILES
 #RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/rxnorm-to-MeSH-mapping-03032014.txt"
 RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
+MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 MESH_TO_LABEL = "../terminology-mappings/MeSHToMedDRA/mesh_cui_to_label.txt"
 MEDDRA_TO_MESH = "../terminology-mappings/MeSHToMedDRA/meshToMeddra-partial-05202014.txt"
 
@@ -64,6 +65,19 @@ for elt in l:
         COND_D[mesh].append(term)
     else: # create a new record
         COND_D[mesh] = [term]
+
+MESH_D_SV = {}
+f = open(MESH_TO_STANDARD_VOCAB, "r")
+buf = f.read()
+f.close()
+l = buf.split("\n")
+for elt in l[1:]: # skip header
+    if elt.strip() == "":
+        break
+
+    (imeds,label,mesh) = [x.strip() for x in elt.split("|")]
+    MESH_D_SV[mesh] = imeds
+
 
 COND_D_MEDDRA = {}
 f = open(MEDDRA_TO_MESH,"r")
@@ -298,6 +312,8 @@ for k in allKeys:
                     print "ERROR: no MeSH equivalent to the rxnorm drug %s, skipping %s" % (rxnormDrug, k)
                     continue
 
+                if MESH_D_SV.has_key(meshCond):
+                    graph.add((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MESH_D_SV[meshCond]]))
                 graph.add((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[meshCond]))
                 if COND_D_MEDDRA.has_key(meshCond):
                     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())

@@ -17,7 +17,7 @@ NOTE: the use of calls to eutils is currently not scalable to all drugs and cond
 
 - PubMed-MeSH-ER-diagram.dia : a diagram of the RDF data model editable using Dia (see PubMed-MeSH-ER-diagram.png for an exported version)
 
-- writeRelation.py : generate TinyURLs for queries against the RDF dataset to support the "drill down" use case
+- writeLoadablePubMedMeSHCounts.py : generate TinyURLs for queries against the RDF dataset to support the "drill down" use case
 
 TODOs (9/9/2014):
 
