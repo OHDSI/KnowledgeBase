@@ -58,7 +58,7 @@ CREATE TABLE drug_HOI_relationship (
     drug integer,
     RxNorm_drug text,
     HOI integer,
-    MedDRA_HOI text
+    SNOMED_HOI text
 );
 
 
@@ -106,7 +106,7 @@ COMMENT ON COLUMN evidence_sources.source IS 'The source from which this data wa
 COMMENT ON COLUMN drug_HOI_relationship.drug IS 'OMOP/IMEDS Concept ID for the drug';
 COMMENT ON COLUMN drug_HOI_relationship.RxNorm_drug IS 'RxNorm Preferred Term of the Drug';
 COMMENT ON COLUMN drug_HOI_relationship.HOI IS 'OMOP/IMEDS Concept ID for the Health Outcome of Interest';
-COMMENT ON COLUMN drug_HOI_relationship.MedDRA_HOI IS 'MedDRA preferred term of the Health Outcome of Interest';
+COMMENT ON COLUMN drug_HOI_relationship.SNOMED_HOI IS 'SNOMED preferred term of the Health Outcome of Interest';
 
 COMMENT ON COLUMN drug_HOI_evidence.id IS 'primary key';
 COMMENT ON COLUMN drug_HOI_evidence.drug_HOI_relationship IS 'foreign key to the drug_HOI_relationship id';
@@ -154,13 +154,13 @@ COMMIT;
 START TRANSACTION;
 CREATE MATERIALIZED VIEW drug_HOI_evidence_view AS
 SELECT * from (
-SELECT * FROM drug_hoi_relationship
-) as drugs
-NATURAL JOIN (
-SELECT * 
-FROM
-	(
-		(
+       SELECT * FROM drug_hoi_relationship
+       ) as drugs
+       NATURAL JOIN (
+       	       SELECT * 
+	       FROM
+	       (
+			(
 			select * from crosstab(
 				'select
 					drug_hoi_relationship,
@@ -176,6 +176,7 @@ FROM
 				aers_eb05 numeric,
 				aers_ebgm numeric,
 				aers_report_count numeric,
+				medline_mesh_count numeric,
 				spl_eu_spc_count numeric,				
 				spl_splicer_count numeric								
 			)
@@ -241,10 +242,11 @@ FROM
 				aers_eb05_link text,
 				aers_ebgm_link text,
 				aers_report_link text,
+				medline_mesh_link text,
 				spl_eu_spc_link text,
 				spl_splicer_link text
 			)
-		) as linkus
+		) as links
 	)
 ) AS info;
 COMMIT;
