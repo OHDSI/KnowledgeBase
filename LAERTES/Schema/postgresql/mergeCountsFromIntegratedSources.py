@@ -16,7 +16,7 @@ CACHED_DRUG_HOI_RELATIONSHIP_FILE="cached_uniq_drug_hoi_relationships.csv"
 DRUG_HOI_RELATIONSHIP_FILE="uniq_drug_hoi_relationships.csv"
 
 # Enum to help parse the data files
-(ID,KEY,EV_SOURCE_LABEL,MODALITY,EV_SOURCE_ID,STATISTIC,LINKOUT,STATISTIC_TYPE) = range(0,8)
+(KEY,EV_SOURCE_LABEL,MODALITY,EV_SOURCE_ID,STATISTIC,LINKOUT,STATISTIC_TYPE) = range(0,7)
 
 ## Set up the db connection
 # NOTE: If you are running outside of the OHDSI dev server, be sure
@@ -46,6 +46,9 @@ print "INFO: Source data locations:\n\t%s" % srcL
 cntr = 0 # serves as an unique key for the output table ('id')
 drugHoiDataOutF = open(DRUG_HOI_DATA_FILE,'w')
 dhKeyD = {} # used to accumulate all drug-HOI keys so that the drug-hoi relationship table can be created
+idToSnomedD = {} # cache for mesh or meddra to snomed mapping. The
+                 # coding systems use distinct patterns for CUIs so it
+                 # should be safe to combine them into one dictionary
 (B_CONCEPT_ID, B_CONCEPT_NAME, B_CONCEPT_CODE, A_CONCEPT_NAME, A_CONCEPT_CODE) = range(0,5) # enum for vocab query results
 for src in srcL[1:]: # skip header
     print "INFO: loading source: %s" % src[0]
@@ -59,14 +62,9 @@ for src in srcL[1:]: # skip header
 
     # TODO: write validation checks for the data files to be loaded (e.g., col number, types, etc)
     for elt in dhL[0:10]:
-    #for elt in dhL:
-        cntr += 1
-        
+    #for elt in dhL:    
         # the schema calls for a bool type for 'modality'
-        elt = elt.replace("positive","true").replace("negative","false") 
-        
-        # write in the id for the record
-        s = "%d\t%s\n" % (cntr, elt)
+        s = elt.replace("positive","true").replace("negative","false") 
 
         # skip nulls
         if s.find("NULL") != -1:
@@ -78,10 +76,12 @@ for src in srcL[1:]: # skip header
             break
 
         if src[HOI_VOCAB_ID] == "SNOMED":
-            drugHoiDataOutF.write("\t".join(tpl)) 
+            drugHoiDataOutF.write("\t".join([str(cntr)] + tpl) + "\n")
+            cntr += 1
             if not dhKeyD.has_key(tpl[KEY]):
                 (drug,hoi) = tpl[KEY].split("-")
                 dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':hoi, 'hoi_label':None}
+                print "DRUG_RELATIONSHIP: %s|%s||%s|" % (tpl[KEY],drug,hoi) # something we can grep that we can load the partial drug relationship and evidence data if the script crashes 
         else:
             try:
                 (drug,hoi) = tpl[KEY].split("-")
@@ -90,7 +90,10 @@ for src in srcL[1:]: # skip header
                 continue
 
             rows = []
-            if src[HOI_VOCAB_ID] == "Mesh":
+            if idToSnomedD.has_key(hoi):
+                rows = idToSnomedD[hoi]
+
+            elif src[HOI_VOCAB_ID] == "Mesh":
                 try:
                     print "INFO: Attempting to map concept id for Mesh coded HOI %s to SNOMED" % hoi
                     cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND CR.CONCEPT_ID_1 = A.CONCEPT_ID AND CR.CONCEPT_ID_2 = B.CONCEPT_ID AND CR.RELATIONSHIP_ID = 'Maps to' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND B.VOCABULARY_ID = 'SNOMED';""" % hoi)
@@ -101,7 +104,11 @@ for src in srcL[1:]: # skip header
                     print "WARNING: Attempt to map concept id for Mesh HOI %s to SNOMED failed because no mapping could be found in the standard vocabulary." % hoi
                     continue 
 
-            if src[HOI_VOCAB_ID] == "MedDRA":
+                # cache hoi mapping 
+                if not idToSnomedD.has_key(hoi):
+                    idToSnomedD[hoi] = rows
+
+            elif src[HOI_VOCAB_ID] == "MedDRA":
                 try:
                     print "INFO: Attempting to map concept id for MedDRA coded HOI '%s' to SNOMED" % hoi
                     cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND  CR.RELATIONSHIP_ID = 'MedDRA - SNOMED eq' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND  B.VOCABULARY_ID = 'SNOMED';""" % hoi)
@@ -112,13 +119,20 @@ for src in srcL[1:]: # skip header
                     print "WARNING: Attempt to map concept id for MedDRA HOI %s to SNOMED failed because no mapping could be found in the standard vocabulary." % hoi
                     continue 
 
+                # cache hoi mapping 
+                if not idToSnomedD.has_key(hoi):
+                    idToSnomedD[hoi] = rows
+
             for row in rows:
+                # write out results
                 snomedHoi = row[B_CONCEPT_ID]
                 print "INFO: mapped HOI concept id from %s (%s - %s : %s) to %s (SNOMED - %s : %s)" % (hoi, src[HOI_VOCAB_ID], row[A_CONCEPT_CODE], row[A_CONCEPT_NAME], snomedHoi, row[B_CONCEPT_CODE], row[B_CONCEPT_NAME])
                 tpl[KEY] = "%s-%s" % (drug, snomedHoi)
-                drugHoiDataOutF.write("\t".join(tpl))
+                drugHoiDataOutF.write("\t".join([str(cntr)] + tpl) + "\n")
+                cntr += 1
                 if not dhKeyD.has_key(tpl[KEY]):
                     dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':snomedHoi, 'hoi_label':None}
+                    print "DRUG_RELATIONSHIP: %s|%s||%s|" % (tpl[KEY],drug,hoi) # something we can grep that we can load the partial drug relationship and evidence data if the script crashes 
 
 drugHoiDataOutF.close()
 
@@ -140,8 +154,8 @@ for elt in cachedDhrL:
         dhKeyD[k]['drug_label'] = dLab
         dhKeyD[k]['hoi_label'] = hLab
         
-        capturedDrugsD[dhKeyD[k]['drug_id']] = dhKeyD[k]['drug_id']
-        capturedHoisD[dhKeyD[k]['hoi_id']] = dhKeyD[k]['hoi_id']
+        capturedDrugsD[dhKeyD[k]['drug_id']] = dhKeyD[k]['drug_label']
+        capturedHoisD[dhKeyD[k]['hoi_id']] = dhKeyD[k]['hoi_label']
 
 print "INFO: number of cached keys: %d; number of keys needed: %d" % (len(capturedKeysD.keys()), len(dhKeyD.keys()))
 
@@ -164,8 +178,7 @@ for key in dhKeyD.keys():
             print "   ", rows[0][0]
             dLab = rows[0][0]
     dhKeyD[key]['drug_label'] = dLab
-    capturedDrugsD[dhKeyD[key]['drug_label']] = dhKeyD[key]['drug_label']
-    capturedDrugsD[dhKeyD[key]['drug_id']] = dhKeyD[key]['drug_id']
+    capturedDrugsD[dhKeyD[key]['drug_id']] = dhKeyD[key]['drug_label']
 
     if capturedHoisD.has_key(dhKeyD[key]['hoi_id']):
        hLab  = capturedHoisD[dhKeyD[key]['hoi_id']]
@@ -180,8 +193,7 @@ for key in dhKeyD.keys():
             print "   ", rows[0][0]
             hLab = rows[0][0]
     dhKeyD[key]['hoi_label'] = hLab
-    capturedHoisD[dhKeyD[key]['hoi_label']] = dhKeyD[key]['hoi_label']
-    capturedHoisD[dhKeyD[key]['hoi_id']] = dhKeyD[key]['hoi_id']
+    capturedHoisD[dhKeyD[key]['hoi_id']] = dhKeyD[key]['hoi_label']
 
 ## write out the DRUG_HOI_RELATIONSHIP_FILE from dhKeyD
 dHROutf = open(DRUG_HOI_RELATIONSHIP_FILE,'w')
