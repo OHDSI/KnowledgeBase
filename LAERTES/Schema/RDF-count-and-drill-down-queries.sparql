@@ -21,7 +21,35 @@ WHERE {
 LIMIT 10
 
 
-# count the number of evidence items associated with a specific drug-HOI pair by study type
+# count the number of evidence items associated with a drug/HOI/study
+# type combination using OHDSI drug and HOI codes
+PREFIX ohdsi:<http://purl.org/net/ohdsi#>
+PREFIX oa:<http://www.w3.org/ns/oa#>
+PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/>
+PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>
+
+SELECT count(distinct ?an) ?drug ?hoi ?studyType
+FROM <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc/>
+WHERE {
+ ?an a ohdsi:PubMedDrugHOIAnnotation;
+   oa:hasBody ?body;
+   oa:hasTarget ?target.
+
+ ?body ohdsi:ImedsDrug ?drug.
+ ?body ohdsi:MeddraHois ?hois. 
+
+ ?hois ohdsi:MeddraHoi ?hoi.
+
+ ?target ohdsi:MeshStudyType ?studyType.
+
+}
+LIMIT 10
+
+
+# count the number of evidence items associated with a specific
+# drug-HOI pair
 PREFIX ohdsi:<http://purl.org/net/ohdsi#>
 PREFIX oa:<http://www.w3.org/ns/oa#>
 PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/>

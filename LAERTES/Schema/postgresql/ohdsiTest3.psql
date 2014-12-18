@@ -167,7 +167,7 @@ SELECT * from (
 					evidence_type,
 					statistic_value
 				from drug_hoi_evidence
-				order by (1,2)',
+				order by 1',
 				'select distinct evidence_type
 				from drug_hoi_evidence
 				order by 1'
@@ -176,7 +176,9 @@ SELECT * from (
 				aers_eb05 numeric,
 				aers_ebgm numeric,
 				aers_report_count numeric,
-				medline_mesh_count numeric,
+				medline_mesh_clin_trial_count numeric,
+				medline_mesh_case_report_count numeric,
+				medline_mesh_other_count numeric,
 				spl_eu_spc_count numeric,				
 				spl_splicer_count numeric								
 			)
@@ -189,7 +191,7 @@ SELECT * from (
 					-- evidence_type,
 					-- evidence_source_code_id
 				-- from drug_hoi_evidence
-				-- order by (1,2)',
+				-- order by 1',
 				-- 'select distinct evidence_type
 				-- from drug_hoi_evidence
 				-- order by 1'
@@ -211,7 +213,7 @@ SELECT * from (
 				-- evidence_type,
 				-- modality
 				-- from drug_hoi_evidence
-				-- order by (1,2)',
+				-- order by 1',
 				-- 'select distinct evidence_type
 				-- from drug_hoi_evidence
 				-- order by 1'
@@ -233,7 +235,7 @@ SELECT * from (
 					evidence_type,
 					evidence_linkout
 				from drug_hoi_evidence
-				order by (1,2)',
+				order by 1',
 				'select distinct evidence_type
 				from drug_hoi_evidence
 				order by 1'
@@ -242,7 +244,9 @@ SELECT * from (
 				aers_eb05_link text,
 				aers_ebgm_link text,
 				aers_report_link text,
-				medline_mesh_link text,
+				medline_mesh_clin_trial_link text,
+				medline_mesh_case_report_link text,
+				medline_mesh_other_link text,
 				spl_eu_spc_link text,
 				spl_splicer_link text
 			)
