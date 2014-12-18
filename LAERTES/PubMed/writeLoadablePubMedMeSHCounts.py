@@ -84,11 +84,11 @@ for elt in l:
 
     key = "%s-%s" % (drug,hoi)
     if pubType == 'clinical trial (publication type)':
-        print "\t".join([key,EVTYPE,'positive',"7",str(cnt),turl,"COUNT"])
+        print "\t".join([key,EVTYPE + "_ClinTrial",'positive',"7",str(cnt),turl,"COUNT"])
     elif pubType == 'case reports (publication type)':
-        print "\t".join([key,EVTYPE,'positive',"6",str(cnt),turl,"COUNT"])
+        print "\t".join([key,EVTYPE + "_CR",'positive',"6",str(cnt),turl,"COUNT"])
     elif pubType == 'other (publication type)':
-        print "\t".join([key,EVTYPE,'positive',"8",str(cnt),turl,"COUNT"])
+        print "\t".join([key,EVTYPE + "_Other",'positive',"8",str(cnt),turl,"COUNT"])
     else:
         print "Not continuing because there is a record with un-recognized publication type: %s" % pubType
         sys.exit(1)
