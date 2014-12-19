@@ -1,5 +1,8 @@
 OHDSI KB Source : SPLICER - Adverse Drug Events from FDA Structured Product Labels (SPLs)
 
+NOTE: See LICENSE for important information on legal requirements on the use
+of this data.
+
 Convert SPLICER output to RDF to support the OHDSI KB use cases.
 
 - splicer2rdf.py : Accepts as input a tab delimitted file containing
