@@ -5,7 +5,7 @@
 # graph is serialized as the iterator parses the SPLICER data
 #
 # Author: Richard D Boyce, PhD
-# Summer and Fall 2014
+# 2014/2015
 #
 
 import sys
@@ -16,34 +16,17 @@ import json
 import pickle
 from rdflib import Graph, BNode, Literal, Namespace, URIRef, RDF, RDFS, XSD
 
-SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER_JANSSEN.tsv"
+SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/splicer_output_12-28.tsv"
 
 # TERMINOLOGY MAPPING FILES
-RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/rxnorm-to-MeSH-mapping-03032014.txt"
 RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
-MESH_TO_LABEL = "../terminology-mappings/MeSHToMedDRA/mesh_cui_to_label.txt"
-MEDDRA_TO_MESH = "../terminology-mappings/MeSHToMedDRA/meshToMeddra-partial-05202014.txt"
+SPL_SET_ID_TO_RXNORM = "../terminology-mappings/SPLSetIdToRxNorm/rxnorm_mappings-12302014.txt"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "drug-hoi-splicer.nt"
 
-# TEST DRUGS
-DRUGS_D = {}
-f = open(RXNORM_TO_MESH,"r")
-buf = f.read()
-f.close()
-l = buf.split("\n")
-for elt in l:
-    if elt.strip() == "":
-        break
-
-    (rxcui,mesh,pt) = [x.strip() for x in elt.split("|")]
-    if DRUGS_D.get(rxcui): # add a synonymn
-        DRUGS_D[rxcui][1].append(pt)
-    else: # create a new record
-        DRUGS_D[rxcui] = (mesh,[pt])
-
-DRUGS_D_OMOP = {}
+DRUGS_D_OMOP_TO_RXCUI = {}
+DRUGS_D_RXNORM_TO_OMOP = {}
 f = open(RXNORM_TO_OMOP,"r")
 buf = f.read()
 f.close()
@@ -53,40 +36,23 @@ for elt in l:
         break
 
     (omop,rxcui) = [x.strip() for x in elt.split("|")]
-    DRUGS_D_OMOP[omop] = rxcui
+    DRUGS_D_OMOP_TO_RXCUI[omop] = rxcui
+    DRUGS_D_RXNORM_TO_OMOP[rxcui] = omop
+
+# used to manage SPLICER records where there is yet no OMOP concept id
+# for the drug
+SPLS_D_SETID_TO_RXNORM = {}
+f = open(SPL_SET_ID_TO_RXNORM,"r")
+buf = f.read()
+f.close()
+l = buf.split("\n")
+for elt in l:
+    if elt.strip() == "":
+        break
+
+    (setid,spl_version,rxcui,rxstring,rxtty) = [x.strip() for x in elt.split("|")]
+    SPLS_D_SETID_TO_RXNORM[setid] = rxcui
         
-### TEST CONDITIONS
-COND_D = {}
-f = open(MESH_TO_LABEL,"r")
-buf = f.read()
-f.close()
-l = buf.split("\n")
-for elt in l:
-    if elt.strip() == "":
-        break
-
-    (mesh,term) = [x.strip() for x in elt.split("|")]
-    if COND_D.get(mesh): # add a synonymn
-        COND_D[mesh].append(term)
-    else: # create a new record
-        COND_D[mesh] = [term]
-
-COND_D_MEDDRA = {}
-f = open(MEDDRA_TO_MESH,"r")
-buf = f.read()
-f.close()
-buf = buf.replace("<http://purl.bioontology.org/ontology/MSH/","").replace(">","").replace("http://purl.bioontology.org/ontology/MDR/","")
-l = buf.split("\n")
-for elt in l:
-    if elt.strip() == "":
-        break
-
-    (mesh,meddra) = [x.strip() for x in elt.split("\t")]
-    if COND_D_MEDDRA.get(mesh): # add a synonymn
-        COND_D_MEDDRA[mesh].append(meddra)
-    else: # create a new record
-        COND_D_MEDDRA[mesh] = [meddra]
-
 
 def splicer_f_generator():
     # open the SPLICER data file and parse it incrementally
@@ -129,7 +95,6 @@ cnt = Namespace('http://www.w3.org/2011/content#')
 siocns = Namespace('http://rdfs.org/sioc/ns#')
 swande = Namespace('http://purl.org/swan/1.2/discourse-elements#')
 ncbit = Namespace('http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#')
-mesh = Namespace('http://purl.bioontology.org/ontology/MESH/')
 meddra = Namespace('http://purl.bioontology.org/ontology/MEDDRA/')
 rxnorm = Namespace('http://purl.bioontology.org/ontology/RXNORM/')
 pubmed = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
@@ -149,7 +114,6 @@ graph.namespace_manager.bind('cnt', 'http://www.w3.org/2011/content#')
 graph.namespace_manager.bind('siocns','http://rdfs.org/sioc/ns#')
 graph.namespace_manager.bind('swande','http://purl.org/swan/1.2/discourse-elements#')
 graph.namespace_manager.bind('ncbit','http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#')
-graph.namespace_manager.bind('mesh', 'http://purl.bioontology.org/ontology/MESH/')
 graph.namespace_manager.bind('meddra','http://purl.bioontology.org/ontology/MEDDRA/')
 graph.namespace_manager.bind('rxnorm','http://purl.bioontology.org/ontology/RXNORM/')
 graph.namespace_manager.bind('pubmed', 'http://www.ncbi.nlm.nih.gov/pubmed/')
@@ -191,17 +155,11 @@ graph.add((sio["SIO_000563"], dcterms["description"], Literal("describes is a re
 graph.add((sio["SIO_000338"], RDFS.label, Literal("specifies")))
 graph.add((sio["SIO_000338"], dcterms["description"], Literal("A relation between an information content entity and a product that it (directly/indirectly) specifies")))
 
-graph.add((poc['MeshDrug'], RDFS.label, Literal("MeSH Drug code")))
-graph.add((poc['MeshDrug'], dcterms["description"], Literal("Drug code in the MeSH vocabulary.")))
-
 graph.add((poc['ImedsDrug'], RDFS.label, Literal("IMEDS Drug code")))
 graph.add((poc['ImedsDrug'], dcterms["description"], Literal("Drug code in the IMEDS standard vocabulary.")))
 
 graph.add((poc['RxnormDrug'], RDFS.label, Literal("Rxnorm Drug code")))
 graph.add((poc['RxnormDrug'], dcterms["description"], Literal("Drug code in the Rxnorm vocabulary.")))
-
-graph.add((poc['MeshHoi'], RDFS.label, Literal("MeSH HOI code")))
-graph.add((poc['MeshHoi'], dcterms["description"], Literal("HOI code in the MeSH vocabulary.")))
 
 graph.add((poc['MeddraHoi'], RDFS.label, Literal("Meddra HOI code")))
 graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Meddra vocabulary.")))
@@ -238,21 +196,29 @@ for elt in it:
     cntr += 1
     print cntr
 
-    imedsDrug = elt["DRUG_CONCEPT_ID"]
-    rxcuiDrug = meshDrug = drugLabs = None
-    if DRUGS_D_OMOP.has_key(imedsDrug):
-        rxcuiDrug = DRUGS_D_OMOP[imedsDrug]
-        print "INFO: rxcuiDrug : %s" % rxcuiDrug
+    # try to handle cases where no concept id exists for the drug
+    # concept
+    imedsDrug = rxcuiDrug = drugLabs = None
+    if elt["DRUG_CONCEPT_ID"] == "":
+        if not SPLS_D_SETID_TO_RXNORM.has_key(elt["SET_ID"]):
+            print "WARNING: unable to process SPLICER record %d because no valid OMOP concept id could be found for the drug using set id %s" % (cntr, elt["SET_ID"])
+            continue
+        else:
+            rxcuiDrug = SPLS_D_SETID_TO_RXNORM[elt["SET_ID"]]
+            if not DRUGS_D_RXNORM_TO_OMOP.has_key(rxcuiDrug):
+                print "WARNING: unable to process SPLICER record %d because no valid OMOP concept id could be found for the drug using set id %s with RxNorm mapping %s" % (cntr, elt["SET_ID"], rxcuiDrug)
+                continue
+            imedsDrug = DRUGS_D_RXNORM_TO_OMOP[rxcuiDrug]
+    else:
+        imedsDrug = elt["DRUG_CONCEPT_ID"]
+        if not DRUGS_D_OMOP_TO_RXCUI.has_key(imedsDrug):
+            print "WARNING: unable to process SPLICER record %d because no valid RXCUI could be found for the drug using OMOP id %s" % (cntr, imedsDrug)
+            continue
+        
+        rxcuiDrug = DRUGS_D_OMOP_TO_RXCUI[imedsDrug]
+    
+    print "INFO: processing record with setid: %s\timedsDrug: %s\trxcuiDrug: %s" % (elt["SET_ID"],imedsDrug,rxcuiDrug)
 
-        # for now, only process those ADR records for drugs that we have
-        # mesh mappings for
-        # if DRUGS_D.has_key(rxcuiDrug):
-        #     drugLabs = DRUGS_D[rxcuiDrug][1]
-        #     meshDrug = DRUGS_D[rxcuiDrug][0]
-        #     print "INFO: processing adr record with OMOP concept id %s" % imedsDrug
-        # else:
-        #     print "INFO: Skipping - no mesh mapping in rxnorm to mesh drug list for OMOP concept id %s" % imedsDrug
-        #     continue
 
     ###################################################################
     ### Each annotations holds one target that points to the source
@@ -304,7 +270,7 @@ for elt in it:
         f.write(s)
                 
     # Specify the bodies of the annotation - for this type each
-    # body contains the MESH drug and condition as a semantic tag
+    # body contains the MedDRA drug and condition as a semantic tag
     currentAnnotationBody = "ohdsi-splicer-annotation-body-%s" % annotationBodyCntr
     annotationBodyCntr += 1
     
@@ -316,7 +282,6 @@ for elt in it:
     tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt["CONDITION_PT"]))))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
-    #tplL.append((poc[currentAnnotationBody], poc['MeshDrug'], mesh[meshDrug])) # TODO: consider adding the values as a collection
                         
     tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
     s = ""
