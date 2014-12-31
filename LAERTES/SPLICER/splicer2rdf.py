@@ -199,7 +199,7 @@ for elt in it:
     # try to handle cases where no concept id exists for the drug
     # concept
     imedsDrug = rxcuiDrug = drugLabs = None
-    if elt["DRUG_CONCEPT_ID"] == "":
+    if elt["DRUG_CONCEPT_ID"] == "NULL":
         if not SPLS_D_SETID_TO_RXNORM.has_key(elt["SET_ID"]):
             print "WARNING: unable to process SPLICER record %d because no valid OMOP concept id could be found for the drug using set id %s" % (cntr, elt["SET_ID"])
             continue
@@ -264,6 +264,9 @@ for elt in it:
         elif elt["SPL_SECTION"] == "Black Box (beta)":
             tplL.append((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["boxedWarning"]))
 
+        # TODO: the exact string used to tag the ADR should be retained by the selector
+        tplL.append((currentAnnotSelectorUuid, oa["exact"], Literal(elt["CONDITION_SOURCE_VALUE"])))
+
         s = ""
         for t in tplL:
             s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
@@ -276,14 +279,14 @@ for elt in it:
     
     tplL = []
     tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s-%s" % (imedsDrug, elt["CONDITION_CONCEPT_ID"]))))
+    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s-%s (%s - %s)" % (imedsDrug, elt["CONDITION_CONCEPT_ID"], elt["TRADE_NAME"], elt["CONDITION_PT"]))))
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
-    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s (rxnorm) - %s" % (rxcuiDrug, elt["CONDITION_PT"]))))
+    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s(rxnorm) - %s(meddra PT) (Drug trade name:%s; HOI LLT:%s)" % (rxcuiDrug, elt["CONDITION_PT"], elt["TRADE_NAME"], elt["CONDITION_LLT"]))))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
                         
-    tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
+    tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
