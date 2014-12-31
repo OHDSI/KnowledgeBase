@@ -7,8 +7,9 @@ Convert SPLICER output to RDF to support the OHDSI KB use cases.
 
 - splicer2rdf.py : Accepts as input a tab delimitted file containing
   adverse drug events extracted from FDA SPLs by SPLICER and produces
-  as output a ntriples file that representes the SPLICER data using
+  as output an ntriples file that represents the SPLICER data using
   the Open Annotation Data (OA) schema
+  (http://www.openannotation.org/spec/core/)
 
 NOTE: an editable diagram of the OA model for SPLICER ADE records can
 be found in [Schema/OpenAnnotationSchemaERDiagrams/](https://github.com/OHDSI/KnowledgeBase/tree/master/Schema/OpenAnnotationSchemaERDiagrams}
