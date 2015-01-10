@@ -1,0 +1,9 @@
+This folder holds an XML file that provides mappings between
+Pharmacological Action Descriptors, on the one hand, and substances
+having a particular action, on the other. Please see
+http://www.nlm.nih.gov/mesh/pa_abt.html for a description of the data
+
+Version: MeSH 2015
+
+Please note - The U.S. National Library of Medicine must be identified as the creator, maintainer, and provider of the data
+
