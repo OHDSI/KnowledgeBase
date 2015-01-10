@@ -35,9 +35,11 @@ See also:
 
 - PubMed-MeSH-ER-diagram.dia : a diagram of the RDF data model editable using Dia (see PubMed-MeSH-ER-diagram.png for an exported version)
 
-TODOs (9/9/2014):
+TODOs (1/10/2015):
 
-- clean up the folder to remove unecessary data files 
+- Finish porting the data to the new method of pulling drug-HOI associations from MEDLINE 
+
+- Port the method for generating 'tinyurls' to use a more efficient technique that just appends rows to the main 'tinyurl' table
 
 - develop an Ant workflow for the entire process 
 

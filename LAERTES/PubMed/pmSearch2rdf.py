@@ -3,7 +3,7 @@
 # Convert the result of a pubmed drug-HOI evidence search to Open Data Annotation
 #
 # Author: Richard D Boyce, PhD
-# Summer and Fall 2014
+# 2014/2015
 #
 
 import sys
@@ -14,7 +14,10 @@ import json
 import pickle
 from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
 
-SEARCH_RESULTS = "drug-hoi-test.pickle"
+SEARCH_RESULTS = "drug-hoi-associations-from-mesh.tsv"
+
+###  TODO: revise this script to use the TSV output and map to OMOP CUIs for RxNorm drugs and SNOMED HOIs (if possible)
+
 
 # TERMINOLOGY MAPPING FILES
 #RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/rxnorm-to-MeSH-mapping-03032014.txt"

@@ -16,7 +16,7 @@
 --
 -- 2) Wait - could take more than a couple of hours. Check nohup.out for progress
 --
--- 3) save the data returned to a file named ... for use by pmSearch2rdf.py
+-- 3) save the data returned to a file named 'drug-hoi-associations-from-mesh.tsv' for use by pmSearch2rdf.py
 COPY
 (
 with drug_of_ade as (
