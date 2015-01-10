@@ -1,0 +1,52 @@
+--------------------------------------------------------------------
+-- queryDrugHOIAssociations
+--
+-- Query a MEDLINE database that was loaded into a postgres DBMS using
+-- the code from https://github.com/OHDSI/MedlineXmlToDatabase for
+-- drug - HOI associations based on the method described in the following paper: 
+--    Avillach P, Dufour JC, Diallo G, Salvo F, Joubert M, Thiessard F, Mougin F, Trifirò G, Fourrier-Réglat A, Pariente A, Fieschi M. Design and val     idation of an automated method to detect known adverse drug reactions in MEDLINE: a contribution from the EU-ADR project. J Am Med Inform Assoc. 2013 May 1;20(3):446-52. doi: 10.1136/amiajnl-2012-001083. Epub 2012 Nov 29. PubMed PMID: 23195749; PubMed Central PMCID: PMC3628051.
+--
+-- Authors: Richard D Boyce
+-- Winter 2014/2015
+--
+----------------------------
+-- USAGE:
+-- 1) On the server that has the MEDLINE database loaded run:
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d medline < queryDrugHOIAssociations.psql
+--
+-- 2) Wait - could take more than a couple of hours. Check nohup.out for progress
+--
+-- 3) save the data returned to a file named ... for use by pmSearch2rdf.py
+COPY
+(
+with drug_of_ade as (
+ select meshheading.pmid, meshheading.descriptorname, meshheading.descriptorname_ui 
+ from medcit_meshheadinglist_meshheading meshheading inner join medcit_meshheadinglist_meshheading_qualifiername qualifier
+ on meshheading.pmid = qualifier.pmid and meshheading.medcit_meshheadinglist_meshheading_order = qualifier.medcit_meshheadinglist_meshheading_order
+ where qualifier.value = 'adverse effects'
+), effect_of_ade as (
+select meshheading.pmid, meshheading.descriptorname, meshheading.descriptorname_ui 
+from medcit_meshheadinglist_meshheading meshheading inner join medcit_meshheadinglist_meshheading_qualifiername qualifier
+on meshheading.pmid = qualifier.pmid and meshheading.medcit_meshheadinglist_meshheading_order = qualifier.medcit_meshheadinglist_meshheading_order
+where qualifier.value = 'chemically induced'
+)
+select * from 
+(
+ select drug_of_ade.pmid pmid, 
+        drug_of_ade.descriptorname drug, 
+        drug_of_ade.descriptorname_ui drug_ui, 
+        effect_of_ade.descriptorname effect, 
+        effect_of_ade.descriptorname_ui effect_ui  
+ from drug_of_ade inner join effect_of_ade
+ on drug_of_ade.pmid = effect_of_ade.pmid 
+) as ade
+inner join 
+(
+  select pmid, value, ui 
+  from medcit_art_publicationtypelist_publicationtype
+  where value in ('Case Reports','Clinical Trial','Meta-Analysis')
+) as publicationtype 
+on ade.pmid = publicationtype.pmid 
+)
+TO STDOUT WITH NULL AS ''
+;
