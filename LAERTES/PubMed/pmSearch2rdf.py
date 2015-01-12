@@ -13,22 +13,44 @@ import re, codecs, uuid, datetime
 import json
 import pickle
 from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
+from lxml import etree
+from lxml.etree import XMLParser, parse
+
 
 SEARCH_RESULTS = "drug-hoi-associations-from-mesh.tsv"
 
 ###  TODO: revise this script to use the TSV output and map to OMOP CUIs for RxNorm drugs and SNOMED HOIs (if possible)
-
 
 # TERMINOLOGY MAPPING FILES
 #RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/rxnorm-to-MeSH-mapping-03032014.txt"
 RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
 MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 MESH_TO_LABEL = "../terminology-mappings/MeSHToMedDRA/mesh_cui_to_label.txt"
+MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2015.xml"
 MEDDRA_TO_MESH = "../terminology-mappings/MeSHToMedDRA/meshToMeddra-partial-05202014.txt"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "drug-hoi-pubmed-mesh.rdf"
 
+
+############################################################
+#  Load the  MeSH Pharmacologic Action mappings from an XML file
+############################################################
+p = XMLParser(huge_tree=True)
+tree = parse(MESH_PHARMACOLOGIC_ACTION_MAPPINGS, parser=p)
+l = tree.xpath('PharmacologicalAction')
+pharmActionMaptD = {}
+for elt in l:
+    descriptorUI = elt.xpath('DescriptorReferredTo/DescriptorUI')[0].text
+    descriptorName = elt.xpath('DescriptorReferredTo/DescriptorName/String')[0].text
+    pharmacologicalActionSubstanceL = elt.xpath('PharmacologicalActionSubstanceList/Substance')
+    substancesL = []
+    for substanceElt in pharmacologicalActionSubstanceL:
+        recordUI = substanceElt.xpath('RecordUI')[0].text
+        recordName = substanceElt.xpath('RecordName/String')[0].text
+        substancesL.append({'recordUI':recordUI,'recordName':recordName})
+
+    pharmActionMaptD[descriptorUI] = {'descriptorName':descriptorName, 'substancesL':substancesL}
 
 # TEST DRUGS
 DRUGS_D = {}
