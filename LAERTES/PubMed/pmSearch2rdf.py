@@ -174,7 +174,7 @@ graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Me
 f = open(SEARCH_RESULTS,'r')
 buf = f.read()
 f.close()
-recL = [x.strip().split("\t") for x in buf.split("\n")]
+recL = [x.strip().split("\t") for x in buf.strip().split("\n")]
 
 # Start building the open annotation data graph
 annotationSetCntr = 1
@@ -183,8 +183,8 @@ annotationBodyCntr = 1
 annotationEvidenceCntr = 1
 
 annotatedCache = {} # indexes annotation ids by pmid
-adeAgentCollectionCache = {} # indexes the collection of agents associated with and ADE
-adeEffectCollectionCache = {} # indexes the collection of effects associated with and ADE
+#adeAgentCollectionCache = {} # indexes the collection of agents associated with and ADE
+#adeEffectCollectionCache = {} # indexes the collection of effects associated with and ADE
 currentAnnotation = annotationItemCntr
 
 currentAnnotSet = 'ohdsi-pubmed-mesh-annotation-set-%s' % annotationSetCntr 
@@ -240,9 +240,9 @@ for elt in recL:
     annotationBodyCntr += 1
          
     graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    graph.add((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s" % k)))
+    graph.add((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for PMID %s" % elt[PMID])))
     graph.add((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
-    graph.add((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI body from MEDLINE PMID %s using MESH drug %s (%s) and HOI %s (%s)" % (elt[PMID], elt[ADR_DRUG_LABEL], elt[ADR_DRUG_UI], elt[ADR_HOI_LABEL], elt[ADR_HOI_UI)))))
+    graph.add((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI body from MEDLINE PMID %s using MESH drug %s (%s) and HOI %s (%s)" % (elt[PMID], elt[ADR_DRUG_LABEL], elt[ADR_DRUG_UI], elt[ADR_HOI_LABEL], elt[ADR_HOI_UI]))))
 
     ### INCLUDE THE MESH TAGS FROM THE RECORD AS PREFERRED TERMS AS
     ### WELL AS DATA FROM THE DRUG AND HOI QUERY
@@ -250,8 +250,22 @@ for elt in recL:
     if DRUGS_D.has_key(elt[ADR_DRUG_UI]):
         graph.add((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[DRUGS_D[elt[ADR_DRUG_UI]][0]]))
         graph.add((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D[elt[ADR_DRUG_UI]][2]]))
+    elif elt[ADR_DRUG_UI] in pharmActionMaptD.keys():
+        (descriptorName, substancesL) =  (pharmActionMaptD[elt[ADR_DRUG_UI]]['descriptorName'], pharmActionMaptD[elt[ADR_DRUG_UI]]['substancesL'])
+        print "INFO: The MeSH drug %s is a grouping (%s). Expanding to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
+        
+        collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: type this URI
+        graph.add((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
+        # add each substance to a collection in the body
+        for substance in substancesL:
+            graph.add((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
+            if DRUGS_D.has_key(substance['recordUI']):
+                graph.add((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D[substance['recordUI']][0]]))
+                graph.add((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D[substance['recordUI']][2]]))
+            else:
+                print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[ADR_DRUG_UI])
     else:
-        print "ERROR: no RxNorm equivalent to the MeSH drug %s, skipping" % (elt[ADR_DRUG_UI])
+        print "ERROR: no RxNorm equivalent to the MeSH drug %s (%s) and this does not appear in the pharmacologic action mapping (not a grouping?), skipping" % (elt[ADR_DRUG_UI], elt[ADR_DRUG_LABEL])
         continue
 
     if MESH_D_SV.has_key(elt[ADR_HOI_UI]):
@@ -260,22 +274,7 @@ for elt in recL:
     else:
         print "ERROR: no OHDSI/IMEDS equivalent to the MeSH drug %s, skipping" % (elt[ADR_DRUG_UI])
         continue
-
-    # add the ADE agent to a collection in the body
-    # if not adeAgentCollectionCache.has_key(elt[PMID]):
-    #     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-    #     graph.add((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
-    #     graph.add((collectionHead, ohdsi['adeAgent'], Literal(elt[ADR_DRUG_UI])))
-    #     adeAgentCollectionCache[elt[PMID]] = [(elt[ADR_DRUG_UI],collectionHead)]
-    # else:
-    #     agentTplL = adeAgentCollectionCache[elt[PMID]]
-    #     prevAgentsL = [x[0] for x in agentTplL]
-    #     if elt[ADR_DRUG_UI] not in prevAgentsL:
-    #         collectionHead = agentTplL[0][1] # pull the UUID already create for this collection head to add a new agent
-    #         graph.add((collectionHead, ohdsi['adeAgent'], Literal(elt[ADR_DRUG_UI])))
-    #         adeAgentCollectionCache[elt[PMID]].append((elt[ADR_DRUG_UI],collectionHead))
-    
-
+ 
     # # add the ADE effect to a collection in the body
     # if not adeEffectCollectionCache.has_key(elt[PMID]):
     #     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
