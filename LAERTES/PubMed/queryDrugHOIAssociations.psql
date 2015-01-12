@@ -30,7 +30,8 @@ from medcit_meshheadinglist_meshheading meshheading inner join medcit_meshheadin
 on meshheading.pmid = qualifier.pmid and meshheading.medcit_meshheadinglist_meshheading_order = qualifier.medcit_meshheadinglist_meshheading_order
 where qualifier.value = 'chemically induced'
 )
-select * from 
+select ade.pmid, drug, drug_ui, effect, effect_ui, pub_type_value, pub_type_ui 
+from 
 (
  select drug_of_ade.pmid pmid, 
         drug_of_ade.descriptorname drug, 
@@ -42,7 +43,7 @@ select * from
 ) as ade
 inner join 
 (
-  select pmid, value, ui 
+  select pmid, value pub_type_value, ui pub_type_ui
   from medcit_art_publicationtypelist_publicationtype
   where value in ('Case Reports','Clinical Trial','Meta-Analysis')
 ) as publicationtype 
