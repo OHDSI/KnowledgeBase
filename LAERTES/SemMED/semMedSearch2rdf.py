@@ -180,6 +180,13 @@ graph.add((sio["SIO_000563"], dcterms["description"], Literal("describes is a re
 graph.add((sio["SIO_000338"], RDFS.label, Literal("specifies")))
 graph.add((sio["SIO_000338"], dcterms["description"], Literal("A relation between an information content entity and a product that it (directly/indirectly) specifies")))
 
+# TODO: these should all belong to an ontology
+graph.add((poc['Modality'], RDFS.label, Literal("Modality"))) 
+graph.add((poc['Modality'], dcterms["description"], Literal("Given a drug-HOI association the Modality is 'positive' if the evidence is for, and 'negative' if the evidence is against.")))
+
+graph.add((poc['SemMedPredicate'], RDFS.label, Literal("SemMedPredicate"))) 
+graph.add((poc['SemMedPredicate'], dcterms["description"], Literal("The predicate from SemMed used to identify the drug-HOI association.")))
+
 graph.add((poc['UmlsDrug'], RDFS.label, Literal("UMLS Drug code")))
 graph.add((poc['UmlsDrug'], dcterms["description"], Literal("Drug code in the UMLS vocabulary.")))
 
@@ -319,6 +326,15 @@ for elt in recL[0:3]:
 
     ### INCLUDE THE UMLS TAGS FROM THE RECORD AS WELL AS OTHER
     ### AVAILABLE SEMANTIC TAGGING DATA FROM THE DRUG AND HOI QUERY
+
+    # Add the modality and semantic tags
+    tplL.append((poc[currentAnnotationBody], poc['SemMedPredicate'], Literal(elt[PREDICATE])))
+    if elt[PREDICATE] in ['NEG_AFFECTS', 'NEG_ASSOCIATED_WITH', 'NEG_CAUSES', 'NEG_COMPLICATES', 'NEG_DISRUPTS']:
+        tplL.append((poc[currentAnnotationBody], poc['Modality'], Literal('negative')))
+    else:
+        tplL.append((poc[currentAnnotationBody], poc['Modality'], Literal('positive')))
+
+    # Add the Drug
     tplL.append((poc[currentAnnotationBody], ohdsi['UmlsDrug'], umls[elt[DRUG_UMLS_CUI]])) 
     
     if elt[DRUG_MESH] != "":
@@ -353,7 +369,8 @@ for elt in recL[0:3]:
             print "WARNING: RxNorm drug mapping but no Standard Vocab mapping for the UMLS drug %s (%s)" % (elt[DRUG_UMLS_CUI], elt[DRUG_PREFERRED_TERM])
     else:
         print "WARNING: no MeSH or RxNorm drug mapping for the UMLS drug %s (%s)" % (elt[DRUG_UMLS_CUI], elt[DRUG_PREFERRED_TERM])
-                                                                                    
+
+    ## Add the HOIs
     # TODO: for now, I am only using the UMLS HOI concept and the first SNOMED entry if it exists. This will need to be revised to use all available mappings in the dataset
     tplL.append((poc[currentAnnotationBody], ohdsi['UmlsHoi'], umls[elt[HOI_UMLS_CUI]]))
     if elt[HOI_SNOMED] != "":
@@ -368,7 +385,7 @@ for elt in recL[0:3]:
     # else:
     #     print "ERROR: no OHDSI/IMEDS equivalent to the MeSH HOI %s, skipping" % (elt[DRUG_MESH])
     #     continue
- 
+
     # # add the ADE effect to a collection in the body
     # if not adeEffectCollectionCache.has_key(elt[PMID]):
     #     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
