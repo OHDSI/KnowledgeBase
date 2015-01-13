@@ -183,8 +183,8 @@ annotationBodyCntr = 1
 annotationEvidenceCntr = 1
 
 annotatedCache = {} # indexes annotation ids by pmid
-#adeAgentCollectionCache = {} # indexes the collection of agents associated with and ADE
-#adeEffectCollectionCache = {} # indexes the collection of effects associated with and ADE
+pubTypeCache = {} # used because some PMIDs have multiple publication type assignments TODO: determine pub types should be assigned to a Collection under the target's graph 
+drugHoiPMIDCache = {} # used to avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments TODO: determine if a more robust source query is needed
 currentAnnotation = annotationItemCntr
 
 currentAnnotSet = 'ohdsi-pubmed-mesh-annotation-set-%s' % annotationSetCntr 
@@ -204,6 +204,16 @@ for elt in recL:
     createNewTarget = False
     if annotatedCache.has_key(elt[PMID]):
         currentAnnotation = annotatedCache[elt[PMID]]
+        pubTypeL = pubTypeCache[elt[PMID]]
+        if elt[PUB_TYPE] not in pubTypeL:
+            print "INFO: MEDLINE record %s has more than one pub type assigned" % elt[PMID]
+            pubTypeCache[elt[PMID]].append(elt[PUB_TYPE])
+            if elt[PUB_TYPE] == "Clinical Trial": 
+                graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
+            elif elt[PUB_TYPE] == "Case Reports": 
+                graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
+            elif elt[PUB_TYPE] == "Meta-Analysis": 
+                graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
     else:
         currentAnnotation = annotationItemCntr
         annotatedCache[elt[PMID]] = currentAnnotation
@@ -227,6 +237,8 @@ for elt in recL:
 
         # TODO: use the MeSH UIs to generate purls for the pub types
         # TODO: add more publication types
+        # NOTE: a change here requires a change up above!
+        pubTypeCache[elt[PMID]] = [elt[PUB_TYPE]]
         if elt[PUB_TYPE] == "Clinical Trial": 
             graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
         elif elt[PUB_TYPE] == "Case Reports": 
@@ -236,12 +248,22 @@ for elt in recL:
 
     # Specify the bodies of the annotation - for this type each
     # body contains the MESH drug and condition as a semantic tag
+
+    # to begin with, avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments
+    concat = "%s-%s-%s" % (elt[PMID], elt[ADR_DRUG_UI], elt[ADR_HOI_UI])
+    if drugHoiPMIDCache.has_key(concat):
+        print "INFO: skipping generation of a new body graph because the PMID, drug, and HOI (%s) have already been processed. Probably a MEDLINE record with multiple pub type assignments" % concat
+        continue
+    else:
+        drugHoiPMIDCache[concat] = None
+
     currentAnnotationBody = "ohdsi-pubmed-mesh-annotation-annotation-body-%s" % annotationBodyCntr
     annotationBodyCntr += 1
          
     graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
     graph.add((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for PMID %s" % elt[PMID])))
     graph.add((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
+    graph.add((poc[currentAnnotItem], RDF.type, oa["SemanticTag"])) 
     graph.add((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI body from MEDLINE PMID %s using MESH drug %s (%s) and HOI %s (%s)" % (elt[PMID], elt[ADR_DRUG_LABEL], elt[ADR_DRUG_UI], elt[ADR_HOI_LABEL], elt[ADR_HOI_UI]))))
 
     ### INCLUDE THE MESH TAGS FROM THE RECORD AS PREFERRED TERMS AS
@@ -252,9 +274,9 @@ for elt in recL:
         graph.add((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D[elt[ADR_DRUG_UI]][2]]))
     elif elt[ADR_DRUG_UI] in pharmActionMaptD.keys():
         (descriptorName, substancesL) =  (pharmActionMaptD[elt[ADR_DRUG_UI]]['descriptorName'], pharmActionMaptD[elt[ADR_DRUG_UI]]['substancesL'])
-        print "INFO: The MeSH drug %s is a grouping (%s). Expanding to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
+        print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
         
-        collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: type this URI
+        collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
         graph.add((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
         # add each substance to a collection in the body
         for substance in substancesL:
