@@ -1,15 +1,35 @@
-[SemMED](http://skr3.nlm.nih.gov/)
+OHDSI KB - Source - PubMed via SemMedDB (http://skr3.nlm.nih.gov/)
 ======
 
-From the site...
-The Semantic Knowledge Representation project conducts basic research in symbolic natural language processing based on the UMLS knowledge sources. A core resource is the SemRep program, which extracts semantic predications from text. SemRep was originally developed for biomedical research. A general methodology is being developed for extending its domain, currently to influenza epidemic preparedness, health promotion, and health effects of climate change.
 
-The python script below was used to get our final tab-delimited output:
-[semmedTriplesPlusSentence.tsv](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/semmedTriplesPlusSentence.tsv)
+Background: The Semantic Knowledge Representation project conducts
+basic research in symbolic natural language processing based on the
+UMLS knowledge sources. A core resource is the SemRep program, which
+extracts semantic predications from text. SemRep was originally
+developed for biomedical research. A general methodology is being
+developed for extending its domain, currently to influenza epidemic
+preparedness, health promotion, and health effects of climate change.
 
-This outputs the Drug CUIs, HOI CUIs, their positions in the sentence, the confidence score of the selection, sentence itself, and location of the sentence within the Pubmed source.
+The scripts in this folder 1) retrieve STATEMENTS from MEDLINE records
+that might report adverse drug events, or that such events DO NOT
+occur, and 2) store the data for further processing. 
 
-######Explanation of the columns are described below:
+The process works as follows:
+
+1. The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase 
+
+2. The SemMedDB database is loaded into a MySql DBMS following the
+instructions for that resource.
+
+3. The python script selectTriplesPlusSentence.py is used to get our final tab-delimited output:
+[semmedTriplesPlusSentence.tsv](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/semmedTriplesPlusSentence.tsv). This outputs the Drug CUIs, HOI CUIs, their positions in the sentence, the confidence score of the selection, sentence itself, and location of the sentence within the Pubmed source. Please see below for an explanation of the columns output by the script. 
+
+4. 
+
+######Problems:
+- There is a one-to-many mapping between UMLS and SNOMED+MEDDRA so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
+
+######Explanation of the columns output by selectTriplesPlusSentence.py:
 - pmid: the PMID
 - predicate: the predicate used to associate the subject and object
 - predicate start index: first predicate's character's location in the sentence
@@ -39,8 +59,6 @@ This outputs the Drug CUIs, HOI CUIs, their positions in the sentence, the confi
 - sentence location: number that represents the location of the sentence found from its source from PM
 - sentence type: sentence was extracted from this type
 
-######Problems:
-- There is a one-to-many mapping between UMLS and SNOMED+MEDDRA so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
 
 ####Info retrieved...
 List of subject/object types obtained from:
