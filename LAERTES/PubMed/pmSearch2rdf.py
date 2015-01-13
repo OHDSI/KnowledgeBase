@@ -30,7 +30,7 @@ MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-st
 MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2015.xml"
 
 # OUTPUT DATA FILE
-OUTPUT_FILE = "drug-hoi-pubmed-mesh.rdf"
+OUTPUT_FILE = "drug-hoi-pubmed-mesh.nt"
 
 ############################################################
 #  Load the  MeSH Pharmacologic Action mappings from an XML file
@@ -193,6 +193,10 @@ graph.add((poc[currentAnnotSet], RDF.type, oa["DataAnnotation"])) # TODO: find o
 graph.add((poc[currentAnnotSet], oa["annotatedAt"], Literal(datetime.date.today())))
 graph.add((poc[currentAnnotSet], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
 
+f = codecs.open(OUTPUT_FILE,"w","utf8")
+s = graph.serialize(format="n3",encoding="utf8", errors="replace")
+f.write(s)
+
 for elt in recL:  
     ###################################################################
     ### Each annotations holds one target that points to the source
@@ -202,6 +206,7 @@ for elt in recL:
     ###################################################################
     currentAnnotItem = None
     createNewTarget = False
+    tplL = []
     if annotatedCache.has_key(elt[PMID]):
         currentAnnotation = annotatedCache[elt[PMID]]
         pubTypeL = pubTypeCache[elt[PMID]]
@@ -209,11 +214,11 @@ for elt in recL:
             print "INFO: MEDLINE record %s has more than one pub type assigned" % elt[PMID]
             pubTypeCache[elt[PMID]].append(elt[PUB_TYPE])
             if elt[PUB_TYPE] == "Clinical Trial": 
-                graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
             elif elt[PUB_TYPE] == "Case Reports": 
-                graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
             elif elt[PUB_TYPE] == "Meta-Analysis": 
-                graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
     else:
         currentAnnotation = annotationItemCntr
         annotatedCache[elt[PMID]] = currentAnnotation
@@ -223,28 +228,34 @@ for elt in recL:
     currentAnnotItem = "ohdsi-pubmed-mesh-annotation-item-%s" % currentAnnotation
 
     if createNewTarget:
-        graph.add((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
-        graph.add((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"])) 
-        graph.add((poc[currentAnnotItem], RDF.type, ohdsi["PubMedDrugHOIAnnotation"])) # TODO: should be a subclass of oa:DataAnnotation
-        graph.add((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
-        graph.add((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
-        graph.add((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
+        tplL.append((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
+        tplL.append((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"])) 
+        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["PubMedDrugHOIAnnotation"])) # TODO: should be a subclass of oa:DataAnnotation
+        tplL.append((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
+        tplL.append((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
+        tplL.append((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
         
         currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-        graph.add((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
-        graph.add((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
-        graph.add((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt[PMID]]))
+        tplL.append((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
+        tplL.append((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
+        tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt[PMID]]))
 
         # TODO: use the MeSH UIs to generate purls for the pub types
         # TODO: add more publication types
         # NOTE: a change here requires a change up above!
         pubTypeCache[elt[PMID]] = [elt[PUB_TYPE]]
         if elt[PUB_TYPE] == "Clinical Trial": 
-            graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
+            tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
         elif elt[PUB_TYPE] == "Case Reports": 
-            graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
+            tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
         elif elt[PUB_TYPE] == "Meta-Analysis": 
-            graph.add((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
+            tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
+
+    s = ""
+    for t in tplL:
+        s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
+    f.write(s)
+    
 
     # Specify the bodies of the annotation - for this type each
     # body contains the MESH drug and condition as a semantic tag
@@ -259,31 +270,32 @@ for elt in recL:
 
     currentAnnotationBody = "ohdsi-pubmed-mesh-annotation-annotation-body-%s" % annotationBodyCntr
     annotationBodyCntr += 1
-         
-    graph.add((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    graph.add((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for PMID %s" % elt[PMID])))
-    graph.add((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
-    graph.add((poc[currentAnnotItem], RDF.type, oa["SemanticTag"])) 
-    graph.add((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI body from MEDLINE PMID %s using MESH drug %s (%s) and HOI %s (%s)" % (elt[PMID], elt[ADR_DRUG_LABEL], elt[ADR_DRUG_UI], elt[ADR_HOI_LABEL], elt[ADR_HOI_UI]))))
+
+    tplL = []  # Clearing out the Target data tuple
+    tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
+    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for PMID %s" % elt[PMID])))
+    tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
+    tplL.append((poc[currentAnnotationBody], RDF.type, oa["SemanticTag"])) 
+    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI body from MEDLINE PMID %s using MESH drug %s (%s) and HOI %s (%s)" % (elt[PMID], elt[ADR_DRUG_LABEL], elt[ADR_DRUG_UI], elt[ADR_HOI_LABEL], elt[ADR_HOI_UI]))))
 
     ### INCLUDE THE MESH TAGS FROM THE RECORD AS PREFERRED TERMS AS
     ### WELL AS DATA FROM THE DRUG AND HOI QUERY
-    graph.add((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[ADR_DRUG_UI]])) 
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[ADR_DRUG_UI]])) 
     if DRUGS_D.has_key(elt[ADR_DRUG_UI]):
-        graph.add((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[DRUGS_D[elt[ADR_DRUG_UI]][0]]))
-        graph.add((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D[elt[ADR_DRUG_UI]][2]]))
+        tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[DRUGS_D[elt[ADR_DRUG_UI]][0]]))
+        tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D[elt[ADR_DRUG_UI]][2]]))
     elif elt[ADR_DRUG_UI] in pharmActionMaptD.keys():
         (descriptorName, substancesL) =  (pharmActionMaptD[elt[ADR_DRUG_UI]]['descriptorName'], pharmActionMaptD[elt[ADR_DRUG_UI]]['substancesL'])
         print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
         
         collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
-        graph.add((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
+        tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
         # add each substance to a collection in the body
         for substance in substancesL:
-            graph.add((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
+            tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
             if DRUGS_D.has_key(substance['recordUI']):
-                graph.add((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D[substance['recordUI']][0]]))
-                graph.add((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D[substance['recordUI']][2]]))
+                tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D[substance['recordUI']][0]]))
+                tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D[substance['recordUI']][2]]))
             else:
                 print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[ADR_DRUG_UI])
     else:
@@ -291,8 +303,8 @@ for elt in recL:
         continue
 
     if MESH_D_SV.has_key(elt[ADR_HOI_UI]):
-        graph.add((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MESH_D_SV[elt[ADR_HOI_UI]]]))
-        graph.add((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[ADR_HOI_UI]]))
+        tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MESH_D_SV[elt[ADR_HOI_UI]]]))
+        tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[ADR_HOI_UI]]))
     else:
         print "ERROR: no OHDSI/IMEDS equivalent to the MeSH drug %s, skipping" % (elt[ADR_DRUG_UI])
         continue
@@ -300,25 +312,22 @@ for elt in recL:
     # # add the ADE effect to a collection in the body
     # if not adeEffectCollectionCache.has_key(elt[PMID]):
     #     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-    #     graph.add((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
-    #     graph.add((collectionHead, ohdsi['adeEffect'], Literal(elt[ADR_HOI_UI])))
+    #     tplL.append((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
+    #     tplL.append((collectionHead, ohdsi['adeEffect'], Literal(elt[ADR_HOI_UI])))
     #     adeEffectCollectionCache[elt[PMID]] = [(elt[ADR_HOI_UI],collectionHead)]
     # else:
     #     effectTplL = adeEffectCollectionCache[elt[PMID]]
     #     prevEffectsL = [x[0] for x in effectTplL]
     #     if elt[ADR_HOI_UI] not in prevEffectsL:
     #         collectionHead = effectTplL[0][1] # pull the UUID already create for this collection head to add a new effect
-    #         graph.add((collectionHead, ohdsi['adeEffect'], Literal(elt[ADR_HOI_UI])))
+    #         tplL.append((collectionHead, ohdsi['adeEffect'], Literal(elt[ADR_HOI_UI])))
     #         adeEffectCollectionCache[elt[PMID]].append((elt[ADR_HOI_UI],collectionHead))
 
-# display the graph
-f = codecs.open(OUTPUT_FILE,"w","utf8")
-#graph.serialize(destination=f,format="xml",encoding="utf8")
-s = graph.serialize(format="xml",encoding="utf8")
+    s = ""
+    for t in tplL:
+        s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
+    f.write(s)
 
-#f.write(graph.serialize(format="xml",encoding="utf8"))
-f.write(unicode(s,errors='replace'))
-#print graph.serialize(format="xml")
+
 f.close
-
 graph.close()

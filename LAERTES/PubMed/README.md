@@ -18,11 +18,7 @@ The process works as follows:
 
 3) The tab-delimitted output of Step 2 is is processed by
    pmSearch2rdf.py to convert the results to an RDF Open Data
-   Annotation graph. Because some of the drug - HOI associations use
-   drug classes rather than individual substances, the pharmacologic
-   substance mappings provided by MeSH
-   (http://www.nlm.nih.gov/mesh/pa_abt.html) are used (see
-   terminology-mappings/MeSHPharmocologicActionToSubstances/README)
+   Annotation graph. Please see the NOTES below.
 
 4) The RDF graph is loaded into an endpoint and script
    writeLoadablePubMedMeSHCounts.py generates "tinyurls" for queries
@@ -31,13 +27,47 @@ The process works as follows:
 5) See Schema/postgresql/README.md for how the results of the above
    process get loaded into the LAERTES database
 
-See also:
+NOTES: 
+
+- Because some of the drug - HOI associations use drug classes rather
+than individual substances, we use the pharmacologic substance
+mappings provided by MeSH (http://www.nlm.nih.gov/mesh/pa_abt.html) to
+create a collection of the MeSH, OHDSI/IMEDS Standard Vocab, and
+RxNorm, drug entities assigned to each grouping (see
+terminology-mappings/MeSHPharmocologicActionToSubstances/README). This
+grouping data is not complete so review the log output of the script
+for drug entities that could not be mapped. For example, the group
+D006146 (Guanidines) and this does not appear in the pharmacologic
+action mapping but is assigned an adverse effect in MEDLINE record
+<http://www.ncbi.nlm.nih.gov/pubmed/7446541?report=xml&format=text>. Also,
+not all drug entities that MeSH lists in a grouping can be mapped to
+the Standard Vocabulary or RxNorm. Please see the log output of the
+script for specific cases.
+
+- Though relatively infrequent, there are some MEDLINE records that
+have more than one publication type assigned (e.g.,
+http://www.ncbi.nlm.nih.gov/pubmed/8977519). For now, all of the
+publication types are added to the target graph using the
+http://purl.org/net/ohdsi#MeshStudyType predicate. 
+
+- This implementation of the Avillach et al method allows adverse drug
+effects reported in animals (recognizable by the presence in the
+MEDELINE MeSH qualifier record of the "veterinary" QualifierName)to be
+included in the results. The query or RDF output could be modified in
+the future to address this. For now, it appears that the Standard
+Vocabulary has removed HOIs that are specific to animals (e.g., Dog
+Diseases (D004283)) so, the records might not make it into the LAERTES
+evidence base. 
+
+SEE ALSO:
 
 - PubMed-MeSH-ER-diagram.dia : a diagram of the RDF data model editable using Dia (see PubMed-MeSH-ER-diagram.png for an exported version)
 
 TODOs (1/10/2015):
 
-- Finish porting the data to the new method of pulling drug-HOI associations from MEDLINE 
+- Develop a policy for handling non-human adverse effects
+
+- Develop a policy for dealing with the MeSH pharmacologic action groupings
 
 - Port the method for generating 'tinyurls' to use a more efficient technique that just appends rows to the main 'tinyurl' table
 
