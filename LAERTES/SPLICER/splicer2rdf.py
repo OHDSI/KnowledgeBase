@@ -94,11 +94,13 @@ aoOld = Namespace('http://purl.org/ao/core/') # needed for AnnotationSet and ite
 cnt = Namespace('http://www.w3.org/2011/content#')
 siocns = Namespace('http://rdfs.org/sioc/ns#')
 swande = Namespace('http://purl.org/swan/1.2/discourse-elements#')
+loinc = Namespace('http://www.hipaaspace.com/Medical_Billing/Coding/Logical.Observation.Identifiers.Names.and.Codes/')
 ncbit = Namespace('http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#')
 meddra = Namespace('http://purl.bioontology.org/ontology/MEDDRA/')
 rxnorm = Namespace('http://purl.bioontology.org/ontology/RXNORM/')
 pubmed = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
-dailymed = Namespace('http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
+linkedspls_vocabulary = Namespace('http://bio2rdf.org/linkedspls_vocabulary:')
+#dailymed = Namespace('http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
 ohdsi = Namespace('http://purl.org/net/ohdsi#')
 poc = Namespace('http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc#')
 
@@ -113,11 +115,13 @@ graph.namespace_manager.bind('aoOld', 'http://purl.org/ao/core/') # needed for A
 graph.namespace_manager.bind('cnt', 'http://www.w3.org/2011/content#')
 graph.namespace_manager.bind('siocns','http://rdfs.org/sioc/ns#')
 graph.namespace_manager.bind('swande','http://purl.org/swan/1.2/discourse-elements#')
+graph.namespace_manager.bind('loinc','http://www.hipaaspace.com/Medical_Billing/Coding/Logical.Observation.Identifiers.Names.and.Codes/')
 graph.namespace_manager.bind('ncbit','http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#')
 graph.namespace_manager.bind('meddra','http://purl.bioontology.org/ontology/MEDDRA/')
 graph.namespace_manager.bind('rxnorm','http://purl.bioontology.org/ontology/RXNORM/')
 graph.namespace_manager.bind('pubmed', 'http://www.ncbi.nlm.nih.gov/pubmed/')
-graph.namespace_manager.bind('dailymed', 'http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
+graph.namespace_manager.bind('linkedspls_vocabulary','http://bio2rdf.org/linkedspls_vocabulary:')
+#graph.namespace_manager.bind('dailymed', 'http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
 graph.namespace_manager.bind('ohdsi', 'http://purl.org/net/ohdsi#')
 graph.namespace_manager.bind('poc','http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc#')
 
@@ -255,14 +259,14 @@ for elt in it:
         # TODO: make these custom Selectors for SPLs
         currentAnnotSelectorUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
         tplL.append((currentAnnotTargetUuid, oa["hasSelector"], currentAnnotSelectorUuid))
-        tplL.append((currentAnnotSelectorUuid, RDF.type, dailymed["SectionSelector"]))
+        tplL.append((currentAnnotSelectorUuid, RDF.type, poc["SectionSelector"]))
 
         if elt["SPL_SECTION"] == "Adverse Reactions" or elt["SPL_SECTION"] == "Post Marketing":
-            tplL.append((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["adverseReactions"]))
+            tplL.append((currentAnnotSelectorUuid, linkedspls_vocabulary["splSection"], loinc["34084-4"]))
         elif elt["SPL_SECTION"] == "Precautions (beta)":
-            tplL.append((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["precautions"]))
+            tplL.append((currentAnnotSelectorUuid, linkedspls_vocabulary["splSection"], loinc["34072-9"]))
         elif elt["SPL_SECTION"] == "Black Box (beta)":
-            tplL.append((currentAnnotSelectorUuid, dailymed["splSection"], dailymed["boxedWarning"]))
+            tplL.append((currentAnnotSelectorUuid, linkedspls_vocabulary["splSection"], loinc["34066-1"]))
 
         # TODO: the exact string used to tag the ADR should be retained by the selector
         tplL.append((currentAnnotSelectorUuid, oa["exact"], Literal(elt["CONDITION_SOURCE_VALUE"])))
