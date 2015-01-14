@@ -306,7 +306,7 @@ for elt in recL:
         tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MESH_D_SV[elt[ADR_HOI_UI]]]))
         tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[ADR_HOI_UI]]))
     else:
-        print "ERROR: no OHDSI/IMEDS equivalent to the MeSH drug %s, skipping" % (elt[ADR_DRUG_UI])
+        print "ERROR: no OHDSI/IMEDS equivalent to the MeSH HOI %s, skipping" % (elt[ADR_DRUG_UI])
         continue
  
     # # add the ADE effect to a collection in the body

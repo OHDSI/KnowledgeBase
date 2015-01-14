@@ -9,22 +9,22 @@ Avillach P, Dufour JC, Diallo G, Salvo F, Joubert M, Thiessard F, Mougin F, Trif
 
 The process works as follows:
 
-1) The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase 
+1. The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase 
 
-2) The MEDLINE database is queried using the script
+2. The MEDLINE database is queried using the script
    queryDrugHOIAssociations.psql for drugs and drug classes associated
    with specific adverse events according to MeSH tags. See the header
    of that script for USAGE.
 
-3) The tab-delimitted output of Step 2 is is processed by
+3. The tab-delimitted output of Step 2 is is processed by
    pmSearch2rdf.py to convert the results to an RDF Open Data
    Annotation graph. Please see the NOTES below.
 
-4) The RDF graph is loaded into an endpoint and script
+4. The RDF graph is loaded into an endpoint and script
    writeLoadablePubMedMeSHCounts.py generates "tinyurls" for queries
    against the RDF dataset to support the "drill down" use case
 
-5) See Schema/postgresql/README.md for how the results of the above
+5. See Schema/postgresql/README.md for how the results of the above
    process get loaded into the LAERTES database
 
 NOTES: 
