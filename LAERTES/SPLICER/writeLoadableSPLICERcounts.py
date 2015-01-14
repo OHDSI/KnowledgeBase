@@ -3,7 +3,7 @@
 
 import urllib2, urllib, re, sys
 
-DATAFILE = "test-query-of-counts-12162014.csv" # NOTE: this data comes from CSV export of the following query
+DATAFILE = "test-query-of-counts-01142015.csv" # NOTE: this data comes from CSV export of the following query
 
 ## count data retrieved from the Virtuoso SPARQL endpoint using the
 ## following  query. 
@@ -18,7 +18,8 @@ DATAFILE = "test-query-of-counts-12162014.csv" # NOTE: this data comes from CSV 
 ## $ isql-vt -H localhost -S 1111  -U <user name> -P <password> errors=stdout < /tmp/test.sparql > /tmp/test.out
 ## $ egrep "^[0-9]+ +http.*" /tmp/test.out | tr -s ' ' ',' > /tmp/test-query-of-counts.csv
 ##
-## QUERY (paste into /tmp/test.sparql):
+## QUERY (paste into /tmp/test.sparql -- keep the 'SPARQL' string at the beginning!):
+# SPARQL
 # PREFIX ohdsi:<http://purl.org/net/ohdsi#>
 # PREFIX oa:<http://www.w3.org/ns/oa#>
 # PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/>
@@ -39,37 +40,40 @@ DATAFILE = "test-query-of-counts-12162014.csv" # NOTE: this data comes from CSV 
 # }
 
 EVTYPE = "SPL_SPLICER"
+URL_ID_PREFIX = "splicer-"
+URL_PREFIX = "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id="
+SQL_INSERT_OUTFILE = "insertShortURLs.sql"
 
 # simple function to retrieve custom tiny urls
-def query(q,service):
-    """Function that uses urllib/urllib2  query for a shortened url"""
+# def query(q,service):
+#     """Function that uses urllib/urllib2  query for a shortened url"""
 
-    try:
-        params = {'longurl': q}
-        params = urllib.urlencode(params)
-        opener = urllib2.build_opener(urllib2.HTTPHandler)
-        request = urllib2.Request(service, params)
-        request.get_method = lambda: 'POST'
-        url = opener.open(request)
-        return url.read()
-    except Exception, e:
-        traceback.print_exc(file=sys.stdout)
-        raise e
+#     try:
+#         params = {'longurl': q}
+#         params = urllib.urlencode(params)
+#         opener = urllib2.build_opener(urllib2.HTTPHandler)
+#         request = urllib2.Request(service, params)
+#         request.get_method = lambda: 'POST'
+#         url = opener.open(request)
+#         return url.read()
+#     except Exception, e:
+#         traceback.print_exc(file=sys.stdout)
+#         raise e
 
 
-def shortenURL(longurl):
-    result = query(longurl, "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php")
+# def shortenURL(longurl):
+#     result = query(longurl, "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php")
 
-    rgx = re.compile('''<p class="success">URL is: <a href="(.*)">''')
-    urlL = rgx.findall(result)
-    if len(urlL) == 0:
-        print "ERROR: could not retrieve short URL for longurl %s" % longurl
-        return None
-    else:
-        return urlL[0]
+#     rgx = re.compile('''<p class="success">URL is: <a href="(.*)">''')
+#     urlL = rgx.findall(result)
+#     if len(urlL) == 0:
+#         print "ERROR: could not retrieve short URL for longurl %s" % longurl
+#         return None
+#     else:
+#         return urlL[0]
 
 # replace the @IMEDS_DRUG@ and @IMEDS_HOI@ strings with the appropriate values
-TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+dailymed%3A%3Chttp%3A%2F%2Fdbmi-icode-01.dbmi.pitt.edu%2FlinkedSPLs%2Fvocab%2Fresource%2F%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0AGRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-adr-splicer-poc%3E{%0D%0A+%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+%3Fbody+ohdsi%3AMeddrraHoi+meddra%3A@IMEDS_HOI@.%0D%0A%0D%0A+%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+%3Fselector+dailymed%3AsplSection+%3Fsection.%0D%0A}%0D%0AGRAPH+%3Chttp%3A%2F%2Fdbmi-icode-01.dbmi.pitt.edu%2FlinkedSPLs%2F%3E{%0D%0A+%3Fspl+a+ncbit%3ALabel%3B%0D%0A++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A++%3Fsection+%3Ftext.%0D%0A}%0D%0A}%0D%0ALIMIT+10&format=text%2Fhtml&timeout=0&debug=on"
+TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&query=%23+drill+down+query+for+a+drug+and+HOI+in+the+SPLICER+ADRAnnotation+graph+joined+with+LinkedSPLs%0D%0APREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+linkedspls_vocabulary%3A+%3Chttp%3A%2F%2Fbio2rdf.org%2Flinkedspls_vocabulary%3A%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-adr-splicer-poc%3E+{%0D%0A++%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+++%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+++%3Fbody+ohdsi%3AMeddrraHoi+meddra%3A@IMEDS_HOI@.%0D%0A%0D%0A+++%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+++%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+++%3Fselector+linkedspls_vocabulary%3AsplSection+%3Fsection.%0D%0A++}%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fspl-core-poc-11282014%3E+{%0D%0A++%3Fspl+a+ncbit%3ALabel%3B%0D%0A+++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A+++%3Fsection+%3Ftext.%0D%0A+}%0D%0A}%0D%0A&format=text%2Fhtml&timeout=0&debug=on"
 
 f = open(DATAFILE)
 buf = f.read()
@@ -78,16 +82,28 @@ f.close()
 buf = buf.replace("http://purl.org/net/ohdsi#","").replace("http://purl.bioontology.org/ontology/MEDDRA/","").replace('"',"")
 l = buf.split("\n") # assumes no header. Format should be count,drug,hoi
 
+f = open(SQL_INSERT_OUTFILE,'w')
+f.write("INSERT INTO lil_urls VALUES \n")
 i = 0
+pre = ""
 for elt in l:
     i += 1
-    (cnt,drug,hoi) = [x.strip() for x in elt.split(",")]
+    # TODO: be more specific about how to terminate this loop!
+    try:
+        (cnt,drug,hoi) = [x.strip() for x in elt.split(",")]
+    except ValueError:
+        break
     q = TEMPLATE.replace("@IMEDS_DRUG@",drug).replace("@IMEDS_HOI@",hoi)
-    turl = shortenURL(q)
-    if turl == None:
-        print "Not continuing because of error shortening the URL for the drill down query"
-        sys.exit(1)
-
+    #turl = shortenURL(q)
+    url_id = URL_ID_PREFIX + str(i)
+    if i > 1:
+        pre = ",\n"
+    f.write("%s('%s','%s',CURRENT_TIMESTAMP)" % (pre,url_id, q))
+    # if turl == None:
+    #     print "Not continuing because of error shortening the URL for the drill down query"
+    #     sys.exit(1)
+    turl = URL_PREFIX + url_id
     key = "%s-%s" % (drug,hoi)
     print "\t".join([key,EVTYPE,'positive',"2",str(cnt),turl,"COUNT"])
-
+f.write("\n;")
+f.close()
