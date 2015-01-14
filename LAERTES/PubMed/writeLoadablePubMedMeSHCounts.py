@@ -59,6 +59,7 @@ for elt in l:
     if i > 1:
         pre = ",\n"
     f.write("%s('%s','%s',CURRENT_TIMESTAMP)" % (pre,url_id, q))
+    turl = URL_PREFIX + url_id
 
     key = "%s-%s" % (drug,hoi)
     if pubType == 'clinical trial (publication type)':
