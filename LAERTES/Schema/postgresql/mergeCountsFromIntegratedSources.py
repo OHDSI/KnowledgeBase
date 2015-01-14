@@ -5,7 +5,7 @@
 ## (that extends the OHDSI Standard Vocab). 
 ##
 ## Author: Richard D Boyce, PhD
-## Fall/Winter 2014
+## 2014/2015
 
 import psycopg2 # for postgres 
 
@@ -61,8 +61,8 @@ for src in srcL[1:]: # skip header
         print "ERROR: unable to open data file for source %s located at %s. Error string: %s" % (src[SOURCE],src[PATH_TO_DATA],e)
 
     # TODO: write validation checks for the data files to be loaded (e.g., col number, types, etc)
-    for elt in dhL[0:1000]:
-    #for elt in dhL:    
+    #for elt in dhL[0:1000]:
+    for elt in dhL:    
         # the schema calls for a bool type for 'modality'
         s = elt.replace("positive","true").replace("negative","false") 
 
