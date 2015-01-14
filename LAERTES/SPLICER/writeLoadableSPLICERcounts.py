@@ -85,13 +85,20 @@ l = buf.split("\n") # assumes no header. Format should be count,drug,hoi
 f = open(SQL_INSERT_OUTFILE,'w')
 f.write("INSERT INTO lil_urls VALUES \n")
 i = 0
-for elt in l[0:5]:
+pre = ""
+for elt in l:
     i += 1
-    (cnt,drug,hoi) = [x.strip() for x in elt.split(",")]
+    # TODO: be more specific about how to terminate this loop!
+    try:
+        (cnt,drug,hoi) = [x.strip() for x in elt.split(",")]
+    except ValueError:
+        break
     q = TEMPLATE.replace("@IMEDS_DRUG@",drug).replace("@IMEDS_HOI@",hoi)
     #turl = shortenURL(q)
-    url_id = URL_ID_PREFIX + "-" + str(i)
-    f.write("('%s','%s',CURRENT_TIMESTAMP),\n" % url_id, q)
+    url_id = URL_ID_PREFIX + str(i)
+    if i > 1:
+        pre = ",\n"
+    f.write("%s('%s','%s',CURRENT_TIMESTAMP)" % (pre,url_id, q))
     # if turl == None:
     #     print "Not continuing because of error shortening the URL for the drill down query"
     #     sys.exit(1)
