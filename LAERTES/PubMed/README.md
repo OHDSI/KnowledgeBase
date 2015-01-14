@@ -22,7 +22,30 @@ The process works as follows:
 
 4. The RDF graph is loaded into an endpoint and script
    writeLoadablePubMedMeSHCounts.py generates "tinyurls" for queries
-   against the RDF dataset to support the "drill down" use case
+   against the RDF dataset to support the "drill down" use case. 
+
+NOTE: The output of writeLoadablePubMedMeSHCounts.py includes data that
+      needs to be loaded into the database for the URL shortener
+      (harryjrc_linx). This output may be too large for a single load so
+      it has to be split into file sizes smaller than 1G. You also
+      have to make sure that both the mysql server and client have the
+      max_allowed_packet=999M
+
+### To split the INSERT query into files that can be loaded in mysql
+$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs-ALL.txt
+
+# this creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
+# These each need an SQL INSERT clause as the first line and a semi-colon at the end
+# For all files:
+$ sed -i '1s/^/INSERT INTO lil_urls VALUES \n/' insertShortURLsaa
+# For all but the last file:
+$ sed -i "\$s/,$/;/" insertShortURLsaa
+# For the last file
+$ sed -i "\$s/$/;/" insertShortURLsac
+# Now you have to start the mysql client like this:
+$ mysql --max_allowed_packet=999M -u <user> -p --local-infile
+# select the database and the source each file
+
 
 5. See Schema/postgresql/README.md for how the results of the above
    process get loaded into the LAERTES database
