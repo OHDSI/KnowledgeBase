@@ -24,6 +24,10 @@ OUTPUT_FILE = "drug-hoi-pubmed-semmeddb.nt"
 # Connection info to the MEDLINE database
 DB_CONNECTION_INFO="db-connection.conf"
 
+# number of characters used to creat the prefix and postfix text strings for TextQuoteSelectors
+NUMB_CHARACTERS_PRE_AND_POST = 50 
+
+# various mappings to the standard vocabulary
 RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
 MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 
@@ -171,6 +175,7 @@ annotationBodyCntr = 1
 annotationEvidenceCntr = 1
 
 annotatedCache = {} # indexes annotation ids by pmid
+abstractCache = {} # cache for abstract text
 pubTypeCache = {} # used because some PMIDs have multiple publication type assignments TODO: determine pub types should be assigned to a Collection under the target's graph 
 drugHoiPMIDCache = {} # used to avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments TODO: determine if a more robust source query is needed
 currentAnnotation = annotationItemCntr
@@ -200,11 +205,28 @@ for elt in recL[0:20]:
 
         rows = cur.fetchall()
         if len(rows) == 0:
-            print "WARNING: No publication types found for PMID %s. Skipping this record." % elt[PMID]
+            print "WARNING: None of the selected publication types found for PMID %s. Skipping this record." % elt[PMID]
             continue 
             
         pubTypeCache[elt[PMID]] = [x[0] for x in rows]
         print "%s" % pubTypeCache[elt[PMID]]
+
+    # get abstract if not already cached
+    if not abstractCache.has_key(elt[PMID]):
+        try:
+            print "INFO: Attempting to the abstract for PMID %s" % elt[PMID]
+            cur.execute("""SELECT value FROM medcit_art_abstract_abstracttext WHERE pmid = %s""" % elt[PMID])
+        except Exception as e:
+            print "ERROR: Attempt to get the abstract for PMID failed. Error string: %s" % e
+            sys.exit(1)
+
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            abstractCache[elt[PMID]] = ""
+            print "INFO: No abstract found for PMID %s." % elt[PMID]
+        else:
+            abstractCache[elt[PMID]] = rows[0][0]
+            print "%s" % abstractCache[elt[PMID]]
 
 
     ###################################################################
@@ -239,18 +261,53 @@ for elt in recL[0:20]:
         tplL.append((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
         tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt[PMID]]))
 
-    #     pubTypeCache[PMID] = [elt[PUB_TYPE]]
-    #     if elt[PUB_TYPE] == "Clinical Trial": 
-    #         tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
-    #     elif elt[PUB_TYPE] == "Case Reports": 
-    #         tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
-    #     elif elt[PUB_TYPE] == "Meta-Analysis": 
-    #         tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
+        for pt in pubTypeCache[elt[PMID]]:
+            if pt == "Clinical Trial": 
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
+            if pt == "Case Reports": 
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
+            if pt == "Meta-Analysis": 
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
+                
+        # add the text quote selector
+        textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
+        tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
+        tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
+        tplL.append((textConstraintUuid, oa["exact"], Literal(elt[SENTENCE])))
+        
+        # if the sentence if from an abstract, retrieve the pre and
+        # post text string from the abstract
+        if elt[SENTENCE_TYPE] == 'ab':
+            abstractTxt = abstractCache[elt[PMID]]
+            if abstractTxt == "":
+                print "ERROR: SemMed indicates that there is an abstract but one not present in the abstract cache!"
+                sys.exit(1)
+            
+            exactSpanFrom = abstractTxt.find(elt[SENTENCE])
+            if exactSpanFrom == -1:
+                print "ERROR:Could not find annotated sentence sequence in abstractTxt!\n\tsentence:\n\t\t%s\n\tabstractTxt:\n\t\t%s" % (elt[SENTENCE], abstractTxt)
+                sys.exit(1)
+     
+            exactSpanTo = exactSpanFrom + len(elt[SENTENCE])
+            #exact = abstractTxt[exactSpanFrom:exactSpanTo]
+            pre = post = ""
+            if exactSpanFrom - NUMB_CHARACTERS_PRE_AND_POST < 0:
+                pre = abstractTxt[:exactSpanFrom]
+            else:
+                pre = abstractTxt[exactSpanFrom - NUMB_CHARACTERS_PRE_AND_POST:exactSpanFrom]
+     
+            if exactSpanTo + NUMB_CHARACTERS_PRE_AND_POST > len(abstractTxt):
+                post = abstractTxt[exactSpanTo:]
+            else:
+                post = abstractTxt[exactSpanTo:exactSpanTo + NUMB_CHARACTERS_PRE_AND_POST]
 
-    # s = ""
-    # for t in tplL:
-    #     s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
-    # f.write(s)
+            tplL.append((textConstraintUuid, oa["prefix"], Literal(pre)))
+            tplL.append((textConstraintUuid, oa["postfix"], Literal(post)))
+
+    s = ""
+    for t in tplL:
+        s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
+    f.write(s)
     
 
     # # Specify the bodies of the annotation - for this type each
