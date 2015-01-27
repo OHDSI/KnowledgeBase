@@ -5,6 +5,7 @@ PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/>
 PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>
+PREFIX dcterms:<http://purl.org/dc/terms/>
 
 SELECT count(distinct ?an) ?drug ?hoi ?studyType
 WHERE {
@@ -199,12 +200,13 @@ WHERE {
 
 
 # drill down query for a drug and HOI in the SPLICER ADRAnnotation graph joined with LinkedSPLs
+# drill down query for a drug and HOI in the SPLICER ADRAnnotation graph joined with LinkedSPLs
 PREFIX ohdsi:<http://purl.org/net/ohdsi#>
 PREFIX oa:<http://www.w3.org/ns/oa#>
 PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/>
 PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>
+PREFIX linkedspls_vocabulary: <http://bio2rdf.org/linkedspls_vocabulary:>
 
 SELECT *
 WHERE {
@@ -213,15 +215,15 @@ WHERE {
    oa:hasBody ?body;
    oa:hasTarget ?target.
 
-   ?body ohdsi:ImedsDrug ohdsi:40172167.
-   ?body ohdsi:MeddrraHoi meddra:35205272.
+   ?body ohdsi:ImedsDrug ohdsi:1597772.
+   ?body ohdsi:MeddrraHoi meddra:35205025.
 
    ?target oa:hasSource ?sourceURL.
    ?target oa:hasSelector ?selector.
 
-   ?selector dailymed:splSection ?section.
+   ?selector linkedspls_vocabulary:splSection ?section.
   }
- GRAPH <http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/> {
+ GRAPH <http://purl.org/net/nlprepository/spl-core-poc-11282014> {
   ?spl a ncbit:Label;
    foaf:homepage ?sourceURL;
    ?section ?text.

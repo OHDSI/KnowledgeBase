@@ -9,22 +9,45 @@ Avillach P, Dufour JC, Diallo G, Salvo F, Joubert M, Thiessard F, Mougin F, Trif
 
 The process works as follows:
 
-1) The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase 
+1. The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase 
 
-2) The MEDLINE database is queried using the script
+2. The MEDLINE database is queried using the script
    queryDrugHOIAssociations.psql for drugs and drug classes associated
    with specific adverse events according to MeSH tags. See the header
    of that script for USAGE.
 
-3) The tab-delimitted output of Step 2 is is processed by
+3. The tab-delimitted output of Step 2 is is processed by
    pmSearch2rdf.py to convert the results to an RDF Open Data
    Annotation graph. Please see the NOTES below.
 
-4) The RDF graph is loaded into an endpoint and script
+4. The RDF graph is loaded into an endpoint and script
    writeLoadablePubMedMeSHCounts.py generates "tinyurls" for queries
-   against the RDF dataset to support the "drill down" use case
+   against the RDF dataset to support the "drill down" use case. 
 
-5) See Schema/postgresql/README.md for how the results of the above
+NOTE: The output of writeLoadablePubMedMeSHCounts.py includes data that
+      needs to be loaded into the database for the URL shortener
+      (harryjrc_linx). This output may be too large for a single load so
+      it has to be split into file sizes smaller than 1G. You also
+      have to make sure that both the mysql server and client have the
+      max_allowed_packet=999M
+
+### To split the INSERT query into files that can be loaded in mysql
+$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs-ALL.txt
+
+# this creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
+# These each need an SQL INSERT clause as the first line and a semi-colon at the end
+# For all files:
+$ sed -i '1s/^/INSERT INTO lil_urls VALUES \n/' insertShortURLsaa
+# For all but the last file:
+$ sed -i "\$s/,$/;/" insertShortURLsaa
+# For the last file
+$ sed -i "\$s/$/;/" insertShortURLsac
+# Now you have to start the mysql client like this:
+$ mysql --max_allowed_packet=999M -u <user> -p --local-infile
+# select the database and the source each file
+
+
+5. See Schema/postgresql/README.md for how the results of the above
    process get loaded into the LAERTES database
 
 NOTES: 

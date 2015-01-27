@@ -119,21 +119,27 @@ COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g.
 
 ALTER TABLE drug_HOI_evidence
   OWNER TO rich;
-GRANT ALL ON TABLE drug_HOI_evidence TO yin2;
 GRANT ALL ON TABLE drug_HOI_evidence TO public;
+GRANT ALL ON TABLE drug_HOI_evidence TO ohdsi;
+GRANT ALL ON TABLE drug_HOI_evidence TO developer;
 GRANT ALL ON TABLE drug_HOI_evidence TO administrator;
+
 
 ALTER TABLE evidence_sources
   OWNER TO rich;
-GRANT ALL ON TABLE evidence_sources TO yin2;
+GRANT ALL ON TABLE evidence_sources TO public;
 GRANT ALL ON TABLE evidence_sources TO ohdsi;
 GRANT ALL ON TABLE evidence_sources TO administrator;
+GRANT ALL ON TABLE evidence_sources TO developer;
+
 
 ALTER TABLE drug_HOI_relationship
   OWNER TO rich;
-GRANT ALL ON TABLE drug_HOI_relationship TO yin2;
+GRANT ALL ON TABLE drug_HOI_relationship TO public;
 GRANT ALL ON TABLE drug_HOI_relationship TO ohdsi;
 GRANT ALL ON TABLE drug_HOI_relationship TO administrator;
+GRANT ALL ON TABLE drug_HOI_relationship TO developer;
+
 
 COMMIT;
 
@@ -257,8 +263,9 @@ COMMIT;
 
 START TRANSACTION;
 GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO administrator;
+GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO public;
 GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO ohdsi;
-GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO rich;
-GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO yin2;
+GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO developer;
+
 
 COMMIT;

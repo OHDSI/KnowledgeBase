@@ -5,7 +5,7 @@
 ## (that extends the OHDSI Standard Vocab). 
 ##
 ## Author: Richard D Boyce, PhD
-## Fall/Winter 2014
+## 2014/2015
 
 import psycopg2 # for postgres 
 
@@ -61,8 +61,8 @@ for src in srcL[1:]: # skip header
         print "ERROR: unable to open data file for source %s located at %s. Error string: %s" % (src[SOURCE],src[PATH_TO_DATA],e)
 
     # TODO: write validation checks for the data files to be loaded (e.g., col number, types, etc)
-    for elt in dhL[0:1000]:
-    #for elt in dhL:    
+    #for elt in dhL[0:1000]:
+    for elt in dhL:    
         # the schema calls for a bool type for 'modality'
         s = elt.replace("positive","true").replace("negative","false") 
 
@@ -96,7 +96,22 @@ for src in srcL[1:]: # skip header
             elif src[HOI_VOCAB_ID] == "Mesh":
                 try:
                     print "INFO: Attempting to map concept id for Mesh coded HOI %s to SNOMED" % hoi
-                    cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND CR.CONCEPT_ID_1 = A.CONCEPT_ID AND CR.CONCEPT_ID_2 = B.CONCEPT_ID AND CR.RELATIONSHIP_ID = 'Maps to' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND B.VOCABULARY_ID = 'SNOMED';""" % hoi)
+                    #cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND CR.CONCEPT_ID_1 = A.CONCEPT_ID AND CR.CONCEPT_ID_2 = B.CONCEPT_ID AND CR.RELATIONSHIP_ID = 'Maps to' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND B.VOCABULARY_ID = 'SNOMED';""" % hoi)
+                    cur.execute("""
+SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE
+FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR 
+WHERE A.VOCABULARY_ID = 'Mesh' AND
+  A.CONCEPT_ID = %s AND
+  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND
+  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND
+  CR.RELATIONSHIP_ID = 'Maps to' AND
+  CR.INVALID_REASON IS NULL AND
+  B.CONCEPT_ID = CR.CONCEPT_ID_2 AND 
+  B.VOCABULARY_ID = 'SNOMED' AND 
+  A.INVALID_REASON IS NULL AND 
+  B.INVALID_REASON IS NULL AND 
+  B.CONCEPT_CLASS_ID = 'Clinical Finding';
+""" % hoi)
                 except Exception as e:
                     print "ERROR: Attempt to map concept id for Mesh HOI to SNOMED failed. Error string: %s" % e
                 rows = cur.fetchall()
@@ -111,7 +126,23 @@ for src in srcL[1:]: # skip header
             elif src[HOI_VOCAB_ID] == "MedDRA":
                 try:
                     print "INFO: Attempting to map concept id for MedDRA coded HOI '%s' to SNOMED" % hoi
-                    cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND  CR.RELATIONSHIP_ID = 'MedDRA - SNOMED eq' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND  B.VOCABULARY_ID = 'SNOMED';""" % hoi)
+                    #cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND  CR.RELATIONSHIP_ID = 'MedDRA - SNOMED eq' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND  B.VOCABULARY_ID = 'SNOMED';""" % hoi)
+                    cur.execute("""
+SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE
+FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR 
+WHERE 
+  A.CONCEPT_ID = %s AND
+  A.VOCABULARY_ID = 'MedDRA' AND
+  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND 
+  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND
+  CR.RELATIONSHIP_ID = 'MedDRA - SNOMED eq' AND
+  CR.INVALID_REASON IS NULL AND
+  B.CONCEPT_ID = CR.CONCEPT_ID_2 AND
+  B.VOCABULARY_ID = 'SNOMED' AND
+  B.INVALID_REASON IS NULL AND
+  B.CONCEPT_CLASS_ID = 'Clinical Finding' AND
+  A.INVALID_REASON IS NULL;
+""" % hoi)
                 except Exception as e:
                     print "ERROR: Attempt to map concept id for MedDRA HOI to SNOMED failed. Error string: %s" % e
                 rows = cur.fetchall()

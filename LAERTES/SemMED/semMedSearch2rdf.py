@@ -226,6 +226,7 @@ annotationBodyCntr = 1
 annotationEvidenceCntr = 1
 
 annotatedCache = {} # indexes annotation ids by pmid
+abstractCache = {} # stores abstracts to save DB calls 
 pubTypeCache = {} # used because some PMIDs have multiple publication type assignments TODO: determine pub types should be assigned to a Collection under the target's graph 
 drugHoiPMIDCache = {} # used to avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments TODO: determine if a more robust source query is needed
 currentAnnotation = annotationItemCntr
@@ -240,7 +241,8 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-for elt in recL[0:3]:  
+for elt in recL[0:10]:  
+    print "INFO: processing %s" % elt[PMID]
     ###################################################################
     ### Each annotations holds one target that points to the source
     ### record in pubmed, and one or more bodies each of which
@@ -248,11 +250,14 @@ for elt in recL[0:3]:
     ### some metadata
     ###################################################################
     currentAnnotItem = None
+    currentAbstract = None
+    pubTypeL = []
     createNewTarget = False
     tplL = []
     if annotatedCache.has_key(elt[PMID]):
         currentAnnotation = annotatedCache[elt[PMID]]
-        pubTypeL = pubTypeCache[elt[PMID]]
+        currentAbstract = abstractCache[elt[PMID]]
+        #pubTypeL = pubTypeCache[elt[PMID]]
         # if elt[PUB_TYPE] not in pubTypeL:
         #     print "INFO: MEDLINE record %s has more than one pub type assigned" % elt[PMID]
         #     pubTypeCache[elt[PMID]].append(elt[PUB_TYPE])
@@ -267,7 +272,44 @@ for elt in recL[0:3]:
         annotatedCache[elt[PMID]] = currentAnnotation
         annotationItemCntr += 1
         createNewTarget = True
-    
+        
+        # get the abstract for the PMID
+        q = """SELECT VALUE FROM medcit_art_abstract_abstracttext WHERE pmid = %s;""" % elt[PMID]
+        try:
+            cur.execute(q)
+        except Exception as e:
+            print "ERROR: Attempt to retrieve abstract for PMID %s failed. Error string: %s" % (elt[PMID], e)
+
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            print "WARNING: No data returned from attempt to retrieve abstract for PMID %s. Title only?" % elt[PMID]
+        else:
+            currentAbstract = rows[0] # assuming only one row is returned b/c pmid is a unique key
+            abstractCache[elt[PMID]] = currentAbstract
+            print currentAbstract
+
+        # get the publication types for the PMID
+        q = """SELECT value 
+FROM medcit_art_publicationtypelist_publicationtype
+WHERE pmid = %s AND
+value IN ('Case Reports','Clinical Trial','Meta-Analysis')
+""" % elt[PMID]
+        try:
+            cur.execute(q)
+        except Exception as e:
+            print "ERROR: Attempt to retrieve publication types for PMID %s failed. Error string: %s" % (elt[PMID], e)
+
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            print "WARNING: No data returned from attempt to retrieve publication types for PMID %s. Most likely this is because the pub type is not in 'Case Reports','Clinical Trial','Meta-Analysis'. Skipping further processing of this item." % elt[PMID]
+            continue
+        else:
+            pubTypeCache[elt[PMID]] = [x[0] for x in rows]
+            pubTypeL = pubTypeCache[elt[PMID]]
+            print "pubTypeL:\n\t%s" % pubTypeL
+
+## TODO: LEFT OFF HERE - WORKING OUT HOW TO CREATE THE  TARGET GRAPHS WITH SELECTORS
+
     currentAnnotItem = "ohdsi-semmed-annotation-item-%s" % currentAnnotation
 
     if createNewTarget:
@@ -285,14 +327,14 @@ for elt in recL[0:3]:
 
         # TODO: use the MeSH UIs to generate purls for the pub types
         # TODO: add more publication types
-        # NOTE: a change here requires a change up above!
-        # pubTypeCache[elt[PMID]] = [elt[PUB_TYPE]]
-        # if elt[PUB_TYPE] == "Clinical Trial": 
-        #     tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
-        # elif elt[PUB_TYPE] == "Case Reports": 
-        #     tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
-        # elif elt[PUB_TYPE] == "Meta-Analysis": 
-        #     tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
+        pubTypeCache[elt[PMID]] = pubTypeL
+        for pubType in pubTypeL:
+            if pubType == "Clinical Trial": 
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
+            elif pubType == "Case Reports": 
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
+            elif pubType == "Meta-Analysis": 
+                tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
 
     s = ""
     for t in tplL:
@@ -306,10 +348,10 @@ for elt in recL[0:3]:
     # MeSH are provided, and HOI UIs from SNOMED, MEDDRA, and MeSH are
     # also provided
 
-    # to begin with, avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments
+    # to begin with, avoid duplicating PMID - drug  - HOI combos for PMIDs that are the result of multiple text selectors or publication type assignments
     concat = "%s-%s-%s" % (elt[PMID], elt[DRUG_MESH], elt[HOI_UMLS_CUI])
     if drugHoiPMIDCache.has_key(concat):
-        print "INFO: skipping generation of a new body graph because the PMID, drug, and HOI (%s) have already been processed. Probably a MEDLINE record with multiple pub type assignments" % concat
+        print "INFO: skipping generation of a new body graph because the PMID, drug, and HOI (%s) have already been processed. Probably a MEDLINE record with multiple text selectors or pub type assignments" % concat
         continue
     else:
         drugHoiPMIDCache[concat] = None
