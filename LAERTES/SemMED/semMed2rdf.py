@@ -231,6 +231,18 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
+## TODO: implement a predicate in the body of each graph for the SemMed predicate
+# 'CAUSES',
+# 'NEG_CAUSES',
+# 'AFFECTS',
+# 'NEG_AFFECTS',
+# 'ASSOCIATED_WITH',
+# 'NEG_ASSOCIATED_WITH',
+# 'COMPLICATES',
+# 'NEG_COMPLICATES',
+# 'DISRUPTS',
+# 'NEG_DISRUPTS'
+
 for elt in recL[0:20]:  
     ## Only process papers of specific publication types
     # TODO: use the MeSH UIs to generate purls for the pub types
