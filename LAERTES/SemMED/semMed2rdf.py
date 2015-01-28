@@ -13,6 +13,11 @@ import re, codecs, uuid, datetime
 import json
 from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
 
+# use lxml to parse the MeSH pharmacologic action mappings
+from lxml import etree
+from lxml.etree import XMLParser, parse
+
+
 import psycopg2 # for postgres
 
 ## The result of the query of SemMedDB (see README)
@@ -113,9 +118,11 @@ cnt = Namespace('http://www.w3.org/2011/content#')
 siocns = Namespace('http://rdfs.org/sioc/ns#')
 swande = Namespace('http://purl.org/swan/1.2/discourse-elements#')
 ncbit = Namespace('http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#')
+umls = Namespace('http://linkedlifedata.com/resource/umls/id/')
 mesh = Namespace('http://purl.bioontology.org/ontology/MESH/')
 meddra = Namespace('http://purl.bioontology.org/ontology/MEDDRA/')
 rxnorm = Namespace('http://purl.bioontology.org/ontology/RXNORM/')
+snomed = Namespace('http://purl.bioontology.org/ontology/SNOMEDCT/')
 pubmed = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
 ohdsi = Namespace('http://purl.org/net/ohdsi#')
 poc = Namespace('http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc#')
@@ -132,9 +139,11 @@ graph.namespace_manager.bind('cnt', 'http://www.w3.org/2011/content#')
 graph.namespace_manager.bind('siocns','http://rdfs.org/sioc/ns#')
 graph.namespace_manager.bind('swande','http://purl.org/swan/1.2/discourse-elements#')
 graph.namespace_manager.bind('ncbit','http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#')
+graph.namespace_manager.bind('umls', 'http://linkedlifedata.com/resource/umls/id/')
 graph.namespace_manager.bind('mesh', 'http://purl.bioontology.org/ontology/MESH/')
 graph.namespace_manager.bind('meddra','http://purl.bioontology.org/ontology/MEDDRA/')
 graph.namespace_manager.bind('rxnorm','http://purl.bioontology.org/ontology/RXNORM/')
+graph.namespace_manager.bind('snomed','http://purl.bioontology.org/ontology/SNOMEDCT/')
 graph.namespace_manager.bind('pubmed', 'http://www.ncbi.nlm.nih.gov/pubmed/')
 graph.namespace_manager.bind('ohdsi', 'http://purl.org/net/ohdsi#')
 graph.namespace_manager.bind('poc','http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc#')
@@ -171,11 +180,17 @@ graph.add((sio["SIO_000563"], dcterms["description"], Literal("describes is a re
 graph.add((sio["SIO_000338"], RDFS.label, Literal("specifies")))
 graph.add((sio["SIO_000338"], dcterms["description"], Literal("A relation between an information content entity and a product that it (directly/indirectly) specifies")))
 
+graph.add((poc['UMLSDrug'], RDFS.label, Literal("UMLS Drug code")))
+graph.add((poc['UMLSDrug'], dcterms["description"], Literal("Drug code in the UMLS.")))
+
 graph.add((poc['MeshDrug'], RDFS.label, Literal("MeSH Drug code")))
 graph.add((poc['MeshDrug'], dcterms["description"], Literal("Drug code in the MeSH vocabulary.")))
 
 graph.add((poc['RxnormDrug'], RDFS.label, Literal("Rxnorm Drug code")))
 graph.add((poc['RxnormDrug'], dcterms["description"], Literal("Drug code in the Rxnorm vocabulary.")))
+
+graph.add((poc['UMLSHoi'], RDFS.label, Literal("UMLS HOI code")))
+graph.add((poc['UMLSHoi'], dcterms["description"], Literal("HOI code in the UMLS vocabulary.")))
 
 graph.add((poc['MeshHoi'], RDFS.label, Literal("MeSH HOI code")))
 graph.add((poc['MeshHoi'], dcterms["description"], Literal("HOI code in the MeSH vocabulary.")))
@@ -220,10 +235,9 @@ for elt in recL[0:20]:
     ## Only process papers of specific publication types
     # TODO: use the MeSH UIs to generate purls for the pub types
     # TODO: add more publication types
-    # NOTE: a change here requires a change up above!
     if not pubTypeCache.has_key(elt[PMID]):
         try:
-            print "INFO: Attempting to get publication types for PMID %s" % elt[PMID]
+            print "INFO: Attempting to get publication types for PMID %s from the MEDLINE DB" % elt[PMID]
             cur.execute("""SELECT value FROM medcit_art_publicationtypelist_publicationtype WHERE pmid = %s AND value IN ('Case Reports','Clinical Trial','Meta-Analysis')""" % elt[PMID])
         except Exception as e:
             print "ERROR: Attempt to get publication types for PMID failed. Error string: %s" % e
@@ -240,7 +254,7 @@ for elt in recL[0:20]:
     # get abstract if not already cached
     if not abstractCache.has_key(elt[PMID]):
         try:
-            print "INFO: Attempting to the abstract for PMID %s" % elt[PMID]
+            print "INFO: Attempting to retrieve the abstract for PMID %s from the MEDLINE DB" % elt[PMID]
             cur.execute("""SELECT value FROM medcit_art_abstract_abstracttext WHERE pmid = %s""" % elt[PMID])
         except Exception as e:
             print "ERROR: Attempt to get the abstract for PMID failed. Error string: %s" % e
@@ -256,10 +270,11 @@ for elt in recL[0:20]:
 
 
     ###################################################################
-    ### Each annotation holds one target that points to the source
-    ### record in pubmed, and one or more bodies each of which
-    ### indicates the SNOMED and/or MeSH terms that triggered the result and holds
-    ### some metadata
+    ### A new annotation is created for each pmid-drug-hoi
+    ### triple. Each annotation holds one target that points to the
+    ### source record in pubmed, and one or more bodies each of which
+    ### indicates the SNOMED and/or MeSH terms that triggered the
+    ### result and holds some metadata
     ###################################################################
     currentAnnotItem = None
     createNewTarget = False
@@ -288,6 +303,8 @@ for elt in recL[0:20]:
         tplL.append((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
         tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt[PMID]]))
 
+        # add a predicate for EACH publication type (some medline
+        # records have more than one assignment)
         for pt in pubTypeCache[elt[PMID]]:
             if pt == "Clinical Trial": 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
@@ -296,7 +313,9 @@ for elt in recL[0:20]:
             if pt == "Meta-Analysis": 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
                 
-        # add the text quote selector
+        # add the text quote selector. Sentences from titles will only
+        # have an "exact". 
+        # TODO: test that this approach is sufficient (i.e., no titles have more than one sentence.
         textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
         tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
         tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
@@ -337,66 +356,83 @@ for elt in recL[0:20]:
     
 
     # Specify the bodies of the annotation - for this type each
-    # body contains the MESH drug and condition as a semantic tag
+    # body contains the drug and condition as a semantic tag
     currentAnnotationBody = "ohdsi-pubmed-semmed-annotation-annotation-body-%s" % annotationBodyCntr
     annotationBodyCntr += 1
 
     tplL = []  # Clearing out the Target data tuple
     tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
     tplL.append((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for PMID %s" % elt[PMID])))
-    tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIMeshTags"])) # TODO: this is not yet formalized in a public ontology but should be
+    tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIUMLSTags"])) # TODO: this is not yet formalized in a public ontology but should be
     tplL.append((poc[currentAnnotationBody], RDF.type, oa["SemanticTag"])) 
     tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI body from MEDLINE PMID %s using UMLS drug %s (%s) and UMLS HOI %s (%s)" % (elt[PMID], elt[DRUG_UMLS_CUI], elt[DRUG_PREFERRED_TERM], elt[HOI_UMLS_CUI], elt[HOI_PREFERRED_TERM]))))
 
-    ### INCLUDE THE MESH AND RXNORM TAGS FROM THE RECORD AS PREFERRED TERMS AS
-    ### WELL AS DATA FROM THE DRUG AND HOI QUERY
-    if elt[DRUG_MESH] != "":
-        tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[DRUG_MESH]])) 
+    ### INCLUDE THE UMLS TAGS FROM THE RECORD AS PREFERRED TERMS AS
+    ### WELL AS ANY RXNORM AND SNOMED/MEDDRA MAPPINGS 
+    tplL.append((poc[currentAnnotationBody], ohdsi['UMLSDrug'], umls[elt[DRUG_UMLS_CUI]])) 
+    tplL.append((poc[currentAnnotationBody], ohdsi['UMLSHoi'], umls[elt[HOI_UMLS_CUI]])) 
+
+    # Adding RxNorm CUI if it exists
     if elt[DRUG_RXNORM] != "":
         tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[elt[DRUG_RXNORM]]))
         if DRUGS_D_RXNORM_KEYED.has_key(elt[DRUG_RXNORM]):
             tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D_RXNORM_KEYED[elt[DRUG_RXNORM]][2]]))
+    else:
+        print "WARNING: no RxNorm CUI for UMLS drug %s" % elt[DRUG_UMLS_CUI]
 
-## LEFT OFF HERE -- bring in MESH PA groupings -- might need to edit the code above.....
-    elif elt[ADR_DRUG_UI] in pharmActionMaptD.keys():
-        (descriptorName, substancesL) =  (pharmActionMaptD[elt[ADR_DRUG_UI]]['descriptorName'], pharmActionMaptD[elt[ADR_DRUG_UI]]['substancesL'])
-        print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
+    if elt[DRUG_MESH] != "":
+        tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[DRUG_MESH]])) 
         
-        collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
-        tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
-        # add each substance to a collection in the body
-        for substance in substancesL:
-            tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
-            if DRUGS_D.has_key(substance['recordUI']):
-                tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D[substance['recordUI']][0]]))
-                tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D[substance['recordUI']][2]]))
-            else:
-                print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[ADR_DRUG_UI])
+        # check if the MeSH UI is a grouping
+        if elt[DRUG_MESH] in pharmActionMaptD.keys():
+            (descriptorName, substancesL) =  (pharmActionMaptD[elt[DRUG_MESH]]['descriptorName'], pharmActionMaptD[elt[DRUG_MESH]]['substancesL'])
+            print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[DRUG_MESH], descriptorName, len(substancesL))
+        
+            collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
+            tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
+            # add each substance to a collection in the body
+            for substance in substancesL:
+                tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
+                if DRUGS_D_MESH_KEYED.has_key(substance['recordUI']):
+                    tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D_MESH_KEYED[substance['recordUI']][0]]))
+                    tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D_MESH_KEYED[substance['recordUI']][2]]))
+                else:
+                    print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[DRUG_MESH])
+        else:
+            print "INFO:  MeSH drug %s (%s) does not appear in the pharmacologic action mapping (not a grouping?)" % (elt[DRUG_MESH], elt[DRUG_PREFERRED_TERM])
     else:
-        print "ERROR: no RxNorm equivalent to the MeSH drug %s (%s) and this does not appear in the pharmacologic action mapping (not a grouping?), skipping" % (elt[ADR_DRUG_UI], elt[ADR_DRUG_LABEL])
-        continue
+        print "WARNING: no MeSH CUI for UMLS drug %s" % elt[DRUG_UMLS_CUI]
 
-    if MESH_D_SV.has_key(elt[ADR_HOI_UI]):
-        tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MESH_D_SV[elt[ADR_HOI_UI]]]))
-        tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[ADR_HOI_UI]]))
+    # Now to HOIs - there are groupings in the data file as indicated
+    # by pipe delimitted text strings.
+
+    # For now, treat the MeSH mapping as necessary because its unique
+    # for every record where it is found.
+    # TODO: determine if this is the best approach!
+    if elt[HOI_MESH] != "":
+        tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[HOI_MESH]]))
+        if MESH_D_SV.has_key(elt[HOI_MESH]):
+            tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MESH_D_SV[elt[HOI_MESH]]]))
+        else:
+            print "ERROR: no OHDSI/IMEDS equivalent to the MeSH HOI %s" % (elt[HOI_MESH])
+
+        # add the SNOMED and MedDRA effects to a collection in the body
+        if elt[HOI_SNOMED] != "" or elt[HOI_MEDDRA] != "":
+            collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+            tplL.append((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
+
+            if elt[HOI_SNOMED] != "":
+                snomedUIs = elt[HOI_SNOMED].split("|")
+                for ui in snomedUIs:
+                    tplL.append((collectionHead, ohdsi['adeEffect'], snomed[ui]))
+
+            if elt[HOI_MEDDRA] != "":
+                meddraUIs = elt[HOI_MEDDRA].split("|")
+                for ui in meddraUIs:
+                    tplL.append((collectionHead, ohdsi['adeEffect'], meddra[ui]))
     else:
-        print "ERROR: no OHDSI/IMEDS equivalent to the MeSH drug %s, skipping" % (elt[ADR_DRUG_UI])
-        continue
- 
-    # # add the ADE effect to a collection in the body
-    # if not adeEffectCollectionCache.has_key(elt[PMID]):
-    #     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-    #     tplL.append((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
-    #     tplL.append((collectionHead, ohdsi['adeEffect'], Literal(elt[ADR_HOI_UI])))
-    #     adeEffectCollectionCache[elt[PMID]] = [(elt[ADR_HOI_UI],collectionHead)]
-    # else:
-    #     effectTplL = adeEffectCollectionCache[elt[PMID]]
-    #     prevEffectsL = [x[0] for x in effectTplL]
-    #     if elt[ADR_HOI_UI] not in prevEffectsL:
-    #         collectionHead = effectTplL[0][1] # pull the UUID already create for this collection head to add a new effect
-    #         tplL.append((collectionHead, ohdsi['adeEffect'], Literal(elt[ADR_HOI_UI])))
-    #         adeEffectCollectionCache[elt[PMID]].append((elt[ADR_HOI_UI],collectionHead))
-
+        print "WARNING: No MeSH mapping for the HOI concept so the UMLS UI will be the only one provided in this body. TODO: determine if it would be better to use SNOMED or MedDRA as the required concept (or if some other approach is needed)"
+        
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
