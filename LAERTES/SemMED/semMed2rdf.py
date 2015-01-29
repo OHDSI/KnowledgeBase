@@ -278,7 +278,8 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-for elt in recL[0:50]:  
+#for elt in recL[0:50]:  
+for elt in recL:  
     ## Only process papers of specific publication types
     # TODO: use the MeSH UIs to generate purls for the pub types
     # TODO: add more publication types
@@ -453,14 +454,20 @@ for elt in recL[0:50]:
 
     # Adding RxNorm CUI if it exists
     if elt[DRUG_RXNORM] != "":
-        tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[elt[DRUG_RXNORM]]))
-        if DRUGS_D_RXNORM_KEYED.has_key(elt[DRUG_RXNORM]):
-            tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D_RXNORM_KEYED[elt[DRUG_RXNORM]][2]]))
+        if len(elt[DRUG_RXNORM].split("|")) > 1:
+            print "ERROR: more than one RxNORM drug CUI (%s). This case is not yet handled by this program" % elt[DRUG_RXNORM]
+        else:
+            tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[elt[DRUG_RXNORM]]))
+            if DRUGS_D_RXNORM_KEYED.has_key(elt[DRUG_RXNORM]):
+                tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D_RXNORM_KEYED[elt[DRUG_RXNORM]][2]]))
     else:
         print "WARNING: no RxNorm CUI for UMLS drug %s" % elt[DRUG_UMLS_CUI]
 
     if elt[DRUG_MESH] != "":
-        tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[DRUG_MESH]])) 
+        if len(elt[DRUG_MESH].split("|")) > 1:
+            print "ERROR: more than one MeSH drug CUI (%s). This case is not yet handled by this program" % elt[DRUG_MESH]
+        else:
+            tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[DRUG_MESH]])) 
         
         # check if the MeSH UI is a grouping
         if elt[DRUG_MESH] in pharmActionMaptD.keys():
@@ -489,7 +496,11 @@ for elt in recL[0:50]:
     # for every record where it is found.
     # TODO: determine if this is the best approach!
     if elt[HOI_MESH] != "":
-        tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[HOI_MESH]]))
+        if len(elt[HOI_MESH].split("|")) > 1:
+            print "ERROR: more than one MeSH hoi CUI (%s). This case is not yet handled by this program" % elt[HOI_MESH]
+        else:
+            tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[HOI_MESH]]))
+
         if MESH_D_SV.has_key(elt[HOI_MESH]):
             tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MESH_D_SV[elt[HOI_MESH]]]))
         else:
