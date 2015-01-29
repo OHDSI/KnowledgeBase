@@ -198,6 +198,53 @@ graph.add((poc['MeshHoi'], dcterms["description"], Literal("HOI code in the MeSH
 graph.add((poc['MeddraHoi'], RDFS.label, Literal("Meddra HOI code")))
 graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Meddra vocabulary.")))
 
+## TODO: The namespace for these entities should be 'umls'. Find out
+## why linked life data does not include the Semantic Network
+## predicates.
+graph.add((poc['modality'], RDFS.label, Literal("modality")))
+graph.add((poc['modality'], dcterms["description"], Literal("The epistemic modality of an assertion. For now, this can only be 'positive' or 'negative'")))
+
+graph.add((poc['semanticNetworkPredicate'], RDFS.label, Literal("semanticNetworkPredicate")))
+graph.add((poc['semanticNetworkPredicate'], dcterms["description"], Literal("A UMLS Semantic Network predicate tag")))
+
+# 'DISRUPTS',
+graph.add((poc['T146'], RDFS.label, Literal("disrupts")))
+graph.add((poc['T146'], dcterms["description"], Literal("Alters or influences an already existing condition, state, or situation.")))
+
+# 'NEG_DISRUPTS'
+## use  'negative' modality with NEG_DISRUPTS
+
+
+# 'CAUSES',
+graph.add((poc['T147'], RDFS.label, Literal("causes")))
+graph.add((poc['T147'], dcterms["description"], Literal("Brings about a condition or an effect. Implied here is that an agent, such as for example, a pharmacologic substance or an organism, has brought about the effect. This includes induces, effects, evokes, and etiology.||||CA|caused_by.")))
+
+# 'NEG_CAUSES',
+## use  'negative' modality with 'CAUSES'
+
+# 'AFFECTS',
+graph.add((poc['T151'], RDFS.label, Literal("affects")))
+graph.add((poc['T151'], dcterms["description"], Literal("Produces a direct effect on. Implied here is the altering or influencing of an existing condition, state, situation, or entity. This includes has a role in, alters, influences, predisposes, catalyzes, stimulates, regulates, depresses, impedes, enhances, contributes to, leads to, and modifies.")))
+
+# 'NEG_AFFECTS',
+## use  'negative' modality with AFFECTS
+
+# 'ASSOCIATED_WITH',
+graph.add((poc['T166'], RDFS.label, Literal("associated_with")))
+graph.add((poc['T166'], dcterms["description"], Literal("has a significant or salient relationship to.")))
+
+# 'NEG_ASSOCIATED_WITH',
+## use  'negative' modality with ASSOCIATED_WITH
+
+# 'COMPLICATES',
+graph.add((poc['T149'], RDFS.label, Literal("complicates")))
+graph.add((poc['T149'], dcterms["description"], Literal("Causes to become more severe or complex or results in adverse effects")))
+
+# 'NEG_COMPLICATES',
+## use  'negative' modality with NEG_COMPLICATES
+
+
+
 ################################################################################
 
 # Load the results of querying for selected predicates from Kilicoglu et al. to SemMedDB
@@ -231,19 +278,7 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-## TODO: implement a predicate in the body of each graph for the SemMed predicate
-# 'CAUSES',
-# 'NEG_CAUSES',
-# 'AFFECTS',
-# 'NEG_AFFECTS',
-# 'ASSOCIATED_WITH',
-# 'NEG_ASSOCIATED_WITH',
-# 'COMPLICATES',
-# 'NEG_COMPLICATES',
-# 'DISRUPTS',
-# 'NEG_DISRUPTS'
-
-for elt in recL[0:20]:  
+for elt in recL[0:50]:  
     ## Only process papers of specific publication types
     # TODO: use the MeSH UIs to generate purls for the pub types
     # TODO: add more publication types
@@ -378,6 +413,38 @@ for elt in recL[0:20]:
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["OHDSIUMLSTags"])) # TODO: this is not yet formalized in a public ontology but should be
     tplL.append((poc[currentAnnotationBody], RDF.type, oa["SemanticTag"])) 
     tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI body from MEDLINE PMID %s using UMLS drug %s (%s) and UMLS HOI %s (%s)" % (elt[PMID], elt[DRUG_UMLS_CUI], elt[DRUG_PREFERRED_TERM], elt[HOI_UMLS_CUI], elt[HOI_PREFERRED_TERM]))))
+
+    if elt[PREDICATE] == 'DISRUPTS':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("positive")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T146"]))
+    elif elt[PREDICATE] == 'NEG_DISRUPTS':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("negative")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T146"]))
+    elif elt[PREDICATE] == 'CAUSES':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("positive")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T147"]))
+    elif elt[PREDICATE] == 'NEG_CAUSES':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("negative")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T147"]))
+    elif elt[PREDICATE] == 'AFFECTS':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("positive")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T151"]))
+    elif elt[PREDICATE] == 'NEG_AFFECTS':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("negative")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T151"]))
+    elif elt[PREDICATE] == 'ASSOCIATED_WITH':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("positive")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T166"]))
+    elif elt[PREDICATE] == 'NEG_ASSOCIATED_WITH':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("negative")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T166"]))
+    elif elt[PREDICATE] == 'COMPLICATES':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("positive")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T149"]))
+    elif elt[PREDICATE] == 'NEG_COMPLICATES':
+        tplL.append((poc[currentAnnotationBody], poc["modality"], Literal("negative")))
+        tplL.append((poc[currentAnnotationBody], poc["semanticNetworkPredicate"], poc["T149"]))
+
 
     ### INCLUDE THE UMLS TAGS FROM THE RECORD AS PREFERRED TERMS AS
     ### WELL AS ANY RXNORM AND SNOMED/MEDDRA MAPPINGS 
