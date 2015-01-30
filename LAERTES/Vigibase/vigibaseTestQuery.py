@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # VigibaseTestQuery.py
 #
-# Test access to Vigibase via a pilot REST API
+# Test access to Vigibase® via a pilot REST API
 # 
 # Author: Richard D. Boyce, PhD
 
