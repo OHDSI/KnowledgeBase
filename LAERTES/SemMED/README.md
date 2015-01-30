@@ -10,21 +10,71 @@ developed for biomedical research. A general methodology is being
 developed for extending its domain, currently to influenza epidemic
 preparedness, health promotion, and health effects of climate change.
 
-The scripts in this folder 1) retrieve STATEMENTS from MEDLINE records
+The scripts in this folder:
+
+1) retrieve STATEMENTS from MEDLINE records
 that might report adverse drug events, or that such events DO NOT
-occur, and 2) store the data for further processing. 
+occur,
+
+2) store the data for further processing
+
+3) convert the data into Open Annotation Data RDF 
 
 The process works as follows:
 
-1. The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase 
+1. The MEDLINE database is loaded into a postgres DBMS using the code
+from https://github.com/OHDSI/MedlineXmlToDatabase
 
 2. The SemMedDB database is loaded into a MySql DBMS following the
 instructions for that resource.
 
-3. The python script selectTriplesPlusSentence.py is used to get our final tab-delimited output:
-[semmedTriplesPlusSentence.tsv](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/semmedTriplesPlusSentence.tsv). This outputs the Drug CUIs, HOI CUIs, their positions in the sentence, the confidence score of the selection, sentence itself, and location of the sentence within the Pubmed source. Please see below for an explanation of the columns output by the script. 
+3. The python script selectTriplesPlusSentence.py is used to get our
+final tab-delimited output:
+[semmedTriplesPlusSentence.tsv](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/semmedTriplesPlusSentence.tsv). This
+outputs the Drug CUIs, HOI CUIs, their positions in the sentence, the
+confidence score of the selection, sentence itself, and location of
+the sentence within the Pubmed source. Please see below for an
+explanation of the columns output by the script.
 
-4. 
+4. semMed2rdf.py is ran over the output file
+semmedTriplesPlusSentence.tsv to produce an Open Annotation Data graph
+drug-hoi-pubmed-semmeddb.nt.
+
+5. The graph is loaded onto a Virtuoso endpoint (see below) and
+queried for drug-HOI counts stratified by positive and negative
+modality evidence support. The script writeLoadableSemMedCounts.py
+generates "tinyurls" for queries against the RDF dataset to support
+the "drill down" use case.
+
+------------------------------------------------------------
+LOADING THE RDF DATA INTO VIRTUOSO:
+------------------------------------------------------------
+```
+-- FIRST TIME ONLY
+$ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<PATH TO drug-hoi-pubmed-semmeddb.nt>', 'http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc/');
+-- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed list of virtuoso.ini 
+-- END OF FIRST TIME ONLY
+
+$ select * from DB.DBA.load_list
+
+------------------------------------------------------------
+ll_file                                                                           ll_graph                                                                          ll_state    ll_started           ll_done              ll_host     ll_work_time  ll_error
+VARCHAR NOT NULL                                                                  VARCHAR                                                                           INTEGER     TIMESTAMP            TIMESTAMP            INTEGER     INTEGER     VARCHAR
+_______________________________________________________________________________
+
+/home/rdb20/OHDSI/KnowledgeBase/LAERTES/SemMED/drug-hoi-pubmed-semmeddb.nt        http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc/                        0           NULL                 NULL                 NULL        NULL        NULL
+------------------------------------------------------------
+
+-- IF LL_STATE = 0 THEN THE DATASET IS READY TO LOAD
+
+$ rdf_loader_run();
+
+-- ELSE, CLEAR THE GRAPH AND THE SET LL_STATE TO 0
+
+$ SPARQL CLEAR GRAPH http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc/ ;
+$ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc/';
+$ rdf_loader_run();
+```
 
 ######Problems:
 - There is a one-to-many mapping between UMLS and SNOMED+MEDDRA so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
