@@ -1,7 +1,7 @@
 -- EXAMPLE QUERIES AGAINST THE RELATIONAL DATABASE FOR LAERTES:
 
 -- A general query showing how to bridge all tables
-SELECT drug_hoi_relationship.drug, drug_hoi_relationship.hoi, drug_HOI_evidence.evidence_type, drug_HOI_evidence.statistic_value, drug_HOI_evidence.statistic_type, drug_HOI_evidence.evidence_linkout, evidence_sources.title, evidence_sources.description
+SELECT drug_hoi_relationship.drug, drug_hoi_relationship.hoi, drug_HOI_evidence.modality positive_modality, drug_HOI_evidence.evidence_type, drug_HOI_evidence.statistic_value, drug_HOI_evidence.statistic_type, drug_HOI_evidence.evidence_linkout, evidence_sources.title, evidence_sources.description
 FROM drug_hoi_relationship, drug_HOI_evidence, evidence_sources
 WHERE drug_hoi_relationship.id = drug_HOI_evidence.drug_hoi_relationship AND
       drug_HOI_evidence.evidence_source_code_id = evidence_sources.id
