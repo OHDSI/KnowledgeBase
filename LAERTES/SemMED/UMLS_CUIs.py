@@ -37,7 +37,7 @@ I will make the code to be as extensible as possible.
 """
 import cPickle as pickle
 
-inp = '/media/Backup/UMLS-Triads-OHDSI-subset-Feb2014/2013AB/META/MRCONSO.RRF'
+inp = '/home/rdb20/UMLS/2014AB/META/MRCONSO.RRF'
 
 class UMLS_CUIs:
     
