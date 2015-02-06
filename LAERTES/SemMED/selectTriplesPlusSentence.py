@@ -201,7 +201,7 @@ Central PMCID: PMC3281188.
                 ;
         """
 
-        srdefdic = makeSemanticDict('SRDEF.txt')
+        srdefdic = makeSemanticDict('UMLS-semantic-network-SRDEF.txt')
         #pprint.pprint(dic, fil)
         
         #fil.write("query:\n" + query + "\n")
@@ -212,7 +212,8 @@ Central PMCID: PMC3281188.
         #TODO change the 'drug max score' to 'drug score'
         tsv.writerow(['pmid', 'predicate', 'predicate start index', 'predicate end index', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH','drug Preferred Term','drug UMLS entity type', 'drug start index', 'drug end index', 'drug distance', 'drug max distance', 'drug max score', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'HOI start index', 'HOI end index', 'HOI distance', 'HOI max distance', 'HOI score', 'sentence','sentence location', 'sentence type'])
         for predicate in cursor:
-            tsv.writerow([predicate[0], predicate[1], predicate[11], predicate[12],predicate[2], umlsCUIs.getRxnormCui(predicate[2]), umlsCUIs.getMeshCui(predicate[2]), predicate[3], srdefdic[predicate[4]], predicate[13], predicate[14], predicate[15], predicate[16], predicate[17], predicate[5], umlsCUIs.getSnomedct_usCui(predicate[5]), umlsCUIs.getMeddraCui(predicate[5]), umlsCUIs.getMeshCui(predicate[5]), predicate[6], srdefdic[predicate[7]], predicate[18], predicate[19], predicate[20], predicate[21], predicate[22], predicate[8], predicate[9], predicate[10]])
+            #print "%s" % [str(x) for x in predicate]
+            tsv.writerow([predicate[0], predicate[1], predicate[11], predicate[12],predicate[2], umlsCUIs.getRxnormCui(predicate[2]), umlsCUIs.getMeshCui(predicate[2]), predicate[3], srdefdic.get(predicate[4]), predicate[13], predicate[14], predicate[15], predicate[16], predicate[17], predicate[5], umlsCUIs.getSnomedct_usCui(predicate[5]), umlsCUIs.getMeddraCui(predicate[5]), umlsCUIs.getMeshCui(predicate[5]), predicate[6], srdefdic.get(predicate[7]), predicate[18], predicate[19], predicate[20], predicate[21], predicate[22], predicate[8], predicate[9], predicate[10]])
         #allObjects.close()
 
 def makeSemanticDict(inp):
@@ -220,7 +221,10 @@ def makeSemanticDict(inp):
     with open(inp, 'r') as fil:
         for line in fil:
             split = line.split('|')
-            dic[split[0].strip()] = split[1].strip()
+            # TODO: this code is tied to a specific format of the
+            # semantic relationships file which can change. Fix that
+            # in the future.
+            dic[split[-3].strip()] = split[2].strip()
     return dic
 
 if __name__ == "__main__":
