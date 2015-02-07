@@ -22,7 +22,7 @@ DATA_FILE = "data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv"
 
 # TERMINOLOGY MAPPING FILES
 RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
-MEDDRA_TO_OMOP = "../terminology-mappings/StandardVocabToMeddra/imeds_conceptids_to_meddra.csv"
+MEDDRA_TO_OMOP = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_to_meddra.csv"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "drug-hoi-eu-spc.nt"

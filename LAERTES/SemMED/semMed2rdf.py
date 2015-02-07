@@ -37,6 +37,9 @@ RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard
 MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2015.xml"
 
+SNOMED_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToSnomed/standard_vocab_conceptids_to_snomed.csv"
+MEDDRA_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_conceptids_to_meddra.csv"
+
 ## Set up the db connection to the MEDLINE DB. This is used to collect
 ## a bit more information on the MEDLINE entries than is provided by
 ## SemMedDB
@@ -103,6 +106,31 @@ for elt in l[1:]: # skip header
 
     (imeds,label,mesh) = [x.strip() for x in elt.split("|")]
     MESH_D_SV[mesh] = imeds
+
+SNOMED_D_SV = {}
+f = open(SNOMED_TO_STANDARD_VOCAB, "r")
+buf = f.read()
+f.close()
+l = buf.split("\n")
+for elt in l[1:]: # skip header
+    if elt.strip() == "":
+        break
+
+    (imeds,snomed) = [x.strip() for x in elt.split("|")]
+    SNOMED_D_SV[snomed] = imeds
+
+
+MEDDRA_D_SV = {}
+f = open(MEDDRA_TO_STANDARD_VOCAB, "r")
+buf = f.read()
+f.close()
+l = buf.split("\n")
+for elt in l[1:]: # skip header
+    if elt.strip() == "":
+        break
+
+    (imeds,meddra) = [x.strip() for x in elt.split("|")]
+    MEDDRA_D_SV[meddra] = imeds
 
 ############################################################
 ## set up an RDF Open Annotation Data  graph
@@ -515,11 +543,19 @@ for elt in recL:
                 snomedUIs = elt[HOI_SNOMED].split("|")
                 for ui in snomedUIs:
                     tplL.append((collectionHead, ohdsi['adeEffect'], snomed[ui]))
+                    if SNOMED_D_SV.has_key(ui):
+                        tplL.append((collectionHead, ohdsi['ImedsHoi'], SNOMED_D_SV[ui]))
+                    else:
+                        print "WARNING: no IMEDS equivalent to the SNOMED HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
 
             if elt[HOI_MEDDRA] != "":
                 meddraUIs = elt[HOI_MEDDRA].split("|")
                 for ui in meddraUIs:
                     tplL.append((collectionHead, ohdsi['adeEffect'], meddra[ui]))
+                    if MEDDRA_D_SV.has_key(ui):
+                        tplL.append((collectionHead, ohdsi['ImedsHoi'], MEDDRA_D_SV[ui]))
+                    else:
+                        print "WARNING: no IMEDS equivalent to the MedDRA HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
     else:
         print "WARNING: No MeSH mapping for the HOI concept so the UMLS UI will be the only one provided in this body. TODO: determine if it would be better to use SNOMED or MedDRA as the required concept (or if some other approach is needed)"
         

@@ -1,0 +1,5 @@
+The concept codes mapped to specific SNOMED ids were taken from the 
+Standard Vocab v5 on 2/7/2015 using the following query:
+
+select concept_id, concept_code from concept where concept.vocabulary_id = 'SNOMED';
+
