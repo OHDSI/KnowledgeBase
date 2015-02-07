@@ -41,7 +41,7 @@ l = buf.split("\n")
 
 f = open(SQL_INSERT_OUTFILE,'w')
 i = 0
-pre = ""
+pre = "INSERT INTO lil_urls VALUES "
 for elt in l:
     if not elt:
         break
