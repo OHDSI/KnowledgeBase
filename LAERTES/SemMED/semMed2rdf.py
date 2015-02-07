@@ -38,7 +38,7 @@ MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-st
 MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2015.xml"
 
 SNOMED_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToSnomed/standard_vocab_conceptids_to_snomed.csv"
-MEDDRA_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_conceptids_to_meddra.csv"
+MEDDRA_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_to_meddra.csv"
 
 ## Set up the db connection to the MEDLINE DB. This is used to collect
 ## a bit more information on the MEDLINE entries than is provided by
@@ -544,7 +544,7 @@ for elt in recL:
                 for ui in snomedUIs:
                     tplL.append((collectionHead, ohdsi['adeEffect'], snomed[ui]))
                     if SNOMED_D_SV.has_key(ui):
-                        tplL.append((collectionHead, ohdsi['ImedsHoi'], SNOMED_D_SV[ui]))
+                        tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[SNOMED_D_SV[ui]]))
                     else:
                         print "WARNING: no IMEDS equivalent to the SNOMED HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
 
@@ -553,7 +553,7 @@ for elt in recL:
                 for ui in meddraUIs:
                     tplL.append((collectionHead, ohdsi['adeEffect'], meddra[ui]))
                     if MEDDRA_D_SV.has_key(ui):
-                        tplL.append((collectionHead, ohdsi['ImedsHoi'], MEDDRA_D_SV[ui]))
+                        tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[MEDDRA_D_SV[ui]]))
                     else:
                         print "WARNING: no IMEDS equivalent to the MedDRA HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
     else:
