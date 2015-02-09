@@ -75,7 +75,14 @@ for src in srcL[1:]: # skip header
         if len(tpl) == 1:
             break
 
-        if src[HOI_VOCAB_ID] == "SNOMED":
+        if src[HOI_VOCAB_ID] == "Standard_Vocab":
+            drugHoiDataOutF.write("\t".join([str(cntr)] + tpl) + "\n")
+            cntr += 1
+            if not dhKeyD.has_key(tpl[KEY]):
+                (drug,hoi) = tpl[KEY].split("-")
+                dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':hoi, 'hoi_label':None}
+                print "DRUG_RELATIONSHIP: %s|%s||%s|" % (tpl[KEY],drug,hoi) # something we can grep that we can load the partial drug relationship and evidence data if the script crashes         
+        elif src[HOI_VOCAB_ID] == "SNOMED":
             drugHoiDataOutF.write("\t".join([str(cntr)] + tpl) + "\n")
             cntr += 1
             if not dhKeyD.has_key(tpl[KEY]):

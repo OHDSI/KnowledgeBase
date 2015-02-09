@@ -48,9 +48,11 @@ for elt in l:
 
     i += 1
     (cnt,drug,hoi,modality,pubType) = [x.strip() for x in elt.split("\t")]
+    drug = drug.replace("http://purl.org/net/ohdsi#","")
+    hoi = hoi.replace("http://purl.org/net/ohdsi#","")
     escapedPubType = "%22" + pubType.replace("(","%28").replace(")","%29") + "%22"
 
-    q = TEMPLATE.replace("@SV_DRUG@",drug.replace("http://purl.org/net/ohdsi#","")).replace("@SV_HOI@",hoi.replace("http://purl.org/net/ohdsi#","")).replace("@STUDY_TYPE@",escapedPubType)
+    q = TEMPLATE.replace("@SV_DRUG@",drug).replace("@SV_HOI@",hoi).replace("@STUDY_TYPE@",escapedPubType)
     url_id = URL_ID_PREFIX + str(i)
     if i > 1:
         pre = ",\n"
@@ -58,12 +60,12 @@ for elt in l:
     turl = URL_PREFIX + url_id
 
     key = "%s-%s" % (drug,hoi)
-    if pubType == 'clinical trial (publication type)':
-        print "\t".join([key,EVTYPE + "_ClinTrial",modality,"7",str(cnt),turl,"COUNT"])
-    elif pubType == 'case reports (publication type)':
-        print "\t".join([key,EVTYPE + "_CR",modality,"6",str(cnt),turl,"COUNT"])
+    if pubType == 'case reports (publication type)':
+        print "\t".join([key,EVTYPE + "_CR",modality,"9",str(cnt),turl,"COUNT"])
+    elif pubType == 'clinical trial (publication type)':
+        print "\t".join([key,EVTYPE + "_ClinTrial",modality,"10",str(cnt),turl,"COUNT"])
     elif pubType == 'other (publication type)':
-        print "\t".join([key,EVTYPE + "_Other",modality,"8",str(cnt),turl,"COUNT"])
+        print "\t".join([key,EVTYPE + "_Other",modality,"11",str(cnt),turl,"COUNT"])
     else:
         print "Not continuing because there is a record with un-recognized publication type: %s" % pubType
         sys.exit(1)
