@@ -290,7 +290,7 @@ for elt in it:
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
                         
-    tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], meddra[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
+    tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[elt["CONDITION_CONCEPT_ID"]])) # TODO: consider adding the values as a collection
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
