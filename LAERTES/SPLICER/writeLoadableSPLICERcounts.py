@@ -4,6 +4,10 @@
 import urllib2, urllib, re, sys
 
 DATAFILE = "test-query-of-counts-01142015.csv" # NOTE: this data comes from CSV export of the following query
+EVTYPE = "SPL_SPLICER"
+URL_ID_PREFIX = "splicer-"
+URL_PREFIX = "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id="
+SQL_INSERT_OUTFILE = "insertShortURLs-ALL.txt"
 
 ## count data retrieved from the Virtuoso SPARQL endpoint using the
 ## following  query. 
@@ -37,18 +41,12 @@ DATAFILE = "test-query-of-counts-01142015.csv" # NOTE: this data comes from CSV 
 #    oa:hasTarget ?target.
 
 #  ?body ohdsi:ImedsDrug ?drug.
-#  ?body ohdsi:MeddrraHoi ?hoi. 
+#  ?body ohdsi:ImedsHoi ?hoi. 
 
 # }
 
-EVTYPE = "SPL_SPLICER"
-URL_ID_PREFIX = "splicer-"
-URL_PREFIX = "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id="
-SQL_INSERT_OUTFILE = "insertShortURLs-ALL.txt"
-
-
 # replace the @IMEDS_DRUG@ and @IMEDS_HOI@ strings with the appropriate values
-TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&query=%23+drill+down+query+for+a+drug+and+HOI+in+the+SPLICER+ADRAnnotation+graph+joined+with+LinkedSPLs%0D%0APREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+linkedspls_vocabulary%3A+%3Chttp%3A%2F%2Fbio2rdf.org%2Flinkedspls_vocabulary%3A%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-adr-splicer-poc%3E+{%0D%0A++%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+++%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+++%3Fbody+ohdsi%3AMeddrraHoi+meddra%3A@IMEDS_HOI@.%0D%0A%0D%0A+++%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+++%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+++%3Fselector+linkedspls_vocabulary%3AsplSection+%3Fsection.%0D%0A++}%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fspl-core%3E+{%0D%0A++%3Fspl+a+ncbit%3ALabel%3B%0D%0A+++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A+++%3Fsection+%3Ftext.%0D%0A+}%0D%0A}%0D%0A&format=text%2Fhtml&timeout=0&debug=on"
+TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&query=%23+drill+down+query+for+a+drug+and+HOI+in+the+SPLICER+ADRAnnotation+graph+joined+with+LinkedSPLs%0D%0APREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+linkedspls_vocabulary%3A+%3Chttp%3A%2F%2Fbio2rdf.org%2Flinkedspls_vocabulary%3A%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-adr-splicer-poc%3E+{%0D%0A++%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+++%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+++%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A%0D%0A+++%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+++%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+++%3Fselector+linkedspls_vocabulary%3AsplSection+%3Fsection.%0D%0A++}%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fspl-core%3E+{%0D%0A++%3Fspl+a+ncbit%3ALabel%3B%0D%0A+++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A+++%3Fsection+%3Ftext.%0D%0A+}%0D%0A}%0D%0A&format=text%2Fhtml&timeout=0&debug=on"
 
 f = open(DATAFILE)
 buf = f.read()

@@ -32,7 +32,7 @@ NOTE: The output of writeLoadablePubMedMeSHCounts.py includes data that
       max_allowed_packet=999M
 
 ### To split the INSERT query into files that can be loaded in mysql
-$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs-ALL.txt
+$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs
 
 # this creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
 # These each need an SQL INSERT clause as the first line and a semi-colon at the end
