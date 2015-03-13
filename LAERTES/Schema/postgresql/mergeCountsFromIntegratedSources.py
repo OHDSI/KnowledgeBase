@@ -7,6 +7,7 @@
 ## Author: Richard D Boyce, PhD
 ## 2014/2015
 
+import sys
 import psycopg2 # for postgres 
 
 DB_CONNECTION_INFO="db-connection.conf"
@@ -59,7 +60,8 @@ for src in srcL[1:]: # skip header
         f.close()
     except Exception as e:
         print "ERROR: unable to open data file for source %s located at %s. Error string: %s" % (src[SOURCE],src[PATH_TO_DATA],e)
-
+        sys.exit(1)
+        
     # TODO: write validation checks for the data files to be loaded (e.g., col number, types, etc)
     #for elt in dhL[0:1000]:
     for elt in dhL:    
