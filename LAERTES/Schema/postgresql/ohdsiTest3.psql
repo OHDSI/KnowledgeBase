@@ -40,6 +40,7 @@ DROP MATERIALIZED VIEW IF EXISTS drug_HOI_evidence_view;
 DROP TABLE IF EXISTS drug_HOI_evidence; -- TODO: change the evidence_types to hold literature, product label, pharmacovigilance, EHR. Right now it just repeats the 'title' in the evidence_sources table
 DROP TABLE IF EXISTS drug_HOI_relationship;
 DROP TABLE IF EXISTS evidence_sources;
+DROP TABLE IF EXISTS LAERTES_SUMMARY;
 
 CREATE TABLE evidence_sources (
     id serial,
@@ -61,8 +62,6 @@ CREATE TABLE drug_HOI_relationship (
     SNOMED_HOI text
 );
 
-
-
 CREATE TABLE drug_HOI_evidence (
     id serial PRIMARY KEY,
     drug_HOI_relationship text,
@@ -74,6 +73,29 @@ CREATE TABLE drug_HOI_evidence (
     statistic_type text,
     FOREIGN KEY (drug_HOI_relationship) REFERENCES drug_HOI_relationship (id),
     FOREIGN KEY(evidence_source_code_id) REFERENCES evidence_sources(id)
+);
+
+CREATE TABLE LAERTES_SUMMARY (
+	REPORT_ORDER			INTEGER,
+	REPORT_NAME				TEXT,
+	INGREDIENT_ID			INTEGER,
+	INGREDIENT				TEXT,
+	CLINICAL_DRUG_ID		INTEGER,
+	CLINICAL_DRUG			TEXT,
+	HOI_ID					INTEGER,
+	HOI						TEXT,
+	CT_COUNT				NUMERIC,
+	CASE_COUNT				NUMERIC,
+	OTHER_COUNT				NUMERIC,
+	SPLICER_COUNT			NUMERIC,
+	EU_SPLICER_COUNT		NUMERIC,
+	SEMMEDDB_CT_COUNT		NUMERIC,
+	SEMMEDDB_CASE_COUNT		NUMERIC,
+	SEMMEDDB_NEG_CT_COUNT	NUMERIC,
+	SEMMEDDB_NEG_CASE_COUNT	NUMERIC,
+	EB05					NUMERIC,
+	EBGM					NUMERIC,
+	AERS_REPORT_COUNT		NUMERIC
 );
 
 INSERT INTO evidence_sources 
@@ -142,6 +164,12 @@ GRANT ALL ON TABLE drug_HOI_relationship TO ohdsi;
 GRANT ALL ON TABLE drug_HOI_relationship TO administrator;
 GRANT ALL ON TABLE drug_HOI_relationship TO developer;
 
+ALTER TABLE LAERTES_SUMMARY 
+  OWNER TO rich;
+GRANT ALL ON TABLE drug_HOI_relationship TO public;
+GRANT ALL ON TABLE drug_HOI_relationship TO ohdsi;
+GRANT ALL ON TABLE drug_HOI_relationship TO administrator;
+GRANT ALL ON TABLE drug_HOI_relationship TO developer;
 
 COMMIT;
 
@@ -280,12 +308,7 @@ GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO public;
 GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO ohdsi;
 GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO developer;
 
-
 COMMIT;
-
-
-
-
 
 -- DEPRECATED COMPONENT OF THE PIVOT TABLE drug_HOI_evidence_view
 	-- NATURAL JOIN 
@@ -340,3 +363,158 @@ COMMIT;
 	-- 		)
 	-- 	) as statistic_type 
 
+	
+--LAERTES SUMMARY QUERY
+WITH CTE_TRANSLATE AS (
+	SELECT v.*,
+		c.CONCEPT_ID AS INGREDIENT_ID, 
+		c.CONCEPT_NAME AS INGREDIENT_NAME,
+		CASE WHEN c.CONCEPT_ID IS NULL THEN 0 ELSE 1 END INGREDIENT_EXISTS,
+		c2.CONCEPT_ID AS CLINICAL_DRUG_ID, 
+		c2.CONCEPT_NAME AS CLINICAL_DRUG_NAME,
+		CASE WHEN c2.CONCEPT_ID IS NULL THEN 0 ELSE 1 END CLINICAL_DRUG_EXISTS 
+	FROM drug_hoi_evidence_view V
+		/*ROLL DOWN TO INGREDIENTS*/
+		LEFT OUTER JOIN CONCEPT_ANCESTOR ca
+			ON ca.DESCENDANT_CONCEPT_ID = v.DRUG
+			AND ca.ANCESTOR_CONCEPT_ID IN (
+				SELECT DISTINCT CONCEPT_ID
+				FROM CONCEPT
+				WHERE VOCABULARY_ID = 'RxNorm'
+				AND CONCEPT_CLASS_ID = 'Ingredient'
+				AND INVALID_REASON IS NULL
+			)
+		LEFT OUTER JOIN CONCEPT c
+			ON c.CONCEPT_ID = ca.ANCESTOR_CONCEPT_ID
+		/*ROLL UP TO CLINICAL DRUG*/
+		LEFT OUTER JOIN CONCEPT_ANCESTOR ca2
+			ON ca2.DESCENDANT_CONCEPT_ID = v.DRUG
+			AND ca2.ANCESTOR_CONCEPT_ID IN (
+				SELECT DISTINCT CONCEPT_ID
+				FROM CONCEPT
+				WHERE VOCABULARY_ID = 'RxNorm'
+				AND CONCEPT_CLASS_ID = 'Clinical Drug'
+				AND INVALID_REASON IS NULL
+			)
+		LEFT OUTER JOIN CONCEPT c2
+			ON c2.CONCEPT_ID = ca2.ANCESTOR_CONCEPT_ID
+), 
+CTE_REPORT_1 AS (
+	SELECT 1 AS REPORT_ORDER, 
+		CAST('Stratified by ingredient' AS TEXT) as report_name,
+		INGREDIENT_ID AS INGREDIENT_ID, 
+		INGREDIENT_NAME AS INGREDIENT, 
+		cast(null as integer) as clinical_drug_id, 
+		cast(null as varchar(1)) as clinical_drug, 
+		cast(null as integer) as hoi_id, 
+		cast(null as varchar(1)) as hoi, 
+		sum(medline_mesh_clin_trial_count) as ct_count, -- Ingredient-based
+		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
+		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
+		sum(spl_splicer_count) as splicer_count, -- Drug-based
+		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
+		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
+		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
+		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
+		avg(aers_eb05) as eb05, -- Ingredient-based
+		avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count-- Ingredient-based
+	FROM CTE_TRANSLATE
+	WHERE INGREDIENT_EXISTS = 1
+	GROUP BY INGREDIENT_ID, INGREDIENT_NAME
+), 
+CTE_REPORT_2 AS (
+	SELECT 2 AS REPORT_ORDER, 
+		CAST('Stratified by ingredient and HOI' AS text) as report_name,
+		INGREDIENT_ID AS INGREDIENT_ID, 
+		INGREDIENT_NAME AS INGREDIENT, 
+		cast(null as integer) as clinical_drug_id, 
+		cast(null as varchar(1)) as clinical_drug, 
+		HOI as hoi_id, 
+		SNOMED_HOI as hoi, 
+		sum(medline_mesh_clin_trial_count) as ct_count, -- Ingredient-based
+		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
+		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
+		sum(spl_splicer_count) as splicer_count, -- Drug-based
+		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
+		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
+		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
+		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
+		avg(aers_eb05) as eb05, -- Ingredient-based
+		avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count-- Ingredient-based
+	FROM CTE_TRANSLATE
+	WHERE INGREDIENT_EXISTS = 1
+	GROUP BY INGREDIENT_ID, INGREDIENT_NAME, HOI, SNOMED_HOI 
+), 
+CTE_REPORT_3 AS (
+	SELECT 3 AS REPORT_ORDER, 
+		CAST('Stratified by ingredient and clinical drug' AS text) as report_name,
+		INGREDIENT_ID AS INGREDIENT_ID, 
+		INGREDIENT_NAME AS INGREDIENT, 
+		CLINICAL_DRUG_ID as clinical_drug_id, 
+		CLINICAL_DRUG_NAME as clinical_drug, 
+		cast(null as integer) as hoi_id, 
+		cast(null as varchar(1)) as hoi, 
+		sum(medline_mesh_clin_trial_count) as ct_count, -- Ingredient-based
+		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
+		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
+		sum(spl_splicer_count) as splicer_count, -- Drug-based
+		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
+		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
+		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
+		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
+		avg(aers_eb05) as eb05, -- Ingredient-based
+		avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count-- Ingredient-based
+	FROM CTE_TRANSLATE
+	WHERE CLINICAL_DRUG_EXISTS = 1
+	GROUP BY INGREDIENT_ID, INGREDIENT_NAME, CLINICAL_DRUG_ID, CLINICAL_DRUG_NAME
+),
+CTE_REPORT_4 AS (
+	SELECT 4 AS REPORT_ORDER, 
+		CAST('Full detail: ingredient, clinical drug, HOI' AS text) as report_name,
+		INGREDIENT_ID AS INGREDIENT_ID, 
+		INGREDIENT_NAME AS INGREDIENT, 
+		CLINICAL_DRUG_ID as clinical_drug_id, 
+		CLINICAL_DRUG_NAME as clinical_drug, 
+		HOI as hoi_id, 
+		SNOMED_HOI as hoi, 
+		sum(medline_mesh_clin_trial_count) as ct_count, -- Ingredient-based
+		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
+		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
+		sum(spl_splicer_count) as splicer_count, -- Drug-based
+		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
+		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
+		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
+		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
+		avg(aers_eb05) as eb05, -- Ingredient-based
+		avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count-- Ingredient-based
+	FROM CTE_TRANSLATE
+	GROUP BY INGREDIENT_ID, INGREDIENT_NAME, CLINICAL_DRUG_ID, CLINICAL_DRUG_NAME, HOI, SNOMED_HOI 
+)
+INSERT INTO LAERTES_SUMMARY (REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, 
+	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPLICER_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
+	SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT)
+SELECT REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, 
+	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPLICER_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
+	SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT
+FROM (
+	SELECT *
+	FROM CTE_REPORT_1
+	UNION
+	SELECT *
+	FROM CTE_REPORT_2
+	UNION
+	SELECT *
+	FROM CTE_REPORT_3
+	UNION
+	SELECT *
+	FROM CTE_REPORT_4
+) z
+ORDER BY INGREDIENT_ID, REPORT_ORDER, CLINICAL_DRUG_ID, HOI_ID
