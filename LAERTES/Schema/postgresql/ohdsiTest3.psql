@@ -31,13 +31,13 @@
 
 -- Converted by db_converter
 
-\echo `Setting up transaction`
+\echo 'Setting up transaction'
 START TRANSACTION;
 SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
 
-\echo `Dropping tables and views`
+\echo 'Dropping tables and views'
 DROP MATERIALIZED VIEW IF EXISTS drug_HOI_evidence_view; 
 --REFRESH MATERIALIZED VIEW drug_HOI_evidence_view  WITH NO DATA; 
 DROP TABLE IF EXISTS drug_HOI_evidence; -- TODO: change the evidence_types to hold literature, product label, pharmacovigilance, EHR. Right now it just repeats the 'title' in the evidence_sources table
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS drug_HOI_relationship;
 DROP TABLE IF EXISTS evidence_sources;
 DROP TABLE IF EXISTS LAERTES_SUMMARY;
 
-\echo `Creating tables`
+\echo 'Creating tables'
 CREATE TABLE evidence_sources (
     id serial,
     title text ,
@@ -79,6 +79,7 @@ CREATE TABLE drug_HOI_evidence (
     FOREIGN KEY(evidence_source_code_id) REFERENCES evidence_sources(id)
 );
 
+-- TODO: add a primary key!
 CREATE TABLE LAERTES_SUMMARY (
 	REPORT_ORDER			INTEGER,
 	REPORT_NAME				TEXT,
@@ -102,7 +103,7 @@ CREATE TABLE LAERTES_SUMMARY (
 	AERS_REPORT_COUNT		NUMERIC
 );
 
-\echo `Inserting evidence_sources data from inline data`
+\echo 'Inserting evidence_sources data from inline data'
 INSERT INTO evidence_sources 
 VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','',''),
        (2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2014-06-16','',''),
@@ -118,10 +119,10 @@ VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labe
 
 COMMIT;
 
-\echo `Starting transaction`
+\echo 'Starting transaction'
 START TRANSACTION;
 
-\echo `Setting comments on table columns`
+\echo 'Setting comments on table columns'
 COMMENT ON COLUMN evidence_sources.title IS 'a short name for the evidence source. Same as http://purl.org/dc/elements/1.1/title';
 COMMENT ON COLUMN evidence_sources.description IS 'Description of the evidence source. Same as http://purl.org/dc/elements/1.1/description';
 COMMENT ON COLUMN evidence_sources.contributer IS 'Same as http://purl.org/dc/elements/1.1/contributor';
@@ -144,7 +145,7 @@ COMMENT ON COLUMN drug_HOI_evidence.statistic_value IS 'For literature-like (e.g
 COMMENT ON COLUMN drug_HOI_evidence.evidence_linkout IS 'For literature-like (e.g., PubMed abstracts, product labeling), this holds a URL that will resolve to a query against the RDF endpoint for all resources used to generate the evidence_count. For signal detection sources, this holds a link to metadata on the algorithm and how it was applied to arrive at the statistical value.';
 COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)';
 
-\echo `Altering table permissions `
+\echo 'Altering table permissions '
 ALTER TABLE drug_HOI_evidence
   OWNER TO rich;
 GRANT ALL ON TABLE drug_HOI_evidence TO public;
@@ -177,15 +178,15 @@ GRANT ALL ON TABLE drug_HOI_relationship TO developer;
 
 COMMIT;
 
-\echo `Starting transaction`
+\echo 'Starting transaction'
 START TRANSACTION;
-\echo `Loading data into drug_HOI_relationship from file `
+\echo 'Loading data into drug_HOI_relationship from file '
 \copy drug_HOI_relationship from 'uniq_drug_hoi_relationships.csv' DELIMITER '|' CSV;
 COMMIT;
 
-\echo `Starting transaction`
+\echo 'Starting transaction'
 START TRANSACTION;
-\echo `Loading data into drug_HOI_evidence from file `
+\echo 'Loading data into drug_HOI_evidence from file '
 \copy drug_HOI_evidence from 'drug-hoi-evidence-data.tsv' DELIMITER '\t' CSV;
 COMMIT;
 
@@ -193,10 +194,10 @@ COMMIT;
 -- creates a view representing a pivot table of the
 -- drug_hoi_relationship table. This table is intended to be useful
 -- for users of the Standard Vocabulary
-\echo `Starting transaction`
+\echo 'Starting transaction'
 START TRANSACTION;
 
-\echo `Creating drug_HOI_evidence_view as a materialized view`
+\echo 'Creating drug_HOI_evidence_view as a materialized view'
 CREATE MATERIALIZED VIEW drug_HOI_evidence_view AS
 SELECT * 
 FROM 
@@ -311,9 +312,9 @@ FROM
     ) as neg_modality_links;
 COMMIT;
 
-\echo `Starting transaction`
+\echo 'Starting transaction'
 START TRANSACTION;
-\echo `Altering privileges on drug_HOI_evidence_view`
+\echo 'Altering privileges on drug_HOI_evidence_view'
 GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO administrator;
 GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO public;
 GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO ohdsi;
@@ -322,9 +323,9 @@ COMMIT;
 
 
 --LAERTES SUMMARY QUERY
-\echo `Starting transaction`
+\echo 'Starting transaction'
 START TRANSACTION;
-\echo `Inserting data into the drug rollup table LAERTES_SUMMARY`
+\echo 'Inserting data into the drug rollup table LAERTES_SUMMARY'
 WITH CTE_TRANSLATE AS (
 	SELECT v.*,
 		c.CONCEPT_ID AS INGREDIENT_ID, 
@@ -476,8 +477,8 @@ FROM (
 	UNION
 	SELECT *
 	FROM CTE_REPORT_4
-) 
-ORDER BY INGREDIENT_ID, REPORT_ORDER, CLINICAL_DRUG_ID, HOI_ID
+) all_reports
+ORDER BY INGREDIENT_ID, REPORT_ORDER, CLINICAL_DRUG_ID, HOI_ID;
 
 COMMIT;
 
