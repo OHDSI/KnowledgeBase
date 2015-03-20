@@ -87,7 +87,7 @@ CREATE TABLE LU_HOI_DEF (
 	DESCRIPTION			TEXT,
 	CONCEPT_ID			INTEGER,
 	DEFINITION_NAME			TEXT
-)
+);
 
 CREATE TABLE LU_DRUG_HOI_DEF (
 	ID serial			PRIMARY KEY,
@@ -96,7 +96,7 @@ CREATE TABLE LU_DRUG_HOI_DEF (
 	DRUG_CONCEPT_ID		INTEGER,
 	DRUG_CONCEPT_NAME	TEXT,
 	GROUND_TRUTH		INTEGER
-)
+);
 
 CREATE TABLE LAERTES_SUMMARY (
 	id serial 				PRIMARY KEY,
@@ -112,7 +112,7 @@ CREATE TABLE LAERTES_SUMMARY (
 	CASE_COUNT				NUMERIC,
 	OTHER_COUNT				NUMERIC,
 	SPLICER_COUNT			NUMERIC,
-	EU_SPLICER_COUNT		NUMERIC,
+	EU_SPC_COUNT		NUMERIC,
 	SEMMEDDB_CT_COUNT		NUMERIC,
 	SEMMEDDB_CASE_COUNT		NUMERIC,
 	SEMMEDDB_NEG_CT_COUNT	NUMERIC,
@@ -195,6 +195,20 @@ GRANT ALL ON TABLE LAERTES_SUMMARY  TO ohdsi;
 GRANT ALL ON TABLE LAERTES_SUMMARY  TO administrator;
 GRANT ALL ON TABLE LAERTES_SUMMARY  TO developer;
 
+ALTER TABLE LU_HOI_DEF 
+  OWNER TO rich;
+GRANT ALL ON TABLE LU_HOI_DEF  TO public;
+GRANT ALL ON TABLE LU_HOI_DEF  TO ohdsi;
+GRANT ALL ON TABLE LU_HOI_DEF  TO administrator;
+GRANT ALL ON TABLE LU_HOI_DEF  TO developer;
+
+ALTER TABLE LU_DRUG_HOI_DEF 
+  OWNER TO rich;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO public;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO ohdsi;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO administrator;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO developer;
+
 COMMIT;
 
 \echo 'Starting transaction'
@@ -218,7 +232,7 @@ COMMIT;
 \echo 'Starting transaction'
 START TRANSACTION;
 \echo 'Loading data into lookup file that defines HOIs '
-\copy LU_HOI_DEF from 'LU_DRUG_HOI.csv' DELIMITER ',' CSV HEADER;
+\copy LU_HOI_DEF from 'LU_HOI_DEF.csv' DELIMITER ',' CSV HEADER;
 COMMIT;
 
 -- creates a view representing a pivot table of the
@@ -403,7 +417,7 @@ CTE_REPORT_1 AS (
 		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
 		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
 		sum(spl_splicer_count) as splicer_count, -- Drug-based
-		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(spl_eu_spc_count) AS eu_spc_count,
 		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
@@ -428,7 +442,7 @@ CTE_REPORT_2 AS (
 		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
 		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
 		sum(spl_splicer_count) as splicer_count, -- Drug-based
-		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(spl_eu_spc_count) AS eu_spc_count,
 		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
@@ -453,7 +467,7 @@ CTE_REPORT_3 AS (
 		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
 		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
 		sum(spl_splicer_count) as splicer_count, -- Drug-based
-		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(spl_eu_spc_count) AS eu_spc_count,
 		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
@@ -478,7 +492,7 @@ CTE_REPORT_4 AS (
 		sum(medline_mesh_case_report_count) as case_count, -- Ingredient-based
 		sum(medline_mesh_other_count) as other_count, -- Ingredient-based
 		sum(spl_splicer_count) as splicer_count, -- Drug-based
-		sum(spl_eu_spc_count) AS EU_splicer_count,
+		sum(spl_eu_spc_count) AS eu_spc_count,
 		sum(medline_semmed_clin_trial_count) AS SemMedDB_CT_COUNT,
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
@@ -490,10 +504,10 @@ CTE_REPORT_4 AS (
 	GROUP BY INGREDIENT_ID, INGREDIENT_NAME, CLINICAL_DRUG_ID, CLINICAL_DRUG_NAME, HOI, SNOMED_HOI 
 )
 INSERT INTO LAERTES_SUMMARY (REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, 
-	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPLICER_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
+	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
 	SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT)
 SELECT REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, 
-	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPLICER_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
+	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
 	SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT
 FROM (
 	SELECT *
