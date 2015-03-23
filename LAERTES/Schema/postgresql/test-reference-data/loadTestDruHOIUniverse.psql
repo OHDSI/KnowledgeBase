@@ -1,0 +1,66 @@
+--------------------------------------------------------------------
+-- Load script for the OMOP drug-HOI reference standard used for various 
+-- tests and experiments
+--
+--
+-- Authors: Richard D Boyce, Erica Voss
+-- 2014/2015
+--
+-- 3) ssh to the OHDSI dev server, change to the /mnt/vol1/inbound folder
+--    and run:
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 < loadTestDruHOIUniverse.psql
+
+
+\echo 'Setting up transaction'
+START TRANSACTION;
+DROP TABLE IF EXISTS LU_DRUG_HOI_DEF;
+DROP TABLE IF EXISTS LU_HOI_DEF;
+
+CREATE TABLE LU_HOI_DEF (
+	ID serial			PRIMARY KEY,
+	HOI_CONCEPT_ID			INTEGER,
+	HOI_CONCEPT_NAME		TEXT,
+	SNOMED_CODE			INTEGER,
+	DESCRIPTION			TEXT,
+	CONCEPT_ID			INTEGER,
+	DEFINITION_NAME			TEXT
+);
+
+CREATE TABLE LU_DRUG_HOI_DEF (
+	ID serial			PRIMARY KEY,
+	HOI_CONCEPT_ID		INTEGER,
+	HOI_CONCEPT_NAME	TEXT,
+	DRUG_CONCEPT_ID		INTEGER,
+	DRUG_CONCEPT_NAME	TEXT,
+	GROUND_TRUTH		INTEGER
+);
+
+ALTER TABLE LU_HOI_DEF 
+  OWNER TO rich;
+GRANT ALL ON TABLE LU_HOI_DEF  TO public;
+GRANT ALL ON TABLE LU_HOI_DEF  TO ohdsi;
+GRANT ALL ON TABLE LU_HOI_DEF  TO administrator;
+GRANT ALL ON TABLE LU_HOI_DEF  TO developer;
+
+ALTER TABLE LU_DRUG_HOI_DEF 
+  OWNER TO rich;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO public;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO ohdsi;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO administrator;
+GRANT ALL ON TABLE LU_DRUG_HOI_DEF  TO developer;
+
+COMMIT;
+
+
+\echo 'Starting transaction'
+START TRANSACTION;
+\echo 'Loading data into lookup file that defines drugs and HOIs '
+\copy LU_DRUG_HOI_DEF (HOI_CONCEPT_ID,HOI_CONCEPT_NAME,DRUG_CONCEPT_ID,DRUG_CONCEPT_NAME,GROUND_TRUTH) from 'LU_DRUG_HOI_DEF.csv' DELIMITER ',' CSV HEADER;
+COMMIT;
+
+\echo 'Starting transaction'
+START TRANSACTION;
+\echo 'Loading data into lookup file that defines HOIs '
+\copy LU_HOI_DEF (HOI_CONCEPT_ID,HOI_CONCEPT_NAME,SNOMED_CODE,DESCRIPTION,CONCEPT_ID,DEFINITION_NAME) from 'LU_HOI_DEF.csv' DELIMITER ',' CSV HEADER;
+COMMIT;
+
