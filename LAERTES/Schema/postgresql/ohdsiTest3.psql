@@ -145,6 +145,28 @@ COMMENT ON COLUMN drug_HOI_evidence.statistic_value IS 'For literature-like (e.g
 COMMENT ON COLUMN drug_HOI_evidence.evidence_linkout IS 'For literature-like (e.g., PubMed abstracts, product labeling), this holds a URL that will resolve to a query against the RDF endpoint for all resources used to generate the evidence_count. For signal detection sources, this holds a link to metadata on the algorithm and how it was applied to arrive at the statistical value.';
 COMMENT ON COLUMN drug_HOI_evidence.statistic_type IS 'For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)';
 
+COMMENT ON COLUMN LAERTES_SUMMARY.ID IS 'primary key';
+COMMENT ON COLUMN LAERTES_SUMMARY.REPORT_ORDER IS 'there are several reports in this summary, this is an identifier for each report';
+COMMENT ON COLUMN LAERTES_SUMMARY.REPORT_NAME IS 'there are several reports in this summary, this is a name of the report';
+COMMENT ON COLUMN LAERTES_SUMMARY.INGREDIENT_ID IS 'a drug ingredient CONCEPT_ID';
+COMMENT ON COLUMN LAERTES_SUMMARY.INGREDIENT IS 'a drug ingredient name';
+COMMENT ON COLUMN LAERTES_SUMMARY.CLINICAL_DRUG_ID IS 'if a clinical drug exists, the clinical drug CONCEPT_ID';
+COMMENT ON COLUMN LAERTES_SUMMARY.CLINCIAL_DRUG IS 'if a clinical drug exists, the clinical drug name';
+COMMENT ON COLUMN LAERTES_SUMMARY.HOI_ID IS 'the HOI CONCEPT_ID, this is at the SNOMED level';
+COMMENT ON COLUMN LAERTES_SUMMARY.HOI IS 'the HOI name, this is at the SNOMED level';
+COMMENT ON COLUMN LAERTES_SUMMARY.CT_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.CASE_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.OTHER_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.SPLICER_COUNT IS 'counts of SPLs that mention specific drugs and hois';
+COMMENT ON COLUMN LAERTES_SUMMARY.EU_SPC_COUNT IS 'counts of SPCs that mention specific drugs and hois';
+COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_CT_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_CASE_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_NEG_CT_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_NEG_CASE_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.EB05 IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.EBGM IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.AERS_REPORT_COUNT IS '';
+
 \echo 'Altering table permissions '
 ALTER TABLE drug_HOI_evidence
   OWNER TO rich;
