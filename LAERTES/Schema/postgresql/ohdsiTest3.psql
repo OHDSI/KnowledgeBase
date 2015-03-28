@@ -504,6 +504,46 @@ ORDER BY INGREDIENT_ID, REPORT_ORDER, CLINICAL_DRUG_ID, HOI_ID;
 COMMIT;
 
 
+--COPY TABLES TO FROM PUBLIC TO UNRESTRICTED                                                                                                     
+\echo 'Copying relevant laertes tables from the public to the unrestricted schema so that the public webapi works'
+START TRANSACTION;
+CREATE TABLE unrestricted.evidence_sources AS SELECT * FROM public.evidence_sources;
+ALTER TABLE unrestricted.evidence_sources ADD PRIMARY KEY (id);
+GRANT ALL ON TABLE unrestricted.evidence_sources TO public;
+GRANT ALL ON TABLE unrestricted.evidence_sources TO ohdsi;
+GRANT ALL ON TABLE unrestricted.evidence_sources TO developer;
+GRANT ALL ON TABLE unrestricted.evidence_sources TO administrator;
+
+CREATE TABLE unrestricted.drug_HOI_relationship AS SELECT * FROM public.drug_HOI_relationship;
+ALTER TABLE unrestricted.drug_HOI_relationship ADD PRIMARY KEY (id);
+GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO public;
+GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO ohdsi;
+GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO developer;
+GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO administrator;
+
+CREATE TABLE unrestricted.drug_HOI_evidence AS SELECT * FROM public.drug_HOI_evidence;
+ALTER TABLE unrestricted.drug_HOI_evidence ADD PRIMARY KEY (id);
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO public;
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO ohdsi;
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO developer;
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO administrator;
+
+CREATE TABLE unrestricted.LAERTES_SUMMARY AS SELECT * FROM public.LAERTES_SUMMARY;
+ALTER TABLE unrestricted.LAERTES_SUMMARY ADD PRIMARY KEY (id);
+GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO public;
+GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO ohdsi;
+GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO developer;
+GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO administrator;
+
+CREATE TABLE unrestricted.drug_HOI_evidence_view AS SELECT * FROM public.drug_HOI_evidence_view;
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO public;
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO ohdsi;
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO developer;
+GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO administrator;
+
+COMMIT;
+
+
 
 -- DEPRECATED COMPONENT OF THE PIVOT TABLE drug_HOI_evidence_view
 	-- NATURAL JOIN 
