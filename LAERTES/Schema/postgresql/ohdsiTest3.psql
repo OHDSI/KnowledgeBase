@@ -504,7 +504,17 @@ ORDER BY INGREDIENT_ID, REPORT_ORDER, CLINICAL_DRUG_ID, HOI_ID;
 COMMIT;
 
 
---COPY TABLES TO FROM PUBLIC TO UNRESTRICTED                                                                                                     
+
+--COPY TABLES TO FROM PUBLIC TO UNRESTRICTED                                                                                              
+\echo 'deleting laertes tables from the unrestricted schema'
+START TRANSACTION;
+DROP TABLE IF EXISTS unrestricted.evidence_sources;
+DROP TABLE IF EXISTS unrestricted.drug_HOI_relationship;
+DROP TABLE IF EXISTS unrestricted.drug_HOI_evidence;
+DROP TABLE IF EXISTS unrestricted.LAERTES_SUMMARY;
+DROP TABLE IF EXISTS unrestricted.drug_HOI_evidence_view;
+COMMIT;
+
 \echo 'Copying relevant laertes tables from the public to the unrestricted schema so that the public webapi works'
 START TRANSACTION;
 CREATE TABLE unrestricted.evidence_sources AS SELECT * FROM public.evidence_sources;
