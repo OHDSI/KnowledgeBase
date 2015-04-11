@@ -1,0 +1,541 @@
+REFERENCE_SET,HOI_CONCEPT_ID,HOI_CONCEPT_NAME,DRUG_CONCEPT_ID,DRUG_CONCEPT_NAME,GROUND_TRUTH
+EUADR,35909501,Liver disorder,964339,Sulfasalazine,1
+EUADR,35909501,Liver disorder,1713332,Amoxicillin,1
+EUADR,35909501,Liver disorder,19069425,nimesulide,1
+EUADR,35909501,Liver disorder,740275,Carbamazepine,1
+EUADR,35909501,Liver disorder,745466,Valproate,1
+EUADR,35909501,Liver disorder,1361711,Nitroglycerin,0
+EUADR,35909501,Liver disorder,1341238,Terazosin,0
+EUADR,35909501,Liver disorder,789578,Levodopa,0
+EUADR,35909501,Liver disorder,1196677,formoterol,0
+EUADR,35909501,Liver disorder,950370,Carteolol,0
+EUADR,35205180,Acute myocardial infarction,1547504,rosiglitazone,1
+EUADR,35205180,Acute myocardial infarction,1589505,Levonorgestrel,1
+EUADR,35205180,Acute myocardial infarction,1189754,rofecoxib,1
+EUADR,35205180,Acute myocardial infarction,1103374,valdecoxib,1
+EUADR,35205180,Acute myocardial infarction,1140643,Sumatriptan,1
+EUADR,35205180,Acute myocardial infarction,1596977,"Regular Insulin, Human",0
+EUADR,35205180,Acute myocardial infarction,1396131,ferrous sulfate,0
+EUADR,35205180,Acute myocardial infarction,1558242,Gemfibrozil,0
+EUADR,35205180,Acute myocardial infarction,1713332,Amoxicillin,0
+EUADR,35205180,Acute myocardial infarction,1717704,valacyclovir,0
+EUADR,37019319,Renal failure acute,1340128,Captopril,1
+EUADR,37019319,Renal failure acute,1797513,Ciprofloxacin,1
+EUADR,37019319,Renal failure acute,1177480,Ibuprofen,1
+EUADR,37019319,Renal failure acute,1125315,Acetaminophen,1
+EUADR,37019319,Renal failure acute,751246,Lithium Carbonate,1
+EUADR,37019319,Renal failure acute,1396131,ferrous sulfate,0
+EUADR,37019319,Renal failure acute,1501700,Thyroxine,0
+EUADR,37019319,Renal failure acute,789578,Levodopa,0
+EUADR,37019319,Renal failure acute,905233,Mometasone,0
+EUADR,37019319,Renal failure acute,1153428,fexofenadine,0
+EUADR,36009757,Anaphylactic shock,1112807,Aspirin,1
+EUADR,36009757,Anaphylactic shock,1713332,Amoxicillin,1
+EUADR,36009757,Anaphylactic shock,1797513,Ciprofloxacin,1
+EUADR,36009757,Anaphylactic shock,1124300,Diclofenac,1
+EUADR,36009757,Anaphylactic shock,1125315,Acetaminophen,1
+EUADR,36009757,Anaphylactic shock,1398937,Clonidine,0
+EUADR,36009757,Anaphylactic shock,1363053,Doxazosin,0
+EUADR,36009757,Anaphylactic shock,1501700,Thyroxine,0
+EUADR,36009757,Anaphylactic shock,724816,Oxazepam,0
+EUADR,36009757,Anaphylactic shock,725131,Mirtazapine,0
+EUADR,36009707,Erythema multiforme,956874,Furosemide,1
+EUADR,36009707,Erythema multiforme,1836430,Sulfamethoxazole,1
+EUADR,36009707,Erythema multiforme,1167322,Allopurinol,1
+EUADR,36009707,Erythema multiforme,740275,Carbamazepine,1
+EUADR,36009707,Erythema multiforme,705103,lamotrigine,1
+EUADR,36009707,Erythema multiforme,1353256,Propafenone,0
+EUADR,36009707,Erythema multiforme,1314002,Atenolol,0
+EUADR,36009707,Erythema multiforme,1353776,Felodipine,0
+EUADR,36009707,Erythema multiforme,1112921,Ipratropium,0
+EUADR,36009707,Erythema multiforme,1106776,tiotropium,0
+EUADR,35205091,Mitral valve disease,956874,Furosemide,0
+EUADR,35205091,Mitral valve disease,1347384,irbesartan,0
+EUADR,35205091,Mitral valve disease,1548195,Estradiol,0
+EUADR,35205091,Mitral valve disease,1305058,Methotrexate,0
+EUADR,35205091,Mitral valve disease,751412,Fluvoxamine,0
+EUADR,35104883,Neutropenia,1302398,Ticlopidine,1
+EUADR,35104883,Neutropenia,1340128,Captopril,1
+EUADR,35104883,Neutropenia,1504620,Methimazole,1
+EUADR,35104883,Neutropenia,740275,Carbamazepine,1
+EUADR,35104883,Neutropenia,745466,Valproate,1
+EUADR,35104883,Neutropenia,1370109,Sotalol,0
+EUADR,35104883,Neutropenia,1545958,atorvastatin,0
+EUADR,35104883,Neutropenia,1383815,Isosorbide,0
+EUADR,35104883,Neutropenia,924566,tamsulosin,0
+EUADR,35104883,Neutropenia,1501700,Thyroxine,0
+EUADR,35104101,Aplastic anaemia,1302398,Ticlopidine,1
+EUADR,35104101,Aplastic anaemia,1340128,Captopril,1
+EUADR,35104101,Aplastic anaemia,1504620,Methimazole,1
+EUADR,35104101,Aplastic anaemia,1167322,Allopurinol,1
+EUADR,35104101,Aplastic anaemia,740275,Carbamazepine,1
+EUADR,35104101,Aplastic anaemia,1347384,irbesartan,0
+EUADR,35104101,Aplastic anaemia,1549686,fluvastatin,0
+EUADR,35104101,Aplastic anaemia,1103006,desloratadine,0
+EUADR,35104101,Aplastic anaemia,902427,Timolol,0
+EUADR,35104101,Aplastic anaemia,954688,latanoprost,0
+EUADR,36516888,Rhabdomyolysis,1539403,Simvastatin,1
+EUADR,36516888,Rhabdomyolysis,1551860,Pravastatin,1
+EUADR,36516888,Rhabdomyolysis,1545958,atorvastatin,1
+EUADR,36516888,Rhabdomyolysis,1510813,rosuvastatin,1
+EUADR,36516888,Rhabdomyolysis,1597756,glimepiride,0
+EUADR,36516888,Rhabdomyolysis,1361711,Nitroglycerin,0
+EUADR,36516888,Rhabdomyolysis,1363053,Doxazosin,0
+EUADR,36516888,Rhabdomyolysis,1548195,Estradiol,0
+EUADR,36516888,Rhabdomyolysis,902427,Timolol,0
+EUADR,35707864,Gastrointestinal haemorrhage,1367571,Heparin,1
+EUADR,35707864,Gastrointestinal haemorrhage,1550557,prednisolone,1
+EUADR,35707864,Gastrointestinal haemorrhage,1178663,Indomethacin,1
+EUADR,35707864,Gastrointestinal haemorrhage,1177480,Ibuprofen,1
+EUADR,35707864,Gastrointestinal haemorrhage,1112807,Aspirin,1
+EUADR,35707864,Gastrointestinal haemorrhage,1539403,Simvastatin,0
+EUADR,35707864,Gastrointestinal haemorrhage,1366310,Goserelin,0
+EUADR,35707864,Gastrointestinal haemorrhage,757352,Eszopiclone,0
+EUADR,35707864,Gastrointestinal haemorrhage,1153428,fexofenadine,0
+EUADR,35707864,Gastrointestinal haemorrhage,981709,dorzolamide,0
+EUADR,35205180,Acute myocardial infarction,1547504,rosiglitazone,1
+EUADR,35205180,Acute myocardial infarction,1589505,Levonorgestrel,1
+EUADR,35205180,Acute myocardial infarction,1512674,drospirenone,1
+EUADR,35205180,Acute myocardial infarction,1500211,Medroxyprogesterone,1
+EUADR,35205180,Acute myocardial infarction,1189754,rofecoxib,1
+EUADR,35205180,Acute myocardial infarction,903963,Triamcinolone,0
+EUADR,35205180,Acute myocardial infarction,911735,rabeprazole,0
+EUADR,35205180,Acute myocardial infarction,1713332,Amoxicillin,0
+EUADR,35205180,Acute myocardial infarction,1717704,valacyclovir,0
+EUADR,35205180,Acute myocardial infarction,742267,topiramate,0
+EUADR,35205091,Mitral valve disease,735340,Phentermine,1
+EUADR,35205091,Mitral valve disease,732309,Pergolide,1
+EUADR,35205091,Mitral valve disease,1558471,cabergoline,1
+EUADR,35205091,Mitral valve disease,1318853,Nifedipine,0
+EUADR,35205091,Mitral valve disease,1754994,Fluconazole,0
+EUADR,35205091,Mitral valve disease,1118084,celecoxib,0
+EUADR,35205091,Mitral valve disease,1167322,Allopurinol,0
+EUADR,35205091,Mitral valve disease,744740,zolpidem,0
+EUADR,35104101,Aplastic anaemia,1322184,clopidogrel,1
+EUADR,35104101,Aplastic anaemia,1302398,Ticlopidine,1
+EUADR,35104101,Aplastic anaemia,1167322,Allopurinol,1
+EUADR,35104101,Aplastic anaemia,734275,Phenobarbital,1
+EUADR,35104101,Aplastic anaemia,745466,Valproate,1
+EUADR,35104101,Aplastic anaemia,1516800,Risedronate,0
+EUADR,35104101,Aplastic anaemia,1363053,Doxazosin,0
+EUADR,35104101,Aplastic anaemia,1347384,irbesartan,0
+EUADR,35104101,Aplastic anaemia,743670,venlafaxine,0
+EUADR,35104101,Aplastic anaemia,1103006,desloratadine,0
+EUADR,36110978,Progressive multifocal leukoencephalopathy,1395557,fludarabine,1
+EUADR,36110978,Progressive multifocal leukoencephalopathy,1314273,rituximab,1
+EUADR,36110978,Progressive multifocal leukoencephalopathy,1312706,alemtuzumab,1
+EUADR,36110978,Progressive multifocal leukoencephalopathy,735843,natalizumab,1
+EUADR,36110978,Progressive multifocal leukoencephalopathy,1559684,Glyburide,0
+EUADR,36110978,Progressive multifocal leukoencephalopathy,1347384,irbesartan,0
+EUADR,36110978,Progressive multifocal leukoencephalopathy,1515774,norgestimate,0
+EUADR,36110978,Progressive multifocal leukoencephalopathy,1513103,Raloxifene,0
+EUADR,36110978,Progressive multifocal leukoencephalopathy,722031,Paroxetine,0
+EUADR,37622456,Embolism venous,1589505,Levonorgestrel,1
+EUADR,37622456,Embolism venous,1512674,drospirenone,1
+EUADR,37622456,Embolism venous,1513103,Raloxifene,1
+EUADR,37622456,Embolism venous,1348265,anastrozole,1
+EUADR,37622456,Embolism venous,800878,Clozapine,1
+EUADR,37622456,Embolism venous,904453,Esomeprazole,0
+EUADR,37622456,Embolism venous,1558242,Gemfibrozil,0
+EUADR,37622456,Embolism venous,1336926,tadalafil,0
+EUADR,37622456,Embolism venous,19009116,meprednisone,0
+EUADR,37622456,Embolism venous,1797513,Ciprofloxacin,0
+OMOP,500000401,Acute kidney injury,1703687,Acyclovir,1
+OMOP,500000401,Acute kidney injury,1167322,Allopurinol,1
+OMOP,500000401,Acute kidney injury,19026710,Capreomycin,1
+OMOP,500000401,Acute kidney injury,1340128,Captopril,1
+OMOP,500000401,Acute kidney injury,992590,Chlorothiazide,1
+OMOP,500000401,Acute kidney injury,19010482,Cyclosporine,1
+OMOP,500000401,Acute kidney injury,1126128,Diflunisal,1
+OMOP,500000401,Acute kidney injury,1342001,Enalaprilat,1
+OMOP,500000401,Acute kidney injury,1195492,Etodolac,1
+OMOP,500000401,Acute kidney injury,1153928,Fenoprofen,1
+OMOP,500000401,Acute kidney injury,974166,Hydrochlorothiazide,1
+OMOP,500000401,Acute kidney injury,1177480,Ibuprofen,1
+OMOP,500000401,Acute kidney injury,1185922,Ketoprofen,1
+OMOP,500000401,Acute kidney injury,1136980,Ketorolac,1
+OMOP,500000401,Acute kidney injury,1308216,Lisinopril,1
+OMOP,500000401,Acute kidney injury,1197736,Mefenamate,1
+OMOP,500000401,Acute kidney injury,1115008,Naproxen,1
+OMOP,500000401,Acute kidney injury,1312742,Olmesartan medoxomil,1
+OMOP,500000401,Acute kidney injury,1146810,Piroxicam,1
+OMOP,500000401,Acute kidney injury,1351557,candesartan,1
+OMOP,500000401,Acute kidney injury,1150345,meloxicam,1
+OMOP,500000401,Acute kidney injury,1310756,moexipril,1
+OMOP,500000401,Acute kidney injury,1118045,oxaprozin,1
+OMOP,500000401,Acute kidney injury,1317640,telmisartan,1
+OMOP,500000401,Acute kidney injury,1529331,Acarbose,0
+OMOP,500000401,Acute kidney injury,1309204,Adenosine,0
+OMOP,500000401,Acute kidney injury,919204,Amylases,0
+OMOP,500000401,Acute kidney injury,917006,Benzocaine,0
+OMOP,500000401,Acute kidney injury,1390051,Chlorambucil,0
+OMOP,500000401,Acute kidney injury,790253,Chlorazepate,0
+OMOP,500000401,Acute kidney injury,800878,Clozapine,0
+OMOP,500000401,Acute kidney injury,19008009,Cosyntropin,0
+OMOP,500000401,Acute kidney injury,1311409,Dacarbazine,0
+OMOP,500000401,Acute kidney injury,924724,Dicyclomine,0
+OMOP,500000401,Acute kidney injury,735850,Disulfiram,0
+OMOP,500000401,Acute kidney injury,931973,Endopeptidases,0
+OMOP,500000401,Acute kidney injury,1145379,Ergotamine,0
+OMOP,500000401,Acute kidney injury,954853,Flavoxate,0
+OMOP,500000401,Acute kidney injury,1356461,Flutamide,0
+OMOP,500000401,Acute kidney injury,1763779,Griseofulvin,0
+OMOP,500000401,Acute kidney injury,923672,Hyoscyamine,0
+OMOP,500000401,Acute kidney injury,778268,Imipramine,0
+OMOP,500000401,Acute kidney injury,985708,Ketoconazole,0
+OMOP,500000401,Acute kidney injury,986117,Ketotifen,0
+OMOP,500000401,Acute kidney injury,987245,Lactulose,0
+OMOP,500000401,Acute kidney injury,990760,Lipase,0
+OMOP,500000401,Acute kidney injury,1107830,Loratadine,0
+OMOP,500000401,Acute kidney injury,1794280,Mebendazole,0
+OMOP,500000401,Acute kidney injury,904356,Methenamine,0
+OMOP,500000401,Acute kidney injury,704943,Methocarbamol,0
+OMOP,500000401,Acute kidney injury,907879,Miconazole,0
+OMOP,500000401,Acute kidney injury,1715472,Nelfinavir,0
+OMOP,500000401,Acute kidney injury,717136,Neostigmine,0
+OMOP,500000401,Acute kidney injury,721724,Nortriptyline,0
+OMOP,500000401,Acute kidney injury,1727443,Paromomycin,0
+OMOP,500000401,Acute kidney injury,1729720,Penicillin V,0
+OMOP,500000401,Acute kidney injury,735340,Phentermine,0
+OMOP,500000401,Acute kidney injury,1335539,Phentolamine,0
+OMOP,500000401,Acute kidney injury,951279,Prilocaine,0
+OMOP,500000401,Acute kidney injury,751347,Primidone,0
+OMOP,500000401,Acute kidney injury,752061,Prochlorperazine,0
+OMOP,500000401,Acute kidney injury,965748,Scopolamine,0
+OMOP,500000401,Acute kidney injury,966991,Simethicone,0
+OMOP,500000401,Acute kidney injury,990499,"Sodium Phosphate, Monobasic",0
+OMOP,500000401,Acute kidney injury,836715,Temazepam,0
+OMOP,500000401,Acute kidney injury,1037005,Tetrahydrocannabinol,0
+OMOP,500000401,Acute kidney injury,1837289,Thiabendazole,0
+OMOP,500000401,Acute kidney injury,700465,Thiothixene,0
+OMOP,500000401,Acute kidney injury,1702559,Tinidazole,0
+OMOP,500000401,Acute kidney injury,906914,Urea,0
+OMOP,500000401,Acute kidney injury,19008339,Vitamin A,0
+OMOP,500000401,Acute kidney injury,1103552,almotriptan,0
+OMOP,500000401,Acute kidney injury,1136601,benzonatate,0
+OMOP,500000401,Acute kidney injury,1139179,bromfenac,0
+OMOP,500000401,Acute kidney injury,1304643,darbepoetin alfa,0
+OMOP,500000401,Acute kidney injury,916230,darifenacin,0
+OMOP,500000401,Acute kidney injury,1756831,darunavir,0
+OMOP,500000401,Acute kidney injury,1189697,eletriptan,0
+OMOP,500000401,Acute kidney injury,1711246,entecavir,0
+OMOP,500000401,Acute kidney injury,1396012,ferrous gluconate,0
+OMOP,500000401,Acute kidney injury,1189458,frovatriptan,0
+OMOP,500000401,Acute kidney injury,1789276,gatifloxacin,0
+OMOP,500000401,Acute kidney injury,937368,infliximab,0
+OMOP,500000401,Acute kidney injury,780369,metaxalone,0
+OMOP,500000401,Acute kidney injury,741530,orlistat,0
+OMOP,500000401,Acute kidney injury,781182,ramelteon,0
+OMOP,500000401,Acute kidney injury,1154077,rizatriptan,0
+OMOP,500000401,Acute kidney injury,1111706,zafirlukast,0
+OMOP,500000301,Acute liver injury,929435,Acetazolamide,1
+OMOP,500000301,Acute liver injury,1167322,Allopurinol,1
+OMOP,500000301,Acute liver injury,1333357,Busulfan,1
+OMOP,500000301,Acute liver injury,1340128,Captopril,1
+OMOP,500000301,Acute liver injury,740275,Carbamazepine,1
+OMOP,500000301,Acute liver injury,1718054,Caspofungin,1
+OMOP,500000301,Acute liver injury,1797513,Ciprofloxacin,1
+OMOP,500000301,Acute liver injury,800878,Clozapine,1
+OMOP,500000301,Acute liver injury,19010482,Cyclosporine,1
+OMOP,500000301,Acute liver injury,1311409,Dacarbazine,1
+OMOP,500000301,Acute liver injury,1724869,Didanosine,1
+OMOP,500000301,Acute liver injury,1328165,Diltiazem,1
+OMOP,500000301,Acute liver injury,735850,Disulfiram,1
+OMOP,500000301,Acute liver injury,1342001,Enalaprilat,1
+OMOP,500000301,Acute liver injury,1746940,Erythromycin,1
+OMOP,500000301,Acute liver injury,1195492,Etodolac,1
+OMOP,500000301,Acute liver injury,1754994,Fluconazole,1
+OMOP,500000301,Acute liver injury,1356461,Flutamide,1
+OMOP,500000301,Acute liver injury,1177480,Ibuprofen,1
+OMOP,500000301,Acute liver injury,1178663,Indomethacin,1
+OMOP,500000301,Acute liver injury,722424,Interferon beta-1a,1
+OMOP,500000301,Acute liver injury,1703653,Itraconazole,1
+OMOP,500000301,Acute liver injury,1136980,Ketorolac,1
+OMOP,500000301,Acute liver injury,1704183,Lamivudine,1
+OMOP,500000301,Acute liver injury,1742253,Levofloxacin,1
+OMOP,500000301,Acute liver injury,1308216,Lisinopril,1
+OMOP,500000301,Acute liver injury,1504620,Methimazole,1
+OMOP,500000301,Acute liver injury,1305058,Methotrexate,1
+OMOP,500000301,Acute liver injury,1305447,Methyldopa,1
+OMOP,500000301,Acute liver injury,1115008,Naproxen,1
+OMOP,500000301,Acute liver injury,1769389,Nevirapine,1
+OMOP,500000301,Acute liver injury,1517824,Niacin,1
+OMOP,500000301,Acute liver injury,1318853,Nifedipine,1
+OMOP,500000301,Acute liver injury,920293,Nitrofurantoin,1
+OMOP,500000301,Acute liver injury,1721543,Norfloxacin,1
+OMOP,500000301,Acute liver injury,721724,Nortriptyline,1
+OMOP,500000301,Acute liver injury,923081,Ofloxacin,1
+OMOP,500000301,Acute liver injury,19028050,Penicillamine,1
+OMOP,500000301,Acute liver injury,1146810,Piroxicam,1
+OMOP,500000301,Acute liver injury,1554072,Propylthiouracil,1
+OMOP,500000301,Acute liver injury,1334456,Ramipril,1
+OMOP,500000301,Acute liver injury,1763204,Rifampin,1
+OMOP,500000301,Acute liver injury,1781406,Stavudine,1
+OMOP,500000301,Acute liver injury,1836503,Sulfisoxazole,1
+OMOP,500000301,Acute liver injury,1236607,Sulindac,1
+OMOP,500000301,Acute liver injury,1436678,Tamoxifen,1
+OMOP,500000301,Acute liver injury,19011093,Tenofovir,1
+OMOP,500000301,Acute liver injury,1837289,Thiabendazole,1
+OMOP,500000301,Acute liver injury,1437379,Thioguanine,1
+OMOP,500000301,Acute liver injury,1102917,Tolmetin,1
+OMOP,500000301,Acute liver injury,745466,Valproate,1
+OMOP,500000301,Acute liver injury,1724827,Zalcitabine,1
+OMOP,500000301,Acute liver injury,1710612,Zidovudine,1
+OMOP,500000301,Acute liver injury,1736971,abacavir,1
+OMOP,500000301,Acute liver injury,19018154,alatrofloxacin,1
+OMOP,500000301,Acute liver injury,1336825,bortezomib,1
+OMOP,500000301,Acute liver injury,1321636,bosentan,1
+OMOP,500000301,Acute liver injury,1118084,celecoxib,1
+OMOP,500000301,Acute liver injury,1756831,darunavir,1
+OMOP,500000301,Acute liver injury,1738135,efavirenz,1
+OMOP,500000301,Acute liver injury,795661,felbamate,1
+OMOP,500000301,Acute liver injury,1314924,gemcitabine,1
+OMOP,500000301,Acute liver injury,1716721,gemifloxacin,1
+OMOP,500000301,Acute liver injury,1304107,imatinib,1
+OMOP,500000301,Acute liver injury,937368,infliximab,1
+OMOP,500000301,Acute liver injury,1782521,isoniazid,1
+OMOP,500000301,Acute liver injury,705103,lamotrigine,1
+OMOP,500000301,Acute liver injury,1310756,moexipril,1
+OMOP,500000301,Acute liver injury,714684,nefazodone,1
+OMOP,500000301,Acute liver injury,741530,orlistat,1
+OMOP,500000301,Acute liver injury,1118045,oxaprozin,1
+OMOP,500000301,Acute liver injury,1525215,pioglitazone,1
+OMOP,500000301,Acute liver injury,1704139,posaconazole,1
+OMOP,500000301,Acute liver injury,1331235,quinapril,1
+OMOP,500000301,Acute liver injury,1741309,terbinafine,1
+OMOP,500000301,Acute liver injury,1736999,tipranavir,1
+OMOP,500000301,Acute liver injury,715727,tolcapone,1
+OMOP,500000301,Acute liver injury,1342439,trandolapril,1
+OMOP,500000301,Acute liver injury,1712549,trovafloxacin,1
+OMOP,500000301,Acute liver injury,1714277,voriconazole,1
+OMOP,500000301,Acute liver injury,1111706,zafirlukast,1
+OMOP,500000301,Acute liver injury,1309204,Adenosine,0
+OMOP,500000301,Acute liver injury,919204,Amylases,0
+OMOP,500000301,Acute liver injury,917006,Benzocaine,0
+OMOP,500000301,Acute liver injury,19008009,Cosyntropin,0
+OMOP,500000301,Acute liver injury,924724,Dicyclomine,0
+OMOP,500000301,Acute liver injury,739323,Droperidol,0
+OMOP,500000301,Acute liver injury,931973,Endopeptidases,0
+OMOP,500000301,Acute liver injury,1145379,Ergotamine,0
+OMOP,500000301,Acute liver injury,954853,Flavoxate,0
+OMOP,500000301,Acute liver injury,1763779,Griseofulvin,0
+OMOP,500000301,Acute liver injury,923672,Hyoscyamine,0
+OMOP,500000301,Acute liver injury,986117,Ketotifen,0
+OMOP,500000301,Acute liver injury,987245,Lactulose,0
+OMOP,500000301,Acute liver injury,990760,Lipase,0
+OMOP,500000301,Acute liver injury,904356,Methenamine,0
+OMOP,500000301,Acute liver injury,907879,Miconazole,0
+OMOP,500000301,Acute liver injury,717136,Neostigmine,0
+OMOP,500000301,Acute liver injury,1727443,Paromomycin,0
+OMOP,500000301,Acute liver injury,1729720,Penicillin V,0
+OMOP,500000301,Acute liver injury,735340,Phentermine,0
+OMOP,500000301,Acute liver injury,1335539,Phentolamine,0
+OMOP,500000301,Acute liver injury,751347,Primidone,0
+OMOP,500000301,Acute liver injury,953391,Propantheline,0
+OMOP,500000301,Acute liver injury,965748,Scopolamine,0
+OMOP,500000301,Acute liver injury,990499,"Sodium Phosphate, Monobasic",0
+OMOP,500000301,Acute liver injury,1036228,Sucralfate,0
+OMOP,500000301,Acute liver injury,1037005,Tetrahydrocannabinol,0
+OMOP,500000301,Acute liver injury,1702559,Tinidazole,0
+OMOP,500000301,Acute liver injury,1103552,almotriptan,0
+OMOP,500000301,Acute liver injury,1136601,benzonatate,0
+OMOP,500000301,Acute liver injury,1396012,ferrous gluconate,0
+OMOP,500000301,Acute liver injury,1149380,fluticasone,0
+OMOP,500000301,Acute liver injury,1789276,gatifloxacin,0
+OMOP,500000301,Acute liver injury,767410,lithium citrate,0
+OMOP,500000301,Acute liver injury,918906,oxybutynin,0
+OMOP,500000301,Acute liver injury,1137529,salmeterol,0
+OMOP,500000301,Acute liver injury,1580747,sitagliptin,0
+OMOP,500000801,Acute myocardial infarction,1332418,Amlodipine,1
+OMOP,500000801,Acute myocardial infarction,713109,Amoxapine,1
+OMOP,500000801,Acute myocardial infarction,730548,Bromocriptine,1
+OMOP,500000801,Acute myocardial infarction,716968,Desipramine,1
+OMOP,500000801,Acute myocardial infarction,1126128,Diflunisal,1
+OMOP,500000801,Acute myocardial infarction,1331270,Dipyridamole,1
+OMOP,500000801,Acute myocardial infarction,1342001,Enalaprilat,1
+OMOP,500000801,Acute myocardial infarction,1301125,Epoetin Alfa,1
+OMOP,500000801,Acute myocardial infarction,1548195,Estradiol,1
+OMOP,500000801,Acute myocardial infarction,1549080,"Estrogens, Conjugated (USP)",1
+OMOP,500000801,Acute myocardial infarction,1195492,Etodolac,1
+OMOP,500000801,Acute myocardial infarction,1352141,Factor VIIa,1
+OMOP,500000801,Acute myocardial infarction,1153928,Fenoprofen,1
+OMOP,500000801,Acute myocardial infarction,1156378,Flurbiprofen,1
+OMOP,500000801,Acute myocardial infarction,778268,Imipramine,1
+OMOP,500000801,Acute myocardial infarction,1178663,Indomethacin,1
+OMOP,500000801,Acute myocardial infarction,1185922,Ketoprofen,1
+OMOP,500000801,Acute myocardial infarction,1136980,Ketorolac,1
+OMOP,500000801,Acute myocardial infarction,1318853,Nifedipine,1
+OMOP,500000801,Acute myocardial infarction,721724,Nortriptyline,1
+OMOP,500000801,Acute myocardial infarction,1146810,Piroxicam,1
+OMOP,500000801,Acute myocardial infarction,1137460,Salsalate,1
+OMOP,500000801,Acute myocardial infarction,1236607,Sulindac,1
+OMOP,500000801,Acute myocardial infarction,1140643,Sumatriptan,1
+OMOP,500000801,Acute myocardial infarction,1102917,Tolmetin,1
+OMOP,500000801,Acute myocardial infarction,1103552,almotriptan,1
+OMOP,500000801,Acute myocardial infarction,1304643,darbepoetin alfa,1
+OMOP,500000801,Acute myocardial infarction,1189697,eletriptan,1
+OMOP,500000801,Acute myocardial infarction,1525278,estropipate,1
+OMOP,500000801,Acute myocardial infarction,1189458,frovatriptan,1
+OMOP,500000801,Acute myocardial infarction,1310756,moexipril,1
+OMOP,500000801,Acute myocardial infarction,1113648,nabumetone,1
+OMOP,500000801,Acute myocardial infarction,1118117,naratriptan,1
+OMOP,500000801,Acute myocardial infarction,1118045,oxaprozin,1
+OMOP,500000801,Acute myocardial infarction,1154077,rizatriptan,1
+OMOP,500000801,Acute myocardial infarction,1116031,zolmitriptan,1
+OMOP,500000801,Acute myocardial infarction,1529331,Acarbose,0
+OMOP,500000801,Acute myocardial infarction,929435,Acetazolamide,0
+OMOP,500000801,Acute myocardial infarction,919204,Amylases,0
+OMOP,500000801,Acute myocardial infarction,1390051,Chlorambucil,0
+OMOP,500000801,Acute myocardial infarction,790253,Chlorazepate,0
+OMOP,500000801,Acute myocardial infarction,992590,Chlorothiazide,0
+OMOP,500000801,Acute myocardial infarction,997881,Clindamycin,0
+OMOP,500000801,Acute myocardial infarction,19008009,Cosyntropin,0
+OMOP,500000801,Acute myocardial infarction,924724,Dicyclomine,0
+OMOP,500000801,Acute myocardial infarction,1724869,Didanosine,0
+OMOP,500000801,Acute myocardial infarction,739323,Droperidol,0
+OMOP,500000801,Acute myocardial infarction,931973,Endopeptidases,0
+OMOP,500000801,Acute myocardial infarction,954853,Flavoxate,0
+OMOP,500000801,Acute myocardial infarction,1356461,Flutamide,0
+OMOP,500000801,Acute myocardial infarction,923672,Hyoscyamine,0
+OMOP,500000801,Acute myocardial infarction,985708,Ketoconazole,0
+OMOP,500000801,Acute myocardial infarction,986117,Ketotifen,0
+OMOP,500000801,Acute myocardial infarction,987245,Lactulose,0
+OMOP,500000801,Acute myocardial infarction,990760,Lipase,0
+OMOP,500000801,Acute myocardial infarction,1107830,Loratadine,0
+OMOP,500000801,Acute myocardial infarction,1794280,Mebendazole,0
+OMOP,500000801,Acute myocardial infarction,904356,Methenamine,0
+OMOP,500000801,Acute myocardial infarction,1504620,Methimazole,0
+OMOP,500000801,Acute myocardial infarction,704943,Methocarbamol,0
+OMOP,500000801,Acute myocardial infarction,907879,Miconazole,0
+OMOP,500000801,Acute myocardial infarction,1715472,Nelfinavir,0
+OMOP,500000801,Acute myocardial infarction,1769389,Nevirapine,0
+OMOP,500000801,Acute myocardial infarction,1727443,Paromomycin,0
+OMOP,500000801,Acute myocardial infarction,727835,Pemoline,0
+OMOP,500000801,Acute myocardial infarction,19028050,Penicillamine,0
+OMOP,500000801,Acute myocardial infarction,1729720,Penicillin V,0
+OMOP,500000801,Acute myocardial infarction,951279,Prilocaine,0
+OMOP,500000801,Acute myocardial infarction,751347,Primidone,0
+OMOP,500000801,Acute myocardial infarction,752061,Prochlorperazine,0
+OMOP,500000801,Acute myocardial infarction,953391,Propantheline,0
+OMOP,500000801,Acute myocardial infarction,965748,Scopolamine,0
+OMOP,500000801,Acute myocardial infarction,966991,Simethicone,0
+OMOP,500000801,Acute myocardial infarction,990499,"Sodium Phosphate, Monobasic",0
+OMOP,500000801,Acute myocardial infarction,1781406,Stavudine,0
+OMOP,500000801,Acute myocardial infarction,1036228,Sucralfate,0
+OMOP,500000801,Acute myocardial infarction,964339,Sulfasalazine,0
+OMOP,500000801,Acute myocardial infarction,1836503,Sulfisoxazole,0
+OMOP,500000801,Acute myocardial infarction,836715,Temazepam,0
+OMOP,500000801,Acute myocardial infarction,1037005,Tetrahydrocannabinol,0
+OMOP,500000801,Acute myocardial infarction,1837289,Thiabendazole,0
+OMOP,500000801,Acute myocardial infarction,700465,Thiothixene,0
+OMOP,500000801,Acute myocardial infarction,1702559,Tinidazole,0
+OMOP,500000801,Acute myocardial infarction,906914,Urea,0
+OMOP,500000801,Acute myocardial infarction,19008339,Vitamin A,0
+OMOP,500000801,Acute myocardial infarction,1136601,benzonatate,0
+OMOP,500000801,Acute myocardial infarction,1139179,bromfenac,0
+OMOP,500000801,Acute myocardial infarction,916230,darifenacin,0
+OMOP,500000801,Acute myocardial infarction,1711246,entecavir,0
+OMOP,500000801,Acute myocardial infarction,1396012,ferrous gluconate,0
+OMOP,500000801,Acute myocardial infarction,1149380,fluticasone,0
+OMOP,500000801,Acute myocardial infarction,1789276,gatifloxacin,0
+OMOP,500000801,Acute myocardial infarction,767410,lithium citrate,0
+OMOP,500000801,Acute myocardial infarction,780369,metaxalone,0
+OMOP,500000801,Acute myocardial infarction,918906,oxybutynin,0
+OMOP,500000801,Acute myocardial infarction,1704139,posaconazole,0
+OMOP,500000801,Acute myocardial infarction,781182,ramelteon,0
+OMOP,500000801,Acute myocardial infarction,1137529,salmeterol,0
+OMOP,500000801,Acute myocardial infarction,1580747,sitagliptin,0
+OMOP,500000801,Acute myocardial infarction,1741309,terbinafine,0
+OMOP,500000801,Acute myocardial infarction,1736999,tipranavir,0
+OMOP,500000801,Acute myocardial infarction,1111706,zafirlukast,0
+OMOP,500001001,GI bleed,797617,Citalopram,1
+OMOP,500001001,GI bleed,997881,Clindamycin,1
+OMOP,500001001,GI bleed,1126128,Diflunisal,1
+OMOP,500001001,GI bleed,715939,Escitalopram,1
+OMOP,500001001,GI bleed,1195492,Etodolac,1
+OMOP,500001001,GI bleed,1153928,Fenoprofen,1
+OMOP,500001001,GI bleed,755695,Fluoxetine,1
+OMOP,500001001,GI bleed,1156378,Flurbiprofen,1
+OMOP,500001001,GI bleed,1177480,Ibuprofen,1
+OMOP,500001001,GI bleed,1178663,Indomethacin,1
+OMOP,500001001,GI bleed,1185922,Ketoprofen,1
+OMOP,500001001,GI bleed,1136980,Ketorolac,1
+OMOP,500001001,GI bleed,1197736,Mefenamate,1
+OMOP,500001001,GI bleed,1115008,Naproxen,1
+OMOP,500001001,GI bleed,1146810,Piroxicam,1
+OMOP,500001001,GI bleed,19049105,Potassium Chloride,1
+OMOP,500001001,GI bleed,739138,Sertraline,1
+OMOP,500001001,GI bleed,1236607,Sulindac,1
+OMOP,500001001,GI bleed,1102917,Tolmetin,1
+OMOP,500001001,GI bleed,1322184,clopidogrel,1
+OMOP,500001001,GI bleed,1150345,meloxicam,1
+OMOP,500001001,GI bleed,1113648,nabumetone,1
+OMOP,500001001,GI bleed,1118045,oxaprozin,1
+OMOP,500001001,GI bleed,1103374,valdecoxib,1
+OMOP,500001001,GI bleed,1529331,Acarbose,0
+OMOP,500001001,GI bleed,1309204,Adenosine,0
+OMOP,500001001,GI bleed,919204,Amylases,0
+OMOP,500001001,GI bleed,917006,Benzocaine,0
+OMOP,500001001,GI bleed,1390051,Chlorambucil,0
+OMOP,500001001,GI bleed,790253,Chlorazepate,0
+OMOP,500001001,GI bleed,19008009,Cosyntropin,0
+OMOP,500001001,GI bleed,1311409,Dacarbazine,0
+OMOP,500001001,GI bleed,924724,Dicyclomine,0
+OMOP,500001001,GI bleed,735850,Disulfiram,0
+OMOP,500001001,GI bleed,739323,Droperidol,0
+OMOP,500001001,GI bleed,931973,Endopeptidases,0
+OMOP,500001001,GI bleed,1301125,Epoetin Alfa,0
+OMOP,500001001,GI bleed,1145379,Ergotamine,0
+OMOP,500001001,GI bleed,1763779,Griseofulvin,0
+OMOP,500001001,GI bleed,923672,Hyoscyamine,0
+OMOP,500001001,GI bleed,1703653,Itraconazole,0
+OMOP,500001001,GI bleed,985708,Ketoconazole,0
+OMOP,500001001,GI bleed,986117,Ketotifen,0
+OMOP,500001001,GI bleed,987245,Lactulose,0
+OMOP,500001001,GI bleed,1704183,Lamivudine,0
+OMOP,500001001,GI bleed,990760,Lipase,0
+OMOP,500001001,GI bleed,1107830,Loratadine,0
+OMOP,500001001,GI bleed,1794280,Mebendazole,0
+OMOP,500001001,GI bleed,704943,Methocarbamol,0
+OMOP,500001001,GI bleed,907879,Miconazole,0
+OMOP,500001001,GI bleed,717136,Neostigmine,0
+OMOP,500001001,GI bleed,1769389,Nevirapine,0
+OMOP,500001001,GI bleed,920293,Nitrofurantoin,0
+OMOP,500001001,GI bleed,1727443,Paromomycin,0
+OMOP,500001001,GI bleed,727835,Pemoline,0
+OMOP,500001001,GI bleed,1729720,Penicillin V,0
+OMOP,500001001,GI bleed,735340,Phentermine,0
+OMOP,500001001,GI bleed,1335539,Phentolamine,0
+OMOP,500001001,GI bleed,951279,Prilocaine,0
+OMOP,500001001,GI bleed,752061,Prochlorperazine,0
+OMOP,500001001,GI bleed,953391,Propantheline,0
+OMOP,500001001,GI bleed,965748,Scopolamine,0
+OMOP,500001001,GI bleed,966991,Simethicone,0
+OMOP,500001001,GI bleed,1781406,Stavudine,0
+OMOP,500001001,GI bleed,1036228,Sucralfate,0
+OMOP,500001001,GI bleed,836715,Temazepam,0
+OMOP,500001001,GI bleed,1037005,Tetrahydrocannabinol,0
+OMOP,500001001,GI bleed,1837289,Thiabendazole,0
+OMOP,500001001,GI bleed,700465,Thiothixene,0
+OMOP,500001001,GI bleed,1702559,Tinidazole,0
+OMOP,500001001,GI bleed,906914,Urea,0
+OMOP,500001001,GI bleed,19008339,Vitamin A,0
+OMOP,500001001,GI bleed,1710612,Zidovudine,0
+OMOP,500001001,GI bleed,1736971,abacavir,0
+OMOP,500001001,GI bleed,1136601,benzonatate,0
+OMOP,500001001,GI bleed,1139179,bromfenac,0
+OMOP,500001001,GI bleed,916230,darifenacin,0
+OMOP,500001001,GI bleed,1711246,entecavir,0
+OMOP,500001001,GI bleed,1396012,ferrous gluconate,0
+OMOP,500001001,GI bleed,1149380,fluticasone,0
+OMOP,500001001,GI bleed,767410,lithium citrate,0
+OMOP,500001001,GI bleed,780369,metaxalone,0
+OMOP,500001001,GI bleed,1310756,moexipril,0
+OMOP,500001001,GI bleed,741530,orlistat,0
+OMOP,500001001,GI bleed,918906,oxybutynin,0
+OMOP,500001001,GI bleed,1525215,pioglitazone,0
+OMOP,500001001,GI bleed,781182,ramelteon,0
+OMOP,500001001,GI bleed,1547504,rosiglitazone,0
+OMOP,500001001,GI bleed,1137529,salmeterol,0
+OMOP,500001001,GI bleed,1580747,sitagliptin,0
+OMOP,500001001,GI bleed,1741309,terbinafine,0
