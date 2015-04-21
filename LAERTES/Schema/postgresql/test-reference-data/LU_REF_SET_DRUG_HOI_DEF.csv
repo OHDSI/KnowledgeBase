@@ -1,136 +1,4 @@
 REFERENCE_SET,HOI_CONCEPT_ID,HOI_CONCEPT_NAME,DRUG_CONCEPT_ID,DRUG_CONCEPT_NAME,GROUND_TRUTH
-EUADR,35909501,Liver disorder,964339,Sulfasalazine,1
-EUADR,35909501,Liver disorder,1713332,Amoxicillin,1
-EUADR,35909501,Liver disorder,19069425,nimesulide,1
-EUADR,35909501,Liver disorder,740275,Carbamazepine,1
-EUADR,35909501,Liver disorder,745466,Valproate,1
-EUADR,35909501,Liver disorder,1361711,Nitroglycerin,0
-EUADR,35909501,Liver disorder,1341238,Terazosin,0
-EUADR,35909501,Liver disorder,789578,Levodopa,0
-EUADR,35909501,Liver disorder,1196677,formoterol,0
-EUADR,35909501,Liver disorder,950370,Carteolol,0
-EUADR,35205180,Acute myocardial infarction,1547504,rosiglitazone,1
-EUADR,35205180,Acute myocardial infarction,1589505,Levonorgestrel,1
-EUADR,35205180,Acute myocardial infarction,1189754,rofecoxib,1
-EUADR,35205180,Acute myocardial infarction,1103374,valdecoxib,1
-EUADR,35205180,Acute myocardial infarction,1140643,Sumatriptan,1
-EUADR,35205180,Acute myocardial infarction,1596977,"Regular Insulin, Human",0
-EUADR,35205180,Acute myocardial infarction,1396131,ferrous sulfate,0
-EUADR,35205180,Acute myocardial infarction,1558242,Gemfibrozil,0
-EUADR,35205180,Acute myocardial infarction,1713332,Amoxicillin,0
-EUADR,35205180,Acute myocardial infarction,1717704,valacyclovir,0
-EUADR,37019319,Renal failure acute,1340128,Captopril,1
-EUADR,37019319,Renal failure acute,1797513,Ciprofloxacin,1
-EUADR,37019319,Renal failure acute,1177480,Ibuprofen,1
-EUADR,37019319,Renal failure acute,1125315,Acetaminophen,1
-EUADR,37019319,Renal failure acute,751246,Lithium Carbonate,1
-EUADR,37019319,Renal failure acute,1396131,ferrous sulfate,0
-EUADR,37019319,Renal failure acute,1501700,Thyroxine,0
-EUADR,37019319,Renal failure acute,789578,Levodopa,0
-EUADR,37019319,Renal failure acute,905233,Mometasone,0
-EUADR,37019319,Renal failure acute,1153428,fexofenadine,0
-EUADR,36009757,Anaphylactic shock,1112807,Aspirin,1
-EUADR,36009757,Anaphylactic shock,1713332,Amoxicillin,1
-EUADR,36009757,Anaphylactic shock,1797513,Ciprofloxacin,1
-EUADR,36009757,Anaphylactic shock,1124300,Diclofenac,1
-EUADR,36009757,Anaphylactic shock,1125315,Acetaminophen,1
-EUADR,36009757,Anaphylactic shock,1398937,Clonidine,0
-EUADR,36009757,Anaphylactic shock,1363053,Doxazosin,0
-EUADR,36009757,Anaphylactic shock,1501700,Thyroxine,0
-EUADR,36009757,Anaphylactic shock,724816,Oxazepam,0
-EUADR,36009757,Anaphylactic shock,725131,Mirtazapine,0
-EUADR,36009707,Erythema multiforme,956874,Furosemide,1
-EUADR,36009707,Erythema multiforme,1836430,Sulfamethoxazole,1
-EUADR,36009707,Erythema multiforme,1167322,Allopurinol,1
-EUADR,36009707,Erythema multiforme,740275,Carbamazepine,1
-EUADR,36009707,Erythema multiforme,705103,lamotrigine,1
-EUADR,36009707,Erythema multiforme,1353256,Propafenone,0
-EUADR,36009707,Erythema multiforme,1314002,Atenolol,0
-EUADR,36009707,Erythema multiforme,1353776,Felodipine,0
-EUADR,36009707,Erythema multiforme,1112921,Ipratropium,0
-EUADR,36009707,Erythema multiforme,1106776,tiotropium,0
-EUADR,35205091,Mitral valve disease,956874,Furosemide,0
-EUADR,35205091,Mitral valve disease,1347384,irbesartan,0
-EUADR,35205091,Mitral valve disease,1548195,Estradiol,0
-EUADR,35205091,Mitral valve disease,1305058,Methotrexate,0
-EUADR,35205091,Mitral valve disease,751412,Fluvoxamine,0
-EUADR,35104883,Neutropenia,1302398,Ticlopidine,1
-EUADR,35104883,Neutropenia,1340128,Captopril,1
-EUADR,35104883,Neutropenia,1504620,Methimazole,1
-EUADR,35104883,Neutropenia,740275,Carbamazepine,1
-EUADR,35104883,Neutropenia,745466,Valproate,1
-EUADR,35104883,Neutropenia,1370109,Sotalol,0
-EUADR,35104883,Neutropenia,1545958,atorvastatin,0
-EUADR,35104883,Neutropenia,1383815,Isosorbide,0
-EUADR,35104883,Neutropenia,924566,tamsulosin,0
-EUADR,35104883,Neutropenia,1501700,Thyroxine,0
-EUADR,35104101,Aplastic anaemia,1302398,Ticlopidine,1
-EUADR,35104101,Aplastic anaemia,1340128,Captopril,1
-EUADR,35104101,Aplastic anaemia,1504620,Methimazole,1
-EUADR,35104101,Aplastic anaemia,1167322,Allopurinol,1
-EUADR,35104101,Aplastic anaemia,740275,Carbamazepine,1
-EUADR,35104101,Aplastic anaemia,1347384,irbesartan,0
-EUADR,35104101,Aplastic anaemia,1549686,fluvastatin,0
-EUADR,35104101,Aplastic anaemia,1103006,desloratadine,0
-EUADR,35104101,Aplastic anaemia,902427,Timolol,0
-EUADR,35104101,Aplastic anaemia,954688,latanoprost,0
-EUADR,36516888,Rhabdomyolysis,1539403,Simvastatin,1
-EUADR,36516888,Rhabdomyolysis,1551860,Pravastatin,1
-EUADR,36516888,Rhabdomyolysis,1545958,atorvastatin,1
-EUADR,36516888,Rhabdomyolysis,1510813,rosuvastatin,1
-EUADR,36516888,Rhabdomyolysis,1597756,glimepiride,0
-EUADR,36516888,Rhabdomyolysis,1361711,Nitroglycerin,0
-EUADR,36516888,Rhabdomyolysis,1363053,Doxazosin,0
-EUADR,36516888,Rhabdomyolysis,1548195,Estradiol,0
-EUADR,36516888,Rhabdomyolysis,902427,Timolol,0
-EUADR,35707864,Gastrointestinal haemorrhage,1367571,Heparin,1
-EUADR,35707864,Gastrointestinal haemorrhage,1550557,prednisolone,1
-EUADR,35707864,Gastrointestinal haemorrhage,1178663,Indomethacin,1
-EUADR,35707864,Gastrointestinal haemorrhage,1177480,Ibuprofen,1
-EUADR,35707864,Gastrointestinal haemorrhage,1112807,Aspirin,1
-EUADR,35707864,Gastrointestinal haemorrhage,1539403,Simvastatin,0
-EUADR,35707864,Gastrointestinal haemorrhage,1366310,Goserelin,0
-EUADR,35707864,Gastrointestinal haemorrhage,757352,Eszopiclone,0
-EUADR,35707864,Gastrointestinal haemorrhage,1153428,fexofenadine,0
-EUADR,35707864,Gastrointestinal haemorrhage,981709,dorzolamide,0
-EUADR,35205180,Acute myocardial infarction,1512674,drospirenone,1
-EUADR,35205180,Acute myocardial infarction,1500211,Medroxyprogesterone,1
-EUADR,35205180,Acute myocardial infarction,903963,Triamcinolone,0
-EUADR,35205180,Acute myocardial infarction,911735,rabeprazole,0
-EUADR,35205180,Acute myocardial infarction,742267,topiramate,0
-EUADR,35205091,Mitral valve disease,735340,Phentermine,1
-EUADR,35205091,Mitral valve disease,732309,Pergolide,1
-EUADR,35205091,Mitral valve disease,1558471,cabergoline,1
-EUADR,35205091,Mitral valve disease,1318853,Nifedipine,0
-EUADR,35205091,Mitral valve disease,1754994,Fluconazole,0
-EUADR,35205091,Mitral valve disease,1118084,celecoxib,0
-EUADR,35205091,Mitral valve disease,1167322,Allopurinol,0
-EUADR,35205091,Mitral valve disease,744740,zolpidem,0
-EUADR,35104101,Aplastic anaemia,1322184,clopidogrel,1
-EUADR,35104101,Aplastic anaemia,734275,Phenobarbital,1
-EUADR,35104101,Aplastic anaemia,745466,Valproate,1
-EUADR,35104101,Aplastic anaemia,1516800,Risedronate,0
-EUADR,35104101,Aplastic anaemia,1363053,Doxazosin,0
-EUADR,35104101,Aplastic anaemia,743670,venlafaxine,0
-EUADR,36110978,Progressive multifocal leukoencephalopathy,1395557,fludarabine,1
-EUADR,36110978,Progressive multifocal leukoencephalopathy,1314273,rituximab,1
-EUADR,36110978,Progressive multifocal leukoencephalopathy,1312706,alemtuzumab,1
-EUADR,36110978,Progressive multifocal leukoencephalopathy,735843,natalizumab,1
-EUADR,36110978,Progressive multifocal leukoencephalopathy,1559684,Glyburide,0
-EUADR,36110978,Progressive multifocal leukoencephalopathy,1347384,irbesartan,0
-EUADR,36110978,Progressive multifocal leukoencephalopathy,1515774,norgestimate,0
-EUADR,36110978,Progressive multifocal leukoencephalopathy,1513103,Raloxifene,0
-EUADR,36110978,Progressive multifocal leukoencephalopathy,722031,Paroxetine,0
-EUADR,37622456,Embolism venous,1589505,Levonorgestrel,1
-EUADR,37622456,Embolism venous,1512674,drospirenone,1
-EUADR,37622456,Embolism venous,1513103,Raloxifene,1
-EUADR,37622456,Embolism venous,1348265,anastrozole,1
-EUADR,37622456,Embolism venous,800878,Clozapine,1
-EUADR,37622456,Embolism venous,904453,Esomeprazole,0
-EUADR,37622456,Embolism venous,1558242,Gemfibrozil,0
-EUADR,37622456,Embolism venous,1336926,tadalafil,0
-EUADR,37622456,Embolism venous,19009116,meprednisone,0
-EUADR,37622456,Embolism venous,1797513,Ciprofloxacin,0
 OMOP,500000401,Acute kidney injury,1703687,Acyclovir,1
 OMOP,500000401,Acute kidney injury,1167322,Allopurinol,1
 OMOP,500000401,Acute kidney injury,19026710,Capreomycin,1
@@ -530,3 +398,96 @@ OMOP,500001001,GI bleed,1547504,rosiglitazone,0
 OMOP,500001001,GI bleed,1137529,salmeterol,0
 OMOP,500001001,GI bleed,1580747,sitagliptin,0
 OMOP,500001001,GI bleed,1741309,terbinafine,0
+EUADR,35909501,Liver disorder,964339,Sulfasalazine,1
+EUADR,35909501,Liver disorder,1713332,Amoxicillin,1
+EUADR,35909501,Liver disorder,740275,Carbamazepine,1
+EUADR,35909501,Liver disorder,745466,Valproate,1
+EUADR,35909501,Liver disorder,1361711,Nitroglycerin,0
+EUADR,35909501,Liver disorder,1341238,Terazosin,0
+EUADR,35909501,Liver disorder,789578,Levodopa,0
+EUADR,35909501,Liver disorder,1196677,formoterol,0
+EUADR,35909501,Liver disorder,950370,Carteolol,0
+EUADR,35205180,Acute myocardial infarction,1547504,rosiglitazone,1
+EUADR,35205180,Acute myocardial infarction,1589505,Levonorgestrel,1
+EUADR,35205180,Acute myocardial infarction,1189754,rofecoxib,1
+EUADR,35205180,Acute myocardial infarction,1103374,valdecoxib,1
+EUADR,35205180,Acute myocardial infarction,1140643,Sumatriptan,1
+EUADR,35205180,Acute myocardial infarction,1596977,"Regular Insulin, Human",0
+EUADR,35205180,Acute myocardial infarction,1396131,ferrous sulfate,0
+EUADR,35205180,Acute myocardial infarction,1558242,Gemfibrozil,0
+EUADR,35205180,Acute myocardial infarction,1713332,Amoxicillin,0
+EUADR,35205180,Acute myocardial infarction,1717704,valacyclovir,0
+EUADR,37019319,Renal failure acute,1340128,Captopril,1
+EUADR,37019319,Renal failure acute,1797513,Ciprofloxacin,1
+EUADR,37019319,Renal failure acute,1177480,Ibuprofen,1
+EUADR,37019319,Renal failure acute,1125315,Acetaminophen,1
+EUADR,37019319,Renal failure acute,751246,Lithium Carbonate,1
+EUADR,37019319,Renal failure acute,1396131,ferrous sulfate,0
+EUADR,37019319,Renal failure acute,1501700,Thyroxine,0
+EUADR,37019319,Renal failure acute,789578,Levodopa,0
+EUADR,37019319,Renal failure acute,905233,Mometasone,0
+EUADR,37019319,Renal failure acute,1153428,fexofenadine,0
+EUADR,36009757,Anaphylactic shock,1112807,Aspirin,1
+EUADR,36009757,Anaphylactic shock,1713332,Amoxicillin,1
+EUADR,36009757,Anaphylactic shock,1797513,Ciprofloxacin,1
+EUADR,36009757,Anaphylactic shock,1124300,Diclofenac,1
+EUADR,36009757,Anaphylactic shock,1125315,Acetaminophen,1
+EUADR,36009757,Anaphylactic shock,1398937,Clonidine,0
+EUADR,36009757,Anaphylactic shock,1363053,Doxazosin,0
+EUADR,36009757,Anaphylactic shock,1501700,Thyroxine,0
+EUADR,36009757,Anaphylactic shock,724816,Oxazepam,0
+EUADR,36009757,Anaphylactic shock,725131,Mirtazapine,0
+EUADR,36009707,Erythema multiforme,956874,Furosemide,1
+EUADR,36009707,Erythema multiforme,1836430,Sulfamethoxazole,1
+EUADR,36009707,Erythema multiforme,1167322,Allopurinol,1
+EUADR,36009707,Erythema multiforme,740275,Carbamazepine,1
+EUADR,36009707,Erythema multiforme,705103,lamotrigine,1
+EUADR,36009707,Erythema multiforme,1353256,Propafenone,0
+EUADR,36009707,Erythema multiforme,1314002,Atenolol,0
+EUADR,36009707,Erythema multiforme,1353776,Felodipine,0
+EUADR,36009707,Erythema multiforme,1112921,Ipratropium,0
+EUADR,36009707,Erythema multiforme,1106776,tiotropium,0
+EUADR,35205091,Mitral valve disease,956874,Furosemide,0
+EUADR,35205091,Mitral valve disease,1347384,irbesartan,0
+EUADR,35205091,Mitral valve disease,1548195,Estradiol,0
+EUADR,35205091,Mitral valve disease,1305058,Methotrexate,0
+EUADR,35205091,Mitral valve disease,751412,Fluvoxamine,0
+EUADR,35104883,Neutropenia,1302398,Ticlopidine,1
+EUADR,35104883,Neutropenia,1340128,Captopril,1
+EUADR,35104883,Neutropenia,1504620,Methimazole,1
+EUADR,35104883,Neutropenia,740275,Carbamazepine,1
+EUADR,35104883,Neutropenia,745466,Valproate,1
+EUADR,35104883,Neutropenia,1370109,Sotalol,0
+EUADR,35104883,Neutropenia,1545958,atorvastatin,0
+EUADR,35104883,Neutropenia,1383815,Isosorbide,0
+EUADR,35104883,Neutropenia,924566,tamsulosin,0
+EUADR,35104883,Neutropenia,1501700,Thyroxine,0
+EUADR,35104101,Aplastic anaemia,1302398,Ticlopidine,1
+EUADR,35104101,Aplastic anaemia,1340128,Captopril,1
+EUADR,35104101,Aplastic anaemia,1504620,Methimazole,1
+EUADR,35104101,Aplastic anaemia,1167322,Allopurinol,1
+EUADR,35104101,Aplastic anaemia,740275,Carbamazepine,1
+EUADR,35104101,Aplastic anaemia,1347384,irbesartan,0
+EUADR,35104101,Aplastic anaemia,1549686,fluvastatin,0
+EUADR,35104101,Aplastic anaemia,1103006,desloratadine,0
+EUADR,35104101,Aplastic anaemia,902427,Timolol,0
+EUADR,35104101,Aplastic anaemia,954688,latanoprost,0
+EUADR,36516888,Rhabdomyolysis,1539403,Simvastatin,1
+EUADR,36516888,Rhabdomyolysis,1551860,Pravastatin,1
+EUADR,36516888,Rhabdomyolysis,1545958,atorvastatin,1
+EUADR,36516888,Rhabdomyolysis,1510813,rosuvastatin,1
+EUADR,36516888,Rhabdomyolysis,1597756,glimepiride,0
+EUADR,36516888,Rhabdomyolysis,1361711,Nitroglycerin,0
+EUADR,36516888,Rhabdomyolysis,1363053,Doxazosin,0
+EUADR,36516888,Rhabdomyolysis,1548195,Estradiol,0
+EUADR,36516888,Rhabdomyolysis,902427,Timolol,0
+EUADR,35707864,Gastrointestinal haemorrhage,1367571,Heparin,1
+EUADR,35707864,Gastrointestinal haemorrhage,1550557,prednisolone,1
+EUADR,35707864,Gastrointestinal haemorrhage,1178663,Indomethacin,1
+EUADR,35707864,Gastrointestinal haemorrhage,1177480,Ibuprofen,1
+EUADR,35707864,Gastrointestinal haemorrhage,1112807,Aspirin,1
+EUADR,35707864,Gastrointestinal haemorrhage,1539403,Simvastatin,0
+EUADR,35707864,Gastrointestinal haemorrhage,1366310,Goserelin,0
+EUADR,35707864,Gastrointestinal haemorrhage,757352,Eszopiclone,0
+EUADR,35707864,Gastrointestinal haemorrhage,1153428,fexofenadine,0
+EUADR,35707864,Gastrointestinal haemorrhage,981709,dorzolamide,0
