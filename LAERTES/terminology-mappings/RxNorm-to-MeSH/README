@@ -3,7 +3,7 @@ meddra-to-rxnorm-standard-vocab-v5.txt - downloaded 4/23/2015
 This mapping is from the standard vocabulary and comes from the
 following query :
 
-SELECT A.CONCEPT_CODE, A.CONCEPT_NAME, B.CONCEPT_CODE, B.CONCEPT_NAME, B.CONCEPT_ID, B.CONCEPT_CLASS_ID 
+SELECT A.CONCEPT_CODE source_concept_code, A.CONCEPT_NAME source_concept_name, B.CONCEPT_CODE concept_code, B.CONCEPT_NAME concept_name, B.CONCEPT_ID concept_id, B.CONCEPT_CLASS_ID concept_class_id
 FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR
 WHERE A.VOCABULARY_ID = 'Mesh' AND
       CR.CONCEPT_ID_2 = A.CONCEPT_ID AND 
