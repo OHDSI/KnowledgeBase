@@ -1,5 +1,7 @@
-meddra-to-rxnorm-standard-vocab-v5.txt - This mapping is from the
-standard vocabulary and comes from the following query :
+meddra-to-rxnorm-standard-vocab-v5.txt - downloaded 4/23/2015
+
+This mapping is from the standard vocabulary and comes from the
+following query :
 
 SELECT A.CONCEPT_CODE, A.CONCEPT_NAME, B.CONCEPT_CODE, B.CONCEPT_NAME, B.CONCEPT_ID, B.CONCEPT_CLASS_ID 
 FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR
@@ -14,14 +16,4 @@ source_concept_code|source_concept_name|concept_code|concept_name|concept_id|con
 
 ...where source_concept_code is MeSH, concept_code is RxNorm, and concept_id is OHDSI/OMOP/IMEDS
 
-------------------------------------------------------------
-
-rxnorm-to-MeSH-mapping-03032014.txt - This mapping comes from the UMLS
-March 2014 release as follows:
-
-$ cat RXNCONSO.RRF | grep MSH | cut -f 1,14,15 -d '|' > /tmp/rxnorm-to-MeSH-mapping-03032014.txt
-
-The format of the file is:
-
-RxCUI	MeSH CUI	String Name
 
