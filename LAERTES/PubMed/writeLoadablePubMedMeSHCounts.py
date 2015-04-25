@@ -8,7 +8,7 @@
 
 import urllib2, urllib, re, sys
 
-DATAFILE = "sample-summary-query.txt"
+DATAFILE = "pubmed-graph-count-query.txt"
 EVTYPE = "MEDLINE_MeSH"
 URL_ID_PREFIX = "pm-mesh-"
 URL_PREFIX = "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id="
