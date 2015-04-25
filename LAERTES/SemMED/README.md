@@ -2,19 +2,14 @@ OHDSI KB - Source - PubMed via SemMedDB (http://skr3.nlm.nih.gov/)
 ======
 
 
-Background: The Semantic Knowledge Representation project conducts
-basic research in symbolic natural language processing based on the
-UMLS knowledge sources. A core resource is the SemRep program, which
-extracts semantic predications from text. SemRep was originally
-developed for biomedical research. A general methodology is being
-developed for extending its domain, currently to influenza epidemic
-preparedness, health promotion, and health effects of climate change.
+The [Semantic MEDLINE Database](http://skr3.nlm.nih.gov/SemMedDB/) is
+a repository of semantic predications (subject-predicate-object
+triples) extracted by SemRep, a semantic interpreter of biomedical
+text. The scripts in this folder use the Semantic MEDLINE Database and
+a local implementation of PubMed/MEDLINE to:
 
-The scripts in this folder:
-
-1) retrieve STATEMENTS from MEDLINE records
-that might report adverse drug events, or that such events DO NOT
-occur,
+1) retrieve STATEMENTS from MEDLINE records that might report adverse
+drug events, or that such events DO NOT occur,
 
 2) store the data for further processing
 
