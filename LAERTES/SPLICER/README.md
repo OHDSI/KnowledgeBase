@@ -49,20 +49,25 @@ NOTE: The output of writeLoadableSPLICERcounts.py includes data that
       have to make sure that both the mysql server and client have the
       max_allowed_packet=999M
 
-### To split the INSERT query into files that can be loaded in mysql
+To split the INSERT query into files that can be loaded in mysql
 $ split -l 400000 insertShortURLs-ALL.txt insertShortURLs-ALL
 
-# this creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
-# These each need an SQL INSERT clause as the first line and a semi-colon at the end
-# For all files:
+This creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
+These each need an SQL INSERT clause as the first line and a semi-colon at the end
+
+For all files:
 $ sed -i '1s/^/INSERT INTO lil_urls VALUES \n/' insertShortURLsaa
-# For all but the last file:
+
+For all but the last file:
 $ sed -i "\$s/,$/;/" insertShortURLsaa
-# For the last file
+
+For the last file
 sed -i "\$s/$/;/" insertShortURLsac
-# Now you have to start the mysql client like this:
+
+Now you have to start the mysql client like this:
 $ mysql --max_allowed_packet=999M -u <user> -p --local-infile
-# select the database and the source each file
+
+Select the database and the source each file
 
 
 ------------------------------------------------------------
