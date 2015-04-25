@@ -1,8 +1,10 @@
 OHDSI KB Source : SPLICER - Adverse Drug Events from FDA Structured Product Labels (SPLs)
 
-NOTE: See LICENSE for important information on legal requirements on the use
-of this data.
+SPLICER data are licensed under http://creativecommons.org/licenses/by-nc-sa/4.0/ meaning they are for non-commercial work only. If you are a commercial organization, please contact Regenstrief Institute for licensing information (riinnov8@regenstrief.org). See LICENSE for detailed information on legal requirements on the use of this data. Non-commercial users please be sure to cite the following paper for any work you publish or present that used SPLICER data:
 
+Duke J, Friedlin J, Li X. Consistency in the safety labeling of bioequivalent medications. Pharmacoepidemiol Drug Saf. 2013 Mar;22(3):294-301. doi:10.1002/pds.3351. Epub 2012 Oct 8. PubMed PMID: 23042584.
+
+------------------------------------------------------------
 Convert SPLICER output to RDF to support the OHDSI KB use cases.
 
 - splicer2rdf.py : Accepts as input a tab delimitted file containing
