@@ -1,8 +1,12 @@
 European Union Adverse Drug Reactions from Summary of Product Characteristics (EU SPC) Database Import 
 =============================================================================================
 
-This table of adverse events from the EU SPCs as downloaded from
-[PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
+The EU SPC source provides adverse drug events extracted from EU SPCs
+by the [PROTECT](http://www.imi-protect.eu/about.shtml)
+collaborative. See the online documentation for the [PROTECT Adverse
+Drug Reactions
+Database](http://www.imi-protect.eu/adverseDrugReactions.shtml) for a
+liability disclaimer.
 
 ### Convert EU SPC data to RDF to support the OHDSI KB use cases
 
