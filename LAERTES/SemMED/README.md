@@ -5,7 +5,33 @@ OHDSI KB - Source - PubMed via SemMedDB (http://skr3.nlm.nih.gov/)
 The [Semantic MEDLINE Database](http://skr3.nlm.nih.gov/SemMedDB/) is
 a repository of semantic predications (subject-predicate-object
 triples) extracted by SemRep, a semantic interpreter of biomedical
-text. The scripts in this folder use the Semantic MEDLINE Database and
+text. 
+
+Please cite the following paper in any publications or presentations of work that uses the data:
+
+Kilicoglu H, Rosemblat G, Fiszman M, Rindflesch TC. Constructing a semantic predication gold standard from the biomedical literature. BMC Bioinformatics. 2011 Dec 20;12:486. doi: 10.1186/1471-2105-12-486. PubMed PMID: 22185221; PubMed Central PMCID: PMC3281188. 
+
+Also, please note the following use requirements:
+
+Use of Semantic Knowledge Representation (SKR) Resources
+
+    * Redistribution of SKR resources in source or binary form must include this list of conditions in the documentation and other materials provided with the distribution.
+    
+    * In any publication or distribution of all or any portion of an SKR resource (1) you must attribute the source of the tools as the resource name with the release number and date; (2) you must clearly annotate within the source code, any modification made to the resource; and (3) any subsequent distribution of program, tool, or material based on the resource, must be accomplished within the context of an open source set of terms and conditions such as the GNU General License.
+    
+    * Bugs, questions, and issues relating to an SKR resource should be directed to the most recent of the chain of entities that may have modified and re-distributed this resource.
+    
+    * You shall not assert any proprietary rights to any portion of an SKR resource, nor represent it or any part thereof to anyone as other than a United States Government product.
+    
+    * The name of the U.S. Department of Health and Human Services, National Institutes of Health, National Library of Medicine, and Lister Hill National Center for Biomedical Communications may not be used to endorse or promote products derived from any SKR resource without specific prior written permission.
+    
+    * Neither the United States Government, U.S. Department of Health and Human Services, National Institutes of Health, National Library of Medicine, Lister Hill National Center for Biomedical Communications, nor any of its agencies, contractors, subcontractors or employees of the United States Government make any warranties, expressed or implied, with respect to any SKR resource, and, furthermore, assume no liability for any party's use, or the results of such use, of any part of these tools.
+
+These terms and conditions are in effect as long as the user retains any part of any SKR resource. 
+
+
+------------------------------------------------------------
+The scripts in this folder use the Semantic MEDLINE Database and
 a local implementation of PubMed/MEDLINE to:
 
 1) retrieve STATEMENTS from MEDLINE records that might report adverse
@@ -72,7 +98,7 @@ $ rdf_loader_run();
 ```
 
 ######Problems:
-- There is a one-to-many mapping between UMLS and SNOMED+MEDDRA so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
+- There is a one-to-many mapping between UMLS and SNOMED+MEDDRA. CUIs with this kind of mapping are listed (pipe-delimited) inside each column.
 
 ######Explanation of the columns output by selectTriplesPlusSentence.py:
 - pmid: the PMID
