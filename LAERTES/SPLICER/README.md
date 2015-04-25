@@ -50,22 +50,37 @@ NOTE: The output of writeLoadableSPLICERcounts.py includes data that
       max_allowed_packet=999M
 
 To split the INSERT query into files that can be loaded in mysql
+
+```
 $ split -l 400000 insertShortURLs-ALL.txt insertShortURLs-ALL
+```
 
 This creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
 These each need an SQL INSERT clause as the first line and a semi-colon at the end
 
 For all files:
+
+```
 $ sed -i '1s/^/INSERT INTO lil_urls VALUES \n/' insertShortURLsaa
+```
 
 For all but the last file:
+
+```
 $ sed -i "\$s/,$/;/" insertShortURLsaa
+```
 
 For the last file
+
+```
 sed -i "\$s/$/;/" insertShortURLsac
+```
 
 Now you have to start the mysql client like this:
+
+```
 $ mysql --max_allowed_packet=999M -u <user> -p --local-infile
+```
 
 Select the database and the source each file
 
@@ -74,6 +89,7 @@ Select the database and the source each file
 
 LOADING THE RDF DATA INTO VIRTUOSO:
 
+```
 -- FIRST TIME ONLY
 -- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed LIST OF virtuoso.ini AND RESTART VIRTUOSO
 $ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<PATH TO drug-hoi-splicer.n3>', 'http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc');
@@ -89,4 +105,4 @@ $ rdf_loader_run();
 $ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc' ;
 $ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc';
 $ rdf_loader_run();
-
+```
