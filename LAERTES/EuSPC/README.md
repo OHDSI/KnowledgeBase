@@ -25,8 +25,10 @@ euSPC2rdf.py script is loaded into a virtuoso endpoint, a query in the
 following form is ran at the endpoint (see
 RDF-count-and-drill-down-queries.sparql or the comments in writeLoadableEUSPCcounts.py): 
 
+```
 SELECT count(distinct ?an) ?drug ?hoi
 ...
+```
 
 This query give the counts for records present in the EU SPC for all
 drugs and HOIs present in the database. This data is saved into a tab
@@ -35,8 +37,10 @@ is loaded by writeLoadableEUSPCcounts.py. The script then generates a
 file (most recently drug-hoi-counts-with-linkouts-EU-SPC-10272014.tsv) that can be loaded into the relational Schema table
 'drug_hoi_evidence'. An example record:
 
+```
 drug_hoi_relationship	evidence_type	modality	evidence_source_code_id	statistic_value	evidence_linkout	statistic_type
 757688-35708164 SPL_EU_SPC      positive        1       2       http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kza   COUNT
+```
 
 The data in this file can then be used 
 
@@ -84,7 +88,7 @@ listed in the adverse event table. This was created by:
 ------------------------------------------------------------
 
 LOADING THE RDF DATA INTO VIRTUOSO:
-
+```
 -- FIRST TIME ONLY 
 -- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed LIST OF virtuoso.ini AND RESTART VIRTUOSO
 $ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<path to drug-hoi-eu-spc.nt>', 'http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc');
@@ -100,3 +104,4 @@ $ rdf_loader_run();
 $ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc' ;
 $ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc';
 $ rdf_loader_run();
+```
