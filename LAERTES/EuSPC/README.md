@@ -12,9 +12,10 @@ liability disclaimer.
 
 - euSPC2rdf.py : Accepts as input a tab delimitted file containing
   adverse drug events extracted from EU SPCs by
-  [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml) and
-  produces as output a ntriples file that represents the data using
-  the Open Annotation Data (OA) schema
+  [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml) that
+  has been processed to add concept identifiers for the drugs from
+  RxNorm and MeSH. The script produces as output a ntriples file that
+  represents the data using the Open Annotation Data (OA) schema
 
 NOTE: an editable diagram of the OA model for EU SPC ADE records can
 be found in
@@ -59,11 +60,11 @@ things that were unable to be mapped. The combination products were
 manually mapped where possibly using the Bioportal's ontology search.
 
 The final dataset with the RxCUIs and MeSH CUIs is in
-[FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv).
+[Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv).
 
 1. `cd scripts`
 2. `python processEuSPCToAddRxNormAndMeSH.py`
-3. `python3 getMissingMappings.py ../data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv ../data/missing`
+3. `python3 getMissingMappings.py ../data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv ../data/missing`
 
 ### Processing the EU SPC Drug Listing
 
