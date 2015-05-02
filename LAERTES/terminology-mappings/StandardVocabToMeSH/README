@@ -1,5 +1,5 @@
 A mapping from MeSH codes to ids in the OHDSI standard vocab V5. This
-was exported using the following query:
+was exported on 4/23/2015 using the following query:
 
 SELECT CONCEPT_ID, CONCEPT_NAME, CONCEPT_CODE
 FROM CONCEPT

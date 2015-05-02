@@ -176,6 +176,7 @@ inf.close()
 lines = buf.split("\n")
 it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[1:]] # skip header
 for elt in it:
+    print "%s" % elt
     if elt == [u'']:
         break 
 
@@ -263,14 +264,16 @@ for elt in it:
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
 
     # TODO: Define these predicates - preferrably from an ontology
-    tplL.append((poc[currentAnnotationBody], ohdsi['AgeGroup'], Literal(elt[AGE_GROUP]]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['Gender'], Literal(elt[GENDER]]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['Causality'], Literal(elt[CAUSALITY]]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['Frequency'], Literal(elt[FREQUENCY]]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['ClassWarning'], Literal(elt[CLASS_WARNING]]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['ClinicalTrials'], Literal(elt[CLINICAL_TRIALS]]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['Postmarketing'], Literal(elt[POST_MARKETING]]))
-    tplL.append((poc[currentAnnotationBody], ohdsi['CuratorComment'], Literal(elt[COMMENT]]))
+    tplL.append((poc[currentAnnotationBody], ohdsi['AgeGroup'], Literal(elt[AGE_GROUP])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Gender'], Literal(elt[GENDER])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Causality'], Literal(elt[CAUSALITY])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Frequency'], Literal(elt[FREQUENCY])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['ClassWarning'], Literal(elt[CLASS_WARNING])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['ClinicalTrials'], Literal(elt[CLINICAL_TRIALS])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Postmarketing'], Literal(elt[POST_MARKETING])))
+
+    if len(elt) > COMMENT:
+        tplL.append((poc[currentAnnotationBody], ohdsi['CuratorComment'], Literal(elt[COMMENT])))
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')

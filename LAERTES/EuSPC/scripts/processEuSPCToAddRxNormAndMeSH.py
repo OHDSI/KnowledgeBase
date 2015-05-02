@@ -14,8 +14,8 @@ import csv
 import string
 import pprint
 ##########INPUT STRING NAME FILES#######################################
-inp = '../data/FinalRepository_DLP30Jun2012.csv'
-out = '../data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv'
+inp = '../data/Finalrepository_2Sep2014_DLP30June2013.csv'
+out = '../data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv'
 
 ## raw input from the TRIADs drug named entity recognition program
 mapfolder = '../json-rxcui/'
@@ -151,12 +151,6 @@ makeMissingDict(missingdict, meshmissing, 'MESH')
 makeMissingDict(missingdict, bothmissing, 'BOTH')
 makeMissingDict(missingdict, multiplesubs, 'BOTH')
 
-##This was done to make sure the missingdict was being made...
-#hi = open('missingict.txt', 'w')
-#pprint.pprint(missingdict, hi)
-#hi.close()
-
-#output file FinalRepository_DLP30Jun2012_withCUIs_v2.csv initialized
 outfile = open(out, 'w')
 outcsv = csv.writer(outfile, delimiter = "\t")
 
@@ -173,7 +167,7 @@ with open(inp, 'r') as fil:
 	for row in repo:
 		
 		#getting substance of row
-		substance = row[2].lower().strip()
+		substance = row[1].lower().strip()
 		#getting drug of row
 		drug = row[0].lower().strip()
 		
