@@ -1,4 +1,5 @@
 # semMed2rdf.py
+# -*- coding: utf-8 -*-
 #
 # Convert the result of a SemMedDB drug-HOI evidence search to Open Data Annotation
 #
@@ -331,7 +332,7 @@ for elt in recL:
     if not abstractCache.has_key(elt[PMID]):
         try:
             print "INFO: Attempting to retrieve the abstract for PMID %s from the MEDLINE DB" % elt[PMID]
-            cur.execute("""SELECT value FROM medcit_art_abstract_abstracttext WHERE pmid = %s""" % elt[PMID])
+            cur.execute("""SELECT value,label,medcit_art_abstract_abstracttext_order  FROM medcit_art_abstract_abstracttext WHERE pmid = %s ORDER BY medcit_art_abstract_abstracttext_order""" % elt[PMID])
         except Exception as e:
             print "ERROR: Attempt to get the abstract for PMID failed. Error string: %s" % e
             sys.exit(1)
@@ -340,6 +341,17 @@ for elt in recL:
         if len(rows) == 0:
             abstractCache[elt[PMID]] = ""
             print "INFO: No abstract found for PMID %s." % elt[PMID]
+        elif rows[0][1] != None:
+            print "INFO: Abstract found for PMID %s and it appears to be a structured abstract. Concatenating all parts of the structured abstract." % elt[PMID]
+            structAbstr = ""
+            for ii in range(0,len(rows)):
+                secLab = rows[ii][1]
+                if secLab.upper() == 'UNLABELLED':
+                    structAbstr += "%s " % (rows[ii][0])
+                else:
+                    structAbstr += "%s: %s " % (secLab,rows[ii][0])
+            abstractCache[elt[PMID]] = structAbstr
+            print "%s" % abstractCache[elt[PMID]]            
         else:
             abstractCache[elt[PMID]] = rows[0][0]
             print "%s" % abstractCache[elt[PMID]]
@@ -392,6 +404,7 @@ for elt in recL:
         # add the text quote selector. Sentences from titles will only
         # have an "exact". 
         # TODO: test that this approach is sufficient (i.e., no titles have more than one sentence.
+        elt[SENTENCE] = elt[SENTENCE].replace("UNLABELLED: ","").replace("CONLCUSION:","CONCLUSION:").replace("        "," ").replace("       "," ").replace("hyperkalemia >/= 9.0","hyperkalemia >= 9.0").replace("alternative therapies  for RLS","alternative therapies for RLS").replace("hepatic  failure","hepatic failure").replace("are not yet  accessible","are not yet accessible").replace('""','"').strip('"') # TODO: this was a temporary bug fix because for some unknown reason extra whitespace and extra quotes was inserted into the exact sentence text in SemMedDB
         textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
         tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
         tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
@@ -401,11 +414,12 @@ for elt in recL:
         # post text string from the abstract
         if elt[SENTENCE_TYPE] == 'ab':
             abstractTxt = abstractCache[elt[PMID]]
+            abstractTxt = abstractTxt.replace("¿","?").replace("·",".").replace("²","2").replace("μ","mu").replace("₂","2").replace("α","alpha").replace("β","beta").replace("…","...").replace("≥",">=").replace("≤","</=").replace(" = "," = ").replace(" "," ").replace(" >= "," >= ").replace(" "," ").replace(" "," ").replace("ï","i").replace("×","x").replace('®',"(r)").replace("ô","o").replace("ö","o").replace("ä","a").replace("ó","o").replace("ü","u").replace("é","e") # TODO: temporary fix beause load of SemMed or method of querying it is messing up non-ascii characters
             if abstractTxt == "":
                 print "ERROR: SemMed indicates that there is an abstract but one not present in the abstract cache!"
                 sys.exit(1)
             
-            exactSpanFrom = abstractTxt.find(elt[SENTENCE])
+            exactSpanFrom = abstractTxt.upper().find(elt[SENTENCE].upper())
             if exactSpanFrom == -1:
                 print "ERROR:Could not find annotated sentence sequence in abstractTxt!\n\tsentence:\n\t\t%s\n\tabstractTxt:\n\t\t%s" % (elt[SENTENCE], abstractTxt)
                 sys.exit(1)
@@ -425,9 +439,10 @@ for elt in recL:
             tplL.append((textConstraintUuid, oa["prefix"], Literal(pre)))
             tplL.append((textConstraintUuid, oa["postfix"], Literal(post)))
 
-    s = ""
+    s = u""
     for t in tplL:
-        s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
+        #s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
+        s += u" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n"))
     f.write(s)
     
 
