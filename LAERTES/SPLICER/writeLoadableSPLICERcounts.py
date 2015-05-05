@@ -55,5 +55,11 @@ for elt in l:
     f.write("%s('%s','%s',CURRENT_TIMESTAMP)" % (pre,url_id, q))
     turl = URL_PREFIX + url_id
     key = "%s-%s" % (drug,hoi)
-    print "\t".join([key,EVTYPE,'positive',"2",str(cnt),turl,"COUNT"])
+    if section.find('34084-4') != -1: # adverse reactions or post marketing
+        print "\t".join([key,EVTYPE + "_ADR",'positive',"12",str(cnt),turl,"COUNT"])
+    elif section.find('34072-9') != -1: # precautions
+        print "\t".join([key,EVTYPE + "_PRECAUTIONS",'positive',"13",str(cnt),turl,"COUNT"])
+    else:
+        print "Not continuing because there is a record with an urecognized section: %s" % section
+        sys.exit(1)
 f.close()
