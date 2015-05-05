@@ -1,7 +1,6 @@
 OHDSI KB - Source - PubMed via SemMedDB (http://skr3.nlm.nih.gov/)
 ======
 
-
 The [Semantic MEDLINE Database](http://skr3.nlm.nih.gov/SemMedDB/) is
 a repository of semantic predications (subject-predicate-object
 triples) extracted by SemRep, a semantic interpreter of biomedical
