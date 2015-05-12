@@ -47,7 +47,7 @@ FOLDER LAYOUT
     			       drug_HOI_evidence table
 
 ---------------------------------------------------------------
-NOTES ON 05/05/2015 LOAD
+NOTES ON 05/12/2015 LOAD
 ---------------------------------------------------------------
 
 * Sources: 
@@ -62,27 +62,27 @@ EU_SPC_ADR
 PUBMED : 58303
 SEMMED : 64959
 SPLICER : 287931
-FDA Adverse Event Reporting System : 4860068
+FDA Adverse Event Reporting System : 3478558
 EU_SPC_ADR : 23920
 
-TOTAL: 5295181
+TOTAL: 3913671
 
 * Rows dropped because of NULL concept ids: 
 
 PUBMED : 0
 SEMMED : 0
 SPLICER : 339 (0.1%)
-FDA Adverse Event Reporting System : 1564856 (32.2%)
+FDA Adverse Event Reporting System : 1130346 (32.5%)
 EU_SPC_ADR : 0
 
-TOTAL: 1565195  (29.6%)
+TOTAL: 1130685  (28.9%)
 
 * Total number of rows after mapping HOI concepts to SNOMED: 
 
-PUBMED : 49214  (decrease of 9089 (18.5%))
-SEMMED : 39778 (decrease of 25181 (38.8%)) -- NOTE: many concepts were assumed to be SNOMED that are really un-mappable MeSH - all data with non-SNOMED HOIs needs to be dropped from all of the tables where they exist
-SPLICER : 495412 (*increase* of 207481  (72.1%)) -- Probably mostly due to one to many mappings from MedDRA to SNOMED
-FDA Adverse Event Reporting System : 3295212  (decrease of  (32.2%)) - due to NULL concept ids
-EU_SPC_ADR : 37859 (*increase* of 13939 (58.3%)) -- Probably mostly due to one to many mappings from MedDRA to SNOMED
+PUBMED : 48118  (decrease of 10185  (21.2%))
+SEMMED : 30444 (decrease of 34515 (53.1%)) NOTE: Lot's of MeSH concepts not getting mapped
+SPLICER : 263661 (decrease of 24270 (8.4%))  ---- WAS (*increase* of 207481  (72.1%)) -- Probably mostly due to one to many mappings from MedDRA to SNOMED
+FDA Adverse Event Reporting System : 1174106  (decrease of 2304452 (66.2%)) - due to NULL concept ids
+EU_SPC_ADR : 20806 (decrease of 3114 (13.0%)) ----- WAS (*increase* of 13939 (58.3%)) -- Probably mostly due to one to many mappings from MedDRA to SNOMED
 
-TOTAL: 3917475
+TOTAL: 1537135 (decrease of 2376536 (64.6%) - mostly due to NULLs in the FAERS data)
