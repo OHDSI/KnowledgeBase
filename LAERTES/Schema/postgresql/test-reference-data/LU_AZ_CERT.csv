@@ -1,0 +1,180 @@
+Generic_Name,Brand Names (Partial List),RxNorm_CONCEPT_ID,Drug_Class,Therapeutic_Use,PubMed_Search,Risk_Category,Risk_Category_2,Route
+Albuterol,"Proventil®, Ventolin®, Ventolin-HFA®, Accuneb®, Combivent®, Vospire-ER®, ProAir HFA®, Duoneb®",1154343,Bronchodilator,Asthma,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"oral, injection"
+Alfuzosin,Uroxatral®,930021,Alpha1-blocker,Benign prostatic hyperplasia,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Amantadine,"Symmetrel®, Symadine®",19087090,Anti-viral,"Viral infection (Influenza), Parkinson's disease",link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Amiodarone,"Cordarone®, Pacerone®, Nexterone®",1309944,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Amisulpride,"Solian®, Supitac®, Soltus®, Amitrex®, Amazeo®",19057607,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Amitriptyline,"Elavil® (Discontinued 6/13), Tryptomer®, Tryptizol®, Laroxyl®, Saroten®, Sarotex® Lentizol®, Endep®",710062,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Amoxapine,"Asendin®, Amokisan®, Asendis®, Defanyl®, Demolox®, Moxadil®",713109,"Anti-depressant, Tetracyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Amphetamine,"Adderal-XR®, Dexedrine®, Dextroamp®",714785,CNS stimulant,ADHD,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Anagrelide,"Agrylin®, Xagrid®",1381253,Phosphodiesterase 3 inhibitor,Thrombocythemia,link,Drugs with known TdP risk,Risk of TdP,oral
+Apomorphine,"Apokyn®, Ixense®, Spontane®, Uprima®",837027,Dopamine agonist,Parkinson's disease,link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Arformoterol,Brovana®,1111220,Bronchodilator,Bronchoconstriction in COPD,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,inhaled
+Aripiprazole,"Abilify®, Aripiprex®",757688,"Anti-psychotic, atypical","Schizophrenia, depression (adjunct)",link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Arsenic trioxide,Trisenox®,1333379,Anti-cancer,Cancer (leukemia),link,Drugs with known TdP risk,Risk of TdP,injection
+Astemizole,Hismanal®,1150770,Antihistamine,Allergic rhinitis,link,Drugs with known TdP risk,Risk of TdP,oral
+Atazanavir,Reyataz®,1727223,Anti-viral,Viral infection (HIV/AIDS),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Atomoxetine,Strattera®,742185,Norepinephrine reuptake inhibitor,ADHD,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Azithromycin,"Zithromax®, Zmax®",1734104,Antibiotic,Bacterial infection,link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Bedaquiline,Sirturo®,43012518,Antibiotic,Bacterial infection (Drug resistant tuberculosis),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Bepridil,Vascor®,1319751,Anti-anginal,Angina Pectoris (heart pain),link,Drugs with known TdP risk,Risk of TdP,oral
+Bortezomib,"Velcade®, Bortecad®",1336825,Proteasome inhibitor,"Cancer (multiple myeloma,lymphoma)",link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Bosutinib,Bosulif®,42900401,Tyrosine kinase inhibitor,Cancer (leukemia),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Chloral hydrate,"Aquachloral®, Novo-Chlorhydrate®, Somnos®, Noctec®, Somnote®",742594,Sedative,"Sedation, insomnia",link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Chloroquine,Aralen®,1792515,Anti-malarial,Malaria,link,Drugs with known TdP risk,Risk of TdP,oral
+Chlorpromazine,"Thorazine®, Largactil®, Megaphen®",794852,Anti-psychotic / Anti-emetic,"Schizophrenia, nausea, many others",link,Drugs with known TdP risk,Risk of TdP,"oral, injection, suppository"
+Cilostazol,Pletal®,1350310,Phosphodiesterase 3 inhibitor,Intermittent claudication,link,Drugs with known TdP risk,Risk of TdP,oral
+Ciprofloxacin,"Cipro®, Cipro-XR®, Neofloxin®",1797513,Antibiotic,Bacterial infection,link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Cisapride,Propulsid®,932196,GI stimulant,Increase GI motility,link,Drugs with known TdP risk,Risk of TdP,oral
+Citalopram,"Celexa®, Cipramil®",797617,"Anti-depressant, SSRI",Depression,link,Drugs with known TdP risk,Risk of TdP,oral
+Clarithromycin,"Biaxin®, Prevpac®",1750500,Antibiotic,Bacterial infection,link,Drugs with known TdP risk,Risk of TdP,oral
+Clomipramine,Anafranil®,798834,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Clozapine,"Clozaril®, Fazaclo®, Versacloz®",800878,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Cocaine,Cocaine,1001419,Local anesthetic,Anesthesia (topical),link,Drugs with known TdP risk,Risk of TdP,topical
+Crizotinib,Xalkori®,40242675,Kinase inhibitor,"Cancer (Non-small cell lung cancer, metastatic)",link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Dabrafenib,Tafinlar®,43532299,Kinase inhibitor,Cancer (melanoma),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Dasatinib,Sprycel®,1358436,Tyrosine kinase inhibitor,Cancer (leukemia),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Desipramine,"Pertofrane®, Norpramine®",716968,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Dexmedetomidine,"Precedex®,  Dexdor®,  Dexdomitor®",19061088,Sedative,Sedation,link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Dexmethylphenidate,"Focalin®, Focalin-XR®",731533,CNS stimulant,ADHD,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Dextroamphetamine,"Dexedrine®, dexamphetamine, dexamfetamine, (S)-(+)-amphetamine, Dextrostat®",719311,CNS stimulant,"ADHD, obesity",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Dihydroartemisinin+piperaquine,Eurartesim®,0,Anti-malarial,Malaria,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Diphenhydramine,"Benadryl®, Nytol®, Unisom®, Sominex®, Dimedrol®, Daedalon®",1129625,Antihistamine,"Allergic rhinitis, insomnia",link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Disopyramide,Norpace®,1335606,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,oral
+Dobutamine,Dobutrex®,1337720,Inotrope,"Heart failure, shock (low blood pressure)",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,injection
+Dofetilide,Tikosyn®,1362979,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,oral
+Dolasetron,Anzemet®,903459,Anti-nausea,"Nausea, vomiting",link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Domperidone,"Motilium®, Motillium®, Motinorm Costi®, Nomit®",19037833,Anti-nausea,"Nausea, vomiting",link,Drugs with known TdP risk,Risk of TdP,"oral, injection, suppository"
+Donepezil,Aricept®,715997,Cholinesterase inhibitor,Dementia (Alzheimer's Disease),link,Drugs with known TdP risk,Risk of TdP,oral
+Dopamine,Intropine®,1337860,Inotrope,"Heart failure, shock (low blood pressure)",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,injection
+Doxepin,"Sinequan®, Silenor®, Aponal®, Adapine®, Doxal®, Deptran®, Sinquan®",738156,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Dronedarone,Multaq®,40163615,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,oral
+Droperidol,"Inapsine®, Droleptan®, Dridol®, Xomolix®",739323,Anti-psychotic / Anti-emetic,"Anesthesia (adjunct), nausea",link,Drugs with known TdP risk,Risk of TdP,injection
+Ephedrine,"Rynatuss®, Broncholate®",1143374,"Bronchodilator, decongestant","Allergic reaction, allergic rhinitis, asthma",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"oral, injection"
+Epinephrine,"Primatene®, Bronkaid®",1343916,"Catecholamine, vasoconstrictor","Allergic reaction, anaphylaxis, cardiac arrest",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"injection, inhaled"
+Eribulin,Halaven®,40230712,Anti-cancer,"Cancer (breast, metastatic)",link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Erythromycin,"E.E.S.®, Robimycin®, EMycin®, Erymax®, Ery-Tab®, Eryc Ranbaxy®, Erypar®, Eryped®, Erythrocin Stearate Filmtab®, Erythrocot®, E-Base®, Erythroped®, Ilosone®,  MY-E®, Pediamycin®, Zineryt®, Abboticin®, Abboticin-ES®, Erycin®, PCE Dispertab®, Stiemycine®, Acnasol®, Tiloryth®",1746940,Antibiotic,"Bacterial infection, increase GI motility",link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Escitalopram,"Cipralex®, Lexapro®, Nexito®, Anxiset-E® (India), Exodus® (Brazil), Esto® (Israel), Seroplex®, Elicea®, Lexamil®, Lexam®, Entact® (Greece), Losita® (Bangladesh), Reposil® (Chile), Animaxen® (Colombia), Esitalo® (Australia), Lexamil® (South Africa)",715939,"Anti-depressant, SSRI","Depression (major), anxiety disorders",link,Drugs with known TdP risk,Risk of TdP,oral
+Famotidine,"Pepcid®, Fluxid®, Quamatel®",953076,H2-receptor antagonist,"Gastric hyperacidity, GERD",link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Felbamate,Felbatol®,795661,Anti-convulsant,Epilepsy,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Fenfluramine,"Pondimin®, Ponderax®, Adafax®",753860,Appetite suppressant,Obesity,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Fingolimod,Gilenya®,40226579,Sphingosine phospate receptor modulator,Multiple Sclerosis,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Flecainide,"Tambocor®, Almarytm®, Apocard®, Ecrinal®, Flécaine®",1354860,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,oral
+Fluconazole,"Diflucan®, Trican®",1754994,Anti-fungal,Fungal infection,link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Fluoxetine,"Prozac®, Sarafem®, Fontex®",755695,"Anti-depressant, SSRI",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Formoterol,"Foradil®, Foradile®, Oxeze®, Oxis®, Atock®, Atimos®, Atimos Modulite®, Perforomist®, Dulera®, Symbiocort®, Vannair®, Quikhale FB®",1196677,Bronchodilator,Asthma,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,inhaled
+Foscarnet,Foscavir®,1724700,Anti-viral,Viral infection (HIV/AIDS),link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Furosemide,"Lasix®, Fusid®, Frumex®",956874,Diuretic,"Hypertension, diuresis",link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Galantamine,"Reminyl®, Nivalin®, Razadyne-ER®,",757627,Cholinesterase inhibitor,Dementia (Alzheimer's Disease),link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Gatifloxacin,Tequin®,1789276,Antibiotic,Bacterial infection,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Gemifloxacin,Factive®,1716721,Antibiotic,Bacterial infection,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Granisetron,"Kytril®,  Sancuso®, Granisol®",1000772,Anti-nausea,"Nausea, vomiting",link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection, topical"
+Grepafloxacin,Raxar®,1747032,Antibiotic,Bacterial infection,link,Drugs with known TdP risk,Risk of TdP,oral
+Halofantrine,Halfan®,1766340,Anti-malarial,Malaria,link,Drugs with known TdP risk,Risk of TdP,oral
+Haloperidol,"Haldol® (US & UK), Aloperidin®, Bioperidolo®, Brotopon®, Dozic®, Duraperidol® (Germany), Einalon S®, Eukystol®, Halosten®, Keselan®, Linton®, Peluces®, Serenace®, Serenase®, Sigaperidol®",766529,Anti-psychotic,"Schizophrenia, agitation",link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Hydrochlorothiazide,"Apo-Hydro®, Aquazide H®, BP Zide®, Dichlotride®, Hydrodiuril®, HydroSaluric®, Hydrochlorot®, Microzide®, Esidrex®, Oretic®",974166,Diuretic,"Hypertension, diuresis",link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Hydroxychloroquine,"Plaquenil®,  Quineprox®",1777087,"Anti-malarial, Anti-inflammatory","Malaria, SLE, rheumatoid arthritis",link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Hydroxyzine,"Atarax®,  Vistaril®,  Aterax®,  Alamon®,  Durrax®,  Equipose®,  Masmoran®,  Orgatrax®,  Paxistil® Quiess®,  Tran-Q®,  Tranquizine®",777221,Antihistamine,"Allergic reaction, anxiety disorders",link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Ibutilide,Corvert®,19050087,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,injection
+Iloperidone,"Fanapt®, Fanapta®, Zomaril®",19017241,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Imipramine,Tofranil®,778268,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Indapamide,"Lozol®, Natrilix®, Insig®",978555,Diuretic,"Hypertension, diuresis",link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Isoproterenol,"Medihaler-Iso®, Isuprel®",1183554,Bronchodilator,Allergic reaction,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"injection, inhaled"
+Isradipine,Dynacirc®,1326012,Anti-hypertensive,Hypertension,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Itraconazole,"Sporanox®, Onmel®",1703653,Anti-fungal,Fungal infection,link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Ivabradine,"Procoralan®,  Coralan®,  Corlentor®,  Coraxan®,  Ivabid®,  Bradia®",0,Anti-anginal,Angina Pectoris (heart pain),link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Ketoconazole,"Nizoral®, Sebizole®, Ketomed®, Keton®",985708,Anti-fungal,Fungal infection,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Lapatinib,"Tykerb®, Tyverb®",1359548,Anti-cancer,"Cancer (breast, metastatic)",link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Levalbuterol,"Xopenex®, Levolin®, Axazest®",1192218,Bronchodilator,Asthma,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"oral, inhaled"
+Levofloxacin,"Levaquin®, Tavanic®",1742253,Antibiotic,Bacterial infection,link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Levomethady,Orlaam®,19092108,Opiate,Narcotic dependence,link,Drugs with known TdP risk,Risk of TdP,oral
+Lisdexamfetamine,Vyvanse®,709567,CNS stimulant,ADHD,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Lithium,"Eskalith®, Lithobid®",19124477,Anti-mania,Bipolar disorder,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Mesoridazine,Serentil®,703083,Anti-psychotic,Schizophrenia,link,Drugs with known TdP risk,Risk of TdP,oral
+Metaproterenol,"Metaprel®, Alupent®",1123995,Bronchodilator,Asthma,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"oral, inhaled"
+Methadone,"Dolophine®, Symoron®, Amidone®, Methadose®, Physeptone®, Heptadon®",1103640,Opiate,"Narcotic dependence, pain",link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Methamphetamine,"Desoxyn®, Pervitin®, Anadrex®, Methedrine®, Syndrox®",704053,CNS stimulant,"Obesity, ADHD",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Methylphenidate,"Ritalin®, Concerta®, Focalin®, Daytrana®, Methylin®, Metadate CD®",705944,CNS stimulant,ADHD,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Metoclopramide,"Reglan®,  Afipran®,  Maxolon®,  Cerucal®,  Clopamon®,  Clopra®,  Maxeran®,  Maxolon®,  Metozolv®,  Plasil®,  Pramin®,  Primperan®,  Perinorm®",906780,Anti-emetic,"Nausea, vomiting",link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Metronidazole,Flagyl® and many others,1707164,Antibiotic,"Trichomoniasis, amebiasis, bacterial infection",link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Midodrine,"ProAmatine®, Amatine®, Gutron®",1308368,Vasoconstrictor,Hypotension,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Mifepristone,"Korlym®, Mifeprex®",1508439,Progesterone antagonist,Pregnancy termination,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Mirabegron,Myrbetriq®,42873636,Beta3 adrenergic antagonist,Bladder spasm,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Mirtazapine,Remeron,725131,"Anti-depressant, Tetracyclic",Depression,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Moexipril/HCTZ,"Uniretic®, Univasc®",1310756,Anti-hypertensive,Hypertension,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Moexipril/HCTZ,"Avelox®, Avalox®, Avelon®",974166,Anti-hypertensive,Hypertension,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Moxifloxacin,Viracept®,1716903,Antibiotic,Bacterial infection,link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Nelfinavir,Cardene®,1715472,Anti-viral,Viral infection (HIV/AIDS),link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Nicardipine,Tasigna®,1318137,Anti-hypertensive,Hypertension,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Nilotinib,Levophed®,1394023,Anti-cancer,Cancer (leukemia),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Norepinephrine,"Noroxin®, Ambigram®",1321341,"Vasconstrictor, Inotrope","Heart failure, shock (low blood pressure)",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"oral, injection"
+Norfloxacin,"Pamelor®, Sensoval®, Aventyl®, Norpress®, Allegron®, Noritren®, Nortrilen®",1721543,Antibiotic,Bacterial infection,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Nortriptyline,Floxin®,721724,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Ofloxacin,"Zyprexa®, Zydis®, Relprevv®",923081,Antibiotic,Bacterial infection,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Olanzapine,"Zofran®, Anset®, Ondemet®, Zuplenz®, Emetron®, Ondavell®, Emeset®, Ondisolv®, Setronax®",785788,"Anti-psychotic, atypical","Schizophrenia, bipolar disorder",link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Ondansetron,"Pitocin®, Syntocinon®",1000560,Anti-emetic,"Nausea, vomiting",link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Oxytocin,"Invega®, Xepilon®",1326115,Oxytocic,Labor stimulation,link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Paliperidone,Protonix® and others,703244,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Pantoprazole,"Paxil®, Aropax®, Pexeva®, Seroxat®, Sereupin®",948078,Proton Pump Inhibitor,"Gastric hyperacidity, GERD",link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Paroxetine,Signifor®,722031,"Anti-depressant, SSRI",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Pasireotide,Votrient®,43012417,Somatostatin analog,Cushings Disease,link,Drugs with possible TdP risk,Possible Risk of TdP,"injection, topical"
+Pazopanib,Pentam®,40167554,Tyrosine kinase inhibitor,"Cancer (renal cell, sarcoma)",link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Pentamidine,Definity®,1730370,Antifungal,Fungal infection (Pneumocystis pneumonia),link,Drugs with known TdP risk,Risk of TdP,injection
+Perflutren lipid microspheres,"Adipex P®, Adiphene® (India), Anoxine-AM®, Ionamin®, Duromine®, Metermine®, Miraprontv, Obephen®, Obermine®, Obestin-30®, Phentremine®, Phentrol®, Phenterex®, Phentromin®, Pro-Fast SA®, Redusa®, Panbesy®, Obenix®, Oby-Trim®, Teramine®, Zantryl®, Sinpet®, Supremin®, Suprenza®, Umine®, Weltmine®",19071160,Imaging contrast agent,Echocardiography,link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Phentermine,Neosynephrine®,735340,Appetite suppressant,Obesity,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Phenylephrine,"Acutrim®, Dexatrim®",1135766,Vasoconstrictor,"Shock (low blood pressure), allergic rhinitis, asthma",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"oral, injection"
+Phenylpropanolamine,Orap®,1139993,Appetite suppressant,Obesity,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Pimozide,"Dipiperon (E.U),  Propitan (Japan)",745790,Anti-psychotic,Tourette's Disorder,link,Drugs with known TdP risk,Risk of TdP,oral
+Pipamperone,"Noxafil®,  Posamol®",19093225,Antipsychotic,Schizophrenia,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Posaconazole,Lorelco®,1704139,Anti-fungal,Fungal infection,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Probucol,"Pronestyl®, Procan®",19051463,Antilipemic,Hypercholesterolemia,link,Drugs with known TdP risk,Risk of TdP,oral
+Procainamide,Phenergan®,1351461,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,injection
+Promethazine,"Diprivan®,  Propoven®",1153013,Anti-psychotic / Anti-emetic,"Nausea, vomiting",link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection, suppository"
+Propofol,Vivactil®,753626,"Anesthetic, general",Anesthesia,link,Drugs with known TdP risk,Risk of TdP,injection
+Protriptyline,"PediaCare®, Sudafed®",754270,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Pseudoephedrine,Seroquel®,1154332,Decongestant,"Allergic reaction, allergic rhinitis, asthma",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Quetiapine,"Quinaglute®, Duraquin®, Quinact®, Quinidex®, Cin-Quin®, Quinora®",766814,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Quinidine,Qualaquin®,1360421,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,"oral, injection"
+Quinine sulfate,"Ranexa®, Ranozex®",1760616,Anti-malarial,"Malaria, leg cramps",link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Ranolazine,"Edurant®, Complera®, Eviplera®",1337107,Anti-anginal,Angina Pectoris (heart pain),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Rilpivirine,Risperdal®,40238930,Anti-viral,Viral infection (HIV/AIDS),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Risperidone,Yutopar®,735979,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Ritodrine,Norvir®,1563413,Muscle relaxant,Premature labor,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,injection
+Ritonavir,"Rulide®, Xthrocin®, Roxl-150®, Roxo®, Surlid®, Rulide®, Biaxsig®, Roxar®, Roximycinv®, Roxomycin®, Rulid®, Tirabicin®, Coroxin®",1748921,Anti-viral,Viral infection (HIV/AIDS),link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Roxithromycin,"Serevent®, Advair®",19063874,Antibiotic,Bacterial infection,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Salmeterol,Invirase®(combo),1137529,Bronchodilator,Asthma,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,inhaled
+Saquinavir,"Serdolect®, Serlect®",1746244,Anti-viral,Viral infection (HIV/AIDS),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Sertindole,"Zoloft®, Lustral®, Daxid®, Altruline®, Besitran®, Deprax®, Elrval®, Emergen®, Gladem®, Implicane®, Sedoran®, Sealdin®, SerivoLowfin®, Stimuloton®, Tresleen®, Sertralin Bluefish®",19050633,"Anti-psychotic, atypical","Schizophrenia, anxiety",link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Sertraline,"Ulane®, Sojourn®",739138,"Anti-depressant, SSRI",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Sevoflurane,Meridia®,19039298,"Anesthetic, general",Anesthesia,link,Drugs with known TdP risk,Risk of TdP,inhaled
+Sibutramine,VESIcare®,739363,Appetite suppressant,Obesity,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Solifenacin,Nexavar®,916005,Muscle relaxant,Bladder spasm,link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Sorafenib,"Betapace®, Sotalex®, Sotacor®",1363387,Tyrosine kinase inhibitor,"Cancer (liver, renal cell, metastatic thyroid)",link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Sotalol,Zagam®,1370109,Anti-arrhythmic,Abnormal heart rhythm,link,Drugs with known TdP risk,Risk of TdP,oral
+Sparfloxacin,"Dogmatil®, Dolmatil®, Eglonyl®, Espiride®, Modal®, Sulpor®",1733765,Antibiotic,Bacterial infection,link,Drugs with known TdP risk,Risk of TdP,oral
+Sulpiride,Sutent®,19136626,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with known TdP risk,Risk of TdP,oral
+Sunitinib,"Prograf®, Prograf®, Advagraf®, Protopic®",1336539,Kinase inhibitor,"Cancer (GIST, renal cell, pNET)",link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Tacrolimus,"Nolvadex®(discontinued 6/13), Istubal®, Valodex®",950637,Immunosuppressant,Immune suppression,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
+Tamoxifen,"Incivek®, Incivo®",1436678,Anti-cancer,Cancer (breast),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Telaprevir,Vibativ®,40239330,Anti-viral,Viral infection (hepatitis C),link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Telavancin,Ketek®,40166675,Antibiotic,Bacterial infection,link,Drugs with possible TdP risk,Possible Risk of TdP,injection
+Telithromycin,"Brethine®, Bricanyl®, Brethaire®, Terbulin®",1702911,Antibiotic,Bacterial infection,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Terbutaline,Seldane®,1236744,Bronchodilator,"Asthma, premature labor",link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,"oral, injection, inhaled"
+Terfenadine,"Nitoman®, Xenazine®",1150836,Antihistamine,Allergic rhinitis,link,Drugs with known TdP risk,Risk of TdP,oral
+Tetrabenazine,"Mellaril®, Novoridazine®, Thioril®",836877,Monoamine Transporter Inhibitor,Chorea (Huntington's disease),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Thioridazine,"Zanaflex®, Sirdalud®",700299,Anti-psychotic,Schizophrenia,link,Drugs with known TdP risk,Risk of TdP,oral
+Tizanidine,"Detrol®, Detrusitol®",778474,Muscle relaxant,Muscle spasticity,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Tolterodine,Fareston®,913782,Muscle relaxant,Bladder spasm,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Toremifene,"Demadex®, Diuver®, Examide®",1342346,Estrogen agonist/antagonist,"Cancer (breast, metastatic)",link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Torsemide,"Desyrel® (discontinued 6/13), Oleptro®, Beneficat®, Deprax®, Desirel®, Molipaxin®, Thombran®, Trazorel®, Trialodine®, Trittico®, Mesyrel®",942350,Diuretic,"Hypertension, diuresis",link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Trazodone,"Septra®, Bactrim®, Sulfatrim®, Biseptol®, Co-trimoxazole®, Cotrim®, Septrin®, Trisul®",703547,"Anti-depressant, SARI","Depression, insomnia",link,Drugs with conditional TdP risk,Conditional Risk of TdP,oral
+Trimethoprim-Sulfamethoxazole,"Surmontil®, Rhotrimine®, Stangyl®",1705674,Antibiotic,Bacterial infection,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Trimethoprim-Sulfamethoxazole,Caprelsa®,1836430,Antibiotic,Bacterial infection,link,Drugs to be avoided by congenital Long QT,Avoid in congenital long QT,oral
+Trimipramine,Levitra®,705755,"Anti-depressant, Tricyclic",Depression,link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Vandetanib,Zelboraf®,40238052,Anti-cancer,Cancer (thyroid),link,Drugs with known TdP risk,Risk of TdP,oral
+Vardenafil,"Effexor®, Efexor®",1311276,Phosphodiesterase 5 inhibitor,Erectile dysfunction,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Vemurafenib,VFend®,40241937,Kinase inhibitor,Cancer (melanoma),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Venlafaxine,Zolinza®,743670,"Anti-depressant, SNRI",Depression,link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Voriconazole,"Geodon®, Zeldox®",1714277,Anti-fungal,Fungal infection,link,Drugs with conditional TdP risk,Conditional Risk of TdP,"oral, injection"
+Vorinostat,,1337651,Anti-cancer,Cancer (lymphoma),link,Drugs with possible TdP risk,Possible Risk of TdP,oral
+Ziprasidone,,712615,"Anti-psychotic, atypical",Schizophrenia,link,Drugs with possible TdP risk,Possible Risk of TdP,"oral, injection"
