@@ -520,54 +520,68 @@ ORDER BY INGREDIENT_ID, REPORT_ORDER, CLINICAL_DRUG_ID, HOI_ID;
 
 COMMIT;
 
+--COPY TABLES TO FROM PUBLIC TO the OHDSI schema
+\echo 'truncating laertes tables from the OHDSI schema'
+START TRANSACTION;
+TRUNCATE TABLE ohdsi.drug_HOI_evidence CASCADE;
+TRUNCATE TABLE ohdsi.drug_HOI_relationship CASCADE;
+TRUNCATE TABLE ohdsi.LAERTES_SUMMARY CASCADE;
+TRUNCATE TABLE ohdsi.evidence_sources CASCADE;
+COMMIT;
 
+\echo 'Copying relevant laertes tables from the public to the OHDSI schema so that the public webapi works'
+START TRANSACTION;
+insert into ohdsi.drug_hoi_relationship
+select
+  cast (id as varchar(50)),
+  cast (drug as integer),
+  cast (rxnorm_drug as varchar(4000)),
+  cast (hoi as integer),
+  cast (snomed_hoi as varchar(4000))
+from public.drug_hoi_relationship;
 
---COPY TABLES TO FROM PUBLIC TO UNRESTRICTED                                                                                              
--- \echo 'deleting laertes tables from the unrestricted schema'
--- START TRANSACTION;
--- DROP TABLE IF EXISTS unrestricted.evidence_sources;
--- DROP TABLE IF EXISTS unrestricted.drug_HOI_relationship;
--- DROP TABLE IF EXISTS unrestricted.drug_HOI_evidence;
--- DROP TABLE IF EXISTS unrestricted.LAERTES_SUMMARY;
--- DROP TABLE IF EXISTS unrestricted.drug_HOI_evidence_view;
--- COMMIT;
+-- TODO: this copy will need to be corrected when the Flyway scripts
+-- are updated for the WebAPI. Right now it is missing
+-- coverage_start_date and coverage_end_date
+insert into ohdsi.evidence_sources
+select id,title,description,contributer,creator,creation_date,rights,source from public.evidence_sources;
 
--- \echo 'Copying relevant laertes tables from the public to the unrestricted schema so that the public webapi works'
--- START TRANSACTION;
--- CREATE TABLE unrestricted.evidence_sources AS SELECT * FROM public.evidence_sources;
--- ALTER TABLE unrestricted.evidence_sources ADD PRIMARY KEY (id);
--- GRANT ALL ON TABLE unrestricted.evidence_sources TO public;
--- GRANT ALL ON TABLE unrestricted.evidence_sources TO ohdsi;
--- GRANT ALL ON TABLE unrestricted.evidence_sources TO developer;
--- GRANT ALL ON TABLE unrestricted.evidence_sources TO administrator;
+insert into ohdsi.drug_hoi_evidence
+select
+  cast (id as integer),
+  cast (drug_hoi_relationship as varchar(50)),
+  cast (evidence_type as varchar(4000)),
+  cast (modality as varchar(1)),
+  cast (evidence_source_code_id as integer),
+  cast (statistic_value as numeric),
+  cast (evidence_linkout as varchar(4000)),
+  cast (statistic_type as varchar(4000))
+from public.drug_hoi_evidence;
 
--- CREATE TABLE unrestricted.drug_HOI_relationship AS SELECT * FROM public.drug_HOI_relationship;
--- ALTER TABLE unrestricted.drug_HOI_relationship ADD PRIMARY KEY (id);
--- GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO public;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO ohdsi;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO developer;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO administrator;
+insert into ohdsi.laertes_summary
+select
+  cast (id as integer),
+  cast (report_order as integer),
+  cast (report_name as character varying(4000)),
+  cast (ingredient_id as integer),
+  cast (ingredient as character varying(4000)),
+  cast (clinical_drug_id as integer),
+  cast (clinical_drug as character varying(4000)),
+  cast (hoi_id as integer),
+  cast (hoi as character varying(4000)),
+  cast (ct_count as integer),
+  cast (case_count as integer),
+  cast (other_count as integer),
+  cast (splicer_count as integer),
+  cast (eu_spc_count as integer),
+  cast (semmeddb_ct_count as integer),
+  cast (semmeddb_case_count as integer),
+  cast (semmeddb_neg_ct_count as integer),
+  cast (semmeddb_neg_case_count as integer),
+  cast (aers_report_count as integer)
+  -- cast (prr as numeric), -- TODO: this has to be added to the flyway scripts and the tables re-created before this copy can occur
+  from public.laertes_summary;
 
--- CREATE TABLE unrestricted.drug_HOI_evidence AS SELECT * FROM public.drug_HOI_evidence;
--- ALTER TABLE unrestricted.drug_HOI_evidence ADD PRIMARY KEY (id);
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO public;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO ohdsi;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO developer;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO administrator;
-
--- CREATE TABLE unrestricted.LAERTES_SUMMARY AS SELECT * FROM public.LAERTES_SUMMARY;
--- ALTER TABLE unrestricted.LAERTES_SUMMARY ADD PRIMARY KEY (id);
--- GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO public;
--- GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO ohdsi;
--- GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO developer;
--- GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO administrator;
-
--- CREATE TABLE unrestricted.drug_HOI_evidence_view AS SELECT * FROM public.drug_HOI_evidence_view;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO public;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO ohdsi;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO developer;
--- GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO administrator;
-
--- COMMIT;
+COMMIT;
 
 
