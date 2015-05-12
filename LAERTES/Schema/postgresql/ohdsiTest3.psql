@@ -539,13 +539,17 @@ select
   cast (hoi as integer),
   cast (snomed_hoi as varchar(4000))
 from public.drug_hoi_relationship;
+COMMIT;
 
 -- TODO: this copy will need to be corrected when the Flyway scripts
 -- are updated for the WebAPI. Right now it is missing
 -- coverage_start_date and coverage_end_date
+START TRANSACTION;
 insert into ohdsi.evidence_sources
 select id,title,description,contributer,creator,creation_date,rights,source from public.evidence_sources;
+COMMIT;
 
+START TRANSACTION;
 insert into ohdsi.drug_hoi_evidence
 select
   cast (id as integer),
@@ -557,7 +561,9 @@ select
   cast (evidence_linkout as varchar(4000)),
   cast (statistic_type as varchar(4000))
 from public.drug_hoi_evidence;
+COMMIT;
 
+START TRANSACTION;
 insert into ohdsi.laertes_summary
 select
   cast (id as integer),
@@ -581,7 +587,6 @@ select
   cast (aers_report_count as integer)
   -- cast (prr as numeric), -- TODO: this has to be added to the flyway scripts and the tables re-created before this copy can occur
   from public.laertes_summary;
-
 COMMIT;
-
+\echo 'DONE Copying relevant laertes tables from the public to the OHDSI schema'
 
