@@ -1,6 +1,6 @@
 OHDSI KB Source : SPLICER - Adverse Drug Events from FDA Structured Product Labels (SPLs)
 
-SPLICER data are licensed under http://creativecommons.org/licenses/by-nc-sa/4.0/ meaning they are for non-commercial work only. If you are a commercial organization, please contact Regenstrief Institute for licensing information (riinnov8@regenstrief.org). See LICENSE for detailed information on legal requirements on the use of this data. Non-commercial users please be sure to cite the following paper for any work you publish or present that used SPLICER data:
+SPLICER data are licensed under http://creativecommons.org/licenses/by-nc-sa/4.0/ meaning they are for non-commercial work only. If you are a commercial organization, please contact Regenstrief Institute for licensing information (allenkat@regenstrief.org). See LICENSE for detailed information on legal requirements on the use of this data. Non-commercial users please be sure to cite the following paper for any work you publish or present that used SPLICER data:
 
 Duke J, Friedlin J, Li X. Consistency in the safety labeling of bioequivalent medications. Pharmacoepidemiol Drug Saf. 2013 Mar;22(3):294-301. doi:10.1002/pds.3351. Epub 2012 Oct 8. PubMed PMID: 23042584.
 
@@ -52,7 +52,7 @@ NOTE: The output of writeLoadableSPLICERcounts.py includes data that
 To split the INSERT query into files that can be loaded in mysql
 
 ```
-$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs-ALL
+$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs
 ```
 
 This creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.

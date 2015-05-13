@@ -52,9 +52,11 @@ CREATE TABLE evidence_sources (
     description text,
     contributer text,
     creator text,
-    creation_date date NOT NULL , -- 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010',
+    creation_date date NOT NULL, 
     rights text,
     source text,
+    coverage_start_date date NOT NULL, 
+    coverage_end_date date NOT NULL, 
     PRIMARY KEY (id)
 );
 
@@ -98,24 +100,27 @@ CREATE TABLE LAERTES_SUMMARY (
 	SEMMEDDB_CASE_COUNT		INTEGER,
 	SEMMEDDB_NEG_CT_COUNT	INTEGER,
 	SEMMEDDB_NEG_CASE_COUNT	INTEGER,
-	EB05					NUMERIC,
-	EBGM					NUMERIC,
-	AERS_REPORT_COUNT		INTEGER
+	-- EB05					NUMERIC,
+	-- EBGM					NUMERIC,
+	AERS_REPORT_COUNT		INTEGER,
+	PRR					NUMERIC
 );
 
 \echo 'Inserting evidence_sources data from inline data'
 INSERT INTO evidence_sources 
-VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','WHO','WHO','2014-06-16','The EU SPC source provides adverse drug events extracted from EU SPCs by the [PROTECT](http://www.imi-protect.eu/about.shtml) collaborative. See the online documentation for the [PROTECT Adverse Drug Reactions Database](http://www.imi-protect.eu/adverseDrugReactions.shtml) for a liability disclaimer.',''),
-       (2,'US_SPL_ADR','Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2015-03-27','SPLICER data are licensed under http://creativecommons.org/licenses/by-nc-sa/4.0/ meaning they are for non-commercial work only. If you are a commercial organization, please contact Regenstrief Institute for licensing information (riinnov8@regenstrief.org). See LICENSE for detailed information on legal requirements on the use of this data. Non-commercial users please be sure to cite the following paper for any work you publish or present that used SPLICER data: Duke J, Friedlin J, Li X. Consistency in the safety labeling of bioequivalent medications. Pharmacoepidemiol Drug Saf. 2013 Mar;22(3):294-301. doi:10.1002/pds.3351. Epub 2012 Oct 8. PubMed PMID: 23042584.',''),
-       (3,'MEDLINE_MeSH','DEPRECATED (see more specific types) MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','',''),
-       (4,'MEDLINE_SemMedDB','DEPRECATED (see more specific types) Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','',''), 
-       (5, 'FDA Adverse Event Reporting System', 'Spontaneous reports and signals from FAERS up to QX of 20XX', 'Nicholas Tatonetti', 'Columbia University', '2012-01-01', 'Please cite the following paper in any presentations or publications that refer to work that used any part of this data: N. P. Tatonetti, P. P. Ye, R. Daneshjou, R. B. Altman, Data-Driven Prediction of Drug Effects and Interactions. Sci Transl Med 4, 125ra31–125ra31 (2012).',''),
-       (6,'MEDLINE_MeSH Case Reports','MeSH processed titles and abstracts for CASE REPORTS in MEDLINE','Richard Boyce','National Library of Medicine','2015-03-15','Please see the following link for licensing and attribution information: http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service',''),
-       (7,'MEDLINE_MeSH Clinical Trial','MeSH processed titles and abstracts for CLINICAL TRIALS in MEDLINE','Richard Boyce','National Library of Medicine','2015-03-15','',''),
-       (8,'MEDLINE_MeSH Other','MeSH processed titles and abstracts for things other than case reports or clinical trials in MEDLINE','Richard Boyce','National Library of Medicine','2015-03-15','Please see the following link for licensing and attribution information: http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service',''),
-       (9,'MEDLINE_SemMedDB Case Reports','SemMedDB processed titles and abstracts for CASE REPORTS in MEDLINE','Richard Boyce','National Library of Medicine','2014-06-01','Please see the following link for licensing and attribution information: http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service',''),
-       (10,'MEDLINE_SemMedDB Clinical Trial','SemMedDB processed titles and abstracts for CLINICAL TRIALS in MEDLINE','Richard Boyce','National Library of Medicine','2014-06-01','Please see the following link for licensing and attribution information: http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service',''),
-       (11,'MEDLINE_SemMedDB Other','SemMedDB processed titles and abstracts for things other than case reports or clinical trials in MEDLINE','Richard Boyce','National Library of Medicine','2014-06-01','Please see the following link for licensing and attribution information: http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','');
+VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','IMI PROTECT','IMI PROTECT','2014-09-02','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2013-06-30'),
+       (2,'US_SPL_ADR',' DEPRECATED (see more specific types) Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2015-04-29','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','1900-01-01'),
+       (3,'MEDLINE_MeSH','DEPRECATED (see more specific types) MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','1900-01-01'),
+       (4,'MEDLINE_SemMedDB','DEPRECATED (see more specific types) Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','1900-01-01'), 
+       (5, 'FDA Adverse Event Reporting System', 'Spontaneous reports and signals from FAERS up to Q1 of 2012', 'Nicholas P. Tatonetti', 'FDA', '2015-05-01', 'http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2010-12-01'),
+       (6,'MEDLINE_MeSH Case Reports','MeSH processed titles and abstracts for CASE REPORTS in MEDLINE','Richard Boyce','National Library of Medicine','2015-04-25','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2015-04-25'),
+       (7,'MEDLINE_MeSH Clinical Trial','MeSH processed titles and abstracts for CLINICAL TRIALS in MEDLINE','Richard Boyce','National Library of Medicine','2014-12-15','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2015-04-25'),
+       (8,'MEDLINE_MeSH Other','MeSH processed titles and abstracts for things other than case reports or clinical trials in MEDLINE','Richard Boyce','National Library of Medicine','2014-12-15','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2015-04-25'),
+       (9,'MEDLINE_SemMedDB Case Reports','SemMedDB processed titles and abstracts for CASE REPORTS in MEDLINE','Richard Boyce','National Library of Medicine','2014-06-01','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2014-12-31'),
+       (10,'MEDLINE_SemMedDB Clinical Trial','SemMedDB processed titles and abstracts for CLINICAL TRIALS in MEDLINE','Richard Boyce','National Library of Medicine','2014-06-01','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2014-12-31'),
+       (11,'MEDLINE_SemMedDB Other','SemMedDB processed titles and abstracts for things other than case reports or clinical trials in MEDLINE','Richard Boyce','National Library of Medicine','2014-06-01','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2014-12-31'),
+       (12,'US_SPL_ADR ADR OR POST-MARKETING','Adverse drug reactions extracted from the Adverse Reactions or Post Marketing section of United States product labeling','SPLICER','Jon Duke','2015-04-29','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2015-04-25'),
+       (13,'US_SPL_ADR PRECAUTIONS','Adverse drug reactions extracted from the Precautions section of United States product labeling','SPLICER','Jon Duke','2015-04-29','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2015-04-25') ;
 
 COMMIT;
 
@@ -130,6 +135,8 @@ COMMENT ON COLUMN evidence_sources.creator IS 'Same as http://purl.org/dc/elemen
 COMMENT ON COLUMN evidence_sources.creation_date IS 'Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010';
 COMMENT ON COLUMN evidence_sources.rights IS 'Same as http://purl.org/dc/elements/1.1/rights';
 COMMENT ON COLUMN evidence_sources.source IS 'The source from which this data was derived. Same as http://purl.org/dc/elements/1.1/source';
+COMMENT ON COLUMN evidence_sources.coverage_start_date IS 'The start date of coverage for the resource. Data can be trusted on or after this date and up to and including the coverage_end_date';
+COMMENT ON COLUMN evidence_sources.coverage_end_date IS 'The date of coverage for the resource. Data can be trusted on or after the coverage_start_date date and up to and including this date';
 
 COMMENT ON COLUMN drug_HOI_relationship.drug IS 'OMOP/IMEDS Concept ID for the drug';
 COMMENT ON COLUMN drug_HOI_relationship.RxNorm_drug IS 'RxNorm Preferred Term of the Drug';
@@ -151,7 +158,7 @@ COMMENT ON COLUMN LAERTES_SUMMARY.REPORT_NAME IS 'there are several reports in t
 COMMENT ON COLUMN LAERTES_SUMMARY.INGREDIENT_ID IS 'a drug ingredient CONCEPT_ID';
 COMMENT ON COLUMN LAERTES_SUMMARY.INGREDIENT IS 'a drug ingredient name';
 COMMENT ON COLUMN LAERTES_SUMMARY.CLINICAL_DRUG_ID IS 'if a clinical drug exists, the clinical drug CONCEPT_ID';
-COMMENT ON COLUMN LAERTES_SUMMARY.CLINCIAL_DRUG IS 'if a clinical drug exists, the clinical drug name';
+COMMENT ON COLUMN LAERTES_SUMMARY.CLINICAL_DRUG IS 'if a clinical drug exists, the clinical drug name';
 COMMENT ON COLUMN LAERTES_SUMMARY.HOI_ID IS 'the HOI CONCEPT_ID, this is at the SNOMED level';
 COMMENT ON COLUMN LAERTES_SUMMARY.HOI IS 'the HOI name, this is at the SNOMED level';
 COMMENT ON COLUMN LAERTES_SUMMARY.CT_COUNT IS '';
@@ -163,9 +170,10 @@ COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_CT_COUNT IS '';
 COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_CASE_COUNT IS '';
 COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_NEG_CT_COUNT IS '';
 COMMENT ON COLUMN LAERTES_SUMMARY.SEMMEDDB_NEG_CASE_COUNT IS '';
-COMMENT ON COLUMN LAERTES_SUMMARY.EB05 IS '';
-COMMENT ON COLUMN LAERTES_SUMMARY.EBGM IS '';
+-- COMMENT ON COLUMN LAERTES_SUMMARY.EB05 IS '';
+-- COMMENT ON COLUMN LAERTES_SUMMARY.EBGM IS '';
 COMMENT ON COLUMN LAERTES_SUMMARY.AERS_REPORT_COUNT IS '';
+COMMENT ON COLUMN LAERTES_SUMMARY.PRR IS '';
 
 \echo 'Altering table permissions '
 ALTER TABLE drug_HOI_evidence
@@ -212,9 +220,9 @@ START TRANSACTION;
 \copy drug_HOI_evidence from 'drug-hoi-evidence-data.tsv' DELIMITER '\t' CSV;
 COMMIT;
 
--- creates a view representing a pivot table of the
--- drug_hoi_relationship table. This table is intended to be useful
--- for users of the Standard Vocabulary
+creates a view representing a pivot table of the
+drug_hoi_relationship table. This table is intended to be useful
+for users of the Standard Vocabulary
 \echo 'Starting transaction'
 START TRANSACTION;
 
@@ -242,14 +250,16 @@ FROM
 			 order by 1'
 		  ) as stats (
 			id text,
-			aers_eb05 numeric,
-			aers_ebgm numeric,
+			-- aers_eb05 numeric,
+			-- aers_ebgm numeric,
 			aers_report_count numeric,
+			aers_report_PRR numeric,
 			medline_mesh_clin_trial_count numeric,
 			medline_mesh_case_report_count numeric,
 			medline_mesh_other_count numeric,
 			medline_semmed_clin_trial_count numeric,
 			medline_semmed_case_report_count numeric,
+			medline_semmed_other_count numeric,		 
 			spl_eu_spc_count numeric,				
 			spl_splicer_count numeric								
 	 	)
@@ -295,14 +305,16 @@ FROM
     			order by 1'
     	     ) as links (
     			id text,
-    			aers_eb05_link text,
-    			aers_ebgm_link text,
-    			aers_report_link text,
+    			-- aers_eb05_link text,
+    			-- aers_ebgm_link text,
+    			aers_report_count_link text,
+			aers_report_PRR_link text,
     			medline_mesh_clin_trial_link text,
     			medline_mesh_case_report_link text,
     			medline_mesh_other_link text,
     			medline_semmed_clin_trial_link text,
     			medline_semmed_case_report_link text,
+			medline_semmed_other_link text,		 
     			spl_eu_spc_link text,
     			spl_splicer_link text
     	    )
@@ -399,9 +411,10 @@ CTE_REPORT_1 AS (
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
 		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
-		avg(aers_eb05) as eb05, -- Ingredient-based
-		avg(aers_ebgm) as ebgm, -- Ingredient-based
-		sum(aers_report_count) as aers_report_count-- Ingredient-based
+		-- avg(aers_eb05) as eb05, -- Ingredient-based
+		-- avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count, -- Ingredient-based
+		avg(aers_report_PRR) as prr -- Ingredient-based
 	FROM CTE_TRANSLATE
 	WHERE INGREDIENT_EXISTS = 1
 	GROUP BY INGREDIENT_ID, INGREDIENT_NAME
@@ -424,9 +437,10 @@ CTE_REPORT_2 AS (
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
 		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
-		avg(aers_eb05) as eb05, -- Ingredient-based
-		avg(aers_ebgm) as ebgm, -- Ingredient-based
-		sum(aers_report_count) as aers_report_count-- Ingredient-based
+		-- avg(aers_eb05) as eb05, -- Ingredient-based
+		-- avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count, -- Ingredient-based
+		avg(aers_report_PRR) as prr -- Ingredient-based
 	FROM CTE_TRANSLATE
 	WHERE INGREDIENT_EXISTS = 1
 	GROUP BY INGREDIENT_ID, INGREDIENT_NAME, HOI, SNOMED_HOI 
@@ -449,9 +463,10 @@ CTE_REPORT_3 AS (
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
 		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
-		avg(aers_eb05) as eb05, -- Ingredient-based
-		avg(aers_ebgm) as ebgm, -- Ingredient-based
-		sum(aers_report_count) as aers_report_count-- Ingredient-based
+		-- avg(aers_eb05) as eb05, -- Ingredient-based
+		-- avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count, -- Ingredient-based
+		avg(aers_report_PRR) as prr -- Ingredient-based	      
 	FROM CTE_TRANSLATE
 	WHERE CLINICAL_DRUG_EXISTS = 1
 	GROUP BY INGREDIENT_ID, INGREDIENT_NAME, CLINICAL_DRUG_ID, CLINICAL_DRUG_NAME
@@ -474,18 +489,20 @@ CTE_REPORT_4 AS (
 		sum(medline_semmed_case_report_count) AS SemMedDB_CASE_COUNT,
 		sum(neg_medline_semmed_clin_trial_count) AS SemMedDB_Neg_CT_COUNT,
 		sum(neg_medline_semmed_case_report_count) AS SemMedDB_Neg_CASE_COUNT,
-		avg(aers_eb05) as eb05, -- Ingredient-based
-		avg(aers_ebgm) as ebgm, -- Ingredient-based
-		sum(aers_report_count) as aers_report_count-- Ingredient-based
+		-- avg(aers_eb05) as eb05, -- Ingredient-based
+		-- avg(aers_ebgm) as ebgm, -- Ingredient-based
+		sum(aers_report_count) as aers_report_count, -- Ingredient-based
+		avg(aers_report_PRR) as prr -- Ingredient-based
 	FROM CTE_TRANSLATE
 	GROUP BY INGREDIENT_ID, INGREDIENT_NAME, CLINICAL_DRUG_ID, CLINICAL_DRUG_NAME, HOI, SNOMED_HOI 
 )
-INSERT INTO LAERTES_SUMMARY (REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, 
-	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
-	SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT)
-SELECT REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, 
-	HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT,
-	SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT
+-- INSERT INTO LAERTES_SUMMARY (REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT, SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT)
+
+INSERT INTO LAERTES_SUMMARY (REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID, HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT, SEMMEDDB_NEG_CASE_COUNT, AERS_REPORT_COUNT, PRR)
+
+-- SELECT REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID,HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT, SEMMEDDB_NEG_CASE_COUNT, EB05, EBGM, AERS_REPORT_COUNT
+
+SELECT REPORT_ORDER, REPORT_NAME, INGREDIENT_ID, INGREDIENT, CLINICAL_DRUG_ID, CLINICAL_DRUG, HOI_ID,HOI, CT_COUNT, CASE_COUNT, OTHER_COUNT, SPLICER_COUNT, EU_SPC_COUNT, SEMMEDDB_CT_COUNT, SEMMEDDB_CASE_COUNT, SEMMEDDB_NEG_CT_COUNT, SEMMEDDB_NEG_CASE_COUNT, AERS_REPORT_COUNT, PRR
 FROM (
 	SELECT *
 	FROM CTE_REPORT_1
@@ -503,108 +520,73 @@ ORDER BY INGREDIENT_ID, REPORT_ORDER, CLINICAL_DRUG_ID, HOI_ID;
 
 COMMIT;
 
-
-
---COPY TABLES TO FROM PUBLIC TO UNRESTRICTED                                                                                              
-\echo 'deleting laertes tables from the unrestricted schema'
+--COPY TABLES TO FROM PUBLIC TO the OHDSI schema
+\echo 'truncating laertes tables from the OHDSI schema'
 START TRANSACTION;
-DROP TABLE IF EXISTS unrestricted.evidence_sources;
-DROP TABLE IF EXISTS unrestricted.drug_HOI_relationship;
-DROP TABLE IF EXISTS unrestricted.drug_HOI_evidence;
-DROP TABLE IF EXISTS unrestricted.LAERTES_SUMMARY;
-DROP TABLE IF EXISTS unrestricted.drug_HOI_evidence_view;
+TRUNCATE TABLE ohdsi.drug_HOI_evidence CASCADE;
+TRUNCATE TABLE ohdsi.drug_HOI_relationship CASCADE;
+TRUNCATE TABLE ohdsi.LAERTES_SUMMARY CASCADE;
+TRUNCATE TABLE ohdsi.evidence_sources CASCADE;
 COMMIT;
 
-\echo 'Copying relevant laertes tables from the public to the unrestricted schema so that the public webapi works'
+\echo 'Copying relevant laertes tables from the public to the OHDSI schema so that the public webapi works'
 START TRANSACTION;
-CREATE TABLE unrestricted.evidence_sources AS SELECT * FROM public.evidence_sources;
-ALTER TABLE unrestricted.evidence_sources ADD PRIMARY KEY (id);
-GRANT ALL ON TABLE unrestricted.evidence_sources TO public;
-GRANT ALL ON TABLE unrestricted.evidence_sources TO ohdsi;
-GRANT ALL ON TABLE unrestricted.evidence_sources TO developer;
-GRANT ALL ON TABLE unrestricted.evidence_sources TO administrator;
-
-CREATE TABLE unrestricted.drug_HOI_relationship AS SELECT * FROM public.drug_HOI_relationship;
-ALTER TABLE unrestricted.drug_HOI_relationship ADD PRIMARY KEY (id);
-GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO public;
-GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO ohdsi;
-GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO developer;
-GRANT ALL ON TABLE unrestricted.drug_HOI_relationship TO administrator;
-
-CREATE TABLE unrestricted.drug_HOI_evidence AS SELECT * FROM public.drug_HOI_evidence;
-ALTER TABLE unrestricted.drug_HOI_evidence ADD PRIMARY KEY (id);
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO public;
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO ohdsi;
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO developer;
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence TO administrator;
-
-CREATE TABLE unrestricted.LAERTES_SUMMARY AS SELECT * FROM public.LAERTES_SUMMARY;
-ALTER TABLE unrestricted.LAERTES_SUMMARY ADD PRIMARY KEY (id);
-GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO public;
-GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO ohdsi;
-GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO developer;
-GRANT ALL ON TABLE unrestricted.LAERTES_SUMMARY TO administrator;
-
-CREATE TABLE unrestricted.drug_HOI_evidence_view AS SELECT * FROM public.drug_HOI_evidence_view;
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO public;
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO ohdsi;
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO developer;
-GRANT ALL ON TABLE unrestricted.drug_HOI_evidence_view TO administrator;
-
+insert into ohdsi.drug_hoi_relationship
+select
+  cast (id as varchar(50)),
+  cast (drug as integer),
+  cast (rxnorm_drug as varchar(4000)),
+  cast (hoi as integer),
+  cast (snomed_hoi as varchar(4000))
+from public.drug_hoi_relationship;
 COMMIT;
 
+-- TODO: this copy will need to be corrected when the Flyway scripts
+-- are updated for the WebAPI. Right now it is missing
+-- coverage_start_date and coverage_end_date
+START TRANSACTION;
+insert into ohdsi.evidence_sources
+select id,title,description,contributer,creator,creation_date,rights,source from public.evidence_sources;
+COMMIT;
 
+START TRANSACTION;
+insert into ohdsi.drug_hoi_evidence
+select
+  cast (id as integer),
+  cast (drug_hoi_relationship as varchar(50)),
+  cast (evidence_type as varchar(4000)),
+  cast (modality as varchar(1)),
+  cast (evidence_source_code_id as integer),
+  cast (statistic_value as numeric),
+  cast (evidence_linkout as varchar(4000)),
+  cast (statistic_type as varchar(4000))
+from public.drug_hoi_evidence;
+COMMIT;
 
--- DEPRECATED COMPONENT OF THE PIVOT TABLE drug_HOI_evidence_view
-	-- NATURAL JOIN 
-	-- (
-	-- 	(select * from crosstab(
-	-- 		'select
-	-- 			drug_hoi_relationship,
-	-- 			evidence_type,
-	-- 			modality
-	-- 			from drug_hoi_evidence
-	-- 			order by 1',
-	-- 			'select distinct evidence_type
-	-- 			from drug_hoi_evidence
-	-- 			order by 1'
-	-- 		) as modality(
-	-- 			id text,
-	-- 			aers_eb05_modality boolean,
-	-- 			aers_ebgm_modality boolean,
-	-- 			aers_report_modality boolean,	   
-	-- 			medline_mesh_clin_trial_modality boolean,
-	-- 			medline_mesh_case_report_modality boolean,
-	-- 			medline_mesh_other_modality boolean,
-	-- 			spl_eu_spc_modality boolean,
-	-- 			aers_report_count_modality boolean,
-	-- 			spl_splicer_modality boolean
-	-- 		)
-	-- 	) as modality 
-
-	-- NATURAL JOIN 
-	-- (
-	-- 	(select * from crosstab(
-	-- 		'select
-	-- 			drug_hoi_relationship,
-	-- 			evidence_type,
-	-- 			statistic_type
-	-- 			from drug_hoi_evidence
-	-- 			order by 1',
-	-- 			'select distinct evidence_type
-	-- 			from drug_hoi_evidence
-	-- 			order by 1'
-	-- 		) as statistic_type(
-	-- 			id text,
-	-- 			aers_eb05_statistic_type text,
-	-- 			aers_ebgm_statistic_type text,
-	-- 			aers_report_statistic_type text,	   
-	-- 			medline_mesh_clin_trial_statistic_type text,
-	-- 			medline_mesh_case_report_statistic_type text,
-	-- 			medline_mesh_other_statistic_type text,
-	-- 			spl_eu_spc_statistic_type text,
-	-- 			aers_report_count_statistic_type text,
-	-- 			spl_splicer_statistic_type text
-	-- 		)
-	-- 	) as statistic_type 
+START TRANSACTION;
+insert into ohdsi.laertes_summary
+select
+  cast (id as integer),
+  cast (report_order as integer),
+  cast (report_name as character varying(4000)),
+  cast (ingredient_id as integer),
+  cast (ingredient as character varying(4000)),
+  cast (clinical_drug_id as integer),
+  cast (clinical_drug as character varying(4000)),
+  cast (hoi_id as integer),
+  cast (hoi as character varying(4000)),
+  cast (ct_count as integer),
+  cast (case_count as integer),
+  cast (other_count as integer),
+  cast (splicer_count as integer),
+  cast (eu_spc_count as integer),
+  cast (semmeddb_ct_count as integer),
+  cast (semmeddb_case_count as integer),
+  cast (semmeddb_neg_ct_count as integer),
+  cast (semmeddb_neg_case_count as integer),
+  cast (aers_report_count as integer)
+  -- cast (prr as numeric), -- TODO: this has to be added to the flyway scripts and the tables re-created before this copy can occur
+  from public.laertes_summary;
+COMMIT;
+\echo 'DONE Copying relevant laertes tables from the public to the OHDSI schema'
 

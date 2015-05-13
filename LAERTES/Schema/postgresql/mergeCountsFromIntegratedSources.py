@@ -63,7 +63,7 @@ for src in srcL[1:]: # skip header
         sys.exit(1)
         
     # TODO: write validation checks for the data files to be loaded (e.g., col number, types, etc)
-    #for elt in dhL[0:1000]:
+    #for elt in dhL[0:10]:
     for elt in dhL:    
         # the schema calls for a bool type for 'modality'
         s = elt.replace("positive","true").replace("negative","false") 
@@ -92,6 +92,7 @@ for src in srcL[1:]: # skip header
                 dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':hoi, 'hoi_label':None}
                 print "DRUG_RELATIONSHIP: %s|%s||%s|" % (tpl[KEY],drug,hoi) # something we can grep that we can load the partial drug relationship and evidence data if the script crashes 
         else:
+            mixedMapped = False # used only if the mapping type is 'Mixed'
             try:
                 (drug,hoi) = tpl[KEY].split("-")
             except ValueError:
@@ -102,67 +103,105 @@ for src in srcL[1:]: # skip header
             if idToSnomedD.has_key(hoi):
                 rows = idToSnomedD[hoi]
 
-            elif src[HOI_VOCAB_ID] == "Mesh":
+            if src[HOI_VOCAB_ID] == "Mesh" or (src[HOI_VOCAB_ID] == "Mixed" and mixedMapped == False):
                 try:
                     print "INFO: Attempting to map concept id for Mesh coded HOI %s to SNOMED" % hoi
-                    #cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND CR.CONCEPT_ID_1 = A.CONCEPT_ID AND CR.CONCEPT_ID_2 = B.CONCEPT_ID AND CR.RELATIONSHIP_ID = 'Maps to' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND B.VOCABULARY_ID = 'SNOMED';""" % hoi)
                     cur.execute("""
-SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE
-FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR 
-WHERE A.VOCABULARY_ID = 'Mesh' AND
-  A.CONCEPT_ID = %s AND
-  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND
-  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND
-  CR.RELATIONSHIP_ID = 'Maps to' AND
-  CR.INVALID_REASON IS NULL AND
-  B.CONCEPT_ID = CR.CONCEPT_ID_2 AND 
-  B.VOCABULARY_ID = 'SNOMED' AND 
-  A.INVALID_REASON IS NULL AND 
-  B.INVALID_REASON IS NULL AND 
-  B.CONCEPT_CLASS_ID = 'Clinical Finding';
+SELECT c2.CONCEPT_ID AS SNOMED_CONCEPT_ID, c2.concept_name AS SNOMED_CONCEPT_NAME, c2.concept_code AS SNOMED_CONCEPT_CODE, c1.concept_name AS MESH_CONCEPT_NAME, c1.CONCEPT_CODE AS MESH_CONCEPT_CODE
+FROM concept c1 JOIN concept_relationship cr ON cr.concept_id_1 = c1.CONCEPT_ID
+JOIN CONCEPT c2 ON c2.CONCEPT_ID = cr.CONCEPT_ID_2
+  AND c2.invalid_reason IS NULL
+  AND c2.vocabulary_id = 'SNOMED'
+  AND c2.concept_class_id = 'Clinical Finding'
+WHERE c1.concept_id = '%s'
+AND c1.vocabulary_id = 'Mesh'
+AND c1.CONCEPT_CLASS_ID = 'Condition'
+AND c1.invalid_reason IS NULL
 """ % hoi)
                 except Exception as e:
                     print "ERROR: Attempt to map concept id for Mesh HOI to SNOMED failed. Error string: %s" % e
                 rows = cur.fetchall()
                 if len(rows) == 0:
                     print "WARNING: Attempt to map concept id for Mesh HOI %s to SNOMED failed because no mapping could be found in the standard vocabulary." % hoi
-                    continue 
+                    if src[HOI_VOCAB_ID] == "Mixed":
+                        print "WARNING: this case will be tested for other vocabs"
+                    else:
+                        print "WARNING: this case will NOT be tested for other vocabs"
+                        continue 
+                else:
+                    if src[HOI_VOCAB_ID] == "Mixed":
+                        mixedMapped = True
+                        
+                    # cache hoi mapping 
+                    if not idToSnomedD.has_key(hoi):
+                        idToSnomedD[hoi] = rows
 
-                # cache hoi mapping 
-                if not idToSnomedD.has_key(hoi):
-                    idToSnomedD[hoi] = rows
-
-            elif src[HOI_VOCAB_ID] == "MedDRA":
+            if src[HOI_VOCAB_ID] == "MedDRA" or (src[HOI_VOCAB_ID] == "Mixed" and mixedMapped == False):
                 try:
                     print "INFO: Attempting to map concept id for MedDRA coded HOI '%s' to SNOMED" % hoi
-                    #cur.execute("""SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR WHERE A.CONCEPT_ID = %s AND  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND  CR.RELATIONSHIP_ID = 'MedDRA - SNOMED eq' AND B.CONCEPT_ID = CR.CONCEPT_ID_2 AND  B.VOCABULARY_ID = 'SNOMED';""" % hoi)
+                    # The way this works is it tries to find the
+                    # SNOMED codes that have the closest relationship
+                    # to the MedDRA PT code.  We could expand this to
+                    # other MedDRA levels but it gets fuzzier.
                     cur.execute("""
-SELECT B.CONCEPT_ID, B.CONCEPT_NAME, B.CONCEPT_CODE, A.CONCEPT_NAME, A.CONCEPT_CODE
-FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR 
-WHERE 
-  A.CONCEPT_ID = %s AND
-  A.VOCABULARY_ID = 'MedDRA' AND
-  CR.CONCEPT_ID_1 = A.CONCEPT_ID AND 
-  CR.CONCEPT_ID_2 = B.CONCEPT_ID AND
-  CR.RELATIONSHIP_ID = 'MedDRA - SNOMED eq' AND
-  CR.INVALID_REASON IS NULL AND
-  B.CONCEPT_ID = CR.CONCEPT_ID_2 AND
-  B.VOCABULARY_ID = 'SNOMED' AND
-  B.INVALID_REASON IS NULL AND
-  B.CONCEPT_CLASS_ID = 'Clinical Finding' AND
-  A.INVALID_REASON IS NULL;
+SELECT z.SNOMED_CONCEPT_ID, z.SNOMED_CONCEPT_NAME, z.SNOMED_CONCEPT_CODE, z.MEDDRA_CONCEPT_NAME, z.MEDDRA_CONCEPT_CODE 
+FROM ( SELECT ca.max_levels_of_separation, ca.min_levels_of_separation, c.concept_id AS MEDDRA_CONCEPT_ID, c.concept_code AS MEDDRA_CONCEPT_CODE, c.concept_name AS MEDDRA_CONCEPT_NAME, c2.concept_id AS SNOMED_CONCEPT_ID, c2.concept_name AS SNOMED_CONCEPT_NAME, c2.concept_code AS SNOMED_CONCEPT_CODE, ROW_NUMBER() OVER(PARTITION BY c.CONCEPT_ID ORDER BY c.CONCEPT_ID, ca.min_levels_of_separation, ca.max_levels_of_separation, c.CONCEPT_ID, c2.CONCEPT_ID) AS ROW_NUM
+FROM CONCEPT c JOIN concept_ancestor ca ON ca.ancestor_concept_id = c.concept_id
+  JOIN CONCEPT c2 ON c2.concept_id = ca.descendant_concept_id
+    AND c2.vocabulary_id = 'SNOMED'
+    AND c2.CONCEPT_CLASS_ID = 'Clinical Finding'
+    AND c2.INVALID_REASON IS NULL
+WHERE c.concept_id = '%s'
+AND c.vocabulary_id = 'MedDRA'
+-- AND c.concept_class_id = 'PT'
+AND c.INVALID_REASON IS NULL
+) z
+WHERE z.ROW_NUM = 1
 """ % hoi)
                 except Exception as e:
                     print "ERROR: Attempt to map concept id for MedDRA HOI to SNOMED failed. Error string: %s" % e
                 rows = cur.fetchall()
                 if len(rows) == 0:
                     print "WARNING: Attempt to map concept id for MedDRA HOI %s to SNOMED failed because no mapping could be found in the standard vocabulary." % hoi
-                    continue 
+                    if src[HOI_VOCAB_ID] == "Mixed":
+                        print "WARNING: this case will be tested for other vocabs"
+                    else:
+                        print "WARNING: this case will NOT be tested for other vocabs"
+                        continue 
+                else:
+                    if src[HOI_VOCAB_ID] == "Mixed":
+                        mixedMapped = True
+                        
+                    # cache hoi mapping 
+                    if not idToSnomedD.has_key(hoi):
+                        idToSnomedD[hoi] = rows
 
-                # cache hoi mapping 
-                if not idToSnomedD.has_key(hoi):
-                    idToSnomedD[hoi] = rows
+            if (src[HOI_VOCAB_ID] == "Mixed" and mixedMapped == False):
+                try:
+                    print "INFO: Testing if coded HOI %s is already a SNOMED" % hoi
+                    cur.execute("""
+SELECT c1.CONCEPT_ID AS SNOMED_CONCEPT_ID, c1.concept_name AS SNOMED_CONCEPT_NAME, c1.concept_code AS SNOMED_CONCEPT_CODE
+FROM CONCEPT AS c1
+WHERE c1.invalid_reason IS NULL
+AND c1.vocabulary_id = 'SNOMED'
+AND c1.concept_class_id = 'Clinical Finding'
+AND c1.concept_id = %s
+""" % hoi)
+                except Exception as e:
+                    print "ERROR: Test if concept id is SNOMED failed. Error string: %s" % e                
+                rows = cur.fetchall()
+                if len(rows) == 0:
+                    print "WARNING: Test if concept id HOI %s is SNOMED failed. It's possible that the concept is not in SNOMED or that it's not a Clinical Finding or the concept is invalid according to the standard vocabulary." % hoi
+                    print "WARNING: There are no other tests for this concept: %s" % hoi
+                    continue
+                
+                cntr += 1
+                if not dhKeyD.has_key(tpl[KEY]):
+                    dhKeyD[tpl[KEY]] = {'drug_id':drug, 'drug_label':None, 'hoi_id':hoi, 'hoi_label':None}
+                print "INFO: This concept from a Mixed source is SNOMED: %s" % hoi
+                continue
 
+            
             for row in rows:
                 # write out results
                 snomedHoi = row[B_CONCEPT_ID]
