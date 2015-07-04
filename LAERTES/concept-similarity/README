@@ -1,0 +1,53 @@
+
+Test of using UMLS::Similarity on SNOMED concepts mapped to from
+different sources during the LAERTES ETL process. The goal is to see
+if the similarity measures can help with issue that the terminology
+that the source comes from biases the final mapping. The problem is
+that this bias can cause HOIs that are very similar (e.g., "myocardial
+infarction" and "acute myocardial infarction" are treated as distinct
+which can undermine an analysis. The standard vocabalary helps by
+providing parent-child relationships via "ancestor" and "descendant"
+queries. However, some parent-child relationships are too general
+(e.g., TODO - example). Moreover, many similar HOI concepts do not
+have a parent child relationship. UMLS::Similarity helps by providing
+several measures that account for the placement of concepts within the
+graph that implements a given terminology. See the following for more
+detailed information: http://umls-similarity.sourceforge.net/ and
+http://www.d.umn.edu/~tpederse/Tutorials/IHI2012-semantic-similarity-tutorial.pdf
+
+Prerequisites:
+- The UMLS and UMLS::Interface installed locally in mysql per the instructions here http://cpansearch.perl.org/src/BTMCINNES/UMLS-Interface-1.43/INSTALL
+
+- Be sure all of the indexes are created in the umls database per the mysql load scripts provided by UMLS
+
+- UMLS::Similarity installed and working
+
+Config:
+- UMLS::Similarity uses the config file umls-similarity-snomed-config.txt
+
+Scripts:
+- generateConceptPairs.py - run this first - creates a file of SNOMED concept pairs using UMLS CUIs
+- runUMLSSimilarity.py - runs the Perl code for UMLS::Similarity from within Python so that the large concept pair file can be processed in small chun
+
+Input:
+
+- data/all-mapped-SNOMED.txt - All SNOMED concept codes pulled from
+  the output of LAERTES/Schema/postgresql/mergeCountsFromIntegratedSources.py using:
+
+```
+$ grep "INFO: mapped HOI concept id from" ../../Schema/postgresql/nohup.out  | sed -r 's/.*SNOMED - //' | sed -r 's/ :.*//'  | sort | uniq > all-mapped-SNOMED.txt
+```
+
+NOTE: an alternate approach to creating all-mapped-SNOMED.txt would be
+to use the following query in the database holding LAERTES data:
+
+```
+SELECT DISTINCT c.CONCEPT_CODE
+FROM DRUG_HOI_EVIDENCE e
+JOIN DRUG_HOI_RELATIONSHIP r
+      ON r.ID = e.DRUG_HOI_RELATIONSHIP
+JOIN CONCEPT c
+      ON c.CONCEPT_ID = r.HOI
+```
+
+
