@@ -1,0 +1,40 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "condition_occurrence" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "condition_occurrence" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">condition_occurrence</TD></TR>
+      <TR><TD PORT="condition_occurrence_id" COLSPAN="3" ALIGN="LEFT">condition_occurrence_id</TD></TR>
+      <TR><TD PORT="person_id" COLSPAN="3" ALIGN="LEFT">person_id</TD></TR>
+      <TR><TD PORT="condition_concept_id" COLSPAN="3" ALIGN="LEFT">condition_concept_id</TD></TR>
+      <TR><TD PORT="condition_start_date" COLSPAN="3" ALIGN="LEFT">condition_start_date</TD></TR>
+      <TR><TD PORT="condition_end_date" COLSPAN="3" ALIGN="LEFT">condition_end_date</TD></TR>
+      <TR><TD PORT="condition_type_concept_id" COLSPAN="3" ALIGN="LEFT">condition_type_concept_id</TD></TR>
+      <TR><TD PORT="stop_reason" COLSPAN="3" ALIGN="LEFT">stop_reason</TD></TR>
+      <TR><TD PORT="provider_id" COLSPAN="3" ALIGN="LEFT">provider_id</TD></TR>
+      <TR><TD PORT="visit_occurrence_id" COLSPAN="3" ALIGN="LEFT">visit_occurrence_id</TD></TR>
+      <TR><TD PORT="condition_source_value" COLSPAN="3" ALIGN="LEFT">condition_source_value</TD></TR>
+      <TR><TD PORT="condition_source_concept_id" COLSPAN="3" ALIGN="LEFT">condition_source_concept_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/condition_occurrence.html"
+    tooltip="condition_occurrence"
+  ];
+}

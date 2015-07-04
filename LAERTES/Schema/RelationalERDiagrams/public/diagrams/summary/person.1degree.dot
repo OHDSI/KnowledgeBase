@@ -1,0 +1,47 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "person" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "person" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">person</TD></TR>
+      <TR><TD PORT="person_id" COLSPAN="3" ALIGN="LEFT">person_id</TD></TR>
+      <TR><TD PORT="gender_concept_id" COLSPAN="3" ALIGN="LEFT">gender_concept_id</TD></TR>
+      <TR><TD PORT="year_of_birth" COLSPAN="3" ALIGN="LEFT">year_of_birth</TD></TR>
+      <TR><TD PORT="month_of_birth" COLSPAN="3" ALIGN="LEFT">month_of_birth</TD></TR>
+      <TR><TD PORT="day_of_birth" COLSPAN="3" ALIGN="LEFT">day_of_birth</TD></TR>
+      <TR><TD PORT="time_of_birth" COLSPAN="3" ALIGN="LEFT">time_of_birth</TD></TR>
+      <TR><TD PORT="race_concept_id" COLSPAN="3" ALIGN="LEFT">race_concept_id</TD></TR>
+      <TR><TD PORT="ethnicity_concept_id" COLSPAN="3" ALIGN="LEFT">ethnicity_concept_id</TD></TR>
+      <TR><TD PORT="location_id" COLSPAN="3" ALIGN="LEFT">location_id</TD></TR>
+      <TR><TD PORT="provider_id" COLSPAN="3" ALIGN="LEFT">provider_id</TD></TR>
+      <TR><TD PORT="care_site_id" COLSPAN="3" ALIGN="LEFT">care_site_id</TD></TR>
+      <TR><TD PORT="person_source_value" COLSPAN="3" ALIGN="LEFT">person_source_value</TD></TR>
+      <TR><TD PORT="gender_source_value" COLSPAN="3" ALIGN="LEFT">gender_source_value</TD></TR>
+      <TR><TD PORT="gender_source_concept_id" COLSPAN="3" ALIGN="LEFT">gender_source_concept_id</TD></TR>
+      <TR><TD PORT="race_source_value" COLSPAN="3" ALIGN="LEFT">race_source_value</TD></TR>
+      <TR><TD PORT="race_source_concept_id" COLSPAN="3" ALIGN="LEFT">race_source_concept_id</TD></TR>
+      <TR><TD PORT="ethnicity_source_value" COLSPAN="3" ALIGN="LEFT">ethnicity_source_value</TD></TR>
+      <TR><TD PORT="ethnicity_source_concept_id" COLSPAN="3" ALIGN="LEFT">ethnicity_source_concept_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/person.html"
+    tooltip="person"
+  ];
+}

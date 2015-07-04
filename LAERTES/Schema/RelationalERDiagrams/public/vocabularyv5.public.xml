@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="vocabularyv5" schema="public" type="PostgreSQL - 9.3.5">
+   <tables>
+      <table name="achilles_analysis" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="analysis_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="analysis_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="stratum_1_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="stratum_2_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="stratum_3_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="stratum_4_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="stratum_5_name" nullable="true" remarks="" size="255" type="varchar"/>
+      </table>
+      <table name="achilles_heel_results" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="analysis_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="achilles_heel_warning" nullable="true" remarks="" size="255" type="varchar"/>
+      </table>
+      <table name="achilles_results" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="analysis_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="stratum_1" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="stratum_2" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="stratum_3" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="stratum_4" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="stratum_5" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="count_value" nullable="true" remarks="" size="19" type="int8"/>
+      </table>
+      <table name="achilles_results_dist" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="analysis_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="stratum_1" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="stratum_2" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="stratum_3" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="stratum_4" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="stratum_5" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="count_value" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="7" name="min_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="max_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="avg_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="10" name="stdev_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="median_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="p10_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="13" name="p25_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="14" name="p75_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="15" name="p90_value" nullable="true" remarks="" size="131089" type="numeric"/>
+      </table>
+      <table name="attribute_definition" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="attribute_definition_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="attribute_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="attribute_description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="attribute_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="attribute_syntax" nullable="true" remarks="" size="2147483647" type="text"/>
+      </table>
+      <table name="care_site" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="care_site_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="care_site_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="place_of_service_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="location_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="care_site_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="place_of_service_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="cdm_source" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cdm_source_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="cdm_source_abbreviation" nullable="true" remarks="" size="25" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="cdm_holder" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="source_description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="source_documentation_reference" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="cdm_etl_reference" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="source_release_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="7" name="cdm_release_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="cdm_version" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="vocabulary_version" nullable="true" remarks="" size="20" type="varchar"/>
+      </table>
+      <table name="cohort" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cohort_definition_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="cohort_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="cohort_end_date" nullable="false" remarks="" size="13" type="date"/>
+      </table>
+      <table name="cohort_attribute" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cohort_definition_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="cohort_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="cohort_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="attribute_definition_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="value_as_number" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="value_as_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="cohort_definition" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cohort_definition_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="cohort_definition_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="cohort_definition_description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="definition_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="cohort_definition_syntax" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="subject_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="cohort_initiation_date" nullable="true" remarks="" size="13" type="date"/>
+      </table>
+      <table name="concept" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_id" nullable="false" remarks="" size="10" type="int4">
+            <child column="concept_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept_synonym"/>
+            <child column="concept_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="ev_conditions_children"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="concept_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="domain_id" nullable="false" remarks="" size="20" type="varchar">
+            <parent column="domain_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="domain"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="vocabulary_id" nullable="false" remarks="" size="20" type="varchar">
+            <parent column="vocabulary_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="vocabulary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="concept_class_id" nullable="false" remarks="" size="20" type="varchar">
+            <parent column="concept_class_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept_class"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="standard_concept" nullable="true" remarks="" size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="concept_code" nullable="false" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="valid_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="valid_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="9" name="invalid_reason" nullable="true" remarks="" size="1" type="varchar"/>
+         <primaryKey column="concept_id" sequenceNumberInPK="1"/>
+         <index name="xpk_concept" unique="true">
+            <column ascending="true" name="concept_id"/>
+         </index>
+         <index name="idx_concept_class_id" unique="false">
+            <column ascending="true" name="concept_class_id"/>
+         </index>
+         <index name="idx_concept_code" unique="false">
+            <column ascending="true" name="concept_code"/>
+         </index>
+         <index name="idx_concept_concept_id" unique="true">
+            <column ascending="true" name="concept_id"/>
+         </index>
+         <index name="idx_concept_domain_id" unique="false">
+            <column ascending="true" name="domain_id"/>
+         </index>
+         <index name="idx_concept_vocabluary_id" unique="false">
+            <column ascending="true" name="vocabulary_id"/>
+         </index>
+      </table>
+      <table name="concept_ancestor" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="ancestor_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="descendant_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="min_levels_of_separation" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="max_levels_of_separation" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="ancestor_concept_id" sequenceNumberInPK="1"/>
+         <primaryKey column="descendant_concept_id" sequenceNumberInPK="2"/>
+         <index name="xpk_concept_ancestor" unique="true">
+            <column ascending="true" name="ancestor_concept_id"/>
+            <column ascending="true" name="descendant_concept_id"/>
+         </index>
+         <index name="idx_concept_ancestor_id_1" unique="false">
+            <column ascending="true" name="ancestor_concept_id"/>
+         </index>
+         <index name="idx_concept_ancestor_id_2" unique="false">
+            <column ascending="true" name="descendant_concept_id"/>
+         </index>
+      </table>
+      <table name="concept_class" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_class_id" nullable="false" remarks="" size="20" type="varchar">
+            <child column="concept_class_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="concept_class_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="concept_class_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="concept_class_id" sequenceNumberInPK="1"/>
+         <index name="xpk_concept_class" unique="true">
+            <column ascending="true" name="concept_class_id"/>
+         </index>
+         <index name="idx_concept_class_class_id" unique="true">
+            <column ascending="true" name="concept_class_id"/>
+         </index>
+      </table>
+      <table name="concept_relationship" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_id_1" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="concept_id_2" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="relationship_id" nullable="false" remarks="" size="20" type="varchar">
+            <parent column="relationship_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="relationship"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="valid_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="valid_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="invalid_reason" nullable="true" remarks="" size="1" type="varchar"/>
+         <primaryKey column="concept_id_1" sequenceNumberInPK="1"/>
+         <primaryKey column="concept_id_2" sequenceNumberInPK="2"/>
+         <primaryKey column="relationship_id" sequenceNumberInPK="3"/>
+         <index name="xpk_concept_relationship" unique="true">
+            <column ascending="true" name="concept_id_1"/>
+            <column ascending="true" name="concept_id_2"/>
+            <column ascending="true" name="relationship_id"/>
+         </index>
+         <index name="idx_concept_relationship_id_1" unique="false">
+            <column ascending="true" name="concept_id_1"/>
+         </index>
+         <index name="idx_concept_relationship_id_2" unique="false">
+            <column ascending="true" name="concept_id_2"/>
+         </index>
+         <index name="idx_concept_relationship_id_3" unique="false">
+            <column ascending="true" name="relationship_id"/>
+         </index>
+      </table>
+      <table name="concept_synonym" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="concept_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="concept_synonym_name" nullable="false" remarks="" size="1000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="language_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <index name="idx_concept_synonym_id" unique="false">
+            <column ascending="true" name="concept_id"/>
+         </index>
+      </table>
+      <table name="condition_era" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="condition_era_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="condition_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="condition_era_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="condition_era_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="condition_occurrence_count" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="condition_occurrence" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="condition_occurrence_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="condition_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="condition_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="condition_end_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="condition_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="stop_reason" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="visit_occurrence_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="condition_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="condition_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="death" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="death_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="death_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="cause_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="cause_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="cause_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="device_cost" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="device_cost_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="device_exposure_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="currency_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="paid_copay" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="paid_coinsurance" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="paid_toward_deductible" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="paid_by_payer" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="paid_by_coordination_benefits" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="total_out_of_pocket" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="total_paid" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="10" name="payer_plan_period_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="device_exposure" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="device_exposure_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="device_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="device_exposure_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="device_exposure_end_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="device_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="unique_device_id" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="quantity" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="visit_occurrence_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="device_source_value" nullable="true" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="device_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="domain" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="domain_id" nullable="false" remarks="" size="20" type="varchar">
+            <child column="domain_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="domain_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="domain_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="domain_id" sequenceNumberInPK="1"/>
+         <index name="xpk_domain" unique="true">
+            <column ascending="true" name="domain_id"/>
+         </index>
+         <index name="idx_domain_domain_id" unique="true">
+            <column ascending="true" name="domain_id"/>
+         </index>
+      </table>
+      <table name="dose_era" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="dose_era_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="drug_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="unit_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="dose_value" nullable="false" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="dose_era_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="6" name="dose_era_end_date" nullable="false" remarks="" size="13" type="date"/>
+      </table>
+      <table name="drug_cost" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_cost_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="drug_exposure_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="currency_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="paid_copay" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="paid_coinsurance" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="paid_toward_deductible" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="paid_by_payer" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="paid_by_coordination_benefits" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="total_out_of_pocket" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="total_paid" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="10" name="ingredient_cost" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="dispensing_fee" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="average_wholesale_price" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="13" name="payer_plan_period_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="drug_era" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_era_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="drug_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="drug_era_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="drug_era_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="drug_exposure_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="gap_days" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="drug_exposure" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_exposure_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="drug_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="drug_exposure_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="drug_exposure_end_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="drug_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="stop_reason" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="refills" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="quantity" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="days_supply" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="sig" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="11" name="route_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="effective_drug_dose" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="13" name="dose_unit_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="lot_number" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="visit_occurrence_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="17" name="drug_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="drug_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="19" name="route_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="20" name="dose_unit_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="drug_hoi_evidence" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('drug_hoi_evidence_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="primary key" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="laertes_summary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="drug_hoi_relationship" nullable="true" remarks="foreign key to the drug_HOI_relationship id" size="2147483647" type="text">
+            <parent column="id" foreignKey="drug_hoi_evidence_drug_hoi_relationship_fkey" implied="false" onDeleteCascade="false" table="drug_hoi_relationship"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="evidence_type" nullable="true" remarks="the type of evidence (literature, product label, pharmacovigilance, EHR)" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="modality" nullable="true" remarks="Whether or not the relationship of evidence is to refute the assertion" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="evidence_source_code_id" nullable="true" remarks="a code indicating the actual source of evidence (e.g., PubMed, US SPLs, EU SPC, VigiBase, etc)" size="10" type="int4">
+            <parent column="id" foreignKey="drug_hoi_evidence_evidence_source_code_id_fkey" implied="false" onDeleteCascade="false" table="evidence_sources"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="statistic_value" nullable="false" remarks="For literature-like (e.g., PubMed abstracts, product labeling) sources this holds the count of the number of items of the evidence type present in the evidence base from that source (several rules are used to derive the counts, see documentation on the knowledge-base wiki). From signal detection sources, the result of applying the algorithm indicated in the evidence_type column is shown." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="evidence_linkout" nullable="true" remarks="For literature-like (e.g., PubMed abstracts, product labeling), this holds a URL that will resolve to a query against the RDF endpoint for all resources used to generate the evidence_count. For signal detection sources, this holds a link to metadata on the algorithm and how it was applied to arrive at the statistical value." size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="statistic_type" nullable="true" remarks="For literature-like (e.g., PubMed abstracts, product labeling), and other count based methods this holds COUNT. For signal detection sources, this holds a string indicating the type of the result value (e.g., AERS_EBGM, AERS_EB05)" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="drug_hoi_evidence_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="IDX_DRUG_HOI_RELATIONSHIP" unique="false">
+            <column ascending="true" name="drug_hoi_relationship"/>
+         </index>
+      </table>
+      <table name="drug_hoi_relationship" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="50" type="varchar">
+            <child column="drug_hoi_relationship" foreignKey="drug_hoi_evidence_drug_hoi_relationship_fkey" implied="false" onDeleteCascade="false" table="drug_hoi_evidence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="drug" nullable="true" remarks="OMOP/IMEDS Concept ID for the drug" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="rxnorm_drug" nullable="true" remarks="RxNorm Preferred Term of the Drug" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="hoi" nullable="true" remarks="OMOP/IMEDS Concept ID for the Health Outcome of Interest" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="snomed_hoi" nullable="true" remarks="SNOMED preferred term of the Health Outcome of Interest" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="drug_hoi_relationship_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="IDX_ID" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="drug_strength" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="ingredient_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="amount_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="amount_unit_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="numerator_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="numerator_unit_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="denominator_unit_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="valid_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="valid_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="9" name="invalid_reason" nullable="true" remarks="" size="1" type="varchar"/>
+         <index name="idx_drug_strength_id_1" unique="false">
+            <column ascending="true" name="drug_concept_id"/>
+         </index>
+         <index name="idx_drug_strength_id_2" unique="false">
+            <column ascending="true" name="ingredient_concept_id"/>
+         </index>
+      </table>
+      <table name="ev_condition_universe" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="condition_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="condition_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <index name="idx_ev_condition_universe_condition_concept_id" unique="false">
+            <column ascending="true" name="condition_concept_id"/>
+         </index>
+      </table>
+      <table name="ev_conditions" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="condition_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="condition_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="evidence_type" nullable="true" remarks="" size="2147483647" type="text"/>
+         <index name="idx_conditions_condition_concept_id" unique="false">
+            <column ascending="true" name="condition_concept_id"/>
+         </index>
+      </table>
+      <table name="ev_conditions_children" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="condition_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="condition_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="evidence_type" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="concept_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="concept_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <index name="idx_conditions_children_condition_concept_id" unique="false">
+            <column ascending="true" name="concept_id"/>
+         </index>
+      </table>
+      <table name="ev_drug_universe" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="ingredient_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="ingredient_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <index name="idx_ev_drug_universe_ingredient_id" unique="false">
+            <column ascending="true" name="ingredient_id"/>
+         </index>
+      </table>
+      <table name="ev_laertes_pairs" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="hoi" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="evidence_type" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="modality" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="evidence_source_code_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="statistic_value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="evidence_linkout" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="statistic_type" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="ingredient_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="ingredient_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="ingredient_exists" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="clinical_drug_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="clinical_drug_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="clinical_drug_exists" nullable="true" remarks="" size="10" type="int4"/>
+         <index name="idx_ev_laertes_pairs_hoi" unique="false">
+            <column ascending="true" name="hoi"/>
+         </index>
+         <index name="idx_ev_laertes_pairs_ingredient_id" unique="false">
+            <column ascending="true" name="ingredient_id"/>
+         </index>
+      </table>
+      <table name="ev_universes" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="reference_set" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="hoi_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hoi_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="condition_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="condition_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="atc_2nd_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="atc_2nd_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="drug_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="drug_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="9" name="ground_truth" nullable="true" remarks="" size="10" type="int4"/>
+         <index name="idx_ev_universes_condition_concept_id" unique="false">
+            <column ascending="true" name="condition_concept_id"/>
+         </index>
+         <index name="idx_ev_universes_drug_concept_id" unique="false">
+            <column ascending="true" name="drug_concept_id"/>
+         </index>
+      </table>
+      <table name="evidence_sources" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('evidence_sources_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="evidence_source_code_id" foreignKey="drug_hoi_evidence_evidence_source_code_id_fkey" implied="false" onDeleteCascade="false" table="drug_hoi_evidence"/>
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="laertes_summary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="title" nullable="true" remarks="a short name for the evidence source. Same as http://purl.org/dc/elements/1.1/title" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="description" nullable="true" remarks="Description of the evidence source. Same as http://purl.org/dc/elements/1.1/description" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="contributer" nullable="true" remarks="Same as http://purl.org/dc/elements/1.1/contributor" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="creator" nullable="true" remarks="Same as http://purl.org/dc/elements/1.1/creator" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="creation_date" nullable="false" remarks="Date that the source was created. For example, if the source was created in 2010 but added to the knowledge base in 2014, the creation date would be 2010" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="6" name="rights" nullable="true" remarks="Same as http://purl.org/dc/elements/1.1/rights" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="source" nullable="true" remarks="The source from which this data was derived. Same as http://purl.org/dc/elements/1.1/source" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="coverage_start_date" nullable="false" remarks="The start date of coverage for the resource. Data can be trusted on or after this date and up to and including the coverage_end_date" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="9" name="coverage_end_date" nullable="false" remarks="The date of coverage for the resource. Data can be trusted on or after the coverage_start_date date and up to and including this date" size="13" type="date"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="evidence_sources_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="fact_relationship" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="domain_concept_id_1" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="fact_id_1" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="domain_concept_id_2" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="fact_id_2" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="relationship_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="laertes_summary" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('laertes_summary_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="primary key" size="10" type="serial">
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="drug_hoi_evidence"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="evidence_sources"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="laertes_summary_filtered"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="lu_az_cert"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="lu_ref_set_drug_hoi_def"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="lu_ref_set_hoi_def"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="report_order" nullable="true" remarks="there are several reports in this summary, this is an identifier for each report" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="report_name" nullable="true" remarks="there are several reports in this summary, this is a name of the report" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="ingredient_id" nullable="true" remarks="a drug ingredient CONCEPT_ID" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="ingredient" nullable="true" remarks="a drug ingredient name" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="clinical_drug_id" nullable="true" remarks="if a clinical drug exists, the clinical drug CONCEPT_ID" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="clinical_drug" nullable="true" remarks="if a clinical drug exists, the clinical drug name" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="hoi_id" nullable="true" remarks="the HOI CONCEPT_ID, this is at the SNOMED level" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="hoi" nullable="true" remarks="the HOI name, this is at the SNOMED level" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="9" name="ct_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="case_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="other_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="splicer_count" nullable="true" remarks="counts of SPLs that mention specific drugs and hois" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="eu_spc_count" nullable="true" remarks="counts of SPCs that mention specific drugs and hois" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="semmeddb_ct_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="15" name="semmeddb_case_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="semmeddb_neg_ct_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="17" name="semmeddb_neg_case_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="18" name="aers_report_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="19" name="prr" nullable="true" remarks="" size="131089" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="laertes_summary_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="laertes_summary_filtered" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('laertes_summary_filtered_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="laertes_summary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="report_order" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="report_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="hoi_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="hoi" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="ingredient_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="ingredient" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="ground_truth" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="ct_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="case_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="10" name="other_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="splicer_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="eu_spc_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="13" name="semmeddb_ct_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="14" name="semmeddb_case_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="15" name="semmeddb_neg_ct_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="16" name="semmeddb_neg_case_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="17" name="eb05" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="18" name="ebgm" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="19" name="aers_report_count" nullable="true" remarks="" size="131089" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="laertes_summary_filtered_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="location" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="location_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="address_1" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="address_2" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="city" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="state" nullable="true" remarks="" size="2" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="zip" nullable="true" remarks="" size="9" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="county" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="location_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="lu_az_cert" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('lu_az_cert_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="laertes_summary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="generic_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="brand_names" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="rxnorm_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="drug_class" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="therapeutic_use" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="pubmed_search" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="risk_category" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="risk_category_2" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="9" name="route" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="lu_az_cert_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="lu_ref_set_drug_hoi_def" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('lu_ref_set_drug_hoi_def_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="laertes_summary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="reference_set" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="hoi_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="hoi_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="drug_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="drug_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="ground_truth" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="lu_ref_set_drug_hoi_def_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="lu_ref_set_hoi_def" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('lu_ref_set_hoi_def_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="laertes_summary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="reference_set" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="hoi_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="hoi_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="condition_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="condition_concept_name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="notes" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="lu_ref_set_hoi_def_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="measurement" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="measurement_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="measurement_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="measurement_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="measurement_time" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="measurement_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="operator_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="value_as_number" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="value_as_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="unit_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="range_low" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="range_high" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="visit_occurrence_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="measurement_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="measurement_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="unit_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="value_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="multi" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="ingredient" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="count" nullable="true" remarks="" size="19" type="int8"/>
+      </table>
+      <table name="note" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="note_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="note_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="note_time" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="note_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="note_text" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="visit_occurrence_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="note_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="observation" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="observation_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="observation_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="observation_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="observation_time" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="observation_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="value_as_number" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="value_as_string" nullable="true" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="value_as_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="qualifier_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="unit_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="visit_occurrence_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="observation_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="observation_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="15" name="unit_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="qualifier_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="observation_period" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="observation_period_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="observation_period_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="observation_period_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="period_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="payer_plan_period" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="payer_plan_period_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="payer_plan_period_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="payer_plan_period_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="payer_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="plan_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="family_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="person" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="gender_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="year_of_birth" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="month_of_birth" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="day_of_birth" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="time_of_birth" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="race_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="ethnicity_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="location_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="care_site_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="person_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="gender_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="gender_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="race_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="race_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="ethnicity_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="ethnicity_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="procedure_cost" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="procedure_cost_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="procedure_occurrence_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="currency_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="paid_copay" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="paid_coinsurance" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="paid_toward_deductible" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="paid_by_payer" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="paid_by_coordination_benefits" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="total_out_of_pocket" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="total_paid" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="10" name="revenue_code_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="payer_plan_period_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="revenue_code_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="procedure_occurrence" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="procedure_occurrence_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="procedure_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="procedure_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="procedure_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="modifier_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="quantity" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="visit_occurrence_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="procedure_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="procedure_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="qualifier_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="provider" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="provider_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="provider_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="npi" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="dea" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="specialty_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="care_site_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="year_of_birth" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="gender_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="provider_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="specialty_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="specialty_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="gender_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="gender_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="relationship" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="relationship_id" nullable="false" remarks="" size="20" type="varchar">
+            <child column="relationship_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept_relationship"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="relationship_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="is_hierarchical" nullable="false" remarks="" size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="defines_ancestry" nullable="false" remarks="" size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="reverse_relationship_id" nullable="false" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="relationship_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="relationship_id" sequenceNumberInPK="1"/>
+         <index name="xpk_relationship" unique="true">
+            <column ascending="true" name="relationship_id"/>
+         </index>
+         <index name="idx_relationship_rel_id" unique="true">
+            <column ascending="true" name="relationship_id"/>
+         </index>
+      </table>
+      <table name="source_to_concept_map" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="source_code" nullable="false" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="source_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="source_vocabulary_id" nullable="false" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="source_code_description" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="target_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="target_vocabulary_id" nullable="false" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="valid_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="7" name="valid_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="invalid_reason" nullable="true" remarks="" size="1" type="varchar"/>
+         <primaryKey column="source_vocabulary_id" sequenceNumberInPK="1"/>
+         <primaryKey column="target_concept_id" sequenceNumberInPK="2"/>
+         <primaryKey column="source_code" sequenceNumberInPK="3"/>
+         <primaryKey column="valid_end_date" sequenceNumberInPK="4"/>
+         <index name="xpk_source_to_concept_map" unique="true">
+            <column ascending="true" name="source_vocabulary_id"/>
+            <column ascending="true" name="target_concept_id"/>
+            <column ascending="true" name="source_code"/>
+            <column ascending="true" name="valid_end_date"/>
+         </index>
+         <index name="idx_source_to_concept_map_code" unique="false">
+            <column ascending="true" name="source_code"/>
+         </index>
+         <index name="idx_source_to_concept_map_id_1" unique="false">
+            <column ascending="true" name="source_vocabulary_id"/>
+         </index>
+         <index name="idx_source_to_concept_map_id_2" unique="false">
+            <column ascending="true" name="target_vocabulary_id"/>
+         </index>
+         <index name="idx_source_to_concept_map_id_3" unique="false">
+            <column ascending="true" name="target_concept_id"/>
+         </index>
+      </table>
+      <table name="specimen" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="specimen_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="specimen_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="specimen_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="specimen_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="specimen_time" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="quantity" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="unit_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="anatomic_site_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="disease_status_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="specimen_source_id" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="specimen_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="unit_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="anatomic_site_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="disease_status_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="temp_universe_map" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="drug_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="atc_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="atc_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="condition_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="conditon_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="meddra_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="meddra_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="splicer_count" nullable="true" remarks="" size="131089" type="numeric"/>
+      </table>
+      <table name="temp_universe_map_large" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="drug_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="atc_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="atc_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="condition_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="conditon_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="meddra_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="meddra_concept_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="ct_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="case_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="other_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="splicer_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="eu_spc_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="semmeddb_ct_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="semmeddb_case_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="15" name="semmeddb_neg_ct_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="semmeddb_neg_case_count" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="visit_cost" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="visit_cost_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="visit_occurrence_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="currency_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="paid_copay" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="paid_coinsurance" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="paid_toward_deductible" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="paid_by_payer" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="paid_by_coordination_benefits" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="total_out_of_pocket" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="total_paid" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="10" name="payer_plan_period_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="visit_occurrence" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="visit_occurrence_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="visit_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="visit_start_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="visit_start_time" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="visit_end_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="6" name="visit_end_time" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="visit_type_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="provider_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="care_site_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="visit_source_value" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="visit_source_concept_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="vocabulary" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="vocabulary_id" nullable="false" remarks="" size="20" type="varchar">
+            <child column="vocabulary_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="vocabulary_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="vocabulary_reference" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="vocabulary_version" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="vocabulary_concept_id" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="vocabulary_id" sequenceNumberInPK="1"/>
+         <index name="xpk_vocabulary" unique="true">
+            <column ascending="true" name="vocabulary_id"/>
+         </index>
+         <index name="idx_vocabulary_vocabulary_id" unique="true">
+            <column ascending="true" name="vocabulary_id"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -44,6 +44,9 @@ FOLDER LAYOUT
 
 - OpenAnnotationSchemaERDiagrams/ : Entity-relationships diagrams of the RDF Schema for various source types
 
+- RelationalERDiagrams/ : ER diagrams created using SchemaSpy (http://schemaspy.sourceforge.net/) with the following command (enter your user and pword):
+
+$ java -jar ~/Downloads/schemaSpy.jar -hq -dp /usr/share/java/postgresql-jdbc4-9.2.jar -norows -t pgsql -host localhost:5432 -db vocabularyv5 -schemas "public" -u <USER> -p '<PASSWORD>' -o ./RelationalERDiagrams
 
 
 --------------------------------------------------------------------------------

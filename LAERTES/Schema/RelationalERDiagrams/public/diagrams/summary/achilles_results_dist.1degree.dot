@@ -1,0 +1,45 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "achilles_results_dist" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "achilles_results_dist" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">achilles_results_dist</TD></TR>
+      <TR><TD PORT="analysis_id" COLSPAN="3" ALIGN="LEFT">analysis_id</TD></TR>
+      <TR><TD PORT="stratum_1" COLSPAN="3" ALIGN="LEFT">stratum_1</TD></TR>
+      <TR><TD PORT="stratum_2" COLSPAN="3" ALIGN="LEFT">stratum_2</TD></TR>
+      <TR><TD PORT="stratum_3" COLSPAN="3" ALIGN="LEFT">stratum_3</TD></TR>
+      <TR><TD PORT="stratum_4" COLSPAN="3" ALIGN="LEFT">stratum_4</TD></TR>
+      <TR><TD PORT="stratum_5" COLSPAN="3" ALIGN="LEFT">stratum_5</TD></TR>
+      <TR><TD PORT="count_value" COLSPAN="3" ALIGN="LEFT">count_value</TD></TR>
+      <TR><TD PORT="min_value" COLSPAN="3" ALIGN="LEFT">min_value</TD></TR>
+      <TR><TD PORT="max_value" COLSPAN="3" ALIGN="LEFT">max_value</TD></TR>
+      <TR><TD PORT="avg_value" COLSPAN="3" ALIGN="LEFT">avg_value</TD></TR>
+      <TR><TD PORT="stdev_value" COLSPAN="3" ALIGN="LEFT">stdev_value</TD></TR>
+      <TR><TD PORT="median_value" COLSPAN="3" ALIGN="LEFT">median_value</TD></TR>
+      <TR><TD PORT="p10_value" COLSPAN="3" ALIGN="LEFT">p10_value</TD></TR>
+      <TR><TD PORT="p25_value" COLSPAN="3" ALIGN="LEFT">p25_value</TD></TR>
+      <TR><TD PORT="p75_value" COLSPAN="3" ALIGN="LEFT">p75_value</TD></TR>
+      <TR><TD PORT="p90_value" COLSPAN="3" ALIGN="LEFT">p90_value</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/achilles_results_dist.html"
+    tooltip="achilles_results_dist"
+  ];
+}

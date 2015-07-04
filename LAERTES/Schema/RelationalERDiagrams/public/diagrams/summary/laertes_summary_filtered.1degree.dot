@@ -1,0 +1,49 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "laertes_summary_filtered" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "laertes_summary_filtered" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">laertes_summary_filtered</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="report_order" COLSPAN="3" ALIGN="LEFT">report_order</TD></TR>
+      <TR><TD PORT="report_name" COLSPAN="3" ALIGN="LEFT">report_name</TD></TR>
+      <TR><TD PORT="hoi_id" COLSPAN="3" ALIGN="LEFT">hoi_id</TD></TR>
+      <TR><TD PORT="hoi" COLSPAN="3" ALIGN="LEFT">hoi</TD></TR>
+      <TR><TD PORT="ingredient_id" COLSPAN="3" ALIGN="LEFT">ingredient_id</TD></TR>
+      <TR><TD PORT="ingredient" COLSPAN="3" ALIGN="LEFT">ingredient</TD></TR>
+      <TR><TD PORT="ground_truth" COLSPAN="3" ALIGN="LEFT">ground_truth</TD></TR>
+      <TR><TD PORT="ct_count" COLSPAN="3" ALIGN="LEFT">ct_count</TD></TR>
+      <TR><TD PORT="case_count" COLSPAN="3" ALIGN="LEFT">case_count</TD></TR>
+      <TR><TD PORT="other_count" COLSPAN="3" ALIGN="LEFT">other_count</TD></TR>
+      <TR><TD PORT="splicer_count" COLSPAN="3" ALIGN="LEFT">splicer_count</TD></TR>
+      <TR><TD PORT="eu_spc_count" COLSPAN="3" ALIGN="LEFT">eu_spc_count</TD></TR>
+      <TR><TD PORT="semmeddb_ct_count" COLSPAN="3" ALIGN="LEFT">semmeddb_ct_count</TD></TR>
+      <TR><TD PORT="semmeddb_case_count" COLSPAN="3" ALIGN="LEFT">semmeddb_case_count</TD></TR>
+      <TR><TD PORT="semmeddb_neg_ct_count" COLSPAN="3" ALIGN="LEFT">semmeddb_neg_ct_count</TD></TR>
+      <TR><TD PORT="semmeddb_neg_case_count" COLSPAN="3" ALIGN="LEFT">semmeddb_neg_case_count</TD></TR>
+      <TR><TD PORT="eb05" COLSPAN="3" ALIGN="LEFT">eb05</TD></TR>
+      <TR><TD PORT="ebgm" COLSPAN="3" ALIGN="LEFT">ebgm</TD></TR>
+      <TR><TD PORT="aers_report_count" COLSPAN="3" ALIGN="LEFT">aers_report_count</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/laertes_summary_filtered.html"
+    tooltip="laertes_summary_filtered"
+  ];
+}
