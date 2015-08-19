@@ -16,7 +16,7 @@ import json
 import pickle
 from rdflib import Graph, BNode, Literal, Namespace, URIRef, RDF, RDFS, XSD
 
-SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/splicer_output_12-28.tsv"
+SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER-MERGED-UPDATE-4-30-2015.tsv"
 
 # TERMINOLOGY MAPPING FILES
 RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"

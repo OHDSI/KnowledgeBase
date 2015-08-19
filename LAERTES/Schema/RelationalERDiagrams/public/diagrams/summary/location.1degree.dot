@@ -1,0 +1,37 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "location" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "location" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">location</TD></TR>
+      <TR><TD PORT="location_id" COLSPAN="3" ALIGN="LEFT">location_id</TD></TR>
+      <TR><TD PORT="address_1" COLSPAN="3" ALIGN="LEFT">address_1</TD></TR>
+      <TR><TD PORT="address_2" COLSPAN="3" ALIGN="LEFT">address_2</TD></TR>
+      <TR><TD PORT="city" COLSPAN="3" ALIGN="LEFT">city</TD></TR>
+      <TR><TD PORT="state" COLSPAN="3" ALIGN="LEFT">state</TD></TR>
+      <TR><TD PORT="zip" COLSPAN="3" ALIGN="LEFT">zip</TD></TR>
+      <TR><TD PORT="county" COLSPAN="3" ALIGN="LEFT">county</TD></TR>
+      <TR><TD PORT="location_source_value" COLSPAN="3" ALIGN="LEFT">location_source_value</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/location.html"
+    tooltip="location"
+  ];
+}

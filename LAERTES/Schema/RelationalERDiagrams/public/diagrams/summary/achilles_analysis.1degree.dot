@@ -1,0 +1,36 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "achilles_analysis" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "achilles_analysis" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">achilles_analysis</TD></TR>
+      <TR><TD PORT="analysis_id" COLSPAN="3" ALIGN="LEFT">analysis_id</TD></TR>
+      <TR><TD PORT="analysis_name" COLSPAN="3" ALIGN="LEFT">analysis_name</TD></TR>
+      <TR><TD PORT="stratum_1_name" COLSPAN="3" ALIGN="LEFT">stratum_1_name</TD></TR>
+      <TR><TD PORT="stratum_2_name" COLSPAN="3" ALIGN="LEFT">stratum_2_name</TD></TR>
+      <TR><TD PORT="stratum_3_name" COLSPAN="3" ALIGN="LEFT">stratum_3_name</TD></TR>
+      <TR><TD PORT="stratum_4_name" COLSPAN="3" ALIGN="LEFT">stratum_4_name</TD></TR>
+      <TR><TD PORT="stratum_5_name" COLSPAN="3" ALIGN="LEFT">stratum_5_name</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/achilles_analysis.html"
+    tooltip="achilles_analysis"
+  ];
+}

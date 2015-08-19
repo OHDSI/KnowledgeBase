@@ -10,8 +10,7 @@ Usage:
 - python3 getMissingMappings.py
 
 Input:
-- Final_Repository_DLP30Jun2012_withCUIs.csv
-	- made by
+- The output of the processEuSPCToAddRxNormAndMeSH.py script
 
 Outputs:
 - format on all:
@@ -66,11 +65,11 @@ with open(sys.argv[1], 'r') as fil:
 	currentSubstance = None
 	for row in rows:
 		# if the substance is already been seen, skip
-		if currentSubstance == row[2].strip():
+		if currentSubstance == row[1].strip():
 			continue
 		
 		#if not seen, save the substance name
-		currentSubstance = row[2].strip()
+		currentSubstance = row[1].strip()
 		
 		#output format in product|substance names(s)
 		writeTo = row[0].strip() + '|' + currentSubstance + '\n'

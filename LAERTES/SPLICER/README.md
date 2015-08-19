@@ -1,8 +1,10 @@
 OHDSI KB Source : SPLICER - Adverse Drug Events from FDA Structured Product Labels (SPLs)
 
-NOTE: See LICENSE for important information on legal requirements on the use
-of this data.
+SPLICER data are licensed under http://creativecommons.org/licenses/by-nc-sa/4.0/ meaning they are for non-commercial work only. If you are a commercial organization, please contact Regenstrief Institute for licensing information (allenkat@regenstrief.org). See LICENSE for detailed information on legal requirements on the use of this data. Non-commercial users please be sure to cite the following paper for any work you publish or present that used SPLICER data:
 
+Duke J, Friedlin J, Li X. Consistency in the safety labeling of bioequivalent medications. Pharmacoepidemiol Drug Saf. 2013 Mar;22(3):294-301. doi:10.1002/pds.3351. Epub 2012 Oct 8. PubMed PMID: 23042584.
+
+------------------------------------------------------------
 Convert SPLICER output to RDF to support the OHDSI KB use cases.
 
 - splicer2rdf.py : Accepts as input a tab delimitted file containing
@@ -47,26 +49,47 @@ NOTE: The output of writeLoadableSPLICERcounts.py includes data that
       have to make sure that both the mysql server and client have the
       max_allowed_packet=999M
 
-### To split the INSERT query into files that can be loaded in mysql
-$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs-ALL
+To split the INSERT query into files that can be loaded in mysql
 
-# this creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
-# These each need an SQL INSERT clause as the first line and a semi-colon at the end
-# For all files:
+```
+$ split -l 400000 insertShortURLs-ALL.txt insertShortURLs
+```
+
+This creates files like insertShortURLsaa, insertShortURLsab, insertShortURLsac etc.
+These each need an SQL INSERT clause as the first line and a semi-colon at the end
+
+For all files:
+
+```
 $ sed -i '1s/^/INSERT INTO lil_urls VALUES \n/' insertShortURLsaa
-# For all but the last file:
+```
+
+For all but the last file:
+
+```
 $ sed -i "\$s/,$/;/" insertShortURLsaa
-# For the last file
+```
+
+For the last file
+
+```
 sed -i "\$s/$/;/" insertShortURLsac
-# Now you have to start the mysql client like this:
+```
+
+Now you have to start the mysql client like this:
+
+```
 $ mysql --max_allowed_packet=999M -u <user> -p --local-infile
-# select the database and the source each file
+```
+
+Select the database and the source each file
 
 
 ------------------------------------------------------------
 
 LOADING THE RDF DATA INTO VIRTUOSO:
 
+```
 -- FIRST TIME ONLY
 -- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed LIST OF virtuoso.ini AND RESTART VIRTUOSO
 $ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<PATH TO drug-hoi-splicer.n3>', 'http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc');
@@ -82,4 +105,4 @@ $ rdf_loader_run();
 $ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc' ;
 $ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc';
 $ rdf_loader_run();
-
+```

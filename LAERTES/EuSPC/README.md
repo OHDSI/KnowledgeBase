@@ -1,16 +1,21 @@
 European Union Adverse Drug Reactions from Summary of Product Characteristics (EU SPC) Database Import 
 =============================================================================================
 
-This table of adverse events from the EU SPCs as downloaded from
-[PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml)
+The EU SPC source provides adverse drug events extracted from EU SPCs
+by the [PROTECT](http://www.imi-protect.eu/about.shtml)
+collaborative. See the online documentation for the [PROTECT Adverse
+Drug Reactions
+Database](http://www.imi-protect.eu/adverseDrugReactions.shtml) for a
+liability disclaimer.
 
 ### Convert EU SPC data to RDF to support the OHDSI KB use cases
 
 - euSPC2rdf.py : Accepts as input a tab delimitted file containing
   adverse drug events extracted from EU SPCs by
-  [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml) and
-  produces as output a ntriples file that represents the data using
-  the Open Annotation Data (OA) schema
+  [PROTECT](http://www.imi-protect.eu/adverseDrugReactions.shtml) that
+  has been processed to add concept identifiers for the drugs from
+  RxNorm and MeSH. The script produces as output a ntriples file that
+  represents the data using the Open Annotation Data (OA) schema
 
 NOTE: an editable diagram of the OA model for EU SPC ADE records can
 be found in
@@ -25,8 +30,10 @@ euSPC2rdf.py script is loaded into a virtuoso endpoint, a query in the
 following form is ran at the endpoint (see
 RDF-count-and-drill-down-queries.sparql or the comments in writeLoadableEUSPCcounts.py): 
 
+```
 SELECT count(distinct ?an) ?drug ?hoi
 ...
+```
 
 This query give the counts for records present in the EU SPC for all
 drugs and HOIs present in the database. This data is saved into a tab
@@ -35,8 +42,10 @@ is loaded by writeLoadableEUSPCcounts.py. The script then generates a
 file (most recently drug-hoi-counts-with-linkouts-EU-SPC-10272014.tsv) that can be loaded into the relational Schema table
 'drug_hoi_evidence'. An example record:
 
+```
 drug_hoi_relationship	evidence_type	modality	evidence_source_code_id	statistic_value	evidence_linkout	statistic_type
 757688-35708164 SPL_EU_SPC      positive        1       2       http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=kza   COUNT
+```
 
 The data in this file can then be used 
 
@@ -51,11 +60,11 @@ things that were unable to be mapped. The combination products were
 manually mapped where possibly using the Bioportal's ontology search.
 
 The final dataset with the RxCUIs and MeSH CUIs is in
-[FinalRepository_DLP30Jun2012_withCUIs_v2.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv).
+[Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv).
 
 1. `cd scripts`
 2. `python processEuSPCToAddRxNormAndMeSH.py`
-3. `python3 getMissingMappings.py ../data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv ../data/missing`
+3. `python3 getMissingMappings.py ../data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv ../data/missing`
 
 ### Processing the EU SPC Drug Listing
 
@@ -84,7 +93,7 @@ listed in the adverse event table. This was created by:
 ------------------------------------------------------------
 
 LOADING THE RDF DATA INTO VIRTUOSO:
-
+```
 -- FIRST TIME ONLY 
 -- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed LIST OF virtuoso.ini AND RESTART VIRTUOSO
 $ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<path to drug-hoi-eu-spc.nt>', 'http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc');
@@ -100,3 +109,4 @@ $ rdf_loader_run();
 $ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc' ;
 $ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc';
 $ rdf_loader_run();
+```

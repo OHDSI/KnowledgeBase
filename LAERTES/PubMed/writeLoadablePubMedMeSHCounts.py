@@ -8,7 +8,7 @@
 
 import urllib2, urllib, re, sys
 
-DATAFILE = "sample-summary-query.txt"
+DATAFILE = "pubmed-graph-count-query.txt"
 EVTYPE = "MEDLINE_MeSH"
 URL_ID_PREFIX = "pm-mesh-"
 URL_PREFIX = "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id="
@@ -33,8 +33,8 @@ SQL_INSERT_OUTFILE = "insertShortURLs-ALL.txt"
 ############################################################
 
 
-# replace the @IMEDS_DRUG@ and @IMEDS_HOI@ strings with the appropriate values
-TEMPLATE = "http://dbmi-icode-01.dbmi.pitt.edu:8080/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+dailymed%3A%3Chttp%3A%2F%2Fdbmi-icode-01.dbmi.pitt.edu%2FlinkedSPLs%2Fvocab%2Fresource%2F%3E%0D%0A%0D%0ASELECT+%3Fan+%3Fsource%0D%0AFROM+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%3E%0D%0AWHERE+{%0D%0A+%3Fan+a+ohdsi%3APubMedDrugHOIAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A%0D%0A+%3Ftarget+ohdsi%3AMeshStudyType+%22case+reports+%28publication+type%29%22.%0D%0A+%3Ftarget+oa%3AhasSource+%3Fsource.%0D%0A}%0D%0A%0D%0A&format=text%2Fhtml&timeout=0&debug=on"
+# replace the @IMEDS_DRUG@, @IMEDS_HOI@, @STUDY_TYPE@ strings with the appropriate values
+TEMPLATE = "http://virtuoso.ohdsi.org:8890/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+dailymed%3A%3Chttp%3A%2F%2Fdbmi-icode-01.dbmi.pitt.edu%2FlinkedSPLs%2Fvocab%2Fresource%2F%3E%0D%0A%0D%0ASELECT+%3Fan+%3Fsource%0D%0AFROM+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%3E%0D%0AWHERE+{%0D%0A+%3Fan+a+ohdsi%3APubMedDrugHOIAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A%0D%0A+%3Ftarget+ohdsi%3AMeshStudyType+@STUDY_TYPE@.%0D%0A+%3Ftarget+oa%3AhasSource+%3Fsource.%0D%0A}%0D%0A%0D%0A&format=json&timeout=0&debug=on"
 
 f = open(DATAFILE)
 buf = f.read()

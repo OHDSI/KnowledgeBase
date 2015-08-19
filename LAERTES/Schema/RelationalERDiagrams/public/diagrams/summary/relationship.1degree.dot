@@ -1,0 +1,35 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "relationship" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "relationship" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">relationship</TD></TR>
+      <TR><TD PORT="relationship_id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">relationship_id</TD></TR>
+      <TR><TD PORT="relationship_name" COLSPAN="3" ALIGN="LEFT">relationship_name</TD></TR>
+      <TR><TD PORT="is_hierarchical" COLSPAN="3" ALIGN="LEFT">is_hierarchical</TD></TR>
+      <TR><TD PORT="defines_ancestry" COLSPAN="3" ALIGN="LEFT">defines_ancestry</TD></TR>
+      <TR><TD PORT="reverse_relationship_id" COLSPAN="3" ALIGN="LEFT">reverse_relationship_id</TD></TR>
+      <TR><TD PORT="relationship_concept_id" COLSPAN="3" ALIGN="LEFT">relationship_concept_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/relationship.html"
+    tooltip="relationship"
+  ];
+}

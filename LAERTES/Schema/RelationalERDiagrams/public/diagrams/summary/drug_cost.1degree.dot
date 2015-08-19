@@ -1,0 +1,43 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "drug_cost" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "drug_cost" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">drug_cost</TD></TR>
+      <TR><TD PORT="drug_cost_id" COLSPAN="3" ALIGN="LEFT">drug_cost_id</TD></TR>
+      <TR><TD PORT="drug_exposure_id" COLSPAN="3" ALIGN="LEFT">drug_exposure_id</TD></TR>
+      <TR><TD PORT="currency_concept_id" COLSPAN="3" ALIGN="LEFT">currency_concept_id</TD></TR>
+      <TR><TD PORT="paid_copay" COLSPAN="3" ALIGN="LEFT">paid_copay</TD></TR>
+      <TR><TD PORT="paid_coinsurance" COLSPAN="3" ALIGN="LEFT">paid_coinsurance</TD></TR>
+      <TR><TD PORT="paid_toward_deductible" COLSPAN="3" ALIGN="LEFT">paid_toward_deductible</TD></TR>
+      <TR><TD PORT="paid_by_payer" COLSPAN="3" ALIGN="LEFT">paid_by_payer</TD></TR>
+      <TR><TD PORT="paid_by_coordination_benefits" COLSPAN="3" ALIGN="LEFT">paid_by_coordination_benefits</TD></TR>
+      <TR><TD PORT="total_out_of_pocket" COLSPAN="3" ALIGN="LEFT">total_out_of_pocket</TD></TR>
+      <TR><TD PORT="total_paid" COLSPAN="3" ALIGN="LEFT">total_paid</TD></TR>
+      <TR><TD PORT="ingredient_cost" COLSPAN="3" ALIGN="LEFT">ingredient_cost</TD></TR>
+      <TR><TD PORT="dispensing_fee" COLSPAN="3" ALIGN="LEFT">dispensing_fee</TD></TR>
+      <TR><TD PORT="average_wholesale_price" COLSPAN="3" ALIGN="LEFT">average_wholesale_price</TD></TR>
+      <TR><TD PORT="payer_plan_period_id" COLSPAN="3" ALIGN="LEFT">payer_plan_period_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/drug_cost.html"
+    tooltip="drug_cost"
+  ];
+}

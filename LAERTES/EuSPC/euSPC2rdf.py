@@ -5,7 +5,7 @@
 # Annotation Data
 #
 # Author: Richard D Boyce, PhD
-# Summer and Fall 2014
+# 2014 - 2015
 #
 
 import sys
@@ -16,8 +16,8 @@ import json
 import pickle
 from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
 
-DATA_FILE = "data/FinalRepository_DLP30Jun2012_withCUIs_v2.csv"
-(PRODUCT,SCIENTIFICGROUP_ID,SUBSTANCE,RxNorm,MeSH,DATE_OF_THE_SPC,ADR_AS_IT_APPEARS_IN_THE_SPC,SOC,HLGT,HLT,LLT,MEDDRA_PT,PT_CODE,SOC_CODE,AGE_GROUP,GENDER,CAUSALITY,FREQUENCY,CLASS_WARNING,CLINICAL_TRIALS,POST_MARKETING,COMMENT) = range(0,22)
+DATA_FILE = "data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv"
+(PRODUCT,SUBSTANCE,DATE_OF_THE_SPC,RxNorm,MeSH,ADR_AS_IT_APPEARS_IN_THE_SPC,SOC,HLGT,HLT,LLT,MEDDRA_PT,PT_CODE,SOC_CODE,AGE_GROUP,GENDER,CAUSALITY,FREQUENCY,CLASS_WARNING,CLINICAL_TRIALS,POST_MARKETING,COMMENT) = range(0,21)
 
 
 # TERMINOLOGY MAPPING FILES
@@ -138,6 +138,9 @@ graph.add((poc['RxnormDrug'], dcterms["description"], Literal("Drug code in the 
 graph.add((poc['MeshHoi'], RDFS.label, Literal("MeSH HOI code")))
 graph.add((poc['MeshHoi'], dcterms["description"], Literal("HOI code in the MeSH vocabulary.")))
 
+graph.add((poc['ImedsHoi'], RDFS.label, Literal("Imeds HOI code")))
+graph.add((poc['ImedsHoi'], dcterms["description"], Literal("HOI code in the IMEDS vocabulary.")))
+
 graph.add((poc['MeddraHoi'], RDFS.label, Literal("Meddra HOI code")))
 graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Meddra vocabulary.")))
 
@@ -173,6 +176,7 @@ inf.close()
 lines = buf.split("\n")
 it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[1:]] # skip header
 for elt in it:
+    print "%s" % elt
     if elt == [u'']:
         break 
 
@@ -258,6 +262,18 @@ for elt in it:
                         
     tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt[PT_CODE]])) # TODO: consider adding the values as a collection
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
+
+    # TODO: Define these predicates - preferrably from an ontology
+    tplL.append((poc[currentAnnotationBody], ohdsi['AgeGroup'], Literal(elt[AGE_GROUP])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Gender'], Literal(elt[GENDER])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Causality'], Literal(elt[CAUSALITY])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Frequency'], Literal(elt[FREQUENCY])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['ClassWarning'], Literal(elt[CLASS_WARNING])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['ClinicalTrials'], Literal(elt[CLINICAL_TRIALS])))
+    tplL.append((poc[currentAnnotationBody], ohdsi['Postmarketing'], Literal(elt[POST_MARKETING])))
+
+    if len(elt) > COMMENT:
+        tplL.append((poc[currentAnnotationBody], ohdsi['CuratorComment'], Literal(elt[COMMENT])))
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
