@@ -1,0 +1,39 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "lu_az_cert" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "lu_az_cert" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">lu_az_cert</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="generic_name" COLSPAN="3" ALIGN="LEFT">generic_name</TD></TR>
+      <TR><TD PORT="brand_names" COLSPAN="3" ALIGN="LEFT">brand_names</TD></TR>
+      <TR><TD PORT="rxnorm_concept_id" COLSPAN="3" ALIGN="LEFT">rxnorm_concept_id</TD></TR>
+      <TR><TD PORT="drug_class" COLSPAN="3" ALIGN="LEFT">drug_class</TD></TR>
+      <TR><TD PORT="therapeutic_use" COLSPAN="3" ALIGN="LEFT">therapeutic_use</TD></TR>
+      <TR><TD PORT="pubmed_search" COLSPAN="3" ALIGN="LEFT">pubmed_search</TD></TR>
+      <TR><TD PORT="risk_category" COLSPAN="3" ALIGN="LEFT">risk_category</TD></TR>
+      <TR><TD PORT="risk_category_2" COLSPAN="3" ALIGN="LEFT">risk_category_2</TD></TR>
+      <TR><TD PORT="route" COLSPAN="3" ALIGN="LEFT">route</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/lu_az_cert.html"
+    tooltip="lu_az_cert"
+  ];
+}

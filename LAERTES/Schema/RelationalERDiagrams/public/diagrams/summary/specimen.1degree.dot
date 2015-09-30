@@ -1,0 +1,44 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "specimen" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "specimen" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">specimen</TD></TR>
+      <TR><TD PORT="specimen_id" COLSPAN="3" ALIGN="LEFT">specimen_id</TD></TR>
+      <TR><TD PORT="person_id" COLSPAN="3" ALIGN="LEFT">person_id</TD></TR>
+      <TR><TD PORT="specimen_concept_id" COLSPAN="3" ALIGN="LEFT">specimen_concept_id</TD></TR>
+      <TR><TD PORT="specimen_type_concept_id" COLSPAN="3" ALIGN="LEFT">specimen_type_concept_id</TD></TR>
+      <TR><TD PORT="specimen_date" COLSPAN="3" ALIGN="LEFT">specimen_date</TD></TR>
+      <TR><TD PORT="specimen_time" COLSPAN="3" ALIGN="LEFT">specimen_time</TD></TR>
+      <TR><TD PORT="quantity" COLSPAN="3" ALIGN="LEFT">quantity</TD></TR>
+      <TR><TD PORT="unit_concept_id" COLSPAN="3" ALIGN="LEFT">unit_concept_id</TD></TR>
+      <TR><TD PORT="anatomic_site_concept_id" COLSPAN="3" ALIGN="LEFT">anatomic_site_concept_id</TD></TR>
+      <TR><TD PORT="disease_status_concept_id" COLSPAN="3" ALIGN="LEFT">disease_status_concept_id</TD></TR>
+      <TR><TD PORT="specimen_source_id" COLSPAN="3" ALIGN="LEFT">specimen_source_id</TD></TR>
+      <TR><TD PORT="specimen_source_value" COLSPAN="3" ALIGN="LEFT">specimen_source_value</TD></TR>
+      <TR><TD PORT="unit_source_value" COLSPAN="3" ALIGN="LEFT">unit_source_value</TD></TR>
+      <TR><TD PORT="anatomic_site_source_value" COLSPAN="3" ALIGN="LEFT">anatomic_site_source_value</TD></TR>
+      <TR><TD PORT="disease_status_source_value" COLSPAN="3" ALIGN="LEFT">disease_status_source_value</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/specimen.html"
+    tooltip="specimen"
+  ];
+}

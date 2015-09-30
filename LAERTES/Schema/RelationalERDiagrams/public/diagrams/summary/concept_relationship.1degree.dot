@@ -1,0 +1,35 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "concept_relationship" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "concept_relationship" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">concept_relationship</TD></TR>
+      <TR><TD PORT="concept_id_1" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">concept_id_1</TD></TR>
+      <TR><TD PORT="concept_id_2" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">concept_id_2</TD></TR>
+      <TR><TD PORT="relationship_id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">relationship_id</TD></TR>
+      <TR><TD PORT="valid_start_date" COLSPAN="3" ALIGN="LEFT">valid_start_date</TD></TR>
+      <TR><TD PORT="valid_end_date" COLSPAN="3" ALIGN="LEFT">valid_end_date</TD></TR>
+      <TR><TD PORT="invalid_reason" COLSPAN="3" ALIGN="LEFT">invalid_reason</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/concept_relationship.html"
+    tooltip="concept_relationship"
+  ];
+}

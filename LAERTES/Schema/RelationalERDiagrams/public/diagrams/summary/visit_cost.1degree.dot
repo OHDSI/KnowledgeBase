@@ -1,0 +1,40 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "visit_cost" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "visit_cost" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">visit_cost</TD></TR>
+      <TR><TD PORT="visit_cost_id" COLSPAN="3" ALIGN="LEFT">visit_cost_id</TD></TR>
+      <TR><TD PORT="visit_occurrence_id" COLSPAN="3" ALIGN="LEFT">visit_occurrence_id</TD></TR>
+      <TR><TD PORT="currency_concept_id" COLSPAN="3" ALIGN="LEFT">currency_concept_id</TD></TR>
+      <TR><TD PORT="paid_copay" COLSPAN="3" ALIGN="LEFT">paid_copay</TD></TR>
+      <TR><TD PORT="paid_coinsurance" COLSPAN="3" ALIGN="LEFT">paid_coinsurance</TD></TR>
+      <TR><TD PORT="paid_toward_deductible" COLSPAN="3" ALIGN="LEFT">paid_toward_deductible</TD></TR>
+      <TR><TD PORT="paid_by_payer" COLSPAN="3" ALIGN="LEFT">paid_by_payer</TD></TR>
+      <TR><TD PORT="paid_by_coordination_benefits" COLSPAN="3" ALIGN="LEFT">paid_by_coordination_benefits</TD></TR>
+      <TR><TD PORT="total_out_of_pocket" COLSPAN="3" ALIGN="LEFT">total_out_of_pocket</TD></TR>
+      <TR><TD PORT="total_paid" COLSPAN="3" ALIGN="LEFT">total_paid</TD></TR>
+      <TR><TD PORT="payer_plan_period_id" COLSPAN="3" ALIGN="LEFT">payer_plan_period_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/visit_cost.html"
+    tooltip="visit_cost"
+  ];
+}

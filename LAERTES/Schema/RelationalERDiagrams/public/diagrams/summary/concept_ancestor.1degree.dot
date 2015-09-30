@@ -1,0 +1,33 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "concept_ancestor" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "concept_ancestor" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">concept_ancestor</TD></TR>
+      <TR><TD PORT="ancestor_concept_id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">ancestor_concept_id</TD></TR>
+      <TR><TD PORT="descendant_concept_id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">descendant_concept_id</TD></TR>
+      <TR><TD PORT="min_levels_of_separation" COLSPAN="3" ALIGN="LEFT">min_levels_of_separation</TD></TR>
+      <TR><TD PORT="max_levels_of_separation" COLSPAN="3" ALIGN="LEFT">max_levels_of_separation</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/concept_ancestor.html"
+    tooltip="concept_ancestor"
+  ];
+}

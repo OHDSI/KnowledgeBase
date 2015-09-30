@@ -1,0 +1,50 @@
+// dot 2.38.0 on Linux 3.16.0-38-generic
+// SchemaSpy rev 590
+digraph "drug_exposure" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "drug_exposure" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">drug_exposure</TD></TR>
+      <TR><TD PORT="drug_exposure_id" COLSPAN="3" ALIGN="LEFT">drug_exposure_id</TD></TR>
+      <TR><TD PORT="person_id" COLSPAN="3" ALIGN="LEFT">person_id</TD></TR>
+      <TR><TD PORT="drug_concept_id" COLSPAN="3" ALIGN="LEFT">drug_concept_id</TD></TR>
+      <TR><TD PORT="drug_exposure_start_date" COLSPAN="3" ALIGN="LEFT">drug_exposure_start_date</TD></TR>
+      <TR><TD PORT="drug_exposure_end_date" COLSPAN="3" ALIGN="LEFT">drug_exposure_end_date</TD></TR>
+      <TR><TD PORT="drug_type_concept_id" COLSPAN="3" ALIGN="LEFT">drug_type_concept_id</TD></TR>
+      <TR><TD PORT="stop_reason" COLSPAN="3" ALIGN="LEFT">stop_reason</TD></TR>
+      <TR><TD PORT="refills" COLSPAN="3" ALIGN="LEFT">refills</TD></TR>
+      <TR><TD PORT="quantity" COLSPAN="3" ALIGN="LEFT">quantity</TD></TR>
+      <TR><TD PORT="days_supply" COLSPAN="3" ALIGN="LEFT">days_supply</TD></TR>
+      <TR><TD PORT="sig" COLSPAN="3" ALIGN="LEFT">sig</TD></TR>
+      <TR><TD PORT="route_concept_id" COLSPAN="3" ALIGN="LEFT">route_concept_id</TD></TR>
+      <TR><TD PORT="effective_drug_dose" COLSPAN="3" ALIGN="LEFT">effective_drug_dose</TD></TR>
+      <TR><TD PORT="dose_unit_concept_id" COLSPAN="3" ALIGN="LEFT">dose_unit_concept_id</TD></TR>
+      <TR><TD PORT="lot_number" COLSPAN="3" ALIGN="LEFT">lot_number</TD></TR>
+      <TR><TD PORT="provider_id" COLSPAN="3" ALIGN="LEFT">provider_id</TD></TR>
+      <TR><TD PORT="visit_occurrence_id" COLSPAN="3" ALIGN="LEFT">visit_occurrence_id</TD></TR>
+      <TR><TD PORT="drug_source_value" COLSPAN="3" ALIGN="LEFT">drug_source_value</TD></TR>
+      <TR><TD PORT="drug_source_concept_id" COLSPAN="3" ALIGN="LEFT">drug_source_concept_id</TD></TR>
+      <TR><TD PORT="route_source_value" COLSPAN="3" ALIGN="LEFT">route_source_value</TD></TR>
+      <TR><TD PORT="dose_unit_source_value" COLSPAN="3" ALIGN="LEFT">dose_unit_source_value</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/drug_exposure.html"
+    tooltip="drug_exposure"
+  ];
+}
