@@ -1,0 +1,13 @@
+SPL-RxNorm Mappings
+
+Downloaded from DailyMed on 10/01/2015: ftp://public.nlm.nih.gov/nlmdata/.dailymed/rxnorm_mappings.zip
+
+This file maps SPLs to the RxNorm concept(s) they represent. SPLs may represent multiple RxNorm concepts.
+COLUMN 	  DESCRIPTION
+SPL_SETID	Uniquely identifies a group of versions of an SPL file.
+SPL_VERSION 	The current active version number of the SPL file.
+RXCUI 		Uniquely identifies an RxNorm concept.*
+RXSTRING 	The normalized name of the RxNorm concept.*
+RXTTYPHARMA_VERSION 	       The term type of the RxNorm concept.*
+
+
