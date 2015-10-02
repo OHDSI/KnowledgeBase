@@ -14,8 +14,8 @@ import csv
 import string
 import pprint
 ##########INPUT STRING NAME FILES#######################################
-inp = '../data/Finalrepository_2Sep2014_DLP30June2013.csv'
-out = '../data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv'
+inp = '../data/CopyofFinalrepository_DLP31Dec2013.csv'
+out = '../data/CopyofFinalrepository_DLP31Dec2013_withCUIs_v1.csv'
 
 ## raw input from the TRIADs drug named entity recognition program
 mapfolder = '../json-rxcui/'

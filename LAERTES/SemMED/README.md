@@ -48,7 +48,7 @@ from https://github.com/OHDSI/MedlineXmlToDatabase
 2. The SemMedDB database is loaded into a MySql DBMS following the
 instructions for that resource.
 
-3. The python script selectTriplesPlusSentence.py is used to get our
+3. The python script (use Python 3 to run!) selectTriplesPlusSentence.py is used to get our
 final tab-delimited output:
 [semmedTriplesPlusSentence.tsv](https://github.com/OHDSI/KnowledgeBase/blob/master/SemMED/semmedTriplesPlusSentence.tsv). This
 outputs the Drug CUIs, HOI CUIs, their positions in the sentence, the
