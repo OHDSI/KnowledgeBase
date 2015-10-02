@@ -59,12 +59,11 @@ term. However, there are many cases of combination products, and a few
 things that were unable to be mapped. The combination products were
 manually mapped where possibly using the Bioportal's ontology search.
 
-The final dataset with the RxCUIs and MeSH CUIs is in
-[Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv).
+The final dataset with the RxCUIs and MeSH CUIs is in the data folder with a folder name like <EU SPC drug-HOI data file>_withCUIs_v1.csv
 
 1. `cd scripts`
 2. `python processEuSPCToAddRxNormAndMeSH.py`
-3. `python3 getMissingMappings.py ../data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv ../data/missing`
+3. `python3 getMissingMappings.py ../data/<EU SPC drug-HOI data file>_withCUIs_v1.csv ../data/missing`
 
 ### Processing the EU SPC Drug Listing
 
