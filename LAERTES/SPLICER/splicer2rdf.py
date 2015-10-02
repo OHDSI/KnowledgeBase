@@ -16,11 +16,11 @@ import json
 import pickle
 from rdflib import Graph, BNode, Literal, Namespace, URIRef, RDF, RDFS, XSD
 
-SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER-MERGED-UPDATE-4-30-2015.tsv"
+SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER-9-15-NO-NULL-DRUG-CONCEPT-IDS.tsv"
 
 # TERMINOLOGY MAPPING FILES
 RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
-SPL_SET_ID_TO_RXNORM = "../terminology-mappings/SPLSetIdToRxNorm/rxnorm_mappings-12302014.txt"
+SPL_SET_ID_TO_RXNORM = "../terminology-mappings/SPLSetIdToRxNorm/rxnorm_mappings-09292015.txt"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "drug-hoi-splicer.nt"
