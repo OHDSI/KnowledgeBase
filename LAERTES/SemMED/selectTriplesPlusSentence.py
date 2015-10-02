@@ -1,5 +1,5 @@
 """
-selectTriplesPlusSentence.py
+selectTriplesPlusSentence.py (run with Python 3)
 
 Jeremy Jao and Rich Boyce
 09.2.2014
@@ -69,7 +69,8 @@ so what I did is I put the CUIs with that mapping pipe-delimited inside each col
 import mysql.connector as sql
 import connectSEMMED as db
 import pprint
-import cPickle as pickle
+#import cPickle as pickle
+import pickle
 import csv
 from UMLS_CUIs import UMLS_CUIs
 
@@ -208,11 +209,13 @@ Central PMCID: PMC3281188.
         cursor.execute(query)
        
         tsv = csv.writer(fil, delimiter="\t")
-        umlsCUIs = pickle.load(open('umlsStructure.cPickle', 'rb'))
+        # this conversion is needed because of there are non-ascii characters in the pickled data structure
+        umlsCUIs = pickle.load(open('umlsStructure.cPickle', 'rb'), encoding='latin1')
+
         #TODO change the 'drug max score' to 'drug score'
         tsv.writerow(['pmid', 'predicate', 'predicate start index', 'predicate end index', 'drug UMLS CUI', 'drug RxNorm', 'drug MeSH','drug Preferred Term','drug UMLS entity type', 'drug start index', 'drug end index', 'drug distance', 'drug max distance', 'drug max score', 'HOI UMLS CUI', 'HOI SNOMED', 'HOI MedDRA', 'HOI MeSH', 'HOI Preferred Term', 'HOI UMLS entity type', 'HOI start index', 'HOI end index', 'HOI distance', 'HOI max distance', 'HOI score', 'sentence','sentence location', 'sentence type'])
         for predicate in cursor:
-            #print "%s" % [str(x) for x in predicate]
+            #print("%s" % [str(x) for x in predicate])
             tsv.writerow([predicate[0], predicate[1], predicate[11], predicate[12],predicate[2], umlsCUIs.getRxnormCui(predicate[2]), umlsCUIs.getMeshCui(predicate[2]), predicate[3], srdefdic.get(predicate[4]), predicate[13], predicate[14], predicate[15], predicate[16], predicate[17], predicate[5], umlsCUIs.getSnomedct_usCui(predicate[5]), umlsCUIs.getMeddraCui(predicate[5]), umlsCUIs.getMeshCui(predicate[5]), predicate[6], srdefdic.get(predicate[7]), predicate[18], predicate[19], predicate[20], predicate[21], predicate[22], predicate[8], predicate[9], predicate[10]])
         #allObjects.close()
 
