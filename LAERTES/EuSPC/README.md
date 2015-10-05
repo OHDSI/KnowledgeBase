@@ -67,7 +67,7 @@ listed in the adverse event table. This was created by:
 
 ------------------------------------------------------------
 
-LOADING THE RDF DATA INTO VIRTUOSO:
+### LOADING THE RDF DATA INTO VIRTUOSO:
 ```
 -- FIRST TIME ONLY 
 -- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed LIST OF virtuoso.ini AND RESTART VIRTUOSO
