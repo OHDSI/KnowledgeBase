@@ -511,24 +511,25 @@ for elt in recL:
             print "ERROR: more than one MeSH drug CUI (%s). This case is not yet handled by this program" % elt[DRUG_MESH]
         else:
             tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[DRUG_MESH]])) 
-        
+
+        ## TODO: 10/2 - the use of the pharmacologic mapping file is temporarily disabled until we can adequately address https://github.com/OHDSI/KnowledgeBase/issues/63
         # check if the MeSH UI is a grouping
-        if elt[DRUG_MESH] in pharmActionMaptD.keys():
-            (descriptorName, substancesL) =  (pharmActionMaptD[elt[DRUG_MESH]]['descriptorName'], pharmActionMaptD[elt[DRUG_MESH]]['substancesL'])
-            print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[DRUG_MESH], descriptorName, len(substancesL))
+        # if elt[DRUG_MESH] in pharmActionMaptD.keys():
+        #     (descriptorName, substancesL) =  (pharmActionMaptD[elt[DRUG_MESH]]['descriptorName'], pharmActionMaptD[elt[DRUG_MESH]]['substancesL'])
+        #     print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[DRUG_MESH], descriptorName, len(substancesL))
         
-            collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
-            tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
-            # add each substance to a collection in the body
-            for substance in substancesL:
-                tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
-                if DRUGS_D_MESH_KEYED.has_key(substance['recordUI']):
-                    tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D_MESH_KEYED[substance['recordUI']][0]]))
-                    tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D_MESH_KEYED[substance['recordUI']][2]]))
-                else:
-                    print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[DRUG_MESH])
-        else:
-            print "INFO:  MeSH drug %s (%s) does not appear in the pharmacologic action mapping (not a grouping?)" % (elt[DRUG_MESH], elt[DRUG_PREFERRED_TERM])
+        #     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
+        #     tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
+        #     # add each substance to a collection in the body
+        #     for substance in substancesL:
+        #         tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
+        #         if DRUGS_D_MESH_KEYED.has_key(substance['recordUI']):
+        #             tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D_MESH_KEYED[substance['recordUI']][0]]))
+        #             tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D_MESH_KEYED[substance['recordUI']][2]]))
+        #         else:
+        #             print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[DRUG_MESH])
+        # else:
+        #     print "INFO:  MeSH drug %s (%s) does not appear in the pharmacologic action mapping (not a grouping?)" % (elt[DRUG_MESH], elt[DRUG_PREFERRED_TERM])
     else:
         print "WARNING: no MeSH CUI for UMLS drug %s" % elt[DRUG_UMLS_CUI]
 
@@ -549,28 +550,29 @@ for elt in recL:
         else:
             print "ERROR: no OHDSI/IMEDS equivalent to the MeSH HOI %s" % (elt[HOI_MESH])
 
+        ## TODO: 10/2 - the use of the pharmacologic mapping file is temporarily disabled until we can adequately address https://github.com/OHDSI/KnowledgeBase/issues/63
         # add the SNOMED and MedDRA effects to a collection in the body
-        if elt[HOI_SNOMED] != "" or elt[HOI_MEDDRA] != "":
-            collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-            tplL.append((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
+        # if elt[HOI_SNOMED] != "" or elt[HOI_MEDDRA] != "":
+        #     collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
+        #     tplL.append((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
 
-            if elt[HOI_SNOMED] != "":
-                snomedUIs = elt[HOI_SNOMED].split("|")
-                for ui in snomedUIs:
-                    tplL.append((collectionHead, ohdsi['adeEffect'], snomed[ui]))
-                    if SNOMED_D_SV.has_key(ui):
-                        tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[SNOMED_D_SV[ui]]))
-                    else:
-                        print "WARNING: no IMEDS equivalent to the SNOMED HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
+        #     if elt[HOI_SNOMED] != "":
+        #         snomedUIs = elt[HOI_SNOMED].split("|")
+        #         for ui in snomedUIs:
+        #             tplL.append((collectionHead, ohdsi['adeEffect'], snomed[ui]))
+        #             if SNOMED_D_SV.has_key(ui):
+        #                 tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[SNOMED_D_SV[ui]]))
+        #             else:
+        #                 print "WARNING: no IMEDS equivalent to the SNOMED HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
 
-            if elt[HOI_MEDDRA] != "":
-                meddraUIs = elt[HOI_MEDDRA].split("|")
-                for ui in meddraUIs:
-                    tplL.append((collectionHead, ohdsi['adeEffect'], meddra[ui]))
-                    if MEDDRA_D_SV.has_key(ui):
-                        tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[MEDDRA_D_SV[ui]]))
-                    else:
-                        print "WARNING: no IMEDS equivalent to the MedDRA HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
+        #     if elt[HOI_MEDDRA] != "":
+        #         meddraUIs = elt[HOI_MEDDRA].split("|")
+        #         for ui in meddraUIs:
+        #             tplL.append((collectionHead, ohdsi['adeEffect'], meddra[ui]))
+        #             if MEDDRA_D_SV.has_key(ui):
+        #                 tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[MEDDRA_D_SV[ui]]))
+        #             else:
+        #                 print "WARNING: no IMEDS equivalent to the MedDRA HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
     else:
         print "WARNING: No MeSH mapping for the HOI concept so the UMLS UI will be the only one provided in this body. TODO: determine if it would be better to use SNOMED or MedDRA as the required concept (or if some other approach is needed)"
         
