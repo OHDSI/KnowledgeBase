@@ -9,7 +9,7 @@ The EU SPC source provides adverse drug events extracted from EU SPCs by the [PR
 
 NOTE: an editable diagram of the OA model for EU SPC ADE records can be found in [Schema/OpenAnnotationSchemaERDiagrams/](https://github.com/OHDSI/KnowledgeBase/tree/master/LAERTES/Schema/OpenAnnotationSchemaERDiagrams)
 
-NOTE: The output of this script is too large to load into virtuoso through the web interface. See below for instructions on loading the dataset using isql-vt
+NOTE: The output of this script is too large to load into virtuoso through the web interface. See [below](https://github.com/OHDSI/KnowledgeBase/tree/master/LAERTES/EuSPC#loading-the-rdf-data-into-virtuoso) for instructions on loading the dataset using isql-vt
 
 - [writeLoadableEUSPCcounts.py](https://github.com/OHDSI/KnowledgeBase/blob/master/LAERTES/EuSPC/writeLoadableEUSPCcounts.py) : Once the RDF output of the
 [euSPC2rdf.py](https://github.com/OHDSI/KnowledgeBase/blob/master/LAERTES/EuSPC/euSPC2rdf.py) script is loaded into a virtuoso endpoint, a query in the
