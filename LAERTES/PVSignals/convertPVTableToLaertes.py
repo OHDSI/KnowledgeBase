@@ -12,7 +12,7 @@ linkouts = {
 'aers_prr': 'http://www.ncbi.nlm.nih.gov/pubmed/22422992',
 }
     
-infS = "/home/rdb20/Downloads/PharmacovigilanceSignal-downloads/AERS_W_MEDDRA_ATC_MAPPED_TO_OMOP_VOCAB_V02.txt"
+infS = "/home/rdb20/Downloads/PharmacovigilanceSignal-downloads/AERS_W_MEDDRA_ATC_MAPPED_TO_OMOP_VOCAB_V03.txt"
 outfS = "/home/rdb20/OHDSI-code/KnowledgeBase/LAERTES/PVSignals/drug-hoi-pharmacovigilance-signal-data.tsv"
 
 
