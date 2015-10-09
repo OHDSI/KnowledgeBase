@@ -10,6 +10,9 @@
 
 import sys
 sys.path = sys.path + ['.']
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 
 import re, codecs, uuid, datetime
 import json
