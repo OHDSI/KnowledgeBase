@@ -37,6 +37,12 @@ The process works as follows:
    pmSearch2rdf.py to convert the results to an RDF Open Data
    Annotation graph. Please see the NOTES below.
 
+   NOTE: if the output has to be transferred to a remote location, the
+   following approach is recommended (set up .ssh/config if using public/private keys): 
+
+   $ rsync -e ssh -av --progress --partial drug-hoi-pubmed-mesh.ntt  user@remote-server:<destination folder>/drug-hoi-pubmed-mesh.nt
+
+
 4. The RDF graph is loaded into an endpoint and script
    writeLoadablePubMedMeSHCounts.py generates "tinyurls" for queries
    against the RDF dataset to support the "drill down" use case. 

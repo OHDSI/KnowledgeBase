@@ -8,7 +8,7 @@
 
 import urllib2, urllib, re, sys
 
-DATAFILE = "sample-summary-query.txt"
+DATAFILE = "sample-summary-query-10092015.txt"
 EVTYPE = "MEDLINE_SemMedDB"
 URL_ID_PREFIX = "pm-semmed-"
 URL_PREFIX = "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id="

@@ -8,6 +8,8 @@
 
 import sys
 sys.path = sys.path + ['.']
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 import re, codecs, uuid, datetime
 import json
@@ -326,12 +328,12 @@ for elt in recL:
         textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
         tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
         tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
-        abstractTxt = abstractCache[elt[PMID]]
+        abstractTxt = unicode(abstractCache[elt[PMID]], 'utf-8', 'replace')
         tplL.append((textConstraintUuid, oa["exact"], Literal(abstractTxt)))
         
-    s = ""
+    s = u""
     for t in tplL:
-        s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
+        s += unicode.encode(u" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
     f.write(s)
     
 
