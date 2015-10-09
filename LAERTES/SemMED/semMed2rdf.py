@@ -308,7 +308,21 @@ s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
 #for elt in recL[0:50]:  
-for elt in recL:  
+for elt in recL:
+    ## For now, only process papers tagged as for humans
+    ## TODO: expand the evidence types to include non-human studies 
+    try:
+        print "INFO: Testing if study %s is tagged as involving humans" % elt[PMID]
+        cur.execute("""select descriptorname from medcit_meshheadinglist_meshheading where pmid = %s and descriptorname = 'Humans'""" % elt[PMID])
+    except Exception as e:
+        print "ERROR: test if study tagged as involving humans failed. Error string: %s" % e
+        sys.exit(1)
+
+    rows = cur.fetchall()
+    if len(rows) == 0:
+        print "WARNING: PMID %s not tagged as involving humans. Skipping this record." % elt[PMID]
+        continue 
+    
     ## Only process papers of specific publication types
     # TODO: use the MeSH UIs to generate purls for the pub types
     # TODO: add more publication types
@@ -408,7 +422,7 @@ for elt in recL:
         # add the text quote selector. Sentences from titles will only
         # have an "exact". 
         # TODO: test that this approach is sufficient (i.e., no titles have more than one sentence.
-        elt[SENTENCE] = elt[SENTENCE].replace("UNLABELLED: ","").replace("CONLCUSION:","CONCLUSION:").replace("        "," ").replace("       "," ").replace("hyperkalemia >/= 9.0","hyperkalemia >= 9.0").replace("alternative therapies  for RLS","alternative therapies for RLS").replace("hepatic  failure","hepatic failure").replace("are not yet  accessible","are not yet accessible").replace('""','"').strip('"') # TODO: this was a temporary bug fix because for some unknown reason extra whitespace and extra quotes was inserted into the exact sentence text in SemMedDB
+        elt[SENTENCE] = elt[SENTENCE].replace("UNLABELLED: ","").replace("CONLCUSION:","CONCLUSION:").replace("        "," ").replace("       "," ").replace("hyperkalemia >/= 9.0","hyperkalemia >= 9.0").replace("alternative therapies  for RLS","alternative therapies for RLS").replace("hepatic  failure","hepatic failure").replace("are not yet  accessible","are not yet accessible").replace("pyren es","pyrenes").replace("pyrid inedicarboxylate","pyridinedicarboxylate").replace("[1,4]diaze pine","[1,4]diazepine").replace("oxo-2H-benz imidazol","oxo-2h-benzimidazol").replace("pyrida zinone","pyridazinone").replace("piperidin-1 -yl)piperidin","piperidin-1-yl)piperidin").replace("dioxophenanthre ne","dioxophenanthrene").replace("pi peridin-4-yl]amino","piperidin-4-yl]amino").replace("de]-1,4-benzoxaz in","de]-1,4-benzoxazin").replace("naphthyridine-6-car boxamides","naphthyridine-6-carboxamides").replace("by ?50% in CH preparations","by ~50% in CH preparations").replace("while tamoxifen      induces growth","while tamoxifen             induces growth").replace("yl)ac rylamide","yl)acrylamide").replace("?(9)-Tetrahydrocannabinol (THC)","∆(9)-Tetrahydrocannabinol (THC)").replace("methoxycarbonyl-pent -1-enyl","methoxycarbonyl-pent-1-enyl").replace("lpha-dimethyl-1h-indol e-3-ethanamine","lpha-dimethyl-1h-indole-3-ethanamine").replace('""','"').strip('"') # TODO: this was a temporary bug fix because for some unknown reason extra whitespace and extra quotes was inserted into the exact sentence text in SemMedDB
         textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
         tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
         tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
@@ -418,7 +432,7 @@ for elt in recL:
         # post text string from the abstract
         if elt[SENTENCE_TYPE] == 'ab':
             abstractTxt = abstractCache[elt[PMID]]
-            abstractTxt = abstractTxt.replace("¿","?").replace("·",".").replace("²","2").replace("μ","mu").replace("₂","2").replace("α","alpha").replace("β","beta").replace("…","...").replace("≥",">=").replace("≤","</=").replace(" = "," = ").replace(" "," ").replace(" >= "," >= ").replace(" "," ").replace(" "," ").replace("ï","i").replace("×","x").replace('®',"(r)").replace("ô","o").replace("ö","o").replace("ä","a").replace("ó","o").replace("ü","u").replace("é","e") # TODO: temporary fix beause load of SemMed or method of querying it is messing up non-ascii characters
+            abstractTxt = abstractTxt.replace("¿","?").replace("á","a").replace("û","u").replace("₃","3").replace("ψ","psi").replace("Ψ","psi").replace("¼","(1/4)").replace("⁺","+").replace("·",".").replace("∼","~").replace("ω","omega").replace("σ","sigma").replace("κ","kappa").replace("²","2").replace("μ","mu").replace("α","alpha").replace("β","beta").replace("à","a").replace("→","->").replace("…","...").replace("≥",">=").replace("≤","</=").replace("τ","tau").replace(" = "," = ").replace(" "," ").replace(" >= "," >= ").replace(" "," ").replace(" "," ").replace("ï","i").replace("×","x").replace('®',"(r)").replace("ô","o").replace("ö","o").replace("ä","a").replace("ó","o").replace("ü","u").replace("é","e").replace("æ","ae").replace("±","+/-").replace("ι","iota").replace("Δ","delta").replace("δ","delta").replace("ë","e").replace("ĕ","e").replace("γ","gamma").replace("₂","2").replace("₁","1").replace("₅","5").replace("ß","beta").replace("λ","lamda").replace("™","TM").replace("⁻¹","-1").replace("ĭ","i").replace("µ","U").replace("ε","epsilon").replace("ç","c").replace("°"," degrees ") # TODO: temporary fix because load of SemMed or method of querying it is messing up non-ascii characters
             if abstractTxt == "":
                 print "ERROR: SemMed indicates that there is an abstract but one not present in the abstract cache!"
                 sys.exit(1)

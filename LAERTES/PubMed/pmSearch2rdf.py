@@ -15,8 +15,26 @@ from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
 from lxml import etree
 from lxml.etree import XMLParser, parse
 
+import psycopg2 # for postgres
+
 ## The result of the query in queryDrugHOIAssociations.psql
 SEARCH_RESULTS = "drug-hoi-associations-from-mesh.tsv"
+
+# Connection info to the MEDLINE database
+DB_CONNECTION_INFO="db-connection.conf"
+
+## Set up the db connection to the MEDLINE DB. This is used to collect
+## a bit more information on the MEDLINE entries than is provided by
+## SemMedDB
+f = open(DB_CONNECTION_INFO,'r')
+(db,user,pword,host,port) = f.readline().strip().split("\t")
+f.close()
+try:
+    conn=psycopg2.connect(database=db, user=user, password=pword, host=host, port=port)
+except Exception as e:
+    print "ERROR: Unable to connect to database %s (user:%s) on host %s (port: %s). Check that the data in db-connection.conf is correct and that there is not barrier related to the network connection. Error: %s" % (db,user,host,port,e)
+cur = conn.cursor()
+
 
 # TERMINOLOGY MAPPING FILES 
 ## NOTE: the drug concepts are mapped directly to RxNorm here but the
@@ -183,6 +201,7 @@ annotationBodyCntr = 1
 annotationEvidenceCntr = 1
 
 annotatedCache = {} # indexes annotation ids by pmid
+abstractCache = {} # cache for abstract text
 pubTypeCache = {} # used because some PMIDs have multiple publication type assignments TODO: determine pub types should be assigned to a Collection under the target's graph 
 drugHoiPMIDCache = {} # used to avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments TODO: determine if a more robust source query is needed
 currentAnnotation = annotationItemCntr
@@ -197,7 +216,49 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-for elt in recL:  
+for elt in recL:
+    ## For now, only process papers tagged as for humans
+    ## TODO: expand the evidence types to include non-human studies 
+    try:
+        print "INFO: Testing if study %s is tagged as involving humans" % elt[PMID]
+        cur.execute("""select descriptorname from medcit_meshheadinglist_meshheading where pmid = %s and descriptorname = 'Humans'""" % elt[PMID])
+    except Exception as e:
+        print "ERROR: test if study tagged as involving humans failed. Error string: %s" % e
+        sys.exit(1)
+
+    rows = cur.fetchall()
+    if len(rows) == 0:
+        print "WARNING: PMID %s not tagged as involving humans. Skipping this record." % elt[PMID]
+        continue 
+
+    # get abstract if not already cached
+    if not abstractCache.has_key(elt[PMID]):
+        try:
+            print "INFO: Attempting to retrieve the abstract for PMID %s from the MEDLINE DB" % elt[PMID]
+            cur.execute("""SELECT value,label,medcit_art_abstract_abstracttext_order  FROM medcit_art_abstract_abstracttext WHERE pmid = %s ORDER BY medcit_art_abstract_abstracttext_order""" % elt[PMID])
+        except Exception as e:
+            print "ERROR: Attempt to get the abstract for PMID failed. Error string: %s" % e
+            sys.exit(1)
+
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            abstractCache[elt[PMID]] = ""
+            print "INFO: No abstract found for PMID %s." % elt[PMID]
+        elif rows[0][1] != None:
+            print "INFO: Abstract found for PMID %s and it appears to be a structured abstract. Concatenating all parts of the structured abstract." % elt[PMID]
+            structAbstr = ""
+            for ii in range(0,len(rows)):
+                secLab = rows[ii][1]
+                if secLab.upper() == 'UNLABELLED':
+                    structAbstr += "%s " % (rows[ii][0])
+                else:
+                    structAbstr += "%s: %s " % (secLab,rows[ii][0])
+            abstractCache[elt[PMID]] = structAbstr
+            print "%s" % abstractCache[elt[PMID]]            
+        else:
+            abstractCache[elt[PMID]] = rows[0][0]
+            print "%s" % abstractCache[elt[PMID]]
+
     ###################################################################
     ### Each annotations holds one target that points to the source
     ### record in pubmed, and one or more bodies each of which
@@ -210,14 +271,19 @@ for elt in recL:
     if annotatedCache.has_key(elt[PMID]):
         currentAnnotation = annotatedCache[elt[PMID]]
         pubTypeL = pubTypeCache[elt[PMID]]
-        if elt[PUB_TYPE] not in pubTypeL:
+
+        curType = elt[PUB_TYPE]
+        if curType in ['Meta-Analysis','Comparative Study','Multicenter Study','Journal Article']:
+            curType = "other (publication type)"
+        
+        if curType not in pubTypeL:
             print "INFO: MEDLINE record %s has more than one pub type assigned" % elt[PMID]
             pubTypeCache[elt[PMID]].append(elt[PUB_TYPE])
-            if elt[PUB_TYPE] == "Clinical Trial": 
+            if curType == "Clinical Trial": 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
-            elif elt[PUB_TYPE] == "Case Reports": 
+            elif curType == "Case Reports": 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
-            elif elt[PUB_TYPE] == "Meta-Analysis": 
+            else: 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
     else:
         currentAnnotation = annotationItemCntr
@@ -243,14 +309,26 @@ for elt in recL:
         # TODO: use the MeSH UIs to generate purls for the pub types
         # TODO: add more publication types
         # NOTE: a change here requires a change up above!
-        pubTypeCache[elt[PMID]] = [elt[PUB_TYPE]]
-        if elt[PUB_TYPE] == "Clinical Trial": 
+        curType = elt[PUB_TYPE]
+        if curType in ['Meta-Analysis','Comparative Study','Multicenter Study','Journal Article']:
+            curType = "other (publication type)"
+            
+        pubTypeCache[elt[PMID]] = [curType]
+        if curType == "Clinical Trial": 
             tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
-        elif elt[PUB_TYPE] == "Case Reports": 
+        elif curType == "Case Reports": 
             tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
-        elif elt[PUB_TYPE] == "Meta-Analysis": 
+        else:
             tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
 
+
+        # add the text quote selector but just put the title and abstract in an oa:exact
+        textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
+        tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
+        tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
+        abstractTxt = abstractCache[elt[PMID]]
+        tplL.append((textConstraintUuid, oa["exact"], Literal(abstractTxt)))
+        
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
