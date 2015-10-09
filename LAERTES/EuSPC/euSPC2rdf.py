@@ -16,7 +16,7 @@ import json
 import pickle
 from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
 
-DATA_FILE = "data/Finalrepository_DLP31Dec2013_withCUIs_ManualEdit_V1.csv"
+DATA_FILE = "data/Finalrepository_DLP31Dec2013_withCUIs_ManualEdit_V1.tsv"
 (PRODUCT,SUBSTANCE,DATE_OF_THE_SPC,RxNorm,MeSH,ADR_AS_IT_APPEARS_IN_THE_SPC,SOC,HLGT,HLT,LLT,MEDDRA_PT,PT_CODE,SOC_CODE,AGE_GROUP,GENDER,CAUSALITY,FREQUENCY,CLASS_WARNING,CLINICAL_TRIALS,POST_MARKETING,COMMENT) = range(0,21)
 
 
