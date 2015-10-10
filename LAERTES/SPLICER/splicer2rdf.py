@@ -16,7 +16,7 @@ import json
 import pickle
 from rdflib import Graph, BNode, Literal, Namespace, URIRef, RDF, RDFS, XSD
 
-SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER-9-15-NO-NULL-DRUG-CONCEPT-IDS.tsv"
+SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER-9-15-COMPLETE.tsv"
 
 # TERMINOLOGY MAPPING FILES
 RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
