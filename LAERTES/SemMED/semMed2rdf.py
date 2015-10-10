@@ -315,7 +315,7 @@ for elt in recL:
     if not pubTypeCache.has_key(elt[PMID]):
         try:
             print "INFO: Attempting to get publication types for PMID %s from the MEDLINE DB" % elt[PMID]
-            cur.execute("""SELECT value FROM medcit_art_publicationtypelist_publicationtype WHERE pmid = %s AND value IN ('Case Reports','Clinical Trial','Meta-Analysis')""" % elt[PMID])
+            cur.execute("""SELECT value FROM medcit_art_publicationtypelist_publicationtype WHERE pmid = %s AND value IN ('Case Reports','Clinical Trial','Meta-Analysis','Comparative Study','Multicenter Study','Journal Article')""" % elt[PMID])
         except Exception as e:
             print "ERROR: Attempt to get publication types for PMID failed. Error string: %s" % e
             sys.exit(1)
@@ -393,13 +393,17 @@ for elt in recL:
 
         # add a predicate for EACH publication type (some medline
         # records have more than one assignment)
+        ctFlg = crFlg = otherFlg = False # make sure only one of each type is added to the graph 
         for pt in pubTypeCache[elt[PMID]]:
-            if pt == "Clinical Trial": 
+            if pt == "Clinical Trial" and ctFlg == False: 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("clinical trial (publication type)")))
-            if pt == "Case Reports": 
+                ctFlg = True
+            if pt == "Case Reports" and crFlg == False: 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("case reports (publication type)")))
-            if pt == "Meta-Analysis": 
+                crFlg = True
+            if pt in ['Meta-Analysis','Comparative Study','Multicenter Study','Journal Article'] and otherFlg == False: 
                 tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
+                otherFlg = True
                 
         # add the text quote selector. Sentences from titles will only
         # have an "exact". 
@@ -421,8 +425,12 @@ for elt in recL:
             
             exactSpanFrom = abstractTxt.upper().find(elt[SENTENCE].upper())
             if exactSpanFrom == -1:
-                print "ERROR:Could not find annotated sentence sequence in abstractTxt!\n\tsentence:\n\t\t%s\n\tabstractTxt:\n\t\t%s" % (elt[SENTENCE], abstractTxt)
-                sys.exit(1)
+                # try to remove some text that might be added as metadata and see if the match hits
+                nsentence = elt[SENTENCE].upper().replace("ABSTRACT ","")
+                exactSpanFrom = abstractTxt.upper().find(nsentence)
+                if exactSpanFrom == -1:
+                    print "ERROR:Could not find annotated sentence sequence in abstractTxt!\n\tsentence:\n\t\t%s\n\tabstractTxt:\n\t\t%s" % (nsentence, abstractTxt)
+                    sys.exit(1)
      
             exactSpanTo = exactSpanFrom + len(elt[SENTENCE])
             pre = post = ""
@@ -436,8 +444,8 @@ for elt in recL:
             else:
                 post = abstractTxt[exactSpanTo:exactSpanTo + NUMB_CHARACTERS_PRE_AND_POST]
 
-            tplL.append((textConstraintUuid, oa["prefix"], Literal(pre)))
-            tplL.append((textConstraintUuid, oa["postfix"], Literal(post)))
+            tplL.append((textConstraintUuid, oa["prefix"], Literal(unicode(pre,'utf-8', 'replace'))))
+            tplL.append((textConstraintUuid, oa["postfix"], Literal(unicode(post,'utf-8', 'replace'))))
 
     s = u""
     for t in tplL:
@@ -511,7 +519,7 @@ for elt in recL:
             print "ERROR: more than one MeSH drug CUI (%s). This case is not yet handled by this program" % elt[DRUG_MESH]
         else:
             tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[DRUG_MESH]])) 
-        
+
         # check if the MeSH UI is a grouping
         if elt[DRUG_MESH] in pharmActionMaptD.keys():
             (descriptorName, substancesL) =  (pharmActionMaptD[elt[DRUG_MESH]]['descriptorName'], pharmActionMaptD[elt[DRUG_MESH]]['substancesL'])

@@ -45,7 +45,7 @@ inner join
 (
   select pmid, value pub_type_value, ui pub_type_ui
   from medcit_art_publicationtypelist_publicationtype
-  where value in ('Case Reports','Clinical Trial','Meta-Analysis')
+  where value in ('Case Reports','Clinical Trial','Meta-Analysis','Comparative Study','Multicenter Study','Journal Article')
 ) as publicationtype 
 on ade.pmid = publicationtype.pmid 
 )

@@ -5,8 +5,8 @@ Prerequirements: **python2** and **python3** need to be installed
 
 ## USAGE:
 
-1. `python processEuSPCToAddRxNormAndMeSH.py`
-2. `python3 getMissingMappings.py ../data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv ../data/missing`
+1. `python processEuSPCToAddRxNormAndMeSH.py` # NOTE: first edit the paths in this script to hold <EU SPC drug-HOI data file>
+2. `python3 getMissingMappings.py ../data/<EU SPC drug-HOI data file>_withCUIs_v1.csv ../data/missing`
 
 
 - [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/processEuSPCToAddRxNormAndMeSH.py)
@@ -15,7 +15,7 @@ Prerequirements: **python2** and **python3** need to be installed
 		- if RxNorm and/or MeSH CUI is found in the map files by substance or drug, the CUIs in RxNorm and MeSH will be added 
 	- **Input**
 		- original file:
-			- [Finalrepository_2Sep2014_DLP30June2013.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/Finalrepository_2Sep2014_DLP30June2013.csv)
+			- <EU SPC drug-HOI data file>
 		- map files:
 			- [json-rxcui/drugMappings.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/json-rxcui/drugMappings.txt)
 			- [missingCUIs/bothCUIsMissing_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/bothCUIsMissing_CUIs.txt)
@@ -23,14 +23,14 @@ Prerequirements: **python2** and **python3** need to be installed
 			- [missingCUIs/missingRxNorms_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/missingRxNorms_CUIs.txt)
 			- [missingCUIs/multipleSubstances_CUIs.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/missingCUIs/multipleSubstances_CUIs.txt)
 	- **output**
-		- [Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv)
+		- <EU SPC drug-HOI data file>_withCUIs_v1.csv
 - [getMissingMappings.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/scripts/getMissingMappings.py)
 	- **Description**
 		- python3 script
 		- This will make a list of drugs with the MeSH or RxCUIs not found from [processEuSPCToAddRxNormAndMeSH.py](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/processEuSPCToAddRxNormAndMeSH.py)
 		- finds the missing CUIs of each drug and outputs it into the subfolder [missing](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/data/missing)
 	- **Input**
-		- [Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/Finalrepository_2Sep2014_DLP30June2013_withCUIs_v1.csv)
+		- <EU SPC drug-HOI data file>_withCUIs_v1.csv
 	- **[Output](https://github.com/OHDSI/KnowledgeBase/tree/master/EuSPC/data/missing)**
 		- [bothCUIsMissing.txt](https://github.com/OHDSI/KnowledgeBase/blob/master/EuSPC/data/missing/bothCUIsMissing.txt)
 			- all drugs that are missing both an RxCUI and MeSH CUI

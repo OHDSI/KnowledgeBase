@@ -35,9 +35,10 @@ This is done in a dict: (SNOMED, MESH, MEDDRA, RXNORM) tuple
 I will make the code to be as extensible as possible.
 
 """
-import cPickle as pickle
+#import cPickle as pickle
+import pickle
 
-inp = '/home/rdb20/UMLS/2014AB/META/MRCONSO.RRF'
+inp = '/mnt/vol1/inbound/umls/mmsys_output_umls_files/2015AA/META/MRCONSO.RRF'
 
 class UMLS_CUIs:
     
@@ -231,18 +232,18 @@ def main():
     umls_cuis.process(inp)
     testCUI = 'C0013604'
     
-    print umls_cuis.getName(testCUI)
-    print umls_cuis.getMeshCui(testCUI)
-    print umls_cuis.getRxnormCui(testCUI)
-    print umls_cuis.getSnomedct_usCui(testCUI)
-    print umls_cuis.getMeddraCui(testCUI)
+    print(umls_cuis.getName(testCUI))
+    print(umls_cuis.getMeshCui(testCUI))
+    print(umls_cuis.getRxnormCui(testCUI))
+    print(umls_cuis.getSnomedct_usCui(testCUI))
+    print(umls_cuis.getMeddraCui(testCUI))
     
     testCUI = 'C0055447'
-    print umls_cuis.getName(testCUI)
-    print umls_cuis.getMeshCui(testCUI)
-    print umls_cuis.getRxnormCui(testCUI)
-    print umls_cuis.getSnomedct_usCui(testCUI)
-    print umls_cuis.getMeddraCui(testCUI)
+    print(umls_cuis.getName(testCUI))
+    print(umls_cuis.getMeshCui(testCUI))
+    print(umls_cuis.getRxnormCui(testCUI))
+    print(umls_cuis.getSnomedct_usCui(testCUI))
+    print(umls_cuis.getMeddraCui(testCUI))
     
     pickle.dump(umls_cuis, open('umlsStructure.cPickle', 'wb'))
 
