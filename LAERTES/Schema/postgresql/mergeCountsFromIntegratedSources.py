@@ -16,6 +16,7 @@ DRUG_HOI_DATA_FILE="drug-hoi-evidence-data.tsv"
 CACHED_DRUG_HOI_RELATIONSHIP_FILE="cached_uniq_drug_hoi_relationships.csv"
 DRUG_HOI_RELATIONSHIP_FILE="uniq_drug_hoi_relationships.csv"
 MEDDRA_TO_SNOMED_MAPPING_FILE="../../terminology-mappings/MedDRA-to-SNOMED/LU_MEDDRAPT_TO_SNOMED.txt"
+#TODO: MESH_TO_SNOMED_MAPPING_FILE="../../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 
 # load the meddra to snomed mapping
 meddra_to_snomed_mapping_d = {}
@@ -32,6 +33,24 @@ while l:
     
     l = inf.readline()
 inf.close()
+
+# TODO...
+# # load the mesh to snomed mapping
+# mesh_to_snomed_mapping_d = {}
+# inf = open(MESH_TO_SNOMED_MAPPING_FILE,"r")
+# l = inf.readline() # skip header
+# l = inf.readline()
+# while l:
+#     s = l.strip()
+#     if s == "":
+#         break
+
+#     (mesh_concept_id,mesh_concept_name,snomed_concept_id,snomed_concept_name) = s.split("\t")
+#     mesh_to_snomed_mapping_d[mesh_concept_id] = [mesh_concept_name,snomed_concept_id,snomed_concept_name]
+    
+#     l = inf.readline()
+# inf.close()
+
 
 # Enum to help parse the data files
 (KEY,EV_SOURCE_LABEL,MODALITY,EV_SOURCE_ID,STATISTIC,LINKOUT,STATISTIC_TYPE) = range(0,7)
@@ -127,12 +146,12 @@ for src in srcL[1:]: # skip header
             mappingFound = False
             
             rows = []
-            if meddra_to_snomed_mapping_d.has_key(hoi):
+            if (mappingFound = False) and meddra_to_snomed_mapping_d.has_key(hoi):
                 mappingFound = True
                 rows = [[meddra_to_snomed_mapping_d[hoi][1],meddra_to_snomed_mapping_d[hoi][2],"","",meddra_to_snomed_mapping_d[hoi][0]]]
                 print "INFO: MedDRA concept id %s mapped to SNOMED HOI %s using local mapping" % (hoi,meddra_to_snomed_mapping_d[hoi][1])
             
-            if idToSnomedD.has_key(hoi):
+            if (mappingFound = False) and idToSnomedD.has_key(hoi):
                 mappingFound = True
                 rows = idToSnomedD[hoi]
                 print "INFO: MedDRA concept id %s mapped to SNOMED HOI from cache"
@@ -141,17 +160,17 @@ for src in srcL[1:]: # skip header
                 try:
                     print "INFO: Attempting to map concept id for Mesh coded HOI %s to SNOMED" % hoi
                     cur.execute("""
-SELECT DISTINCT c2.CONCEPT_ID AS SNOMED_CONCEPT_ID, c2.concept_name AS SNOMED_CONCEPT_NAME, c2.concept_code AS SNOMED_CONCEPT_CODE, c1.concept_name AS MESH_CONCEPT_NAME, c1.CONCEPT_CODE AS MESH_CONCEPT_CODE
+SELECT DISTINCT c2.CONCEPT_ID AS SNOMED_CONCEPT_ID, c2.concept_name AS SNOMED_CONCEPT_NAME, c2.concept_code AS SNOMED_CONCEPT_CODE, c1.concept_id AS MESH_CONCEPT_ID, c1.concept_name AS MESH_CONCEPT_NAME, c1.CONCEPT_CODE AS MESH_CONCEPT_CODE
 FROM concept c1 JOIN concept_relationship cr ON cr.concept_id_1 = c1.CONCEPT_ID
-JOIN CONCEPT c2 ON c2.CONCEPT_ID = cr.CONCEPT_ID_2
-  AND c2.invalid_reason IS NULL
-  AND c2.vocabulary_id = 'SNOMED'
-  AND c2.concept_class_id = 'Clinical Finding'
+  JOIN CONCEPT c2 ON c2.CONCEPT_ID = cr.CONCEPT_ID_2
+   AND c2.invalid_reason IS NULL
+   AND c2.vocabulary_id = 'SNOMED'
+   AND c2.concept_class_id = 'Clinical Finding'
 WHERE c1.concept_id = '%s'
-AND c1.vocabulary_id = 'MeSH'
-AND c1.invalid_reason IS NULL
-AND cr.INVALID_REASON IS NULL
-AND c2.DOMAIN_ID = 'Condition'
+   AND c1.vocabulary_id = 'MeSH'
+   AND c1.invalid_reason IS NULL
+   AND cr.INVALID_REASON IS NULL
+   AND c1.CONCEPT_CLASS_ID = 'Main Heading'
 """ % hoi)
                 except Exception as e:
                     print "ERROR: Attempt to map concept id for Mesh HOI to SNOMED failed. Error string: %s" % e
