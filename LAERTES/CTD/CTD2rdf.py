@@ -260,8 +260,8 @@ for elt in it:
     if elt == [u'']:
         break 
 
-#    if cntr == 200:
-#        break
+    # if cntr == 20:
+    #    break
     cntr += 1
     print cntr
     
@@ -269,37 +269,46 @@ for elt in it:
     meshDrug = elt[CHEMICAL_ID] # MeSH
     drugLabs = elt[CHEMICAL_NAME]
 
+    # print "WE MADE IT HERE!! ..."
+
     imedsDrug = None
     if MESH_D_OMOP.has_key(meshDrug):
         imedsDrug = MESH_D_OMOP[meshDrug]
         print "INFO: meshDrug : %s" % meshDrug
     else:
         print "WARNING: skipping meshDrug, no mapping to OMOP : %s" % meshDrug
-        continue
+    #   continue
 
-    rxcuiDrug = None
-    if DRUGS_D_OMOP.has_key(imedsDrug):
-        rxcuiDrug = DRUGS_D_OMOP[imedsDrug]
-        print "INFO: imedsDrug : %s" % imedsDrug
-    else:
-        print "WARNING: skipping imedsDrug, no mapping to RxNorm : %s" % imedsDrug
-        continue
+    # print "WE MADE IT HERE!! ?"
+    
+    if(imedsDrug != None):
+    	rxcuiDrug = None
+    	if DRUGS_D_OMOP.has_key(imedsDrug):
+    	    rxcuiDrug = DRUGS_D_OMOP[imedsDrug]
+    	    print "INFO: imedsDrug : %s" % imedsDrug
+    	else:
+    	    print "WARNING: skipping imedsDrug, no mapping to RxNorm : %s" % imedsDrug
+    	    continue
+
+    # print "WE MADE IT HERE!! ."
 
     imedsHoi = None
-    if MESH_D_OMOP.has_key(elt[DISEASE_ID]):
-        imedsHoi = MESH_D_OMOP[elt[DISEASE_ID]]
-        print "INFO: meshHoi : %s" % elt[DISEASE_ID]
+    if MESH_D_OMOP.has_key(elt[DISEASE_ID][5:]):
+        imedsHoi = MESH_D_OMOP[elt[DISEASE_ID][5:]]
+        print "INFO: meshHoi : %s" % elt[DISEASE_ID][5:]
     else:
-        print "WARNING: skipping meshDrug %s + MeSH HOI %s : unable to map HOI to OMOP" % (meshDrug, elt[DISEASE_ID])
+        print "WARNING: skipping meshDrug %s + MeSH HOI %s : unable to map HOI to OMOP" % (meshDrug, elt[DISEASE_ID][5:])
         continue
+
+    # print "WE MADE IT HERE!!"
 
     meddraHoi = None
     if MEDDRA_D_OMOP.has_key(imedsHoi):
         meddraHoi = MEDDRA_D_OMOP[omop]
         print "INFO: imedsHoi : %s" % imedsHoi
     else:
-        print "WARNING: skipping rxcuiDrug %s + meddra HOI %s : unable to map OMOP to meddra HOI" % (rxcuiDrug, imedsHoi)
-        continue
+        print "WARNING: skipping imedsHoi %s + meddra HOI %s : unable to map OMOP to meddra HOI" % (imedsHoi, meddraHoi)
+    #    continue
 
 MESH_D_OMOP = {}
 f = open(MESH_TO_OMOP,"r")
@@ -365,7 +374,7 @@ for elt in l[1:]:
     tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(u"Drug-HOI tag for %s-%s" % (imedsDrug, imedsHoi))))
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
-    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s (rxnorm:%s) - %s (MedDRA:%s" % (elt[CHEMICAL_NAME], rxcuiDrug, elt[DISEASE_NAME], meddraHoi))))
+    tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s - %s" % (elt[CHEMICAL_NAME], elt[DISEASE_NAME]))))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
 #   tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
                         
@@ -376,11 +385,14 @@ for elt in l[1:]:
     tplL.append((poc[currentAnnotationBody], ohdsi['InferenceGeneSymbol'], Literal(elt[INFERENCE_GENE_SYMBOL])))
     tplL.append((poc[currentAnnotationBody], ohdsi['InferenceScore'], Literal(elt[INFERENCE_SCORE])))
 
-    if len(elt) > COMMENT:
-        tplL.append((poc[currentAnnotationBody], ohdsi['CuratorComment'], Literal(elt[COMMENT])))
+    # if len(elt) > COMMENT:
+    # tplL.append((poc[currentAnnotationBody], ohdsi['CuratorComment'], Literal(elt[COMMENT])))
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
+
+    # print "WE MADE IT HERE!!"
+
     outf.write(unicode(s,'utf-8', 'replace'))
 
 outf.close
