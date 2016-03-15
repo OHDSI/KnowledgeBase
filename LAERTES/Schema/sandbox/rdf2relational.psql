@@ -1,0 +1,190 @@
+--------------------------------------------------------------------
+-- Initialization script to add to the LAERTES relational model (extension to the OHDSI Standard Vocabulary)
+-- Adds tables which originally appeared as RDF
+--
+-- Authors: Charles Kronk
+-- 2015
+--
+-- 1) Create CSV files to load.
+-- 2) Load this script. (psql -U charles -h 127.0.0.1 -W -d omop_cdm < rdf2relational.psql
+--
+--  
+-- 
+--
+--
+--
+----------------------------
+
+----------------------------
+-- PREFIX ohdsi:<http://purl.org/net/ohdsi#>
+-- PREFIX oa:<http://www.w3.org/ns/oa#>
+-- 
+-- SELECT * 
+-- WHERE {
+--  GRAPH <http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc>{
+--   ?an a ohdsi:ADRAnnotation;
+--     oa:annotatedAt ?annotatedAt;
+--     oa:annotatedBy ?annotatedBy;
+--     oa:motivatedBy ?motivatedBy;
+--     oa:hasTarget ?target;
+--     oa:hasBody ?body.
+--  }
+-- }
+----------------------------
+-- PREFIX ohdsi:<http://purl.org/net/ohdsi#>
+-- PREFIX oa:<http://www.w3.org/ns/oa#>
+-- 
+-- SELECT * 
+-- WHERE {
+--  GRAPH <http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc>{
+--   ?an a ohdsi:adrAnnotationBody;
+--     ohdsi:RxnormDrug ?rxnormDrug;
+--     ohdsi:ImedsDrug ?standardDrug;
+--     ohdsi:ImedsHoi ?standardHoi.
+--  }
+-- }
+----------------------------
+-- PREFIX ohdsi:<http://purl.org/net/ohdsi#>
+-- PREFIX oa:<http://www.w3.org/ns/oa#>
+-- 
+-- SELECT * 
+-- WHERE {
+--  GRAPH <http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc>{
+--   ?an a ohdsi:ADRAnnotation;
+--     oa:hasTarget ?target.
+-- 
+--   ?target oa:hasSource ?source.
+--  }
+-- }
+----------------------------
+
+\echo 'Setting up transaction'
+START TRANSACTION;
+SET standard_conforming_strings=off;
+SET escape_string_warning=off;
+SET CONSTRAINTS ALL DEFERRED;
+
+\echo 'Dropping tables and views'
+DROP TABLE IF EXISTS adr_annotation CASCADE;
+DROP TABLE IF EXISTS adr_statement CASCADE;
+DROP TABLE IF EXISTS target CASCADE;
+DROP TABLE IF EXISTS selector CASCADE;
+
+COMMIT;
+
+\echo 'Creating tables'
+CREATE TABLE selector (
+    selector_uid serial,
+    spl_section text,
+    selector_type text,
+    PRIMARY KEY (selector_uid)
+);
+
+CREATE TABLE adr_statement (
+    adr_statement_uid serial,
+    adr_statement_item text,
+    adr_statement_type text,
+    adr_statement_label text,
+    adr_statement_description text,
+    rxnorm_drug text,
+    standard_drug text,
+    meddra_hoi text,
+    standard_hoi text,
+    PRIMARY KEY (adr_statement_uid),
+    UNIQUE (adr_statement_uid, adr_statement_item)
+);
+
+CREATE TABLE target (
+    target_uid serial,
+    target_item text,
+    has_source text,
+    has_selector integer,
+    PRIMARY KEY (target_uid),
+    FOREIGN KEY (has_selector) REFERENCES selector (selector_uid),
+    UNIQUE (target_uid, target_item)
+);
+
+CREATE TABLE adr_annotation (
+    adr_annotation_uid serial,
+    adr_annotation_item text,
+    adr_annotation_label text,
+    was_generated_by text,
+    annotated_at text,
+    annotated_by text,
+    motivated_by text,
+    last_saved_on text,
+    has_target text, 
+    has_body text, 
+    PRIMARY KEY (adr_annotation_uid) --,
+--    FOREIGN KEY (has_target) REFERENCES target (target_item),
+--    FOREIGN KEY (has_body) REFERENCES adr_statement (adr_statement_item)
+);
+
+COMMIT;
+
+ALTER TABLE adr_annotation
+  OWNER TO charles;
+GRANT ALL ON TABLE adr_annotation TO public;
+
+ALTER TABLE adr_statement
+  OWNER TO charles;
+GRANT ALL ON TABLE adr_statement TO public;
+
+ALTER TABLE target
+  OWNER TO charles;
+GRANT ALL ON TABLE target TO public;
+
+ALTER TABLE selector
+  OWNER TO charles;
+GRANT ALL ON TABLE selector TO public;
+
+COMMIT;
+
+CREATE TEMP TABLE tmpAnnot AS 
+SELECT adr_annotation_item, annotated_at, annotated_by, motivated_by, has_target, has_body FROM adr_annotation LIMIT 0;
+\COPY tmpAnnot FROM './adr-annotation.csv' DELIMITER AS ',' CSV HEADER;
+
+INSERT INTO adr_annotation (adr_annotation_item, annotated_at, annotated_by, motivated_by, has_target, has_body)
+SELECT adr_annotation_item, annotated_at, annotated_by, motivated_by, has_target, has_body FROM tmpAnnot;
+
+COMMIT;
+
+CREATE TEMP TABLE tmpState AS 
+SELECT adr_statement_item, rxnorm_drug, standard_drug, standard_hoi FROM adr_statement LIMIT 0;
+\COPY tmpState FROM 'adr-statement.csv' DELIMITER AS ',' CSV HEADER;
+
+INSERT INTO adr_statement (adr_statement_item, rxnorm_drug, standard_drug, standard_hoi)
+SELECT adr_statement_item, rxnorm_drug, standard_drug, standard_hoi FROM tmpState;
+
+COMMIT;
+
+CREATE TEMP TABLE tmpTarg AS 
+SELECT target_item, has_source FROM target LIMIT 0;
+ALTER TABLE tmpTarg ADD COLUMN adr_annotation text;
+-- UPDATE tmptarg;
+\COPY tmpTarg FROM 'target.csv' DELIMITER AS ',' CSV HEADER;
+
+INSERT INTO target (target_item, has_source)
+SELECT target_item, has_source FROM tmpTarg;
+
+COMMIT;
+
+-- \echo 'Starting transaction'
+-- START TRANSACTION;
+-- \echo 'Loading data into adr_annotation from file '
+-- \copy adr_annotation from '../../EuSPC/eu-spc-adr-annotation.tsv';
+-- COMMIT;
+
+-- \echo 'Starting transaction'
+-- START TRANSACTION;
+-- \echo 'Loading data into adr_statement from file '
+-- \copy adr_statement from '../../EuSPC/eu-spc-adr-statement.tsv';
+-- COMMIT;
+
+-- \echo 'Starting transaction'
+-- START TRANSACTION;
+-- \echo 'Loading data into target from file '
+-- \copy target from '../../EuSPC/eu-spc-target.tsv';
+-- COMMIT;
+
+
