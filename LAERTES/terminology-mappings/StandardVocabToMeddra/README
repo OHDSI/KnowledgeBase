@@ -1,5 +1,7 @@
 The concept codes mapped to specific MedDRA IDs were taken from the 
-Standard Vocab v5 on 4/28/2015 using the following query:
+Standard Vocab v5 3/11/16 version using the following query:
 
-select concept_id, concept_code from concept where concept.vocabulary_id = 'MedDRA';
-
+COPY (
+      select concept_id, concept_code from concept where concept.vocabulary_id = 'MedDRA'
+     )
+TO '/tmp/standard_vocab_to_meddra.csv' DELIMITER '|' CSV HEADER;
