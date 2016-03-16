@@ -1,17 +1,19 @@
-meddra-to-rxnorm-standard-vocab-v5.txt - downloaded 4/23/2015
+mesh-to-rxnorm-standard-vocab-v5.txt - created on 3/16/2016 against Vocab v5.0 11-MAR-16
 
 This mapping is from the standard vocabulary and comes from the
 following query :
 
+COPY (
 SELECT A.CONCEPT_CODE source_concept_code, A.CONCEPT_NAME source_concept_name, B.CONCEPT_CODE concept_code, B.CONCEPT_NAME concept_name, B.CONCEPT_ID concept_id, B.CONCEPT_CLASS_ID concept_class_id
 FROM CONCEPT A, CONCEPT B, CONCEPT_RELATIONSHIP CR
-WHERE A.VOCABULARY_ID = 'Mesh' AND
-      CR.CONCEPT_ID_2 = A.CONCEPT_ID AND 
+WHERE A.VOCABULARY_ID = 'MeSH' AND
+      CR.CONCEPT_ID_2 = A.CONCEPT_ID AND
       B.CONCEPT_ID = CR.CONCEPT_ID_1 AND
       B.VOCABULARY_ID = 'RxNorm' AND
-      CR.RELATIONSHIP_ID = 'Mapped from';
+      CR.RELATIONSHIP_ID = 'Mapped from')
+TO '/tmp/mesh-to-rxnorm-standard-vocab-v5.csv' DELIMITER '|' CSV HEADER
 
-The format (slightly edited from the exported results) is as follows:
+The format is as follows:
 source_concept_code|source_concept_name|concept_code|concept_name|concept_id|concept_class_id
 
 ...where source_concept_code is MeSH, concept_code is RxNorm, and concept_id is OHDSI/OMOP/IMEDS
