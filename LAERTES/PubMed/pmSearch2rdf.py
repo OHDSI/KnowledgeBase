@@ -47,7 +47,7 @@ cur = conn.cursor()
 ##       Schema/postgres/integratedSources.conf
 RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
 MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
-MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2015.xml"
+MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2016.xml"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "drug-hoi-pubmed-mesh.nt"
