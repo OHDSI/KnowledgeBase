@@ -22,7 +22,7 @@
 #
 #  2) Load the MeSH Drug Groupings file.
 #    a) This file is currently located at the following URL:
-#         https://github.com/OHDSI/KnowledgeBase/raw/master/LAERTES/terminology-mappings/MeSHPharmocologicActionToSubstances/pa2015.xml
+#         https://github.com/OHDSI/KnowledgeBase/raw/master/LAERTES/terminology-mappings/MeSHPharmocologicActionToSubstances/pa2016.xml
 #    b) This file should be downloaded and included as the
 #       second argument when this script is run in the command
 #       line.

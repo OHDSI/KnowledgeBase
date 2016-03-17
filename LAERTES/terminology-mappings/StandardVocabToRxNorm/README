@@ -1,6 +1,9 @@
 The concept codes mapped to specific RxCUIs were taken from the IMEDS
-Standard Vocab v5 on 4/28/2015 using the following query:
+Standard Vocab v5 version 3/11/16 using the following query:
 
-select concept_id, concept_code from concept where concept.vocabulary_id = 'RxNorm';
+COPY (
+  select concept_id, concept_code from concept where concept.vocabulary_id = 'RxNorm'
+        )
+TO '/tmp/imeds_drugids_to_rxcuis.csv' DELIMITER '|' CSV HEADER;
 
 

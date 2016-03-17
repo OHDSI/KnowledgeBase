@@ -20,6 +20,11 @@ NOTE: The output of this script is too large to load into virtuoso
 through the web interface. See below for instructions on loading the
 dataset using isql-vt
 
+NOTE: if the output has to be transferred to a remote location, the
+following approach is recommended (set up .ssh/config if using public/private keys): 
+
+$ rsync -e ssh -av --progress --partial drug-hoi-splicer.nt  user@remote-server:<destination folder>/drug-hoi-splicer.nt
+
 - writeLoadableSPLICERcounts.py : Once the RDF output of the
 splicer2rdf.py script is loaded into a virtuoso endpoint, a query in the
 following form is ran at the endpoint (see

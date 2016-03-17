@@ -1,7 +1,12 @@
-A mapping from MeSH codes to ids in the OHDSI standard vocab V5. This
-was exported on 4/23/2015 using the following query:
+A mapping from MeSH codes to ids in the OHDSI standard vocab V5 version 3/11/2016. This
+was exported using the following query:
 
-SELECT CONCEPT_ID, CONCEPT_NAME, CONCEPT_CODE
-FROM CONCEPT
-WHERE VOCABULARY_ID = 'Mesh';
+
+COPY (
+ SELECT CONCEPT_ID, CONCEPT_NAME, CONCEPT_CODE
+ FROM CONCEPT
+ WHERE VOCABULARY_ID = 'MeSH'
+      )
+TO '/tmp/mesh-to-standard-vocab-v5.txt' DELIMITER '|' CSV HEADER;
+      
 

@@ -60,7 +60,6 @@ DATA_FILE = "CTD_chemicals_diseases.tsv"
 
 
 # TERMINOLOGY MAPPING FILES
-# MESH_TO_MEDDRA = "../terminology-mappings/MeSHToMedDRA/meshToMeddra-partial-05202014.txt" # This doesn't appear complete?
 # MESH_TO_RXNORM = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
 RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
 MEDDRA_TO_OMOP = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_to_meddra.csv"
@@ -80,20 +79,6 @@ OUTPUT_FILE = "chemical-disease-ctd.nt"
 
 #    (mesh,source_concept_name,rxnorm,concept_name,omop,concept_class_id) = [x.strip() for x in elt.split("|")]
 #    MESH_D_RXNORM[mesh] = omop
-
-# Do you really need this?
-# Merge integrated sources file eventually.
-# MESH_D_MEDDRA = {}
-# f = open(MESH_TO_MEDDRA,"r")
-# buf = f.read()
-# f.close()
-# l = buf.split("\n")
-# for elt in l:
-#    if elt.strip() == "":
-#        break
-#
-#    (mesh,meddra) = [x.strip() for x in elt.split("\t")]
-#    MESH_D_MEDDRA[mesh] = meddra
 
 DRUGS_D_OMOP = {}
 f = open(RXNORM_TO_OMOP,"r")

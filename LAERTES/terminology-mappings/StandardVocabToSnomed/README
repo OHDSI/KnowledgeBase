@@ -1,5 +1,8 @@
 The concept codes mapped to specific SNOMED ids were taken from the 
 Standard Vocab v5 on 4/28/2015 using the following query:
 
-select concept_id, concept_code from concept where concept.vocabulary_id = 'SNOMED';
+COPY (
+  select concept_id, concept_code from concept where concept.vocabulary_id = 'SNOMED'
+      )
+TO '/tmp/standard_vocab_conceptids_to_snomed.csv' DELIMITER '|' CSV HEADER;
 

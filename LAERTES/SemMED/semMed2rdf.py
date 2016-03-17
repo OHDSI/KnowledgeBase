@@ -36,7 +36,7 @@ NUMB_CHARACTERS_PRE_AND_POST = 50
 # various mappings to the standard vocabulary
 RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
 MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
-MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2015.xml"
+MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2016.xml"
 
 SNOMED_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToSnomed/standard_vocab_conceptids_to_snomed.csv"
 MEDDRA_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_to_meddra.csv"
