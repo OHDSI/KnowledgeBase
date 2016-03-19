@@ -3,7 +3,8 @@ OHDSI KB - Source - PubMed using MeSH tags
 
 The scripts in this folder retrieve MEDLINE records for indexed
 literature reporting adverse drug events and store the data for
-further processing. The program implements the method described in:
+further processing. The program implements a modified version of the
+method described in:
 
 Avillach P, Dufour JC, Diallo G, Salvo F, Joubert M, Thiessard F, Mougin F, Trifirò G, Fourrier-Réglat A, Pariente A, Fieschi M. Design and val     idation of an automated method to detect known adverse drug reactions in MEDLINE: a contribution from the EU-ADR project. J Am Med Inform Assoc. 2013 May 1;20(3):446-52. doi: 10.1136/amiajnl-2012-00
 1083. Epub 2012 Nov 29. PubMed PMID: 23195749; PubMed Central PMCID: PMC3628051.
@@ -37,10 +38,174 @@ The process works as follows:
    pmSearch2rdf.py to convert the results to an RDF Open Data
    Annotation graph. Please see the NOTES below.
 
+   NOTE: The main modification to the original method reported by
+   Avillach et al is to integrate Semmeddb named entity recognition to
+   address MeSH pharmacologic entities that represent groups of
+   drugs. MeSH pharmacologic entities that represent groups of drugs
+   are used quite a bit by MEDLINE. Semmeddb is used to identify any
+   specific drugs in a grouping that are mentioned in the pubmed title
+   or abstract.  Drug - HOI evidence provided in the OA graph is
+   limited to only those specific drugs. Prior experience shows that,
+   if we don't do this, we have many drug - HOI evidence items that
+   apply to drugs not relevant to the journal article.
+
+   NOTE: There is all kinds of duplication that occurs in the output
+   file mentioned above. Take the following example:
+
+17766   Adrenergic beta-Antagonists     D000319 Arrhythmias, Cardiac    D001145 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Diarrhea        D003967 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Heart Failure   D006333 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Hypoglycemia    D007003 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Hypotension     D007022 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Muscle Cramp    D009120 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Skin Diseases   D012871 Journal Article D016428
+17766   Practolol       D011217 Arrhythmias, Cardiac    D001145 Journal Article D016428
+17766   Practolol       D011217 Diarrhea        D003967 Journal Article D016428
+17766   Practolol       D011217 Heart Failure   D006333 Journal Article D016428
+17766   Practolol       D011217 Hypoglycemia    D007003 Journal Article D016428
+17766   Practolol       D011217 Hypotension     D007022 Journal Article D016428
+17766   Practolol       D011217 Muscle Cramp    D009120 Journal Article D016428
+17766   Practolol       D011217 Skin Diseases   D012871 Journal Article D016428
+
+   In this case, the MEDLINE record was tagged with both a drug
+   grouping and an individual drug causing duplication. The OA
+   generation script attempts to remove duplication and create only
+   one OA body for each PMID-drug-HOI triple.
+
+   Another kind of duplication is shown in this example:
+
+311     Enflurane       D004737 Jaundice        D007565 Case Reports    D002363
+311     Enflurane       D004737 Jaundice        D007565 Journal Article D016428
+311     Methyl Ethers   D008738 Jaundice        D007565 Case Reports    D002363
+311     Methyl Ethers   D008738 Jaundice        D007565 Journal Article D016428
+
+   In this case, a single OA target will be created with multiple
+   objects assigned to http://purl.org/net/ohdsi#MeshStudyType (one
+   for case reports and one for journal articles (mapped to
+   'Other')). A single OA body for Enflurane is created. Then, the
+   Methyl Esters group is checked for individual drugs. Because none
+   are found, no additional body is created.
+
+   Yet another example:
+
+658     Adrenergic beta-Agonists        D000318 Depression      D003863 Journal Article D016428
+658     Adrenergic beta-Agonists        D000318 Depression      D003863 Case Reports    D002363
+658     Adrenergic beta-Agonists        D000318 Hallucinations  D006212 Journal Article D016428
+658     Adrenergic beta-Agonists        D000318 Hallucinations  D006212 Case Reports    D002363
+658     Albuterol       D000420 Depression      D003863 Journal Article D016428
+658     Albuterol       D000420 Depression      D003863 Case Reports    D002363
+658     Albuterol       D000420 Hallucinations  D006212 Journal Article D016428
+658     Albuterol       D000420 Hallucinations  D006212 Case Reports    D002363
+658     Isoxsuprine     D007556 Depression      D003863 Journal Article D016428
+658     Isoxsuprine     D007556 Depression      D003863 Case Reports    D002363
+658     Isoxsuprine     D007556 Hallucinations  D006212 Journal Article D016428
+658     Isoxsuprine     D007556 Hallucinations  D006212 Case Reports    D002363
+658     Phenethylamines D010627 Depression      D003863 Journal Article D016428
+658     Phenethylamines D010627 Depression      D003863 Case Reports    D002363
+658     Phenethylamines D010627 Hallucinations  D006212 Journal Article D016428
+658     Phenethylamines D010627 Hallucinations  D006212 Case Reports    D002363
+
+   In this case, a single target is created with two objects assigned
+   to http://purl.org/net/ohdsi#MeshStudyType. Two bodies are created
+   for the Adrenergic beta-Agonists.The MeSH pharmacologic grouping
+   file contains the drug group and so Semmedb is checked for mentions
+   involving specific drugs within the group. None are found. Then,
+   two bodies are created for Albuterol and Isoxsuprine. No body is
+   created for Phenethylamines because the MeSH pharmacologic grouping
+   file does not list the group
+
+   It is worth looking at one more example:
+
+5066    Amantadine      D000547 Basal Ganglia Diseases  D001480 Clinical Trial  D016430
+5066    Amantadine      D000547 Basal Ganglia Diseases  D001480 Comparative Study       D003160
+5066    Amantadine      D000547 Basal Ganglia Diseases  D001480 Journal Article D016428
+5066    Antipsychotic Agents    D014150 Basal Ganglia Diseases  D001480 Clinical Trial  D016430
+5066    Antipsychotic Agents    D014150 Basal Ganglia Diseases  D001480 Comparative Study       D003160
+5066    Antipsychotic Agents    D014150 Basal Ganglia Diseases  D001480 Journal Article D016428
+5066    Benztropine     D001590 Basal Ganglia Diseases  D001480 Clinical Trial  D016430
+5066    Benztropine     D001590 Basal Ganglia Diseases  D001480 Comparative Study       D003160
+5066    Benztropine     D001590 Basal Ganglia Diseases  D001480 Journal Article D016428
+
+   In this case, a single OA target is created with two objects
+   assigned to http://purl.org/net/ohdsi#MeshStudyType (the
+   Comparative Study and Journal Article are both mapped to
+   "Other"). A single body is created for Amantadine. A single body is
+   created for the Antipsychotic Agents.The MeSH pharmacologic
+   grouping file contains the drug group and so Semmedb is checked for
+   mentions involving specific drugs within the group. None are
+   found. A single body is created for Benztropine.
+
+
+   Yet another example:
+
+17766   Adrenergic beta-Antagonists     D000319 Arrhythmias, Cardiac    D001145 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Diarrhea        D003967 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Heart Failure   D006333 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Hypoglycemia    D007003 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Hypotension     D007022 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Muscle Cramp    D009120 Journal Article D016428
+17766   Adrenergic beta-Antagonists     D000319 Skin Diseases   D012871 Journal Article D016428
+17766   Practolol       D011217 Arrhythmias, Cardiac    D001145 Journal Article D016428
+17766   Practolol       D011217 Diarrhea        D003967 Journal Article D016428
+17766   Practolol       D011217 Heart Failure   D006333 Journal Article D016428
+17766   Practolol       D011217 Hypoglycemia    D007003 Journal Article D016428
+17766   Practolol       D011217 Hypotension     D007022 Journal Article D016428
+17766   Practolol       D011217 Muscle Cramp    D009120 Journal Article D016428
+17766   Practolol       D011217 Skin Diseases   D012871 Journal Article D016428
+
+   A single target is created with only on value assigned to
+   http://purl.org/net/ohdsi#MeshStudyType. The MeSH pharmacologic
+   grouping file contains the drug group Adrenergic beta-Antagonists
+   and so Semmedb is checked for mentions involving specific
+   drugs. Practolol is found within the abstract so a body is created
+   for each Adrenergic beta-Antagonists - HOI association and each
+   body has a http://purl.org/net/ohdsi#adeAgents predicate with three
+   resources, one each for the practolol identifier in rxnorm, OHDSI,
+   and MeSH. This sums up to 7 bodies. No additional OA bodies are
+   created for the Practol records shown above because that
+   information is already captured by the bodies for Adrenergic
+   beta-Antagonists.
+
+   A final example:
+
+17162   Adrenergic beta-Antagonists     D000319 Asthma  D001249 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Hypercalcemia   D006934 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Hyperglycemia   D006943 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Hypoglycemia    D007003 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Kidney Failure, Chronic D007676 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Nephrotic Syndrome      D009404 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Neurasthenia    D009440 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Placental Insufficiency D010927 Journal Article D016428
+17162   Adrenergic beta-Antagonists     D000319 Vomiting        D014839 Journal Article D016428
+17162   Practolol       D011217 Asthma  D001249 Journal Article D016428
+17162   Practolol       D011217 Hypercalcemia   D006934 Journal Article D016428
+17162   Practolol       D011217 Hyperglycemia   D006943 Journal Article D016428
+17162   Practolol       D011217 Hypoglycemia    D007003 Journal Article D016428
+17162   Practolol       D011217 Kidney Failure, Chronic D007676 Journal Article D016428
+17162   Practolol       D011217 Nephrotic Syndrome      D009404 Journal Article D016428
+17162   Practolol       D011217 Neurasthenia    D009440 Journal Article D016428
+17162   Practolol       D011217 Placental Insufficiency D010927 Journal Article D016428
+17162   Practolol       D011217 Vomiting        D014839 Journal Article D016428
+17162   Propranolol     D011433 Asthma  D001249 Journal Article D016428
+17162   Propranolol     D011433 Hypercalcemia   D006934 Journal Article D016428
+17162   Propranolol     D011433 Hyperglycemia   D006943 Journal Article D016428
+17162   Propranolol     D011433 Hypoglycemia    D007003 Journal Article D016428
+17162   Propranolol     D011433 Kidney Failure, Chronic D007676 Journal Article D016428
+17162   Propranolol     D011433 Nephrotic Syndrome      D009404 Journal Article D016428
+17162   Propranolol     D011433 Neurasthenia    D009440 Journal Article D016428
+17162   Propranolol     D011433 Placental Insufficiency D010927 Journal Article D016428
+17162   Propranolol     D011433 Vomiting        D014839 Journal Article D016428
+
+   A single target and 27 bodies are created. This happens because
+   none of the individual drugs MeSH assignes to Adrenergic
+   beta-Antagonists is found in the title or abstract and so the 9
+   HOIs are repeated for the group and then practolol and propranolol.
+   
+
    NOTE: if the output has to be transferred to a remote location, the
    following approach is recommended (set up .ssh/config if using public/private keys): 
 
-   $ rsync -e ssh -av --progress --partial drug-hoi-pubmed-mesh.ntt  user@remote-server:<destination folder>/drug-hoi-pubmed-mesh.nt
+   $ rsync -e ssh -av --progress --partial drug-hoi-pubmed-mesh.nt  user@remote-server:<destination folder>/drug-hoi-pubmed-mesh.nt
 
 
 4. The RDF graph is loaded into an endpoint and script
@@ -145,7 +310,7 @@ $ rdf_loader_run();
 
 -- ELSE, CLEAR THE GRAPH AND THE SET LL_STATE TO 0
 
-$ SPARQL CLEAR GRAPH http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc/ ;
+$ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc/' ;
 $ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc/';
 $ rdf_loader_run();
 

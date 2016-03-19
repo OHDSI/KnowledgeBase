@@ -17,17 +17,15 @@ from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
 from lxml import etree
 from lxml.etree import XMLParser, parse
 
-import psycopg2 # for postgres
+import mysql.connector as msql # for mysql connection to Semmeddb
+import psycopg2 # for postgres connection to Medline
 
 ## The result of the query in queryDrugHOIAssociations.psql
-SEARCH_RESULTS = "drug-hoi-associations-from-mesh.tsv"
-
-# Connection info to the MEDLINE database
-DB_CONNECTION_INFO="db-connection.conf"
+SEARCH_RESULTS = "drug-hoi-associations-from-mesh-April-2016.tsv"
 
 ## Set up the db connection to the MEDLINE DB. This is used to collect
-## a bit more information on the MEDLINE entries than is provided by
-## SemMedDB
+## a bit more data and metadata on the MEDLINE entries
+DB_CONNECTION_INFO="db-connection.conf"
 f = open(DB_CONNECTION_INFO,'r')
 (db,user,pword,host,port) = f.readline().strip().split("\t")
 f.close()
@@ -37,6 +35,19 @@ except Exception as e:
     print "ERROR: Unable to connect to database %s (user:%s) on host %s (port: %s). Check that the data in db-connection.conf is correct and that there is not barrier related to the network connection. Error: %s" % (db,user,host,port,e)
 cur = conn.cursor()
 
+## Set up the db connection to the SEMMEDDB DB. This is used to filter
+## evidence items to be more specific than the drug class concepts
+## that MeSH often uses for tags.
+SEMMEDDB_CONNECTION_INFO="db-connection-SEMMEDDB.conf"
+f = open(SEMMEDDB_CONNECTION_INFO,'r')
+(db,user,pword,host,port) = f.readline().strip().split("\t")
+f.close()
+try:
+    smdb_conn=msql.connect(database=db, user=user, password=pword, host=host, port=port)
+except Exception as e:
+    print "ERROR: Unable to connect to database %s (user:%s) on host %s (port: %s). Check that the data in db-connection-SEMMEDDB.conf is correct and that there is not barrier related to the network connection. Error: %s" % (db,user,host,port,e)
+smdb_cur = smdb_conn.cursor()
+
 
 # TERMINOLOGY MAPPING FILES 
 ## NOTE: the drug concepts are mapped directly to RxNorm here but the
@@ -45,7 +56,7 @@ cur = conn.cursor()
 ##       Schema/postgres/mergeCountsFromIntegratedSources.py based on
 ##       config information present in
 ##       Schema/postgres/integratedSources.conf
-RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
+RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.csv"
 MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2016.xml"
 
@@ -185,7 +196,7 @@ graph.add((poc['MeshHoi'], dcterms["description"], Literal("HOI code in the MeSH
 graph.add((poc['MeddraHoi'], RDFS.label, Literal("Meddra HOI code")))
 graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Meddra vocabulary.")))
 
-################################################################################
+# ################################################################################
 
 # Load the results of applying the Avillach et al method for
 # identifying drug-ADR associations in MEDLINE using MeSH headings
@@ -206,6 +217,9 @@ annotatedCache = {} # indexes annotation ids by pmid
 abstractCache = {} # cache for abstract text
 pubTypeCache = {} # used because some PMIDs have multiple publication type assignments TODO: determine pub types should be assigned to a Collection under the target's graph 
 drugHoiPMIDCache = {} # used to avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments TODO: determine if a more robust source query is needed
+mshPharmIdToUMLSCache = {} # Used to store mappings from MeSH pharmacological grouping IDs to a list of UMLS MetaThesaurus CUIs for the drug concepts that belong in that group
+mshSubstOfInterestLCache = {} # used to avoid repeated calls to Semmeddb to identify specific drugs mentioned in a title or abstract
+
 currentAnnotation = annotationItemCntr
 
 currentAnnotSet = 'ohdsi-pubmed-mesh-annotation-set-%s' % annotationSetCntr 
@@ -218,7 +232,8 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-for elt in recL:
+for elt in recL[0:1000]: # Debugging
+#for elt in recL: # Full run
     ## For now, only process papers tagged as for humans
     ## TODO: expand the evidence types to include non-human studies 
     try:
@@ -339,7 +354,8 @@ for elt in recL:
 
     # Specify the bodies of the annotation - for this type each
     # body contains the MESH drug and condition as a semantic tag
-
+    print "INFO: working on the body for %s" % elt
+    
     # to begin with, avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments
     concat = "%s-%s-%s" % (elt[PMID], elt[ADR_DRUG_UI], elt[ADR_HOI_UI])
     if drugHoiPMIDCache.has_key(concat):
@@ -361,23 +377,98 @@ for elt in recL:
     ### INCLUDE THE MESH TAGS FROM THE RECORD AS PREFERRED TERMS AS
     ### WELL AS DATA FROM THE DRUG AND HOI QUERY
     tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[elt[ADR_DRUG_UI]])) 
-    if DRUGS_D.has_key(elt[ADR_DRUG_UI]):
+
+    if DRUGS_D.has_key(elt[ADR_DRUG_UI]): # an individual drug
         tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[DRUGS_D[elt[ADR_DRUG_UI]][0]]))
         tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[DRUGS_D[elt[ADR_DRUG_UI]][2]]))
-    elif elt[ADR_DRUG_UI] in pharmActionMaptD.keys():
+
+    elif elt[ADR_DRUG_UI] in pharmActionMaptD.keys(): # a drug group
         (descriptorName, substancesL) =  (pharmActionMaptD[elt[ADR_DRUG_UI]]['descriptorName'], pharmActionMaptD[elt[ADR_DRUG_UI]]['substancesL'])
-        print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
-        
-        collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
-        tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
-        # add each substance to a collection in the body
-        for substance in substancesL:
-            tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
-            if DRUGS_D.has_key(substance['recordUI']):
-                tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D[substance['recordUI']][0]]))
-                tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D[substance['recordUI']][2]]))
+        print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping that are mentioned in the title and/or abstract" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
+      
+        mshSubstOfInterestL = []
+        if mshSubstOfInterestLCache.has_key(elt[PMID] + elt[ADR_DRUG_UI]):
+            mshSubstOfInterestL = mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]]
+            print "INFO: pulled %s individual Semmeddb drug mentions for PMID %s from cache" % (len(mshSubstOfInterestL), elt[PMID])
+        else:
+            ## query UMLS for the MeSH identifiers for the substances and chemicals
+            cuiRsltL = []
+            if mshPharmIdToUMLSCache.has_key(descriptorName):
+                cuiRsltL = mshPharmIdToUMLSCache[descriptorName]
+                print "INFO: No need to query UMLS, using UMLS MetaThesaurus results from cache"
             else:
-                print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[ADR_DRUG_UI])
+                # It is most efficient, given the indices on semmeddb, to
+                # query UMLS first for all relevant substance CUIs, then pass
+                # that in a query to semmedb
+                mshIdSet = set([x['recordUI'] for x in substancesL])
+                q = """
+SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
+            """ % "','".join(list(mshIdSet))
+                print q
+        
+                smdb_cur.execute(q)
+                cuiRsltL = []
+                for rslt in smdb_cur:
+                    cuiRsltL.append((rslt[0],rslt[1]))        
+                mshPharmIdToUMLSCache[descriptorName] = cuiRsltL
+
+            if len(cuiRsltL) == 0:
+                print "ERROR: very strange that none of the drug concepts in the MeSH pharmacological grouping is able to map to any UMLS MetaThesaurus CUI: %s -- %s" % (descriptorName,mshIdSet)
+            else:
+                # query Semmeddb to get the CUIs for tagged pharmacologic
+                # substances and organic chemicals. NOTE: the IN clause is
+                # limited by the MySQL max_allowed_packet configuration
+                # variable so set it to be large (e.g., several megabytes)
+                cuiRsltStr = "','".join([x[0] for x in cuiRsltL]) # UMLS CUIs for the individual drugs
+                print "INFO: checking Semmeddb to see if the title or abstract of PMID %s mentions any of the %s individual drugs" % (elt[PMID], len(cuiRsltL))
+                q = """
+SELECT * 
+FROM 
+(
+SELECT s_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = %s AND s_cui IN ('%s')
+UNION
+SELECT o_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = %s AND o_cui IN ('%s')
+) c_union
+""" % (elt[PMID], cuiRsltStr, elt[PMID], cuiRsltStr)
+                print q
+        
+                smdb_cur.execute(q)
+                substOfInterestL = []
+                for rslt in smdb_cur:
+                    substOfInterestL.append(rslt[0])
+                mshSubstOfInterestL = [x[1] for x in filter(lambda x: x[0] in substOfInterestL, cuiRsltL)]
+
+                if len(mshSubstOfInterestL) > 0:
+                    print "INFO: caching %s specific substances mentioned in the abstract for %s: %s " % (len(mshSubstOfInterestL),elt[PMID],mshSubstOfInterestL)
+                    mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]] = mshSubstOfInterestL
+                
+        # add each substance to a collection in the body
+        if len(mshSubstOfInterestL) > 0:
+            # first check for duplication, it happens a bunch
+            keepers = []
+            for substanceMshUI in mshSubstOfInterestL:
+                concat = "%s-%s-%s" % (elt[PMID], substanceMshUI, elt[ADR_HOI_UI])
+            if drugHoiPMIDCache.has_key(concat):
+                print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
+                continue
+            else:
+                drugHoiPMIDCache[concat] = None
+                keepers.append(substanceMshUI)
+
+            if len(keepers) > 0:
+                collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
+                tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
+
+                for substanceMshUI in keepers:
+                    tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substanceMshUI]))
+                    if DRUGS_D.has_key(substanceMshUI):
+                        tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D[substanceMshUI][0]]))
+                        tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D[substanceMshUI][2]]))
+                    else:
+                        print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s belonging to the pharmacologic action mapping %s" % (substanceMshUI, elt[ADR_DRUG_UI])
+            else:
+                print "INFO: none of the individual drugs in the drug group %s (%s) were identified in the abstract. Only the drug group MeSH CUI will be noted in the body of this OA annotation" % (elt[ADR_DRUG_UI], descriptorName)
+                        
     else:
         print "ERROR: no RxNorm equivalent to the MeSH drug %s (%s) and this does not appear in the pharmacologic action mapping (not a grouping?), skipping" % (elt[ADR_DRUG_UI], elt[ADR_DRUG_LABEL])
         continue
@@ -411,3 +502,5 @@ for elt in recL:
 
 f.close
 graph.close()
+conn.close()
+smdb_conn.close()
