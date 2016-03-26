@@ -4,7 +4,7 @@
 # Convert the result of a SemMedDB drug-HOI evidence search to Open Data Annotation
 #
 # Author: Richard D Boyce, PhD
-# 2014/2015
+# 2014 - 2016
 #
 
 import sys
@@ -18,8 +18,8 @@ from rdflib import Graph, Literal, Namespace, URIRef, RDF, RDFS
 from lxml import etree
 from lxml.etree import XMLParser, parse
 
+import psycopg2 # for postgres connection to Medline
 
-import psycopg2 # for postgres
 
 ## The result of the query of SemMedDB (see README)
 SEARCH_RESULTS = "semmedTriplesPlusSentence.tsv"
@@ -34,7 +34,7 @@ DB_CONNECTION_INFO="db-connection.conf"
 NUMB_CHARACTERS_PRE_AND_POST = 50 
 
 # various mappings to the standard vocabulary
-RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
+RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.csv"
 MESH_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 MESH_PHARMACOLOGIC_ACTION_MAPPINGS = "../terminology-mappings/MeSHPharmocologicActionToSubstances/pa2016.xml"
 
@@ -44,14 +44,16 @@ MEDDRA_TO_STANDARD_VOCAB = "../terminology-mappings/StandardVocabToMeddra/standa
 ## Set up the db connection to the MEDLINE DB. This is used to collect
 ## a bit more information on the MEDLINE entries than is provided by
 ## SemMedDB
+DB_CONNECTION_INFO="db-connection.conf"
 f = open(DB_CONNECTION_INFO,'r')
 (db,user,pword,host,port) = f.readline().strip().split("\t")
-f.close()
+f..close()
 try:
     conn=psycopg2.connect(database=db, user=user, password=pword, host=host, port=port)
 except Exception as e:
     print "ERROR: Unable to connect to database %s (user:%s) on host %s (port: %s). Check that the data in db-connection.conf is correct and that there is not barrier related to the network connection. Error: %s" % (db,user,host,port,e)
 cur = conn.cursor()
+
 
 ############################################################
 #  Load the MeSH Pharmacologic Action mappings from an XML file
@@ -223,6 +225,9 @@ graph.add((poc['UMLSHoi'], dcterms["description"], Literal("HOI code in the UMLS
 
 graph.add((poc['MeshHoi'], RDFS.label, Literal("MeSH HOI code")))
 graph.add((poc['MeshHoi'], dcterms["description"], Literal("HOI code in the MeSH vocabulary.")))
+
+graph.add((poc['SnomedHoi'], RDFS.label, Literal("Snomed HOI code")))
+graph.add((poc['SnomedHoi'], dcterms["description"], Literal("HOI code in the SNOMED vocabulary.")))
 
 graph.add((poc['MeddraHoi'], RDFS.label, Literal("Meddra HOI code")))
 graph.add((poc['MeddraHoi'], dcterms["description"], Literal("HOI code in the Meddra vocabulary.")))
@@ -536,19 +541,20 @@ for elt in recL:
 
         # check if the MeSH UI is a grouping
         if elt[DRUG_MESH] in pharmActionMaptD.keys():
-            (descriptorName, substancesL) =  (pharmActionMaptD[elt[DRUG_MESH]]['descriptorName'], pharmActionMaptD[elt[DRUG_MESH]]['substancesL'])
-            print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[DRUG_MESH], descriptorName, len(substancesL))
+            print "INFO: The MeSH drug %s might be a grouping (%s). At this time, we are not expanding the groupings to individual drugs since those should be tagged either in this sentence or elsewhere in the title/abstract" % (elt[DRUG_MESH], descriptorName)
+            # (descriptorName, substancesL) =  (pharmActionMaptD[elt[DRUG_MESH]]['descriptorName'], pharmActionMaptD[elt[DRUG_MESH]]['substancesL'])
+            # print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping" % (elt[DRUG_MESH], descriptorName, len(substancesL))
         
-            collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
-            tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
-            # add each substance to a collection in the body
-            for substance in substancesL:
-                tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
-                if DRUGS_D_MESH_KEYED.has_key(substance['recordUI']):
-                    tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D_MESH_KEYED[substance['recordUI']][0]]))
-                    tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D_MESH_KEYED[substance['recordUI']][2]]))
-                else:
-                    print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[DRUG_MESH])
+            # collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
+            # tplL.append((poc[currentAnnotationBody], ohdsi['adeAgents'], collectionHead))
+            # # add each substance to a collection in the body
+            # for substance in substancesL:
+            #     tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substance['recordUI']]))
+            #     if DRUGS_D_MESH_KEYED.has_key(substance['recordUI']):
+            #         tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D_MESH_KEYED[substance['recordUI']][0]]))
+            #         tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D_MESH_KEYED[substance['recordUI']][2]]))
+            #     else:
+            #         print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s (%s) belonging to the pharmacologic action mapping %s" % (substance['recordUI'], substance['recordName'], elt[DRUG_MESH])
         else:
             print "INFO:  MeSH drug %s (%s) does not appear in the pharmacologic action mapping (not a grouping?)" % (elt[DRUG_MESH], elt[DRUG_PREFERRED_TERM])
     else:
@@ -557,9 +563,11 @@ for elt in recL:
     # Now to HOIs - there are groupings in the data file as indicated
     # by pipe delimitted text strings.
 
-    # For now, treat the MeSH mapping as necessary because its unique
-    # for every record where it is found.
-    # TODO: determine if this is the best approach!
+    # Include only one of either the MeSH, SNOMED, or MeDDRA HOI
+    # concepts rather than all of them because there is much
+    # duplication and groupings are hard to manage. Later in the ETL
+    # process, all of the HOIs will be converted to SNOMED (if a
+    # mapping exists)
     if elt[HOI_MESH] != "":
         if len(elt[HOI_MESH].split("|")) > 1:
             print "ERROR: more than one MeSH hoi CUI (%s). This case is not yet handled by this program" % elt[HOI_MESH]
@@ -571,30 +579,31 @@ for elt in recL:
         else:
             print "ERROR: no OHDSI/IMEDS equivalent to the MeSH HOI %s" % (elt[HOI_MESH])
 
-        # add the SNOMED and MedDRA effects to a collection in the body
-        if elt[HOI_SNOMED] != "" or elt[HOI_MEDDRA] != "":
-            collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4())
-            tplL.append((poc[currentAnnotationBody], ohdsi['adeEffects'], collectionHead))
+    # add the SNOMED and MedDRA effects to a collection in the body
+    elif elt[HOI_SNOMED] != "":
+        if len(elt[HOI_SNOMED].split("|")) > 1:
+            print "ERROR: more than one SNOMED hoi CUI (%s). This case is not yet handled by this program" % elt[HOI_SNOMED]
+        else:
+            tplL.append((poc[currentAnnotationBody], ohdsi['SnomedHoi'], snomed[elt[HOI_SNOMED]]))
 
-            if elt[HOI_SNOMED] != "":
-                snomedUIs = elt[HOI_SNOMED].split("|")
-                for ui in snomedUIs:
-                    tplL.append((collectionHead, ohdsi['adeEffect'], snomed[ui]))
-                    if SNOMED_D_SV.has_key(ui):
-                        tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[SNOMED_D_SV[ui]]))
-                    else:
-                        print "WARNING: no IMEDS equivalent to the SNOMED HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
+        if SNOMED_D_SV.has_key(elt[HOI_SNOMED]):
+            tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[SNOMED_D_SV[elt[HOI_SNOMED]]]))
+        else:
+            print "ERROR: no OHDSI/IMEDS equivalent to the SNOMED HOI %s" % (elt[HOI_SNOMED])
+        
+    elif elt[HOI_MEDDRA] != "":
+        if len(elt[HOI_MEDDRA].split("|")) > 1:
+            print "ERROR: more than one MEDDRA hoi CUI (%s). This case is not yet handled by this program" % elt[HOI_MEDDRA]
+        else:
+            tplL.append((poc[currentAnnotationBody], ohdsi['MeddraHoi'], meddra[elt[HOI_MEDDRA]]))
 
-            if elt[HOI_MEDDRA] != "":
-                meddraUIs = elt[HOI_MEDDRA].split("|")
-                for ui in meddraUIs:
-                    tplL.append((collectionHead, ohdsi['adeEffect'], meddra[ui]))
-                    if MEDDRA_D_SV.has_key(ui):
-                        tplL.append((collectionHead, ohdsi['ImedsHoi'], ohdsi[MEDDRA_D_SV[ui]]))
-                    else:
-                        print "WARNING: no IMEDS equivalent to the MedDRA HOI %s (%s)" % (ui, elt[HOI_PREFERRED_TERM])
+        if MEDDRA_D_SV.has_key(elt[HOI_MEDDRA]):
+            tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[MEDDRA_D_SV[elt[HOI_MEDDRA]]]))
+        else:
+            print "ERROR: no OHDSI/IMEDS equivalent to the MEDDRA HOI %s" % (elt[HOI_MEDDRA])
+
     else:
-        print "WARNING: No MeSH mapping for the HOI concept so the UMLS UI will be the only one provided in this body. TODO: determine if it would be better to use SNOMED or MedDRA as the required concept (or if some other approach is needed)"
+        print "WARNING: No MeSH, MedDRA, or SNOMED mapping for the HOI concept so the UMLS UI will be the only one provided in this body. TODO: determine if it would be better to use SNOMED or MedDRA as the required concept (or if some other approach is needed)"
         
     s = ""
     for t in tplL:
