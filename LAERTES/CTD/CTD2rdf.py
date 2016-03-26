@@ -60,49 +60,25 @@ DATA_FILE = "CTD_chemicals_diseases.tsv"
 
 
 # TERMINOLOGY MAPPING FILES
-# MESH_TO_RXNORM = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
-RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
-MEDDRA_TO_OMOP = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_to_meddra.csv"
+MESH_TO_RXNORM = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
 MESH_TO_OMOP = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "chemical-disease-ctd.nt"
 
-# MESH_D_RXNORM = {}
-# f = open(MESH_TO_RXNORM,"r")
-# buf = f.read()
-# f.close()
-# l = buf.split("\n")
-# for elt in l:
-#    if elt.strip() == "":
-#        break
-
-#    (mesh,source_concept_name,rxnorm,concept_name,omop,concept_class_id) = [x.strip() for x in elt.split("|")]
-#    MESH_D_RXNORM[mesh] = omop
-
-DRUGS_D_OMOP = {}
-f = open(RXNORM_TO_OMOP,"r")
-buf = f.read()
-f.close()
-l = buf.split("\n")
-for elt in l:
-    if elt.strip() == "":
-        break
-
-    (omop,rxcui) = [x.strip() for x in elt.split("|")]
-    DRUGS_D_OMOP[omop] = rxcui
-
-MEDDRA_D_OMOP = {}
-f = open(MEDDRA_TO_OMOP,"r")
+DRUGS_D = {}
+f = open(RXNORM_TO_MESH,"r")
 buf = f.read()
 f.close()
 l = buf.split("\n")
 for elt in l[1:]:
     if elt.strip() == "":
         break
-
-    (omop,meddra) = [x.strip() for x in elt.split("|")]
-    MEDDRA_D_OMOP[omop] = meddra
+    (mesh,pt,rxcui,concept_name,ohdsiID,conceptClassId) = [x.strip() for x in elt.split("|")]
+    if DRUGS_D.get(mesh): # add a synonymn
+        DRUGS_D[mesh][1].append(pt)
+    else: # create a new record
+        DRUGS_D[mesh] = (rxcui, [pt], ohdsiID)
 
 MESH_D_OMOP = {}
 f = open(MESH_TO_OMOP,"r")
@@ -250,63 +226,25 @@ for elt in it:
     cntr += 1
     print cntr
     
-    #rxcuiDrug = elt[RxNorm] # There is no RxNorm provided in CTD
     meshDrug = elt[CHEMICAL_ID] # MeSH
     drugLabs = elt[CHEMICAL_NAME]
 
-    # print "WE MADE IT HERE!! ..."
-
-    imedsDrug = None
-    if MESH_D_OMOP.has_key(meshDrug):
-        imedsDrug = MESH_D_OMOP[meshDrug]
-        print "INFO: meshDrug : %s" % meshDrug
+    imedsMeshDrug = None
+    if DRUGS_D.has_key(meshDrug):
+        rxcuiDrug = DRUGS_D[meshDrug][0]
+        imedsDrug = DRUGS_D[meshDrug][2]
+        print "INFO: meshDrug %s mapped to rxnorm %s and omop %s" % (meshDrug, rxcuiDrug, imedsDrug)
     else:
-        print "WARNING: skipping meshDrug, no mapping to OMOP : %s" % meshDrug
-    #   continue
-
-    # print "WE MADE IT HERE!! ?"
-    
-    if(imedsDrug != None):
-    	rxcuiDrug = None
-    	if DRUGS_D_OMOP.has_key(imedsDrug):
-    	    rxcuiDrug = DRUGS_D_OMOP[imedsDrug]
-    	    print "INFO: imedsDrug : %s" % imedsDrug
-    	else:
-    	    print "WARNING: skipping imedsDrug, no mapping to RxNorm : %s" % imedsDrug
-    	    continue
-
-    # print "WE MADE IT HERE!! ."
-
+        print "WARNING: skipping meshDrug, no mapping to rxnorm or omop : %s" % meshDrug
+        continue
+  
     imedsHoi = None
     if MESH_D_OMOP.has_key(elt[DISEASE_ID][5:]):
         imedsHoi = MESH_D_OMOP[elt[DISEASE_ID][5:]]
-        print "INFO: meshHoi : %s" % elt[DISEASE_ID][5:]
+        print "INFO: meshHoi %s mapped to %s" % (elt[DISEASE_ID][5:], imedsHoi)
     else:
         print "WARNING: skipping meshDrug %s + MeSH HOI %s : unable to map HOI to OMOP" % (meshDrug, elt[DISEASE_ID][5:])
         continue
-
-    # print "WE MADE IT HERE!!"
-
-    meddraHoi = None
-    if MEDDRA_D_OMOP.has_key(imedsHoi):
-        meddraHoi = MEDDRA_D_OMOP[omop]
-        print "INFO: imedsHoi : %s" % imedsHoi
-    else:
-        print "WARNING: skipping imedsHoi %s + meddra HOI %s : unable to map OMOP to meddra HOI" % (imedsHoi, meddraHoi)
-    #    continue
-
-MESH_D_OMOP = {}
-f = open(MESH_TO_OMOP,"r")
-buf = f.read()
-f.close()
-l = buf.split("\n")
-for elt in l[1:]:
-    if elt.strip() == "":
-        break
-
-    (omop,concept_name,mesh) = [x.strip() for x in elt.split("|")]
-    MESH_D_OMOP[mesh] = omop
-
 
     ###################################################################
     ### Each annotations holds one target that points to the source
@@ -338,7 +276,7 @@ for elt in l[1:]:
         currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
         tplL.append((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
         tplL.append((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
-        tplL.append((currentAnnotTargetUuid, oa["hasSource"], URIRef(u"http://ctdbase.org/downloads/#cd")))
+        tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[PUBMED_IDS])) ## LEFT OFF HERE - WHAT TO DO ABOUT MULTIPLE PUBMED IDS -- CREATE A SEPERATE ANNOTATION OR APPLY IT TO MULTIPLE TARGETS?
 
         s = ""
         for t in tplL:
@@ -356,17 +294,17 @@ for elt in l[1:]:
     
     tplL = []
     tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(u"Drug-HOI tag for %s-%s" % (imedsDrug, imedsHoi))))
+    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(u"Drug-HOI tag for %s-%s (mesh: %s-%s)" % (imedsDrug, imedsHoi, meshDrug, elt[DISEASE_ID][5:]))))
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
     tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s - %s" % (elt[CHEMICAL_NAME], elt[DISEASE_NAME]))))
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], ohdsi[meshDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
-#   tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
-                        
-#   tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[meddraHoi])) # TODO: consider adding the values as a collection
+
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
 
     # TODO: Define these predicates - preferrably from an ontology
+    tplL.append((poc[currentAnnotationBody], ohdsi['DirectEvidence'], Literal(elt[DIRECT_EVIDENCE])))
     tplL.append((poc[currentAnnotationBody], ohdsi['InferenceGeneSymbol'], Literal(elt[INFERENCE_GENE_SYMBOL])))
     tplL.append((poc[currentAnnotationBody], ohdsi['InferenceScore'], Literal(elt[INFERENCE_SCORE])))
 
@@ -375,8 +313,6 @@ for elt in l[1:]:
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
-
-    # print "WE MADE IT HERE!!"
 
     outf.write(unicode(s,'utf-8', 'replace'))
 
