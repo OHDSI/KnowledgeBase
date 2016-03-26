@@ -1,0 +1,657 @@
+drug {
+	type
+	created
+	updated
+	primary_drugbank_id								PK
+	name
+	description
+	cas_number
+	synthesis_reference
+	indication
+	pharmacodynamics
+	mechanism_of_action
+	toxicity
+	metabolism
+	absorption
+	half_life
+	protein_binding
+	route_of_elimination
+}
+
+drug_international_brand {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	name
+	company
+	primary_drugbank_id + name + company			PK
+}
+
+drug_food_interaction {
+	name
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	name + primary_drugbank_id						PK
+}
+
+drug_drug_interaction {
+	secondary_drugbank_id							FK -> { drug -> primary_drugbank_id }
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	name
+	description
+	primary_drugbank_id + secondary_drugbank_id		PK
+}
+
+drug_pathway {
+	(Never used?)
+}
+
+drug_reaction {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	sequence
+	primary_drugbank_id + sequence					PK
+}
+
+drug_reaction_element {
+	primary_drugbank_id + sequence					FK -> { drug_reaction -> primary_drugbank_id + sequence }
+	secondary_drugbank_id
+	name
+	left_element		boolean
+	right_element		boolean
+	primary_drugbank_id + sequence + secondary_drugbank_id + left_element + right_element + name	PK
+}
+
+drug_reaction_enzyme {
+	primary_drugbank_id + sequence					FK -> { drug_reaction -> primary_drugbank_id + sequence }
+	secondary_drugbank_id
+	name
+	uniprot_id
+	primary_drugbank_id + sequence + secondary_drugbank_id + name + uniprot_id	PK
+}
+
+drug_snp_effect {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	protein_name
+	gene_symbol
+	uniprot_id
+	rs_id
+	allele
+	defining_change
+	description
+	pubmed_id
+	primary_drugbank_id + protein_name + defining_change	PK
+}
+
+drug_snp_adverse_drug_reaction {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	protein_name
+	gene_symbol
+	uniprot_id
+	rs_id
+	allele
+	adverse_reaction
+	description
+	pubmed_id
+	primary_drugbank_id + protein_name + adverse_reaction	PK
+}
+
+drug_enzyme {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	position
+	id
+	primary_drugbank_id + position + id				PK
+	name
+	organism
+	known_action
+}
+
+drug_enzyme_action {
+	primary_drugbank_id + position + id				FK -> { drug_enzyme -> primary_drugbank_id + position + id }
+	action
+	primary_drugbank_id + position + id + action	PK
+}
+
+drug_enzyme_reference {
+	primary_drugbank_id + position + id				FK -> { drug_enzyme -> primary_drugbank_id + position + id }
+	reference
+	primary_drugbank_id + position + id + reference	PK
+}
+
+drug_enzyme_polypeptide {
+	primary_drugbank_id + position + id				FK -> { drug_enzyme -> primary_drugbank_id + position + id }
+	polypeptide_id
+	polypeptide_source
+	primary_drugbank_id + position + polypeptide_id + polypeptide_source	PK
+	name
+	general_function
+	specific_function
+	gene_name
+	locus
+	cellular_location
+	signal_regions
+	theoretical_pi
+	molecular_weight
+	chromosome_location
+	organism_name
+	organism_ncbi_taxonomy_id
+	inhibition_strength
+	induction_strength
+}
+
+drug_enzyme_polypeptide_transmembrane_region {
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_enzyme_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	transmembrane_region
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + transmembrane_region	PK
+}
+
+drug_enzyme_polypeptide_external_identifier {
+	resource
+	identifier
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_enzyme_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + resource + identifier	PK
+}
+
+drug_enzyme_polypeptide_synonym {
+	synonym
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_enzyme_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + synonym	PK
+}
+
+drug_enzyme_amino_acid_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_enzyme_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_enzyme_gene_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_enzyme_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_enzyme_pfam {
+	identifier
+	name
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_enzyme_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + identifier + name	PK
+}
+
+drug_enzyme_go_classifier {
+	category
+	description
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_enzyme_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + category + description	PK
+}
+
+drug_carrier {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	position
+	id
+	primary_drugbank_id + position + id				PK
+	name
+	organism
+	known_action
+}
+
+drug_carrier_action {
+	primary_drugbank_id + position + id				FK -> { drug_carrier -> primary_drugbank_id + position + id }
+	action
+	primary_drugbank_id + position + id + action	PK
+}
+
+drug_carrier_reference {
+	primary_drugbank_id + position + id				FK -> { drug_carrier -> primary_drugbank_id + position + id }
+	reference
+	primary_drugbank_id + position + id + reference	PK
+}
+
+drug_carrier_polypeptide {
+	primary_drugbank_id + position + id				FK -> { drug_carrier -> primary_drugbank_id + position + id }
+	polypeptide_id
+	polypeptide_source
+	primary_drugbank_id + position + polypeptide_id + polypeptide_source	PK
+	name
+	general_function
+	specific_function
+	gene_name
+	locus
+	cellular_location
+	signal_regions
+	theoretical_pi
+	molecular_weight
+	chromosome_location
+	organism_name
+	organism_ncbi_taxonomy_id
+}
+
+drug_carrier_polypeptide_transmembrane_region {
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_carrier_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	transmembrane_region
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + transmembrane_region	PK
+}
+
+drug_carrier_polypeptide_external_identifier {
+	resource
+	identifier
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_carrier_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + resource + identifier	PK
+}
+
+drug_carrier_polypeptide_synonym {
+	synonym
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_carrier_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + synonym	PK
+}
+
+drug_carrier_amino_acid_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_carrier_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_carrier_gene_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_carrier_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_carrier_pfam {
+	identifier
+	name
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_carrier_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + identifier + name	PK
+}
+
+drug_carrier_go_classifier {
+	category
+	description
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_carrier_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + category + description	PK
+}
+
+drug_transporter {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	position
+	id
+	primary_drugbank_id + position + id				PK
+	name
+	organism
+	known_action
+}
+
+drug_transporter_action {
+	primary_drugbank_id + position + id				FK -> { drug_transporter -> primary_drugbank_id + position + id }
+	action
+	primary_drugbank_id + position + id + action	PK
+}
+
+drug_transporter_reference {
+	primary_drugbank_id + position + id				FK -> { drug_transporter -> primary_drugbank_id + position + id }
+	reference
+	primary_drugbank_id + position + id + reference	PK
+}
+
+drug_transporter_polypeptide {
+	primary_drugbank_id + position + id				FK -> { drug_transporter -> primary_drugbank_id + position + id }
+	polypeptide_id
+	polypeptide_source
+	primary_drugbank_id + position + polypeptide_id + polypeptide_source	PK
+	name
+	general_function
+	specific_function
+	gene_name
+	locus
+	cellular_location
+	signal_regions
+	theoretical_pi
+	molecular_weight
+	chromosome_location
+	organism_name
+	organism_ncbi_taxonomy_id
+}
+
+drug_transporter_polypeptide_transmembrane_region {
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_transporter_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	transmembrane_region
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + transmembrane_region	PK
+}
+
+drug_transporter_polypeptide_external_identifier {
+	resource
+	identifier
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_transporter_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + resource + identifier	PK
+}
+
+drug_transporter_polypeptide_synonym {
+	synonym
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_transporter_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + synonym	PK
+}
+
+drug_transporter_amino_acid_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_transporter_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_transporter_gene_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_transporter_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_transporter_pfam {
+	identifier
+	name
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_transporter_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + identifier + name	PK
+}
+
+drug_transporter_go_classifier {
+	category
+	description
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_transporter_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + category + description	PK
+}
+
+drug_alt_drugbank_id {
+	secondary_drugbank_id							PK
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+}
+
+drug_group {
+	group
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	group + primary_drugbank_id						PK
+}
+
+drug_general_references {
+	general_reference
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	general_reference + primary_drugbank_id			PK
+}
+
+drug_volume_of_distribution {
+	volume_of_distribution
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	volume_of_distribution + primary_drugbank_id	PK
+}
+
+drug_clearance {
+	clearance
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	clearance + primary_drugbank_id					PK
+}
+
+drug_product {
+	name											PK
+	ndc_id
+	ndc_product_code
+	dpd_id
+	started_marketing_on
+	ended_marketing_on
+	dosage_form
+	strength
+	route
+	fda-application_number
+	generic					boolean
+	over_the_counter		boolean
+	approved				boolean
+	country
+	source
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+}
+
+drug_classification {
+	primary_drugbank_id								PK / FK -> { drug -> primary_drugbank_id }
+	description
+	direct_parent
+	kingdom
+	superclass
+	class
+	subclass
+}
+
+drug_classification_alternative_parent {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	alternative_parent
+	primary_drugbank_id + alternative_parent		PK
+}
+
+drug_classification_substituent {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	substituent
+	primary_drugbank_id + substituent				PK
+}
+
+drug_salt {
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	primary_drugbank_id_salt
+	name
+	cas_number
+	inchikey
+	primary_drugbank_id + primary_drugbank_id_salt	PK
+}
+
+drug_synonym {
+	synonym
+	language
+	coder
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	synonym + primary_drugbank_id					PK
+}
+
+drug_mixture {
+	name
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	name + primary_drugbank_id						PK
+}
+
+drug_mixture_ingredient {
+	ingredient
+	name + primary_drugbank_id						FK -> { drug_mixture -> name + primary_drugbank_id }
+	ingredient + name + primary_drugbank_id			PK
+}
+
+drug_packager {
+	name
+	url
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	name + primary_drugbank_id						PK
+}
+
+drug_manufacturer {
+	generic				boolean
+	name
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	name + primary_drugbank_id						PK
+}
+
+drug_price {
+	description
+	unit
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	description + unit + primary_drugbank_id		PK
+}
+
+drug_cost {
+	cost
+	currency
+	description + unit + primary_drugbank_id		FK -> { drug_price -> description + unit + primary_drugbank_id }
+	cost + currency + description + unit + primary_drugbank_id		PK
+}
+
+drug_category {
+	name
+	primary_drugbank_id
+	name + primary_drugbank_id						PK
+}
+
+drug_category_mesh {
+	name + primary_drugbank_id						FK -> { drug_category -> name + primary_drugbank_id }
+	mesh_id
+	name + primary_drugbank_id + mesh_id			PK
+}
+
+drug_affected_organism {
+	name
+	primary_drugbank_id
+	name + primary_drugbank_id						PK
+}
+
+drug_dosage {
+	form
+	route
+	strength
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	form + route + strength + primary_drugbank_id	PK
+}
+
+drug_atc_code {
+	code
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	code + primary_drugbank_id						PK
+}
+
+drug_atc_code_level {
+	code + primary_drugbank_id						FK -> { drug_atc_code -> code + primary_drugbank_id }
+	level_code
+	name
+	code + primary_drugbank_id + level_code + name	PK
+}
+
+drug_ahfs_code {
+	ahfs_code
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	ahfs_code + primary_drugbank_id					PK
+}
+
+drug_patent {
+	number
+	country
+	approved
+	expires
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	number + primary_drugbank_id					PK
+}
+
+drug_sequence {
+	sequence
+	format
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	sequence + format + primary_drugbank_id			PK
+}
+
+drug_experimental_property {
+	kind
+	value
+	source
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	kind + value + source + primary_drugbank_id		PK
+}
+
+drug_external_identifier {
+	resource
+	identifier
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	resource + identifier + primary_drugbank_id		PK
+}
+
+drug_external_link {
+	resource
+	url
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	resource + url + primary_drugbank_id			PK
+}
+
+drug_target {
+	position
+	id
+	name
+	organism
+	known_action
+	primary_drugbank_id								FK -> { drug -> primary_drugbank_id }
+	position + id + primary_drugbank_id				PK
+}
+
+drug_target_action {
+	id + primary_drugbank_id						FK -> { drug_target -> id + primary_drugbank_id }
+	action
+	id + primary_drugbank_id + action				PK
+}
+
+drug_target_reference {
+	id + primary_drugbank_id						FK -> { drug_target -> id + primary_drugbank_id }
+	reference
+	id + primary_drugbank_id + reference			PK
+}
+
+drug_target_polypeptide {
+	polypeptide_id
+	polypeptide_source
+	name
+	id + primary_drugbank_id						FK -> { drug_target -> id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	PK
+	general_function
+	specific_function
+	gene_name
+	locus
+	cellular_location
+	signal_regions
+	theoretical_pi
+	molecular_weight
+	chromosome_location
+	organism_name
+	organism_ncbi_taxonomy_id
+}
+
+drug_target_polypeptide_transmembrane_region {
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_target_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	transmembrane_region
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + transmembrane_region	PK
+}
+
+drug_target_polypeptide_external_identifier {
+	resource
+	identifier
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_target_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + resource + identifier	PK
+}
+
+drug_target_polypeptide_synonym {
+	synonym
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_target_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + synonym	PK
+}
+
+drug_target_amino_acid_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_target_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_target_gene_sequence {
+	sequence
+	format
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_target_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + sequence + format	PK
+}
+
+drug_target_pfam {
+	identifier
+	name
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_target_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + identifier + name	PK
+}
+
+drug_target_go_classifier {
+	category
+	description
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id	FK -> { drug_target_polypeptide -> polypeptide_id + polypeptide_source + id + primary_drugbank_id }
+	polypeptide_id + polypeptide_source + id + primary_drugbank_id + category + description	PK
+}
