@@ -4,10 +4,8 @@
 # http://ctdbase.org/downloads/;jsessionid=5B217AB40F810F712C8976BDE2040DC9#cd
 # to Open Annotation Data (CTD_chemicals_diseases.tsv.gz)
 #
-# Author: Charles Kronk
+# Authors: Charles Kronk and Rich Boyce
 # 2016
-
-
 
 
 
@@ -21,9 +19,6 @@
 # (6) Run this script as "python CTD2rdf.py".
 # (7) This script currently takes longer than 10 minutes to run, but
 #     will produce the file "chemical-disease-ctd.nt" upon completion.
-
-
-
 
 
 # "CTD_chemicals.tsv" contains the following fields:
@@ -60,7 +55,7 @@ DATA_FILE = "CTD_chemicals_diseases.tsv"
 
 
 # TERMINOLOGY MAPPING FILES
-MESH_TO_RXNORM = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
+RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.csv"
 MESH_TO_OMOP = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 
 # OUTPUT DATA FILE
@@ -109,6 +104,7 @@ mesh = Namespace('http://purl.bioontology.org/ontology/MESH/')
 meddra = Namespace('http://purl.bioontology.org/ontology/MEDDRA/')
 rxnorm = Namespace('http://purl.bioontology.org/ontology/RXNORM/')
 pubmed = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
+omim = Namespace('http://www.omim.org/entry/')
 dailymed = Namespace('http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
 ohdsi = Namespace('http://purl.org/net/ohdsi#')
 poc = Namespace('http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc#')
@@ -216,7 +212,61 @@ buf = inf.read()
 inf.close()
 lines = buf.split("\n")
 it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[29:]] # skip header
+
+# There are numerous records with either multiple PMIDs or OMIM record
+# ids. To address this simply, we create a different OA annotation for
+# each target (thus constraining each target to only one PMID or OMIM
+# ID). So, the list is expanded to allow this without making the code
+# that writes OA annotations more complicated than it needs to be.
+expandedIt = []
+#for elt in it[0:200]: # Debugging
 for elt in it:
+    print elt
+
+    if len(elt) == 10:
+        pass
+    elif len(elt) == 9: # this normalizes the field length of the list to save hassle later on
+        elt.append("")
+    else:
+        print "ERROR: encountered an error while processing the CTD data - abnormal record length %s: %s" % (len(elt),elt)
+        sys.exit(1)
+        
+    omimids = elt[OMIM_IDS].strip().split("|")
+    pmids = elt[PUBMED_IDS].strip().split("|")
+
+        
+    if (len(omimids) == 1 and len(pmids) == 0) or (len(omimids) == 0 and len(pmids) == 1):
+        expandedIt.append(elt)
+
+    elif len(omimids) >= 1 or len(pmids) >= 1:
+        for i in range(0,len(omimids)):
+            if not omimids[i]:
+                continue
+            
+            recL = elt[0:-2]
+            recL.append(omimids[i])
+            recL.append("")
+            expandedIt.append(recL)
+
+        for i in range(0,len(pmids)):
+            if not pmids[i]:
+                continue
+            
+            recL = elt[0:-3]
+            recL.append("")
+            recL.append(pmids[i])
+            expandedIt.append(recL)
+    else:
+        print "ERROR: encountered an error while processing the CTD data - abnormal record - neither omim nor pubmed id!"
+        sys.exit(1)
+
+## Debugging
+#for elt in expandedIt:
+#    print "%s" % ",".join(elt)
+#sys.exit(0)
+            
+for elt in expandedIt[0:200]:
+#for elt in expandedIt:
     print "%s" % elt
     if elt == [u'']:
         break 
@@ -248,8 +298,8 @@ for elt in it:
 
     ###################################################################
     ### Each annotations holds one target that points to the source
-    ### record in DailyMed, and one or more bodies each of which
-    ### indicates the MedDRA terms that triggered the result and holds
+    ### record in OMIM or PubMed, and one or more bodies each of which
+    ### indicates the MeSH terms that triggered the result and holds
     ### some metadata
     ###################################################################
     currentAnnotItem = None
@@ -267,7 +317,7 @@ for elt in it:
         tplL = []
         #tplL.append((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
         tplL.append((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
-        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["ADRAnnotation"]))
+        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["ChemicalDiseaseAnnotation"])) ## TODO: think if this is the best way to descripe this
         tplL.append((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
         tplL.append((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
         tplL.append((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
@@ -276,7 +326,15 @@ for elt in it:
         currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
         tplL.append((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
         tplL.append((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
-        tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[PUBMED_IDS])) ## LEFT OFF HERE - WHAT TO DO ABOUT MULTIPLE PUBMED IDS -- CREATE A SEPERATE ANNOTATION OR APPLY IT TO MULTIPLE TARGETS?
+
+        if elt[OMIM_IDS]:
+            tplL.append((currentAnnotTargetUuid, oa["hasSource"], omim[elt[OMIM_IDS]]))
+
+        elif elt[PUBMED_IDS]:
+            tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt[PUBMED_IDS]]))
+        else:
+            print "ERROR: something is not right because there is neither a pubmed nor an OMIM id for this record: %s" % elt
+            sys.exit(1)
 
         s = ""
         for t in tplL:
