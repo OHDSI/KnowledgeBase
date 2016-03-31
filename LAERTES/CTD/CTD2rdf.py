@@ -211,7 +211,7 @@ inf = open(DATA_FILE, 'r')
 buf = inf.read()
 inf.close()
 lines = buf.split("\n")
-it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[29:]] # skip header
+it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[28:]] # skip header
 
 # There are numerous records with either multiple PMIDs or OMIM record
 # ids. To address this simply, we create a different OA annotation for
@@ -221,8 +221,10 @@ it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[29:]] # s
 expandedIt = []
 #for elt in it[0:200]: # Debugging
 for elt in it:
-    print elt
-
+    #print elt
+    if elt == [u'']:
+        break
+    
     if len(elt) == 10:
         pass
     elif len(elt) == 9: # this normalizes the field length of the list to save hassle later on
@@ -252,7 +254,7 @@ for elt in it:
             if not pmids[i]:
                 continue
             
-            recL = elt[0:-3]
+            recL = elt[0:-2]
             recL.append("")
             recL.append(pmids[i])
             expandedIt.append(recL)
@@ -265,8 +267,8 @@ for elt in it:
 #    print "%s" % ",".join(elt)
 #sys.exit(0)
             
-for elt in expandedIt[0:200]:
-#for elt in expandedIt:
+#for elt in expandedIt[0:10000]:
+for elt in expandedIt:
     print "%s" % elt
     if elt == [u'']:
         break 
@@ -317,7 +319,7 @@ for elt in expandedIt[0:200]:
         tplL = []
         #tplL.append((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
         tplL.append((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
-        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["ChemicalDiseaseAnnotation"])) ## TODO: think if this is the best way to descripe this
+        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["ADRAnnotation"])) ## TODO: think if this is the best way to descripe this
         tplL.append((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
         tplL.append((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
         tplL.append((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
@@ -332,6 +334,7 @@ for elt in expandedIt[0:200]:
 
         elif elt[PUBMED_IDS]:
             tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt[PUBMED_IDS]]))
+
         else:
             print "ERROR: something is not right because there is neither a pubmed nor an OMIM id for this record: %s" % elt
             sys.exit(1)
@@ -356,11 +359,12 @@ for elt in expandedIt[0:200]:
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
     tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s - %s" % (elt[CHEMICAL_NAME], elt[DISEASE_NAME]))))
-    tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], ohdsi[meshDrug]))
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[meshDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
 
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
-
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[DISEASE_ID][5:]]))
+    
     # TODO: Define these predicates - preferrably from an ontology
     tplL.append((poc[currentAnnotationBody], ohdsi['DirectEvidence'], Literal(elt[DIRECT_EVIDENCE])))
     tplL.append((poc[currentAnnotationBody], ohdsi['InferenceGeneSymbol'], Literal(elt[INFERENCE_GENE_SYMBOL])))
