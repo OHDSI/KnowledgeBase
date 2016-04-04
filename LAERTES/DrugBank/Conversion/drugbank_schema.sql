@@ -4,10 +4,14 @@
 --
 --
 
--- Note that the "drug_pathway" table is not created because
--- the columns within it are currently unknown.
+--  Use XPATH Command line with Raptor to parse out fields and find max lengths (make sure to pad).
 
-CREATE TABLE Drug
+-- Remove secondary foreign keys if POSTGRESQL doesn't create indices.
+-- -- POSTGRESQL does not... so these have been removed.
+-- -- mysql_indexes.sql
+
+DROP TABLE IF EXISTS drugs CASCADE;
+CREATE TABLE drugs
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL PRIMARY KEY,
 	name					VARCHAR(50),
@@ -28,51 +32,57 @@ CREATE TABLE Drug
 	updated					DATE
 );
 
-CREATE TABLE DrugAltID
+DROP TABLE IF EXISTS drug_alt_ids CASCADE;
+CREATE TABLE drug_alt_ids
 (
 	secondary_drugbank_id	VARCHAR(15) NOT NULL PRIMARY KEY,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugGroup
+DROP TABLE IF EXISTS drug_groups CASCADE;
+CREATE TABLE drug_groups
 (
 	drug_group				VARCHAR(50) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_group PRIMARY KEY (drug_group, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (drug_group, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugGeneralReference
+DROP TABLE IF EXISTS drug_general_references CASCADE;
+CREATE TABLE drug_general_references
 (
 	general_reference		VARCHAR(1000) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_general_reference PRIMARY KEY (general_reference, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (general_reference, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugVolumeOfDistribution
+DROP TABLE IF EXISTS drug_volumes_of_distribution CASCADE;
+CREATE TABLE drug_volumes_of_distribution
 (
 	volume_of_distribution	VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_volume_of_distribution PRIMARY KEY (volume_of_distribution, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (volume_of_distribution, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugClearance
+DROP TABLE IF EXISTS drug_clearances CASCADE;
+CREATE TABLE drug_clearances
 (
 	clearance				VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_clearance PRIMARY KEY (clearance, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (clearance, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugClassification
+DROP TABLE IF EXISTS drug_classifications CASCADE;
+CREATE TABLE drug_classifications
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL PRIMARY KEY,
 	description				VARCHAR(1000),
@@ -81,54 +91,57 @@ CREATE TABLE DrugClassification
 	superclass				VARCHAR(100),
 	drug_class				VARCHAR(100),
 	subclass				VARCHAR(100),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugClassificationAltParent
+DROP TABLE IF EXISTS drug_classification_alt_parents CASCADE;
+CREATE TABLE drug_classification_alt_parents
 (
 	alternative_parent		VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_alternative_parent PRIMARY KEY (alternative_parent, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)	
+	PRIMARY KEY (alternative_parent, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)	
 );
 
-CREATE TABLE DrugClassificationSubstituent
+DROP TABLE IF EXISTS drug_classification_substituents CASCADE;
+CREATE TABLE drug_classification_substituents
 (
 	substituent				VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_substituent PRIMARY KEY (substituent, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (substituent, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugSalt
+DROP TABLE IF EXISTS drug_salts CASCADE;
+CREATE TABLE drug_salts
 (
 	primary_drugbank_id_salt	VARCHAR(10) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	name					VARCHAR(100) NOT NULL,
 	cas_number				VARCHAR(50),
 	inchikey				VARCHAR(100),
-	CONSTRAINT pk_drug_salt PRIMARY KEY (primary_drugbank_id_salt, primary_drugbank_id),	
-	CONSTRAINT fk_primary_drugbank_id_salt FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (primary_drugbank_id_salt, primary_drugbank_id),	
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugSynonym
+DROP TABLE IF EXISTS drug_synonyms CASCADE;
+CREATE TABLE drug_synonyms
 (
 	drug_synonym			VARCHAR(50) NOT NULL,
 	synonym_language		VARCHAR(50),
 	coder					VARCHAR(50),
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_synonym PRIMARY KEY (drug_synonym, primary_drugbank_id),	
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (drug_synonym, primary_drugbank_id),	
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugProduct
+DROP TABLE IF EXISTS drug_products CASCADE;
+CREATE TABLE drug_products
 (
 	name					VARCHAR(20) NOT NULL PRIMARY KEY,
 	ndc_id					VARCHAR(20),
@@ -146,189 +159,203 @@ CREATE TABLE DrugProduct
 	country					VARCHAR(100),
 	source					VARCHAR(10),
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugInternationalBrand
+DROP TABLE IF EXISTS drug_international_brands CASCADE;
+CREATE TABLE drug_international_brands
 (
 	name					VARCHAR(50) NOT NULL,
 	company					VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_international_brand PRIMARY KEY (name, company, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, company, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugMixture
+DROP TABLE IF EXISTS drug_mixtures CASCADE;
+CREATE TABLE drug_mixtures
 (
 	name					VARCHAR(50) NOT NULL,
     ingredients             VARCHAR(1000) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_mixture PRIMARY KEY (name, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugPackager
+DROP TABLE IF EXISTS drug_packagers CASCADE;
+CREATE TABLE drug_packagers
 (
 	name					VARCHAR(50) NOT NULL,
 	url						VARCHAR(2083),
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_packager PRIMARY KEY (name, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugManufacturer
+DROP TABLE IF EXISTS drug_manufacturers CASCADE;
+CREATE TABLE drug_manufacturers
 (
 	name					VARCHAR(50) NOT NULL,
 	generic					BOOLEAN,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_manufacturer PRIMARY KEY (name, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugPrice
+DROP TABLE IF EXISTS drug_prices CASCADE;
+CREATE TABLE drug_prices
 (
 	description				VARCHAR(100) NOT NULL,
 	unit					VARCHAR(20) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_price PRIMARY KEY (description, unit, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (description, unit, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugCost
+DROP TABLE IF EXISTS drug_costs CASCADE;
+CREATE TABLE drug_costs
 (
-	cost					SMALLMONEY NOT NULL,
+	cost					NUMERIC NOT NULL			CHECK (cost > 0),
 	currency				VARCHAR(20) NOT NULL,
 	description				VARCHAR(100) NOT NULL,
 	unit					VARCHAR(20) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_cost PRIMARY KEY (cost, currency, description, unit, primary_drugbank_id),
-	CONSTRAINT fk_description_unit_primary_drugbank_id FOREIGN KEY (description, unit, primary_drugbank_id)
-		REFERENCES DrugPrice(pk_drug_price)
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (cost, currency, description, unit, primary_drugbank_id),
+	FOREIGN KEY (description, unit, primary_drugbank_id)
+		REFERENCES drug_prices(description, unit, primary_drugbank_id)
 );
 
-CREATE TABLE DrugCategory
+DROP TABLE IF EXISTS drug_categories CASCADE;
+CREATE TABLE drug_categories
 (
 	name					VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_category PRIMARY KEY (category, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugMeSH
+DROP TABLE IF EXISTS drug_mesh_ids CASCADE;
+CREATE TABLE drug_mesh_ids
 (
 	mesh_id					VARCHAR(100) NOT NULL,
 	name					VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_mesh PRIMARY KEY (mesh, name, primary_drugbank_id),
-	CONSTRAINT fk_drug_category_primary_drugbank_id FOREIGN KEY (name, primary_drugbank_id)
-		REFERENCES DrugPrice(pk_drug_category)
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (mesh_id, name, primary_drugbank_id),
+	FOREIGN KEY (name, primary_drugbank_id)
+		REFERENCES drug_categories(name, primary_drugbank_id)
 );
 
-CREATE TABLE DrugAffectedOrganism
+DROP TABLE IF EXISTS drug_affected_organisms CASCADE;
+CREATE TABLE drug_affected_organisms
 (
 	name					VARCHAR(50) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_affected_organism PRIMARY KEY (name, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugDosage
+DROP TABLE IF EXISTS drug_dosages CASCADE;
+CREATE TABLE drug_dosages
 (
 	form					VARCHAR(50) NOT NULL,
 	route					VARCHAR(100) NOT NULL,
 	strength				VARCHAR(50) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_dosage PRIMARY KEY (form, route, strength, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (form, route, strength, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugATCCode
+DROP TABLE IF EXISTS drug_atc_codes CASCADE;
+CREATE TABLE drug_atc_codes
 (
 	code					VARCHAR(15) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_atc_code PRIMARY KEY (code, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (code, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugATCCodeLevel
+DROP TABLE IF EXISTS drug_atc_code_levels CASCADE;
+CREATE TABLE drug_atc_code_levels
 (
 	level_code				VARCHAR(15) NOT NULL,
 	name					VARCHAR(50) NOT NULL,
 	code					VARCHAR(15) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_atc_code_level PRIMARY KEY (level_code, name, code, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (level_code, name, code, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugAHFSCode
+DROP TABLE IF EXISTS drug_ahfs_codes CASCADE;
+CREATE TABLE drug_ahfs_codes
 (
 	ahfs_code				VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_ahfs_code PRIMARY KEY (ahfs_code, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (ahfs_code, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugPatent
+DROP TABLE IF EXISTS drug_patents CASCADE;
+CREATE TABLE drug_patents
 (
 	patent_number			VARCHAR(100) NOT NULL,
 	country					VARCHAR(100) NOT NULL,
 	approved				DATE NOT NULL,
 	expires					DATE NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_patent PRIMARY KEY (patent_number, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (patent_number, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugFoodInteraction
+DROP TABLE IF EXISTS drug_food_interactions CASCADE;
+CREATE TABLE drug_food_interactions
 (
 	name					VARCHAR(100) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_food_interaction PRIMARY KEY (name, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugDrugInteraction
+DROP TABLE IF EXISTS drug_drug_interactions CASCADE;
+CREATE TABLE drug_drug_interactions
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	secondary_drugbank_id	VARCHAR(10) NOT NULL,
 	name					VARCHAR(50) NOT NULL,
 	description				VARCHAR(2000) NOT NULL,
-	CONSTRAINT pk_drug_interaction PRIMARY KEY (primary_drugbank_id, secondary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id),
-	CONSTRAINT fk_secondary_drugbank_id FOREIGN KEY (secondary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (primary_drugbank_id, secondary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id),
+	FOREIGN KEY (secondary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugSequence
+DROP TABLE IF EXISTS drug_sequences CASCADE;
+CREATE TABLE drug_sequences
 (
 	drug_sequence			VARCHAR(10000) NOT NULL,
 	sequence_format			VARCHAR(50) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_sequence PRIMARY KEY (drug_sequence, sequence_format, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (drug_sequence, sequence_format, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugProperty
+DROP TABLE IF EXISTS drug_properties CASCADE;
+CREATE TABLE drug_properties
 (
 	kind					VARCHAR(100) NOT NULL,
 	property_value			VARCHAR(100) NOT NULL,
@@ -336,49 +363,54 @@ CREATE TABLE DrugProperty
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	experimental			BOOLEAN NOT NULL,
 	calculated				BOOLEAN NOT NULL,
-	CONSTRAINT pk_drug_property PRIMARY KEY (kind, property, source, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (kind, property_value, source, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugExternalIdentifier
+DROP TABLE IF EXISTS drug_external_identifiers CASCADE;
+CREATE TABLE drug_external_identifiers
 (
 	external_resource		VARCHAR(100) NOT NULL,
 	identifier				VARCHAR(50) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_external_identifier PRIMARY KEY (external_resource, identifier, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (external_resource, identifier, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugExternalLink
+DROP TABLE IF EXISTS drug_external_links CASCADE;
+CREATE TABLE drug_external_links
 (
 	external_resource		VARCHAR(100) NOT NULL,
 	url						VARCHAR(2083) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_external_link PRIMARY KEY (external_resource, url, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (external_resource, url, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
 -- I still know nothing about what should be in this table.
-CREATE TABLE DrugPathway
+DROP TABLE IF EXISTS drug_pathways CASCADE;
+CREATE TABLE drug_pathways
 (
 	primary_drugbank_id		VARCHAR(10) PRIMARY KEY,
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugReaction
+DROP TABLE IF EXISTS drug_reactions CASCADE;
+CREATE TABLE drug_reactions
 (
 	reaction_sequence		VARCHAR(10000) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_reaction PRIMARY KEY (reaction_sequence, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (reaction_sequence, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugReactionElement
+DROP TABLE IF EXISTS drug_reaction_elements CASCADE;
+CREATE TABLE drug_reaction_elements
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	secondary_drugbank_id	VARCHAR(10) NOT NULL,
@@ -386,32 +418,34 @@ CREATE TABLE DrugReactionElement
 	left_element			BOOLEAN,
 	right_element			BOOLEAN,
 	reaction_sequence		VARCHAR(10000) NOT NULL,
-	CONSTRAINT pk_drug_reaction_element PRIMARY KEY (name, left_element, right_element, reaction_sequence, primary_drugbank_id, secondary_drugbank_id),
-	CONSTRAINT fk_reaction_sequence_primary_drugbank_id FOREIGN KEY (reaction_sequence, primary_drugbank_id)
-		REFERENCES DrugReaction(pk_drug_reaction),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id),
-	CONSTRAINT fk_secondary_drugbank_id FOREIGN KEY (secondary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, left_element, right_element, reaction_sequence, primary_drugbank_id, secondary_drugbank_id),
+	FOREIGN KEY (reaction_sequence, primary_drugbank_id)
+		REFERENCES drug_reactions(reaction_sequence, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id),
+	FOREIGN KEY (secondary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugReactionEnzyme
+DROP TABLE IF EXISTS drug_reaction_enzymes CASCADE;
+CREATE TABLE drug_reaction_enzymes
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	secondary_drugbank_id	VARCHAR(10) NOT NULL,
 	reaction_sequence		VARCHAR(10000) NOT NULL,
 	name					VARCHAR(50) NOT NULL,
 	uniprot_id				VARCHAR(50) NOT NULL,
-	CONSTRAINT pk_drug_reaction_enzyme PRIMARY KEY (name, uniprot_id, reaction_sequence, primary_drugbank_id, secondary_drugbank_id),
-	CONSTRAINT fk_reaction_sequence_primary_drugbank_id FOREIGN KEY (reaction_sequence, primary_drugbank_id)
-		REFERENCES DrugReaction(pk_drug_reaction),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id),
-	CONSTRAINT fk_secondary_drugbank_id FOREIGN KEY (secondary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, uniprot_id, reaction_sequence, primary_drugbank_id, secondary_drugbank_id),
+	FOREIGN KEY (reaction_sequence, primary_drugbank_id)
+		REFERENCES drug_reactions(reaction_sequence, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id),
+	FOREIGN KEY (secondary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugSNPEffect
+DROP TABLE IF EXISTS drug_snp_effects CASCADE;
+CREATE TABLE drug_snp_effects
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	protein_name			VARCHAR(100) NOT NULL,
@@ -422,12 +456,13 @@ CREATE TABLE DrugSNPEffect
 	defining_change			VARCHAR(50) NOT NULL,
 	description				VARCHAR(1000),
 	pubmed_id				VARCHAR(100),
-	CONSTRAINT pk_drug_snp_effect PRIMARY KEY (protein_name, defining_change, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (protein_name, defining_change, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugSNPAdverseDrugReaction
+DROP TABLE IF EXISTS drug_snp_adverse_drug_reactions CASCADE;
+CREATE TABLE drug_snp_adverse_drug_reactions
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	protein_name			VARCHAR(100) NOT NULL,
@@ -438,12 +473,13 @@ CREATE TABLE DrugSNPAdverseDrugReaction
 	adverse_reaction		VARCHAR(200) NOT NULL,
 	description				VARCHAR(1000),
 	pubmed_id				VARCHAR(100),
-	CONSTRAINT pk_drug_snp_adverse_drug_reaction PRIMARY KEY (protein_name, adverse_reaction, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (protein_name, adverse_reaction, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzyme
+DROP TABLE IF EXISTS drug_enzymes CASCADE;
+CREATE TABLE drug_enzymes
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	position				INT,
@@ -451,32 +487,37 @@ CREATE TABLE DrugEnzyme
 	name					VARCHAR(50) NOT NULL,
 	organism				VARCHAR(50),
 	known_action			VARCHAR(100),
-	CONSTRAINT pk_drug_enzyme PRIMARY KEY (id, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	inhibition_strength		VARCHAR(20),
+	induction_strength		VARCHAR(20),
+	PRIMARY KEY (id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzymeAction
+DROP TABLE IF EXISTS drug_enzyme_actions CASCADE;
+CREATE TABLE drug_enzyme_actions
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	action					VARCHAR(200) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_action PRIMARY KEY (id, action, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (id, action, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_enzymes(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugEnzymeReference
+DROP TABLE IF EXISTS drug_enzyme_references CASCADE;
+CREATE TABLE drug_enzyme_references
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	reference				VARCHAR(1000) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_reference PRIMARY KEY (id, reference, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (id, reference, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_enzymes(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugEnzymePolypeptide
+DROP TABLE IF EXISTS drug_enzyme_polypeptides CASCADE;
+CREATE TABLE drug_enzyme_polypeptides
 (
 	polypeptide_id			VARCHAR(200) NOT NULL,
 	polypeptide_source		VARCHAR(1000) NOT NULL,
@@ -495,31 +536,26 @@ CREATE TABLE DrugEnzymePolypeptide
 	chromosome_location		VARCHAR(10),
 	organism_name			VARCHAR(50),
 	organism_ncbi_taxonomy_id	VARCHAR(10),
-	inhibition_strength		VARCHAR(20),
-	induction_strength		VARCHAR(20)
-	CONSTRAINT pk_drug_enzyme_polypeptide PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id),
-	CONSTRAINT fk_enzyme_id_primary_drugbank_id FOREIGN KEY (id, primary_drugbank_id)
-		REFERENCES DrugEnzyme(pk_drug_enzyme),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_enzymes(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugEnzymePolypeptideTransmembraneRegion
+DROP TABLE IF EXISTS drug_enzyme_polypeptide_transmembrane_regions CASCADE;
+CREATE TABLE drug_enzyme_polypeptide_transmembrane_regions
 (
 	polypeptide_id			VARCHAR(200) NOT NULL,
 	polypeptide_source		VARCHAR(1000) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	transmembrane_region_lower	INT,
-	transmembrane_region_upper	INT,
-	CONSTRAINT pk_drug_enzyme_polypeptide_transmembrane_region PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id, transmembrane_region_lower, transmembrane_region_upper),
-	CONSTRAINT fk_drug_enzyme_polypeptide PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
-		REFERENCES DrugEnzymePolypeptide(pk_drug_enzyme_polypeptide),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	transmembrane_region	INT,
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id, transmembrane_region),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_enzyme_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzymePolypeptideExternalIdentifier
+DROP TABLE IF EXISTS drug_enzyme_polypeptide_external_identifiers CASCADE;
+CREATE TABLE drug_enzyme_polypeptide_external_identifiers
 (
 	external_resource		VARCHAR(100) NOT NULL,
 	identifier				VARCHAR(25) NOT NULL,
@@ -527,28 +563,26 @@ CREATE TABLE DrugEnzymePolypeptideExternalIdentifier
 	polypeptide_source		VARCHAR(1000) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_polypeptide_external_identifier PRIMARY KEY (external_resource, identifier, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
-	CONSTRAINT fk_drug_enzyme_polypeptide FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
-		REFERENCES DrugEnzymePolypeptide(pk_drug_enzyme_polypeptide),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (external_resource, identifier, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_enzyme_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzymePolypeptideSynonym
+DROP TABLE IF EXISTS drug_enzyme_polypeptide_synonyms CASCADE;
+CREATE TABLE drug_enzyme_polypeptide_synonyms
 (
 	polypeptide_synonym		VARCHAR(100) NOT NULL,
 	polypeptide_id			VARCHAR(200) NOT NULL,
 	polypeptide_source		VARCHAR(1000) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_polypeptide_synonym PRIMARY KEY (polypeptide_synonym, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
-	CONSTRAINT fk_drug_enzyme_polypeptide FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
-		REFERENCES DrugEnzymePolypeptide(pk_drug_enzyme_polypeptide),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (polypeptide_synonym, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_enzyme_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzymeAminoAcidSequence
+DROP TABLE IF EXISTS drug_enzyme_polypeptide_amino_acid_sequences CASCADE;
+CREATE TABLE drug_enzyme_polypeptide_amino_acid_sequences
 (
 	amino_acid_sequence		VARCHAR(10000) NOT NULL,
 	sequence_format			VARCHAR(10) NOT NULL,
@@ -556,14 +590,13 @@ CREATE TABLE DrugEnzymeAminoAcidSequence
 	polypeptide_source		VARCHAR(1000) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_amino_acid_sequence PRIMARY KEY (amino_acid_sequence, sequence_format, id, primary_drugbank_id),
-	CONSTRAINT fk_enzyme_id_primary_drugbank_id FOREIGN KEY (id, primary_drugbank_id)
-		REFERENCES DrugEnzyme(pk_drug_enzyme),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (amino_acid_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_enzyme_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzymeGeneSequence
+DROP TABLE IF EXISTS drug_enzyme_polypeptide_gene_sequences CASCADE;
+CREATE TABLE drug_enzyme_polypeptide_gene_sequences
 (
 	gene_sequence			VARCHAR(10000) NOT NULL,
 	sequence_format			VARCHAR(10) NOT NULL,
@@ -571,128 +604,512 @@ CREATE TABLE DrugEnzymeGeneSequence
 	polypeptide_source		VARCHAR(1000) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_gene_sequence PRIMARY KEY (gene_sequence, sequence_format, id, primary_drugbank_id),
-	CONSTRAINT fk_enzyme_id_primary_drugbank_id FOREIGN KEY (id, primary_drugbank_id)
-		REFERENCES DrugEnzyme(pk_drug_enzyme),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (gene_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_enzyme_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzymePfam
+DROP TABLE IF EXISTS drug_enzyme_polypeptide_pfams CASCADE;
+CREATE TABLE drug_enzyme_polypeptide_pfams
 (
 	name					VARCHAR(100) NOT NULL,
 	identifier				VARCHAR(25) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_pfam PRIMARY KEY (name, identifier, id, primary_drugbank_id),
-	CONSTRAINT fk_enzyme_id_primary_drugbank_id FOREIGN KEY (id, primary_drugbank_id)
-		REFERENCES DrugEnzyme(pk_drug_enzyme),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (name, identifier, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_enzyme_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugEnzymeGOClassifier
+DROP TABLE IF EXISTS drug_enzyme_polypeptide_go_classifiers CASCADE;
+CREATE TABLE drug_enzyme_polypeptide_go_classifiers
 (
 	category				VARCHAR(100) NOT NULL,
 	description				VARCHAR(1000) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
 	id						VARCHAR(25) NOT NULL,
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
-	CONSTRAINT pk_drug_enzyme_go_classifier PRIMARY KEY (category, description, id, primary_drugbank_id),
-	CONSTRAINT fk_enzyme_id_primary_drugbank_id FOREIGN KEY (id, primary_drugbank_id)
-		REFERENCES DrugEnzyme(pk_drug_enzyme),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	PRIMARY KEY (category, description, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_enzyme_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugCarrier
+DROP TABLE IF EXISTS drug_carriers CASCADE;
+CREATE TABLE drug_carriers
 (
 	primary_drugbank_id		VARCHAR(10) NOT NULL,
 	position				INT,
 	id						VARCHAR(25) NOT NULL,
+	name					VARCHAR(50) NOT NULL,
+	organism				VARCHAR(50),
+	known_action			VARCHAR(100),
+	inhibition_strength		VARCHAR(20),
+	induction_strength		VARCHAR(20),
+	PRIMARY KEY (id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_actions CASCADE;
+CREATE TABLE drug_carrier_actions
+(
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	action					VARCHAR(200) NOT NULL,
+	PRIMARY KEY (id, action, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_carriers(primary_drugbank_id, id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_references CASCADE;
+CREATE TABLE drug_carrier_references
+(
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	reference				VARCHAR(1000) NOT NULL,
+	PRIMARY KEY (id, reference, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_carriers(primary_drugbank_id, id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_polypeptides CASCADE;
+CREATE TABLE drug_carrier_polypeptides
+(
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	name					VARCHAR(50) NOT NULL,
+	general_function		VARCHAR(1000),
+	specific_function		VARCHAR(2000),
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	gene_name				VARCHAR(50),
+	locus					VARCHAR(20),
+	cellular_location		VARCHAR(50),
+	signal_regions_lower	INT,
+	signal_regions_upper	INT,
+	theoretical_pi			DECIMAL,
+	molecular_weight		DECIMAL,
+	chromosome_location		VARCHAR(10),
+	organism_name			VARCHAR(50),
+	organism_ncbi_taxonomy_id	VARCHAR(10),
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_carriers(primary_drugbank_id, id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_polypeptide_transmembrane_regions CASCADE;
+CREATE TABLE drug_carrier_polypeptide_transmembrane_regions
+(
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	transmembrane_region	INT,
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id, transmembrane_region),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_carrier_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_polypeptide_external_identifiers CASCADE;
+CREATE TABLE drug_carrier_polypeptide_external_identifiers
+(
+	external_resource		VARCHAR(100) NOT NULL,
+	identifier				VARCHAR(25) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (external_resource, identifier, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_carrier_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_polypeptide_synonyms CASCADE;
+CREATE TABLE drug_carrier_polypeptide_synonyms
+(
+	polypeptide_synonym		VARCHAR(100) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (polypeptide_synonym, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_carrier_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_polypeptide_amino_acid_sequences CASCADE;
+CREATE TABLE drug_carrier_polypeptide_amino_acid_sequences
+(
+	amino_acid_sequence		VARCHAR(10000) NOT NULL,
+	sequence_format			VARCHAR(10) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (amino_acid_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_carrier_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_polypeptide_gene_sequences CASCADE;
+CREATE TABLE drug_carrier_polypeptide_gene_sequences
+(
+	gene_sequence			VARCHAR(10000) NOT NULL,
+	sequence_format			VARCHAR(10) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (gene_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_carrier_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_carrier_polypeptide_pfams CASCADE;
+CREATE TABLE drug_carrier_polypeptide_pfams
+(
 	name					VARCHAR(100) NOT NULL,
-	organism				VARCHAR(50) NOT NULL,
-	known_action			VARCHAR(100) NOT NULL,
-	CONSTRAINT pk_drug_carrier PRIMARY KEY (id, primary_drugbank_id),
-	CONSTRAINT fk_primary_drugbank_id FOREIGN KEY (primary_drugbank_id)
-		REFERENCES Drug(primary_drugbank_id)
+	identifier				VARCHAR(25) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (name, identifier, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_carrier_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugCarrierAction
+DROP TABLE IF EXISTS drug_carrier_polypeptide_go_classifiers CASCADE;
+CREATE TABLE drug_carrier_polypeptide_go_classifiers
 (
+	category				VARCHAR(100) NOT NULL,
+	description				VARCHAR(1000) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (category, description, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_carrier_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugCarrierReference
+DROP TABLE IF EXISTS drug_transporters CASCADE;
+CREATE TABLE drug_transporters
 (
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	position				INT,
+	id						VARCHAR(25) NOT NULL,
+	name					VARCHAR(50) NOT NULL,
+	organism				VARCHAR(50),
+	known_action			VARCHAR(100),
+	inhibition_strength		VARCHAR(20),
+	induction_strength		VARCHAR(20),
+	PRIMARY KEY (id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugCarrierPolypeptide
+DROP TABLE IF EXISTS drug_transporter_actions CASCADE;
+CREATE TABLE drug_transporter_actions
 (
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	action					VARCHAR(200) NOT NULL,
+	PRIMARY KEY (id, action, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_transporters(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugCarrierPolypeptideTransmembraneRegion
+DROP TABLE IF EXISTS drug_transporter_references CASCADE;
+CREATE TABLE drug_transporter_references
 (
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	reference				VARCHAR(1000) NOT NULL,
+	PRIMARY KEY (id, reference, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_transporters(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugCarrierPolypeptideSynonym
+DROP TABLE IF EXISTS drug_transporter_polypeptides CASCADE;
+CREATE TABLE drug_transporter_polypeptides
 (
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	name					VARCHAR(50) NOT NULL,
+	general_function		VARCHAR(1000),
+	specific_function		VARCHAR(2000),
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	gene_name				VARCHAR(50),
+	locus					VARCHAR(20),
+	cellular_location		VARCHAR(50),
+	signal_regions_lower	INT,
+	signal_regions_upper	INT,
+	theoretical_pi			DECIMAL,
+	molecular_weight		DECIMAL,
+	chromosome_location		VARCHAR(10),
+	organism_name			VARCHAR(50),
+	organism_ncbi_taxonomy_id	VARCHAR(10),
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_transporters(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugCarrierAminoAcidSequence
+DROP TABLE IF EXISTS drug_transporter_polypeptide_transmembrane_regions CASCADE;
+CREATE TABLE drug_transporter_polypeptide_transmembrane_regions
 (
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	transmembrane_region	INT,
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id, transmembrane_region),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_transporter_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugCarrerGeneSequence
+DROP TABLE IF EXISTS drug_transporter_polypeptide_external_identifiers CASCADE;
+CREATE TABLE drug_transporter_polypeptide_external_identifiers
 (
+	external_resource		VARCHAR(100) NOT NULL,
+	identifier				VARCHAR(25) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (external_resource, identifier, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_transporter_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugCarrierPfam
+DROP TABLE IF EXISTS drug_transporter_polypeptide_synonyms CASCADE;
+CREATE TABLE drug_transporter_polypeptide_synonyms
 (
+	polypeptide_synonym		VARCHAR(100) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (polypeptide_synonym, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_transporter_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugCarrierGOClassifier
+DROP TABLE IF EXISTS drug_transporter_polypeptide_amino_acid_sequences CASCADE;
+CREATE TABLE drug_transporter_polypeptide_amino_acid_sequences
 (
+	amino_acid_sequence		VARCHAR(10000) NOT NULL,
+	sequence_format			VARCHAR(10) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (amino_acid_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_transporter_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporter
+DROP TABLE IF EXISTS drug_transporter_polypeptide_gene_sequences CASCADE;
+CREATE TABLE drug_transporter_polypeptide_gene_sequences
 (
+	gene_sequence			VARCHAR(10000) NOT NULL,
+	sequence_format			VARCHAR(10) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (gene_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_transporter_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporterAction
+DROP TABLE IF EXISTS drug_transporter_polypeptide_pfams CASCADE;
+CREATE TABLE drug_transporter_polypeptide_pfams
 (
+	name					VARCHAR(100) NOT NULL,
+	identifier				VARCHAR(25) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (name, identifier, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_transporter_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporterReference
+DROP TABLE IF EXISTS drug_transporter_polypeptide_go_classifiers CASCADE;
+CREATE TABLE drug_transporter_polypeptide_go_classifiers
 (
+	category				VARCHAR(100) NOT NULL,
+	description				VARCHAR(1000) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (category, description, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_transporter_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporterPolypeptide
+DROP TABLE IF EXISTS drug_targets CASCADE;
+CREATE TABLE drug_targets
 (
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	position				INT,
+	id						VARCHAR(25) NOT NULL,
+	name					VARCHAR(50) NOT NULL,
+	organism				VARCHAR(50),
+	known_action			VARCHAR(100),
+	inhibition_strength		VARCHAR(20),
+	induction_strength		VARCHAR(20),
+	PRIMARY KEY (id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id)
+		REFERENCES drugs(primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporterPolypeptideTransmembraneRegion
+DROP TABLE IF EXISTS drug_target_actions CASCADE;
+CREATE TABLE drug_target_actions
 (
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	action					VARCHAR(200) NOT NULL,
+	PRIMARY KEY (id, action, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_targets(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugTransporterPolypeptideExternalIdentifier
+DROP TABLE IF EXISTS drug_target_references CASCADE;
+CREATE TABLE drug_target_references
 (
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	reference				VARCHAR(1000) NOT NULL,
+	PRIMARY KEY (id, reference, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_targets(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugTransporterPolypeptideSynonym
+DROP TABLE IF EXISTS drug_target_polypeptides CASCADE;
+CREATE TABLE drug_target_polypeptides
 (
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	name					VARCHAR(50) NOT NULL,
+	general_function		VARCHAR(1000),
+	specific_function		VARCHAR(2000),
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	gene_name				VARCHAR(50),
+	locus					VARCHAR(20),
+	cellular_location		VARCHAR(50),
+	signal_regions_lower	INT,
+	signal_regions_upper	INT,
+	theoretical_pi			DECIMAL,
+	molecular_weight		DECIMAL,
+	chromosome_location		VARCHAR(10),
+	organism_name			VARCHAR(50),
+	organism_ncbi_taxonomy_id	VARCHAR(10),
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (primary_drugbank_id, id)
+		REFERENCES drug_targets(primary_drugbank_id, id)
 );
 
-CREATE TABLE DrugTransporterAminoAcidSequence
+DROP TABLE IF EXISTS drug_target_polypeptide_transmembrane_regions CASCADE;
+CREATE TABLE drug_target_polypeptide_transmembrane_regions
 (
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	transmembrane_region	INT,
+	PRIMARY KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id, transmembrane_region),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_target_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporterGeneSequence
+DROP TABLE IF EXISTS drug_target_polypeptide_external_identifiers CASCADE;
+CREATE TABLE drug_target_polypeptide_external_identifiers
 (
+	external_resource		VARCHAR(100) NOT NULL,
+	identifier				VARCHAR(25) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (external_resource, identifier, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_target_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporterPfam
+DROP TABLE IF EXISTS drug_target_polypeptide_synonyms CASCADE;
+CREATE TABLE drug_target_polypeptide_synonyms
 (
+	polypeptide_synonym		VARCHAR(100) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (polypeptide_synonym, polypeptide_id, polypeptide_source, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_target_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );
 
-CREATE TABLE DrugTransporterGOClassifier
+DROP TABLE IF EXISTS drug_target_polypeptide_amino_acid_sequences CASCADE;
+CREATE TABLE drug_target_polypeptide_amino_acid_sequences
 (
+	amino_acid_sequence		VARCHAR(10000) NOT NULL,
+	sequence_format			VARCHAR(10) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (amino_acid_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_target_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_target_polypeptide_gene_sequences CASCADE;
+CREATE TABLE drug_target_polypeptide_gene_sequences
+(
+	gene_sequence			VARCHAR(10000) NOT NULL,
+	sequence_format			VARCHAR(10) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (gene_sequence, sequence_format, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_target_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_target_polypeptide_pfams CASCADE;
+CREATE TABLE drug_target_polypeptide_pfams
+(
+	name					VARCHAR(100) NOT NULL,
+	identifier				VARCHAR(25) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (name, identifier, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_target_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+);
+
+DROP TABLE IF EXISTS drug_target_polypeptide_go_classifiers CASCADE;
+CREATE TABLE drug_target_polypeptide_go_classifiers
+(
+	category				VARCHAR(100) NOT NULL,
+	description				VARCHAR(1000) NOT NULL,
+	polypeptide_id			VARCHAR(200) NOT NULL,
+	polypeptide_source		VARCHAR(1000) NOT NULL,
+	id						VARCHAR(25) NOT NULL,
+	primary_drugbank_id		VARCHAR(10) NOT NULL,
+	PRIMARY KEY (category, description, id, primary_drugbank_id),
+	FOREIGN KEY (polypeptide_id, polypeptide_source, id, primary_drugbank_id)
+		REFERENCES drug_target_polypeptides(polypeptide_id, polypeptide_source, id, primary_drugbank_id)
 );

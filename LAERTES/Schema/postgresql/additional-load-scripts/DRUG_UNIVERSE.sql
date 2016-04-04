@@ -1,17 +1,19 @@
-﻿/*-------------------------------------------------------------------------
+﻿ /*-------------------------------------------------------------------------*
  | Program:      DRUG UNIVERSE					            |
  | Purpose:      This program pre-processes ingredients that contain        | 
  |		 enough evidence to be part of the LAERTES UNIVERSE         |
  | Author(s):    Erica Voss                                                 |
  |                                                                          |
- | Version:      1.0                                                        |
- | Last revised: 11FEB016                                                  |
+ | Version:      2.0                                                        |
+ | Last revised: April 4, 2016                                              |
  *-------------------------------------------------------------------------*/
 
   /*ASSUMPTIONS*/
  /*
  1)  You have the right copy of the CDM Vocabulary available.
  */
+
+-- NOTE: For now, CTD evidence is counted as MEDLINE when it also includes OMIM
 
 \echo 'Starting Script'
 
@@ -105,7 +107,7 @@ AND INGREDIENT_ID IN (
 	SELECT DISTINCT INGREDIENT_ID
 	FROM TEMP_DRUGS
 	WHERE EVIDENCE_TYPE IN (
-		'MEDLINE_MeSH_ClinTrial','MEDLINE_MeSH_CR','MEDLINE_MeSH_Other','MEDLINE_SemMedDB_ClinTrial','MEDLINE_SemMedDB_CR','MEDLINE_SemMedDB_Other'
+		'MEDLINE_MeSH_ClinTrial','MEDLINE_MeSH_CR','MEDLINE_MeSH_Other','MEDLINE_SemMedDB_ClinTrial','MEDLINE_SemMedDB_CR','MEDLINE_SemMedDB_Other','CTD_ChemicalDisease'
 	)
 )
 AND INGREDIENT_ID IN (

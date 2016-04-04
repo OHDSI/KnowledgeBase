@@ -4,14 +4,16 @@
  |               enough evidence to be part of the LAERTES UNIVERSE         |
  | Author(s):    Erica Voss                                                 |
  |                                                                          |
- | Version:      1.0                                                        |
- | Last revised: 25JAN2016                                                  |
+ | Version:      2.0                                                        |
+ | Last revised: 4/4/2016                                                  |
  *-------------------------------------------------------------------------*/
 
   /*ASSUMPTIONS*/
  /*
  1)  You have the right copy of the CDM Vocabulary available.
  */
+
+-- NOTE: For now, CTD evidence is counted as MEDLINE when it also includes OMIM
 
  \echo 'Starting Script'
 
@@ -76,6 +78,7 @@ ALTER TABLE TEMP_CONDITIONS_CHILDREN CLUSTER ON IDX_CONDITIONS_CHILDREN_CONDITIO
 
 /*Define condition universe has an ingredient that has records in spontaneous reports, medline, and a product label*/
 /*-----------------------------*/
+--DROP TABLE EV_CONDITION_UNIVERSE;
 
 \echo 'Drop old table'
 
@@ -104,7 +107,7 @@ WITH CTE_TEST_EVIDENCE AS (
 		MAX(CASE WHEN c2.CONDITION_CONCEPT_ID IS NULL THEN 0 ELSE 1 END) AS MEDLINE_EVIDENCE,
 		MAX(CASE WHEN c3.CONDITION_CONCEPT_ID IS NULL THEN 0 ELSE 1 END) AS PL_EVIDENCE
 	FROM TEMP_CONDITIONS_CHILDREN c
-		LEFT OUTER JOIN TEMP_CONDITIONS c1
+		LEFT OUTER JOIN EV_CONDITIONS c1
 			ON c1.CONDITION_CONCEPT_ID = c.CONCEPT_ID
 			AND c1.EVIDENCE_TYPE IN (
 				'aers_report_prr','aers_report_count'
@@ -112,7 +115,7 @@ WITH CTE_TEST_EVIDENCE AS (
 		LEFT OUTER JOIN TEMP_CONDITIONS c2
 			ON c2.CONDITION_CONCEPT_ID = c.CONCEPT_ID
 			AND c2.EVIDENCE_TYPE IN (
-				'MEDLINE_MeSH_ClinTrial','MEDLINE_MeSH_CR','MEDLINE_MeSH_Other','MEDLINE_SemMedDB_ClinTrial','MEDLINE_SemMedDB_CR','MEDLINE_SemMedDB_Other'
+				'MEDLINE_MeSH_ClinTrial','MEDLINE_MeSH_CR','MEDLINE_MeSH_Other','MEDLINE_SemMedDB_ClinTrial','MEDLINE_SemMedDB_CR','MEDLINE_SemMedDB_Other','CTD_ChemicalDisease'
 			)
 		LEFT OUTER JOIN TEMP_CONDITIONS c3
 			ON c3.CONDITION_CONCEPT_ID = c.CONCEPT_ID
