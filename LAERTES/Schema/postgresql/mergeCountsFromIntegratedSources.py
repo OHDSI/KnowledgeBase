@@ -5,18 +5,23 @@
 ## (that extends the OHDSI Standard Vocab). 
 ##
 ## Author: Richard D Boyce, PhD
-## 2014/2015
+## 2014 - 2016
 
 import sys
 import psycopg2 # for postgres 
 
-DB_CONNECTION_INFO="db-connection.conf"
+## Development
+DB_CONNECTION_INFO="db-connection-development.conf"
+
+## Release
+#DB_CONNECTION_INFO="db-connection.conf"
+
 SOURCE_LISTING_FILE="integratedSources.conf"
 DRUG_HOI_DATA_FILE="drug-hoi-evidence-data.tsv"
 CACHED_DRUG_HOI_RELATIONSHIP_FILE="cached_uniq_drug_hoi_relationships.csv"
 DRUG_HOI_RELATIONSHIP_FILE="uniq_drug_hoi_relationships.csv"
 MEDDRA_TO_SNOMED_MAPPING_FILE="../../terminology-mappings/MedDRA-to-SNOMED/LU_MEDDRAPT_TO_SNOMED.txt"
-#TODO: MESH_TO_SNOMED_MAPPING_FILE="../../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
+MESH_TO_SNOMED_MAPPING_FILE="../../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 
 # load the meddra to snomed mapping
 meddra_to_snomed_mapping_d = {}
@@ -146,12 +151,12 @@ for src in srcL[1:]: # skip header
             mappingFound = False
             
             rows = []
-            if (mappingFound = False) and meddra_to_snomed_mapping_d.has_key(hoi):
+            if (mappingFound == False) and meddra_to_snomed_mapping_d.has_key(hoi):
                 mappingFound = True
                 rows = [[meddra_to_snomed_mapping_d[hoi][1],meddra_to_snomed_mapping_d[hoi][2],"","",meddra_to_snomed_mapping_d[hoi][0]]]
                 print "INFO: MedDRA concept id %s mapped to SNOMED HOI %s using local mapping" % (hoi,meddra_to_snomed_mapping_d[hoi][1])
             
-            if (mappingFound = False) and idToSnomedD.has_key(hoi):
+            if (mappingFound == False) and idToSnomedD.has_key(hoi):
                 mappingFound = True
                 rows = idToSnomedD[hoi]
                 print "INFO: MedDRA concept id %s mapped to SNOMED HOI from cache"
@@ -277,25 +282,28 @@ AND c1.concept_id = %s
 drugHoiDataOutF.close()
 
 ## Now, create the data file for the drug-hoi relationship table
-f = open(CACHED_DRUG_HOI_RELATIONSHIP_FILE,'r') # use cached data from previous runs to save queries
-buf = f.read().strip()
-f.close()
-cachedDhrL = [x.strip() for x in buf.split("\n")]
 capturedKeysD = {}
 capturedDrugsD = {}
 capturedHoisD = {}
-for elt in cachedDhrL:
-    if not elt:
-        break
+try:
+    f = open(CACHED_DRUG_HOI_RELATIONSHIP_FILE,'r') # use cached data from previous runs to save queries
+    buf = f.read().strip()
+    f.close()
+    cachedDhrL = [x.strip() for x in buf.split("\n")]
+    for elt in cachedDhrL:
+        if not elt:
+            break
 
-    (k,dId,dLab,hId,hLab) = elt.strip().split("|")
-    if dhKeyD.has_key(k):
-        capturedKeysD[k] = k
-        dhKeyD[k]['drug_label'] = dLab
-        dhKeyD[k]['hoi_label'] = hLab
+        (k,dId,dLab,hqId,hLab) = elt.strip().split("|")
+        if dhKeyD.has_key(k):
+            capturedKeysD[k] = k
+            dhKeyD[k]['drug_label'] = dLab
+            dhKeyD[k]['hoi_label'] = hLab
         
-        capturedDrugsD[dhKeyD[k]['drug_id']] = dhKeyD[k]['drug_label']
-        capturedHoisD[dhKeyD[k]['hoi_id']] = dhKeyD[k]['hoi_label']
+            capturedDrugsD[dhKeyD[k]['drug_id']] = dhKeyD[k]['drug_label']
+            capturedHoisD[dhKeyD[k]['hoi_id']] = dhKeyD[k]['hoi_label']
+except IOError:
+    print "WARNING: Caught IOError exception indicating that the file %s does not exist. Proceeding without using cached concepts." % CACHED_DRUG_HOI_RELATIONSHIP_FILE
 
 print "INFO: number of cached keys: %d; number of keys needed: %d" % (len(capturedKeysD.keys()), len(dhKeyD.keys()))
 

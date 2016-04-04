@@ -4,10 +4,8 @@
 # http://ctdbase.org/downloads/;jsessionid=5B217AB40F810F712C8976BDE2040DC9#cd
 # to Open Annotation Data (CTD_chemicals_diseases.tsv.gz)
 #
-# Author: Charles Kronk
+# Authors: Charles Kronk and Rich Boyce
 # 2016
-
-
 
 
 
@@ -21,9 +19,6 @@
 # (6) Run this script as "python CTD2rdf.py".
 # (7) This script currently takes longer than 10 minutes to run, but
 #     will produce the file "chemical-disease-ctd.nt" upon completion.
-
-
-
 
 
 # "CTD_chemicals.tsv" contains the following fields:
@@ -60,49 +55,25 @@ DATA_FILE = "CTD_chemicals_diseases.tsv"
 
 
 # TERMINOLOGY MAPPING FILES
-# MESH_TO_RXNORM = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.txt"
-RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
-MEDDRA_TO_OMOP = "../terminology-mappings/StandardVocabToMeddra/standard_vocab_to_meddra.csv"
+RXNORM_TO_MESH = "../terminology-mappings/RxNorm-to-MeSH/mesh-to-rxnorm-standard-vocab-v5.csv"
 MESH_TO_OMOP = "../terminology-mappings/StandardVocabToMeSH/mesh-to-standard-vocab-v5.txt"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "chemical-disease-ctd.nt"
 
-# MESH_D_RXNORM = {}
-# f = open(MESH_TO_RXNORM,"r")
-# buf = f.read()
-# f.close()
-# l = buf.split("\n")
-# for elt in l:
-#    if elt.strip() == "":
-#        break
-
-#    (mesh,source_concept_name,rxnorm,concept_name,omop,concept_class_id) = [x.strip() for x in elt.split("|")]
-#    MESH_D_RXNORM[mesh] = omop
-
-DRUGS_D_OMOP = {}
-f = open(RXNORM_TO_OMOP,"r")
-buf = f.read()
-f.close()
-l = buf.split("\n")
-for elt in l:
-    if elt.strip() == "":
-        break
-
-    (omop,rxcui) = [x.strip() for x in elt.split("|")]
-    DRUGS_D_OMOP[omop] = rxcui
-
-MEDDRA_D_OMOP = {}
-f = open(MEDDRA_TO_OMOP,"r")
+DRUGS_D = {}
+f = open(RXNORM_TO_MESH,"r")
 buf = f.read()
 f.close()
 l = buf.split("\n")
 for elt in l[1:]:
     if elt.strip() == "":
         break
-
-    (omop,meddra) = [x.strip() for x in elt.split("|")]
-    MEDDRA_D_OMOP[omop] = meddra
+    (mesh,pt,rxcui,concept_name,ohdsiID,conceptClassId) = [x.strip() for x in elt.split("|")]
+    if DRUGS_D.get(mesh): # add a synonymn
+        DRUGS_D[mesh][1].append(pt)
+    else: # create a new record
+        DRUGS_D[mesh] = (rxcui, [pt], ohdsiID)
 
 MESH_D_OMOP = {}
 f = open(MESH_TO_OMOP,"r")
@@ -133,6 +104,7 @@ mesh = Namespace('http://purl.bioontology.org/ontology/MESH/')
 meddra = Namespace('http://purl.bioontology.org/ontology/MEDDRA/')
 rxnorm = Namespace('http://purl.bioontology.org/ontology/RXNORM/')
 pubmed = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
+omim = Namespace('http://www.omim.org/entry/')
 dailymed = Namespace('http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/')
 ohdsi = Namespace('http://purl.org/net/ohdsi#')
 poc = Namespace('http://purl.org/net/nlprepository/ohdsi-adr-eu-spc-poc#')
@@ -239,8 +211,64 @@ inf = open(DATA_FILE, 'r')
 buf = inf.read()
 inf.close()
 lines = buf.split("\n")
-it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[29:]] # skip header
+it = [unicode(x.strip(),'utf-8', 'replace').split("\t") for x in lines[28:]] # skip header
+
+# There are numerous records with either multiple PMIDs or OMIM record
+# ids. To address this simply, we create a different OA annotation for
+# each target (thus constraining each target to only one PMID or OMIM
+# ID). So, the list is expanded to allow this without making the code
+# that writes OA annotations more complicated than it needs to be.
+expandedIt = []
+#for elt in it[0:200]: # Debugging
 for elt in it:
+    #print elt
+    if elt == [u'']:
+        break
+    
+    if len(elt) == 10:
+        pass
+    elif len(elt) == 9: # this normalizes the field length of the list to save hassle later on
+        elt.append("")
+    else:
+        print "ERROR: encountered an error while processing the CTD data - abnormal record length %s: %s" % (len(elt),elt)
+        sys.exit(1)
+        
+    omimids = elt[OMIM_IDS].strip().split("|")
+    pmids = elt[PUBMED_IDS].strip().split("|")
+
+        
+    if (len(omimids) == 1 and len(pmids) == 0) or (len(omimids) == 0 and len(pmids) == 1):
+        expandedIt.append(elt)
+
+    elif len(omimids) >= 1 or len(pmids) >= 1:
+        for i in range(0,len(omimids)):
+            if not omimids[i]:
+                continue
+            
+            recL = elt[0:-2]
+            recL.append(omimids[i])
+            recL.append("")
+            expandedIt.append(recL)
+
+        for i in range(0,len(pmids)):
+            if not pmids[i]:
+                continue
+            
+            recL = elt[0:-2]
+            recL.append("")
+            recL.append(pmids[i])
+            expandedIt.append(recL)
+    else:
+        print "ERROR: encountered an error while processing the CTD data - abnormal record - neither omim nor pubmed id!"
+        sys.exit(1)
+
+## Debugging
+#for elt in expandedIt:
+#    print "%s" % ",".join(elt)
+#sys.exit(0)
+            
+#for elt in expandedIt[0:10000]:
+for elt in expandedIt:
     print "%s" % elt
     if elt == [u'']:
         break 
@@ -250,68 +278,30 @@ for elt in it:
     cntr += 1
     print cntr
     
-    #rxcuiDrug = elt[RxNorm] # There is no RxNorm provided in CTD
     meshDrug = elt[CHEMICAL_ID] # MeSH
     drugLabs = elt[CHEMICAL_NAME]
 
-    # print "WE MADE IT HERE!! ..."
-
-    imedsDrug = None
-    if MESH_D_OMOP.has_key(meshDrug):
-        imedsDrug = MESH_D_OMOP[meshDrug]
-        print "INFO: meshDrug : %s" % meshDrug
+    imedsMeshDrug = None
+    if DRUGS_D.has_key(meshDrug):
+        rxcuiDrug = DRUGS_D[meshDrug][0]
+        imedsDrug = DRUGS_D[meshDrug][2]
+        print "INFO: meshDrug %s mapped to rxnorm %s and omop %s" % (meshDrug, rxcuiDrug, imedsDrug)
     else:
-        print "WARNING: skipping meshDrug, no mapping to OMOP : %s" % meshDrug
-    #   continue
-
-    # print "WE MADE IT HERE!! ?"
-    
-    if(imedsDrug != None):
-    	rxcuiDrug = None
-    	if DRUGS_D_OMOP.has_key(imedsDrug):
-    	    rxcuiDrug = DRUGS_D_OMOP[imedsDrug]
-    	    print "INFO: imedsDrug : %s" % imedsDrug
-    	else:
-    	    print "WARNING: skipping imedsDrug, no mapping to RxNorm : %s" % imedsDrug
-    	    continue
-
-    # print "WE MADE IT HERE!! ."
-
+        print "WARNING: skipping meshDrug, no mapping to rxnorm or omop : %s" % meshDrug
+        continue
+  
     imedsHoi = None
     if MESH_D_OMOP.has_key(elt[DISEASE_ID][5:]):
         imedsHoi = MESH_D_OMOP[elt[DISEASE_ID][5:]]
-        print "INFO: meshHoi : %s" % elt[DISEASE_ID][5:]
+        print "INFO: meshHoi %s mapped to %s" % (elt[DISEASE_ID][5:], imedsHoi)
     else:
         print "WARNING: skipping meshDrug %s + MeSH HOI %s : unable to map HOI to OMOP" % (meshDrug, elt[DISEASE_ID][5:])
         continue
 
-    # print "WE MADE IT HERE!!"
-
-    meddraHoi = None
-    if MEDDRA_D_OMOP.has_key(imedsHoi):
-        meddraHoi = MEDDRA_D_OMOP[omop]
-        print "INFO: imedsHoi : %s" % imedsHoi
-    else:
-        print "WARNING: skipping imedsHoi %s + meddra HOI %s : unable to map OMOP to meddra HOI" % (imedsHoi, meddraHoi)
-    #    continue
-
-MESH_D_OMOP = {}
-f = open(MESH_TO_OMOP,"r")
-buf = f.read()
-f.close()
-l = buf.split("\n")
-for elt in l[1:]:
-    if elt.strip() == "":
-        break
-
-    (omop,concept_name,mesh) = [x.strip() for x in elt.split("|")]
-    MESH_D_OMOP[mesh] = omop
-
-
     ###################################################################
     ### Each annotations holds one target that points to the source
-    ### record in DailyMed, and one or more bodies each of which
-    ### indicates the MedDRA terms that triggered the result and holds
+    ### record in OMIM or PubMed, and one or more bodies each of which
+    ### indicates the MeSH terms that triggered the result and holds
     ### some metadata
     ###################################################################
     currentAnnotItem = None
@@ -329,7 +319,7 @@ for elt in l[1:]:
         tplL = []
         #tplL.append((poc[currentAnnotSet], aoOld["item"], poc[currentAnnotItem])) # TODO: find out what is being used for items of collections in OA
         tplL.append((poc[currentAnnotItem], RDF.type, oa["DataAnnotation"]))
-        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["ADRAnnotation"]))
+        tplL.append((poc[currentAnnotItem], RDF.type, ohdsi["ADRAnnotation"])) ## TODO: think if this is the best way to descripe this
         tplL.append((poc[currentAnnotItem], oa["annotatedAt"], Literal(datetime.date.today())))
         tplL.append((poc[currentAnnotItem], oa["annotatedBy"], URIRef(u"http://www.pitt.edu/~rdb20/triads-lab.xml#TRIADS")))
         tplL.append((poc[currentAnnotItem], oa["motivatedBy"], oa["tagging"]))
@@ -338,7 +328,16 @@ for elt in l[1:]:
         currentAnnotTargetUuid = URIRef(u"urn:uuid:%s" % uuid.uuid4())
         tplL.append((poc[currentAnnotItem], oa["hasTarget"], currentAnnotTargetUuid))
         tplL.append((currentAnnotTargetUuid, RDF.type, oa["SpecificResource"]))
-        tplL.append((currentAnnotTargetUuid, oa["hasSource"], URIRef(u"http://ctdbase.org/downloads/#cd")))
+
+        if elt[OMIM_IDS]:
+            tplL.append((currentAnnotTargetUuid, oa["hasSource"], omim[elt[OMIM_IDS]]))
+
+        elif elt[PUBMED_IDS]:
+            tplL.append((currentAnnotTargetUuid, oa["hasSource"], pubmed[elt[PUBMED_IDS]]))
+
+        else:
+            print "ERROR: something is not right because there is neither a pubmed nor an OMIM id for this record: %s" % elt
+            sys.exit(1)
 
         s = ""
         for t in tplL:
@@ -356,17 +355,18 @@ for elt in l[1:]:
     
     tplL = []
     tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(u"Drug-HOI tag for %s-%s" % (imedsDrug, imedsHoi))))
+    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(u"Drug-HOI tag for %s-%s (mesh: %s-%s)" % (imedsDrug, imedsHoi, meshDrug, elt[DISEASE_ID][5:]))))
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
     tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal(u"Drug-HOI tag for %s - %s" % (elt[CHEMICAL_NAME], elt[DISEASE_NAME]))))
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeshDrug'], mesh[meshDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
-#   tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[rxcuiDrug]))
-                        
-#   tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[meddraHoi])) # TODO: consider adding the values as a collection
-    tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
 
+    tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeshHoi'], mesh[elt[DISEASE_ID][5:]]))
+    
     # TODO: Define these predicates - preferrably from an ontology
+    tplL.append((poc[currentAnnotationBody], ohdsi['DirectEvidence'], Literal(elt[DIRECT_EVIDENCE])))
     tplL.append((poc[currentAnnotationBody], ohdsi['InferenceGeneSymbol'], Literal(elt[INFERENCE_GENE_SYMBOL])))
     tplL.append((poc[currentAnnotationBody], ohdsi['InferenceScore'], Literal(elt[INFERENCE_SCORE])))
 
@@ -375,8 +375,6 @@ for elt in l[1:]:
     s = ""
     for t in tplL:
         s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
-
-    # print "WE MADE IT HERE!!"
 
     outf.write(unicode(s,'utf-8', 'replace'))
 

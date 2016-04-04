@@ -49,7 +49,7 @@ The process works as follows:
    if we don't do this, we have many drug - HOI evidence items that
    apply to drugs not relevant to the journal article.
 
-   NOTE: There is all kinds of duplication that occurs in the output
+   NOTE: There are all kinds of duplication that occurs in the output
    file mentioned above. Take the following example:
 
 17766   Adrenergic beta-Antagonists     D000319 Arrhythmias, Cardiac    D001145 Journal Article D016428
@@ -210,7 +210,11 @@ The process works as follows:
 
 4. The RDF graph is loaded into an endpoint and script
    writeLoadablePubMedMeSHCounts.py generates "tinyurls" for queries
-   against the RDF dataset to support the "drill down" use case. 
+   against the RDF dataset to support the "drill down" use case. The
+   script is ran like this to produce the a file with both counts and
+   linkouts that is loaded into the LAERTES evidence table:
+
+   $ python writeLoadablePubMedMeSHCounts.py > drug-hoi-counts-with-linkouts-PUBMED-<some date>.tsv
 
 NOTE: The output of writeLoadablePubMedMeSHCounts.py includes data that
       needs to be loaded into the database for the URL shortener
@@ -274,11 +278,9 @@ SEE ALSO:
 
 - PubMed-MeSH-ER-diagram.dia : a diagram of the RDF data model editable using Dia (see PubMed-MeSH-ER-diagram.png for an exported version)
 
-TODOs (1/10/2015):
+TODOs (3/2016):
 
 - Develop a policy for handling non-human adverse effects
-
-- Develop a policy for dealing with the MeSH pharmacologic action groupings
 
 - Port the method for generating 'tinyurls' to use a more efficient technique that just appends rows to the main 'tinyurl' table
 

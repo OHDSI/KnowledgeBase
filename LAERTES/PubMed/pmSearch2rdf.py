@@ -232,8 +232,8 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-for elt in recL[0:1000]: # Debugging
-#for elt in recL: # Full run
+#for elt in recL[0:1000]: # Debugging
+for elt in recL: # Full run
     ## For now, only process papers tagged as for humans
     ## TODO: expand the evidence types to include non-human studies 
     try:

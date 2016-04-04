@@ -191,3 +191,33 @@ Take Note:
 - However, as of right now, there is a one-to-many mapping between UMLS and SNOMED+MEDDRA
 
 so what I did is I put the CUIs with that mapping pipe-delimited inside each column.
+
+
+------------------------------------------------------------
+
+LOADING THE RDF DATA INTO VIRTUOSO:
+
+-- FIRST TIME ONLY
+$ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<PATH TO THE RDF DATA OUTPUT FROM SEMMEDDB>', 'http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc');
+-- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed list of virtuoso.ini 
+-- END OF FIRST TIME ONLY
+
+$ select * from DB.DBA.load_list
+
+-- A record like this one should show up:
+
+/home/rdb20/OHDSI-code/KnowledgeBase/LAERTES/SemMED/drug-hoi-pubmed-semmeddb.nt   http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc                         0           NULL                 NULL                 NULL        NULL        NULL
+
+
+------------------------------------------------------------
+
+-- IF LL_STATE = 0 THEN THE DATASET IS READY TO LOAD
+
+$ rdf_loader_run();
+
+-- ELSE, CLEAR THE GRAPH AND THE SET LL_STATE TO 0
+
+$ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc' ;
+$ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-pubmed-semmed-poc';
+$ rdf_loader_run();
+
