@@ -28,7 +28,7 @@
 --
 --   $ isql-vt -H localhost -S 1111  -U <user name> -P <password> errors=stdout < /tmp/test.sparql > /tmp/test.out
 --
---   $ egrep "^[0-9]+ +http.*" /tmp/test.out | sed 's/.(/\_(/g' | sed 's/.type/\_type/g' | sed 's/e r/e_r/g' | sed 's/l t/l_t/g' | tr -s '  *' ',' > <NAME OF FILE (SEE BELOW)>
+--   $ egrep "^http.*|^urn.*" /tmp/test.out | sed 's/\s\s\+/\t/g'  > <NAME OF FILE (SEE BELOW)>
 
 ---------------------------------
 -- QUERY 1 - to adr-annotation.csv
