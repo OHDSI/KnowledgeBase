@@ -3,10 +3,17 @@
 
 import urllib2, urllib, re, sys
 
-DATAFILE = "test-query-of-counts-05052015.csv" # NOTE: this data comes from CSV export of the following query
+VT_SERVER="virtuoso.ohdsi.org" # Release 
+# VT_SERVER="130.49.206.139"  # Development
+VT_PORT="8890"
+
+URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
+# URL_SHORTENER_URL="http://130.49.206.139/l" # Development
+
+DATAFILE = "test-query-of-counts-03172016.csv" # NOTE: this data comes from CSV export of the query shown below
 EVTYPE = "SPL_SPLICER"
 URL_ID_PREFIX = "splicer-"
-URL_PREFIX = "http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id="
+URL_PREFIX = "%s/index.php?id=" % URL_SHORTENER_URL
 SQL_INSERT_OUTFILE = "insertShortURLs-ALL.txt"
 
 ## count data retrieved from the Virtuoso SPARQL endpoint using the
@@ -25,11 +32,13 @@ SQL_INSERT_OUTFILE = "insertShortURLs-ALL.txt"
 ## $ egrep "^[0-9]+ +http.*" /tmp/test.out | tr -s ' ' ',' > /tmp/test-query-of-counts.csv
 ##
 ## QUERY (paste into /tmp/test.sparql -- keep the 'SPARQL' string at the beginning!):
-# SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#> PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX linkedspls_vocabulary:<http://bio2rdf.org/linkedspls_vocabulary:>  SELECT count(distinct ?an) ?drug ?hoi ?sect FROM <http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc> WHERE { ?an a ohdsi:ADRAnnotation; oa:hasBody ?body; oa:hasTarget ?target.  ?body ohdsi:ImedsDrug ?drug. ?body ohdsi:ImedsHoi ?hoi.  ?target oa:hasSelector ?sel. ?sel linkedspls_vocabulary:splSection ?sect. }
+# SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#> PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX linkedspls_vocabulary:<http://bio2rdf.org/linkedspls_vocabulary:>  SELECT count(distinct ?an) ?drug ?hoi ?sect FROM <http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc> WHERE { ?an a ohdsi:ADRAnnotation; oa:hasBody ?body; oa:hasTarget ?target.  ?body ohdsi:ImedsDrug ?drug. ?body ohdsi:ImedsHoi ?hoi.  ?target oa:hasSelector ?sel. ?sel linkedspls_vocabulary:splSection ?sect. };
 
 
 # replace the @IMEDS_DRUG@, @IMEDS_HOI@, and @SECTION@ strings with the appropriate values
-TEMPLATE = "http://virtuoso.ohdsi.org:8890/sparql?default-graph-uri=&query=%23+drill+down+query+for+a+drug+and+HOI+in+the+SPLICER+ADRAnnotation+graph+joined+with+LinkedSPLs%0D%0APREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+linkedspls_vocabulary%3A+%3Chttp%3A%2F%2Fbio2rdf.org%2Flinkedspls_vocabulary%3A%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-adr-splicer-poc%3E+{%0D%0A++%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+++%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+++%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A%0D%0A+++%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+++%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+++%3Fselector+linkedspls_vocabulary%3AsplSection+%3C@SECTION@%3E.%0D%0A++}%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fspl-core%3E+{%0D%0A++%3Fspl+a+ncbit%3ALabel%3B%0D%0A+++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A+++%3C@SECTION@%3E+%3Ftext.%0D%0A+}%0D%0A}%0D%0A&format=json&timeout=0&debug=on"
+TEMPLATE = "http://@VT_SERVER@:@VT_PORT@/sparql?default-graph-uri=&query=%23+drill+down+query+for+a+drug+and+HOI+in+the+SPLICER+ADRAnnotation+graph+joined+with+LinkedSPLs%0D%0APREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+linkedspls_vocabulary%3A+%3Chttp%3A%2F%2Fbio2rdf.org%2Flinkedspls_vocabulary%3A%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+{%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-adr-splicer-poc%3E+{%0D%0A++%3Fan+a+ohdsi%3AADRAnnotation%3B%0D%0A+++oa%3AhasBody+%3Fbody%3B%0D%0A+++oa%3AhasTarget+%3Ftarget.%0D%0A%0D%0A+++%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A+++%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A%0D%0A+++%3Ftarget+oa%3AhasSource+%3FsourceURL.%0D%0A+++%3Ftarget+oa%3AhasSelector+%3Fselector.%0D%0A%0D%0A+++%3Fselector+linkedspls_vocabulary%3AsplSection+%3C@SECTION@%3E.%0D%0A++}%0D%0A+GRAPH+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fspl-core%3E+{%0D%0A++%3Fspl+a+ncbit%3ALabel%3B%0D%0A+++foaf%3Ahomepage+%3FsourceURL%3B%0D%0A+++%3C@SECTION@%3E+%3Ftext.%0D%0A+}%0D%0A}%0D%0A&format=json&timeout=0&debug=on"
+
+TEMPLATE = TEMPLATE.replace('@VT_SERVER@', VT_SERVER).replace('@VT_PORT@',VT_PORT)
 
 f = open(DATAFILE)
 buf = f.read()

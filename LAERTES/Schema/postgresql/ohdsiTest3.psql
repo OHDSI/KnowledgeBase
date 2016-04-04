@@ -19,7 +19,8 @@
 --    'mergeCountsFromIntegratedSources.py'. This creates the files
 --    uniq_drug_hoi_relationships.csv and drug-hoi-evidence-data.tsv
 
--- 2) load uniq_drug_hoi_relationships.csv, drug-hoi-evidence-data.tsv,
+-- 2) (if deploying on the release server)
+--    load uniq_drug_hoi_relationships.csv, drug-hoi-evidence-data.tsv,
 --    and ohdsiTest3.psql to the /mnt/vol1/inbound folder on the OHDSI
 --    dev server.
 

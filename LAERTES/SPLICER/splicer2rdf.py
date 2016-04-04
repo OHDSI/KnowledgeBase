@@ -5,7 +5,7 @@
 # graph is serialized as the iterator parses the SPLICER data
 #
 # Author: Richard D Boyce, PhD
-# 2014/2015
+# 2014 - 2016
 #
 
 import sys
@@ -16,11 +16,11 @@ import json
 import pickle
 from rdflib import Graph, BNode, Literal, Namespace, URIRef, RDF, RDFS, XSD
 
-SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER-9-15-COMPLETE.tsv"
+SPLICER_DATA = "/home/rdb20/Downloads/SPLICER-data/SPLICER-MERGED-UPDATE-3-14-2016.tsv"
 
 # TERMINOLOGY MAPPING FILES
 RXNORM_TO_OMOP = "../terminology-mappings/StandardVocabToRxNorm/imeds_drugids_to_rxcuis.csv"
-SPL_SET_ID_TO_RXNORM = "../terminology-mappings/SPLSetIdToRxNorm/rxnorm_mappings-09292015.txt"
+SPL_SET_ID_TO_RXNORM = "../terminology-mappings/SPLSetIdToRxNorm/rxnorm_mappings-03112016.txt"
 
 # OUTPUT DATA FILE
 OUTPUT_FILE = "drug-hoi-splicer.nt"
@@ -181,6 +181,9 @@ annotationEvidenceCntr = 1
 annotatedCache = {} # indexes annotation ids by pmid
 currentAnnotation = annotationItemCntr
 
+bodyLabelCache = {} # indexes drug HOIs by setid to avoid duplicate
+                    # counts in the final dataset
+
 currentAnnotSet = 'ohdsi-splicer-annotation-set-%s' % annotationSetCntr 
 annotationSetCntr += 1
 graph.add((poc[currentAnnotSet], RDF.type, oa["DataAnnotation"])) # TODO: find out what is being used for collections in OA
@@ -275,7 +278,23 @@ for elt in it:
         for t in tplL:
             s += unicode.encode(" ".join((t[0].n3(), t[1].n3(), t[2].n3(), u".\n")), 'utf-8', 'replace')
         f.write(s)
-                
+
+    # The data had duplicates drug HOI evidence items associated with
+    # specific Set IDs for a couple of reasons 1) because updated files are merged with previous
+    # versions, and 2) because there are multiple mentions of the ADR within a given version of SPL
+    #
+    # TODO: Since our targets are entire sections of an SPL, rather
+    # than sentences, it makes sense to remove all duplications within
+    # a section. If we move to more specific text selectors within a
+    # document, this will no longer make sense
+    bodyLabel = "Drug-HOI tag for %s-%s (%s - %s)" % (imedsDrug, elt["CONDITION_CONCEPT_ID"], elt["TRADE_NAME"], elt["CONDITION_PT"])
+    blcKey = elt['SET_ID'] + elt["SPL_SECTION"] + bodyLabel
+    if bodyLabelCache.has_key(blcKey):
+        print "INFO: skipping this record because it duplicates a drug-HOI combination already created for this setid within this section: %s" % (blcKey)
+        continue
+    else:
+        bodyLabelCache[blcKey] = None
+    
     # Specify the bodies of the annotation - for this type each
     # body contains the MedDRA drug and condition as a semantic tag
     currentAnnotationBody = "ohdsi-splicer-annotation-body-%s" % annotationBodyCntr
@@ -283,7 +302,7 @@ for elt in it:
     
     tplL = []
     tplL.append((poc[currentAnnotItem], oa["hasBody"], poc[currentAnnotationBody]))
-    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal("Drug-HOI tag for %s-%s (%s - %s)" % (imedsDrug, elt["CONDITION_CONCEPT_ID"], elt["TRADE_NAME"], elt["CONDITION_PT"]))))
+    tplL.append((poc[currentAnnotationBody], RDFS.label, Literal(bodyLabel)))
     tplL.append((poc[currentAnnotationBody], RDF.type, ohdsi["adrAnnotationBody"])) # TODO: this is not yet formalized in a public ontology but should be
 
     tplL.append((poc[currentAnnotationBody], dcterms["description"], Literal("Drug-HOI tag for %s(rxnorm) - %s(meddra PT) (Drug trade name:%s; HOI LLT:%s)" % (rxcuiDrug, elt["CONDITION_PT"], elt["TRADE_NAME"], elt["CONDITION_LLT"]))))

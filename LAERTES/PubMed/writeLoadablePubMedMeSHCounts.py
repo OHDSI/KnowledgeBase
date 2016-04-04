@@ -8,12 +8,12 @@
 
 import urllib2, urllib, re, sys
 
-# VT_SERVER="virtuoso.ohdsi.org" # Release 
-VT_SERVER="130.49.206.139"  # Development
+VT_SERVER="virtuoso.ohdsi.org" # Release 
+# VT_SERVER="130.49.206.139"  # Development
 VT_PORT="8890"
 
-# URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
-URL_SHORTENER_URL="http://130.49.206.139/l" # Development
+URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
+# URL_SHORTENER_URL="http://130.49.206.139/l" # Development
 
 DATAFILE = "pubmed-graph-count-query-March2016.txt"
 EVTYPE = "MEDLINE_MeSH"
