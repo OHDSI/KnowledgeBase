@@ -4,14 +4,16 @@
  |               enough evidence to be part of the LAERTES UNIVERSE         |
  | Author(s):    Erica Voss                                                 |
  |                                                                          |
- | Version:      1.0                                                        |
- | Last revised: 25JAN2016                                                  |
+ | Version:      2.0                                                        |
+ | Last revised: 4/4/2016                                                  |
  *-------------------------------------------------------------------------*/
 
   /*ASSUMPTIONS*/
  /*
  1)  You have the right copy of the CDM Vocabulary available.
  */
+
+-- NOTE: For now, CTD evidence is counted as MEDLINE when it also includes OMIM
 
  \echo 'Starting Script'
 
@@ -113,7 +115,7 @@ WITH CTE_TEST_EVIDENCE AS (
 		LEFT OUTER JOIN TEMP_CONDITIONS c2
 			ON c2.CONDITION_CONCEPT_ID = c.CONCEPT_ID
 			AND c2.EVIDENCE_TYPE IN (
-				'MEDLINE_MeSH_ClinTrial','MEDLINE_MeSH_CR','MEDLINE_MeSH_Other','MEDLINE_SemMedDB_ClinTrial','MEDLINE_SemMedDB_CR','MEDLINE_SemMedDB_Other'
+				'MEDLINE_MeSH_ClinTrial','MEDLINE_MeSH_CR','MEDLINE_MeSH_Other','MEDLINE_SemMedDB_ClinTrial','MEDLINE_SemMedDB_CR','MEDLINE_SemMedDB_Other','CTD_ChemicalDisease'
 			)
 		LEFT OUTER JOIN TEMP_CONDITIONS c3
 			ON c3.CONDITION_CONCEPT_ID = c.CONCEPT_ID
