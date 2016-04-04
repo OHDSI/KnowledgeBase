@@ -7,6 +7,7 @@
 --  Use XPATH Command line with Raptor to parse out fields and find max lengths (make sure to pad).
 
 -- Remove secondary foreign keys if POSTGRESQL doesn't create indices.
+-- -- POSTGRESQL does not... so these have been removed.
 -- -- mysql_indexes.sql
 
 DROP TABLE IF EXISTS drugs CASCADE;
