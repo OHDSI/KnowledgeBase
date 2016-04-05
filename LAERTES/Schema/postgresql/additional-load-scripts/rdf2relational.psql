@@ -39,7 +39,7 @@
 
 -- QUERY 2 - to adr-body.dsv
 --
--- SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#>  SELECT ?body ?label ?description ?standardDrug ?standardHoi WHERE {   ?an oa:hasBody ?body. ?body rdfs:label ?label; dcterms:description ?description;   ohdsi:ImedsDrug ?standardDrug;     ohdsi:ImedsHoi ?standardHoi. };
+-- SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#>  SELECT ?body ?label ?description if(bound(?standardDrug),?standardDrug,ohdsi:0) as ?sdrug if(bound(?standardHoi),?standardHoi,ohdsi:0) as ?shoi WHERE {   ?an oa:hasBody ?body. ?body rdfs:label ?label; dcterms:description ?description. OPTIONAL {?body ohdsi:ImedsDrug ?standardDrug.}  OPTIONAL {?body ohdsi:ImedsHoi ?standardHoi.} };
 
 ----------------------------
 
@@ -153,7 +153,7 @@ COMMIT;
 
 \echo 'inserting data for adr_body'
 START TRANSACTION;
-\COPY adr_body (adr_body_item, adr_body_label, adr_body_description, rxnorm_drug, standard_drug, standard_hoi) FROM 'adr-body.dsv' DELIMITER '\t' CSV;
+\COPY adr_body (adr_body_item, adr_body_label, adr_body_description, standard_drug, standard_hoi) FROM 'adr-body.dsv' DELIMITER '\t' CSV;
 COMMIT;
 
 \echo 'inserting data for adr_target'
