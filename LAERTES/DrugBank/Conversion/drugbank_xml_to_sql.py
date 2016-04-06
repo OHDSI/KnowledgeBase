@@ -9,6 +9,7 @@
 import os
 import sys
 import xml.etree.ElementTree as ET
+import fileinput
 
 source_xml_file = 'drugbank.xml'
 
@@ -100,25 +101,32 @@ outfile_drug_target_polypeptide_gene_sequences = open('DRUGBANK_DRUG_TARGETS_GEN
 outfile_drug_target_polypeptide_pfams = open('DRUGBANK_DRUG_TARGET_PFAMS.rrf', 'w', encoding='utf-8')
 outfile_drug_target_polypeptide_go_classifiers = open('DRUGBANK_DRUG_TARGET_GO_CLASSIFIERS.rrf', 'w', encoding='utf-8')
 
-
-
-
+sequence_counter = 0
+property_counter = 0
+reaction_counter = 0
+snp_effect_counter = 0
+snp_adverse_effect_counter = 0
+target_counter = 0
+target_amino_acid_counter = 0
+target_gene_seq_counter = 0
+transporter_amino_acid_counter = 0
+transporter_gene_seq_counter = 0
 
 with open(source_xml_file, encoding = "utf8") as f:
   tree = ET.parse(f)
   root = tree.getroot()
 
   for i in root.getchildren():
-    DRUG_TYPE = 'NULL'
-    CREATED = 'NULL'
-    UPDATED = 'NULL'
-    NAME = 'NULL'
-    DESCRIPTION = 'NULL'
-    CAS_NUMBER = 'NULL'
-    SYNTHESIS_REFERENCE = 'NULL'
-    INDICATION = 'NULL'
-    PHARMACODYNAMICS = 'NULL'
-    PROTEIN_BINDING = 'NULL'
+    DRUG_TYPE = ''
+    CREATED = ''
+    UPDATED = ''
+    NAME = ''
+    DESCRIPTION = ''
+    CAS_NUMBER = ''
+    SYNTHESIS_REFERENCE = ''
+    INDICATION = ''
+    PHARMACODYNAMICS = ''
+    PROTEIN_BINDING = ''
     drugbank_ids = []
     properties = []
 
@@ -127,21 +135,21 @@ with open(source_xml_file, encoding = "utf8") as f:
 #
 #	GETTING DRUGBANK DRUG TYPES
 #
-      if(i.attrib == 'type'):
-        DRUG_TYPE = i.attrib['type'].rstrip()
+      if(('type' in i.attrib.keys()) and i.attrib['type'] != ""):
+        DRUG_TYPE = i.attrib['type'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK DRUG CREATED AT
 #
-      if(i.attrib == 'created'):
-        CREATED = i.attrib['created'].rstrip()
+      if(('created' in i.attrib.keys()) and i.attrib['created'] != ""):
+        CREATED = i.attrib['created'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK DRUG UPDATED AT
 #
-      if(i.attrib == 'updated'):
-        UPDATED = i.attrib['updated'].rstrip()
-      
+      if(('updated' in i.attrib.keys()) and i.attrib['updated'] != ""):
+        UPDATED = i.attrib['updated'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
+
 
       for j in i.getchildren():
 
@@ -151,7 +159,7 @@ with open(source_xml_file, encoding = "utf8") as f:
         if(j.tag == '{http://www.drugbank.ca}drugbank-id'):
           if 'primary' in j.attrib:
             if(j.attrib['primary'] == 'true'):
-              PRIMARY_DRUGBANK_ID = j.text.rstrip()
+              PRIMARY_DRUGBANK_ID = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
           else:
             drugbank_ids.append(j.text.rstrip())
 
@@ -162,13 +170,13 @@ with open(source_xml_file, encoding = "utf8") as f:
           international_brands = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}international-brand'):
-              INTERNATIONAL_BRAND_NAME = "NULL"
-              INTERNATIONAL_BRAND_COMPANY = "NULL"
+              INTERNATIONAL_BRAND_NAME = ""
+              INTERNATIONAL_BRAND_COMPANY = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}name'  and m.text is not None):
-                  INTERNATIONAL_BRAND_NAME = m.text.rstrip()
+                  INTERNATIONAL_BRAND_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}company'  and m.text is not None):
-                  INTERNATIONAL_BRAND_COMPANY = m.text.rstrip()
+                  INTERNATIONAL_BRAND_COMPANY = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               international_brands[INTERNATIONAL_BRAND_NAME] = INTERNATIONAL_BRAND_COMPANY
 
 #
@@ -178,13 +186,13 @@ with open(source_xml_file, encoding = "utf8") as f:
           mixtures = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}mixture'):
-              MIXTURE_NAME = "NULL"
-              MIXTURE_INGREDIENTS = "NULL"
+              MIXTURE_NAME = ""
+              MIXTURE_INGREDIENTS = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}name' and m.text is not None):
-                  MIXTURE_NAME = m.text.rstrip()
+                  MIXTURE_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}ingredients' and m.text is not None):
-                  MIXTURE_INGREDIENTS = m.text.rstrip()
+                  MIXTURE_INGREDIENTS = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 mixtures[MIXTURE_NAME] = MIXTURE_INGREDIENTS
 
 #
@@ -194,13 +202,13 @@ with open(source_xml_file, encoding = "utf8") as f:
           packagers = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}packager'):
-              PACKAGER_NAME = "NULL"
-              PACKAGER_URL = "NULL"
+              PACKAGER_NAME = ""
+              PACKAGER_URL = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}name' and m.text is not None):
-                  PACKAGER_NAME = m.text.rstrip()
+                  PACKAGER_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}url' and m.text is not None):
-                  PACKAGER_URL = m.text.rstrip()
+                  PACKAGER_URL = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               packagers[PACKAGER_NAME] = PACKAGER_URL
 
 #
@@ -210,11 +218,11 @@ with open(source_xml_file, encoding = "utf8") as f:
           manufacturers = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}manufacturer'):
-              MANUFACTURER_NAME = "NULL"
-              MANUFACTURER_GENERIC = "NULL"
-              MANUFACTURER_NAME = k.text.rstrip()
+              MANUFACTURER_NAME = ""
+              MANUFACTURER_GENERIC = ""
+              MANUFACTURER_NAME = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               if(k.attrib['generic'] != ""):
-                MANUFACTURER_GENERIC = k.attrib['generic'].rstrip().upper()
+                MANUFACTURER_GENERIC = k.attrib['generic'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|').upper()
               manufacturers[MANUFACTURER_NAME] = MANUFACTURER_GENERIC
 
 
@@ -225,18 +233,18 @@ with open(source_xml_file, encoding = "utf8") as f:
           prices = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}price'):
-              PRICE_DESCRIPTION = "NULL"
+              PRICE_DESCRIPTION = ""
               costs = {}
-              PRICE_UNIT = "NULL"
+              PRICE_UNIT = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}description' and m.text is not None):
-                  PRICE_DESCRIPTION = m.text.rstrip()
+                  PRICE_DESCRIPTION = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}cost' and m.text is not None):
-                  PRICE_COST = m.text.rstrip()
-                  PRICE_CURRENCY = m.attrib['currency'].rstrip()
+                  PRICE_COST = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
+                  PRICE_CURRENCY = m.attrib['currency'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   costs[PRICE_CURRENCY] = PRICE_COST
                 if(m.tag == '{http://www.drugbank.ca}unit' and m.text is not None):
-                  PRICE_UNIT = m.text.rstrip()
+                  PRICE_UNIT = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               prices[PRICE_DESCRIPTION] = [costs, PRICE_UNIT]
 
 #
@@ -246,11 +254,11 @@ with open(source_xml_file, encoding = "utf8") as f:
           categories = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}category'):
-              CATEGORY_NAME = "NULL"
+              CATEGORY_NAME = ""
               mesh_ids = []
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}category'):
-                  CATEGORY_NAME = m.text.rstrip()
+                  CATEGORY_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}mesh-id'):
                   temp_mesh_ids = m.text.rstrip().split(", ")
                   for index in range(len(temp_mesh_ids)):
@@ -264,7 +272,7 @@ with open(source_xml_file, encoding = "utf8") as f:
           affected_organisms = []
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}affected-organism'):
-              AFFECTED_ORGANISM = k.text.rstrip()
+              AFFECTED_ORGANISM = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               affected_organisms.append(AFFECTED_ORGANISM)
 
 #
@@ -274,16 +282,16 @@ with open(source_xml_file, encoding = "utf8") as f:
           dosages = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}dosage'):
-              FORM = "NULL"
-              ROUTE = "NULL"
-              STRENGTH = "NULL"
+              FORM = ""
+              ROUTE = ""
+              STRENGTH = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}form' and m.text is not None):
-                  FORM = m.text.rstrip()
+                  FORM = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}route' and m.text is not None):
-                  ROUTE = m.text.rstrip()
+                  ROUTE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}strength' and m.text is not None):
-                  STRENGTH = m.text.rstrip()
+                  STRENGTH = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               dosages[FORM] = [ROUTE, STRENGTH]
 
 #
@@ -298,7 +306,7 @@ with open(source_xml_file, encoding = "utf8") as f:
               atc_code_levels = []
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}level'):
-                  LEVEL_NAME = m.text.rstrip()
+                  LEVEL_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   LEVEL_CODE = m.attrib['code']
                   temp_atc_code = []
                   temp_atc_code.append(ATC_CODE)
@@ -323,10 +331,10 @@ with open(source_xml_file, encoding = "utf8") as f:
           patents = []
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}patent'):
-              PATENT_NUMBER = "NULL"
-              PATENT_COUNTRY = "NULL"
-              PATENT_APPROVED = "NULL"
-              PATENT_EXPIRES = "NULL"
+              PATENT_NUMBER = ""
+              PATENT_COUNTRY = ""
+              PATENT_APPROVED = ""
+              PATENT_EXPIRES = ""
               for m in k.getchildren():
                 patent = []
                 if(m.tag == '{http://www.drugbank.ca}number'):
@@ -350,7 +358,7 @@ with open(source_xml_file, encoding = "utf8") as f:
           drug_food_interactions = []
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}food-interaction'):
-              FOOD_INTERACTION = k.text.rstrip()
+              FOOD_INTERACTION = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               drug_food_interactions.append(FOOD_INTERACTION)
 
 #
@@ -360,16 +368,16 @@ with open(source_xml_file, encoding = "utf8") as f:
           drug_drug_interactions = []
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}drug-interaction'): 
-              SECONDARY_DRUGBANK_ID = "NULL"
-              DRUG_INTERACTION_NAME = "NULL"
-              DRUG_INTERACTION_DESCRIPTION = "NULL"
+              SECONDARY_DRUGBANK_ID = ""
+              DRUG_INTERACTION_NAME = ""
+              DRUG_INTERACTION_DESCRIPTION = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}drugbank-id'):
-                  SECONDARY_DRUGBANK_ID = m.text.rstrip()
+                  SECONDARY_DRUGBANK_ID = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}name'):
-                  DRUG_INTERACTION_NAME = m.text.rstrip()
+                  DRUG_INTERACTION_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}description'):
-                  DRUG_INTERACTION_DESCRIPTION = m.text.rstrip()
+                  DRUG_INTERACTION_DESCRIPTION = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 drug_interaction = [SECONDARY_DRUGBANK_ID, DRUG_INTERACTION_NAME, DRUG_INTERACTION_DESCRIPTION]
               drug_drug_interactions.append(drug_interaction)
 
@@ -381,11 +389,13 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}sequence'):
               SEQUENCE_FORMAT = k.attrib['format']
-              DRUG_SEQUENCE = k.text
+              DRUG_SEQUENCE = k.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               sequence = []
+              sequence.append(sequence_counter)
               sequence.append(DRUG_SEQUENCE)
               sequence.append(SEQUENCE_FORMAT)
               sequences.append(sequence)
+              sequence_counter += 1
 
 #
 #		GETTING DRUGBANK EXPERIMENTAL PROPERTIES / CALCULATED PROPERTIES
@@ -396,22 +406,24 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}property'):
               property = []
-              KIND = "NULL"
-              PROPERTY_VALUE = "NULL"
-              PROPERTY_SOURCE = "NULL"
+              KIND = ""
+              PROPERTY_VALUE = ""
+              PROPERTY_SOURCE = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}kind'):
-                  KIND = m.text.rstrip()
+                  KIND = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}value'):
-                  PROPERTY_VALUE = m.text.rstrip()
+                  PROPERTY_VALUE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}source' and m.text is not None):
-                  PROPERTY_SOURCE = m.text.rstrip()
+                  PROPERTY_SOURCE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
+              property.append(property_counter)
               property.append(KIND)
               property.append(PROPERTY_VALUE)
               property.append(PROPERTY_SOURCE)
               property.append(EXPERIMENTAL)
               property.append(CALCULATED)
               properties.append(property)
+              property_counter += 1
 
         if(j.tag == '{http://www.drugbank.ca}calculated-properties'):
           EXPERIMENTAL = "FALSE" 
@@ -419,22 +431,24 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}property'):
               property = []
-              KIND = "NULL"
-              PROPERTY_VALUE = "NULL"
-              PROPERTY_SOURCE = "NULL"
+              KIND = ""
+              PROPERTY_VALUE = ""
+              PROPERTY_SOURCE = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}kind'):
-                  KIND = m.text.rstrip()
+                  KIND = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}value'):
-                  PROPERTY_VALUE = m.text.rstrip()
+                  PROPERTY_VALUE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}source'):
-                  PROPERTY_SOURCE = m.text.rstrip()
+                  PROPERTY_SOURCE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
+              property.append(property_counter)
               property.append(KIND)
               property.append(PROPERTY_VALUE)
               property.append(PROPERTY_SOURCE)
               property.append(EXPERIMENTAL)
               property.append(CALCULATED)
               properties.append(property)
+              property_counter += 1
 
 #
 #		GETTING DRUGBANK EXTERNAL IDENTIFIERS
@@ -444,8 +458,8 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}external-identifier'):
               external_identifier = []
-              RESOURCE = "NULL"
-              IDENTIFIER = "NULL"
+              RESOURCE = ""
+              IDENTIFIER = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}resource'):
                   RESOURCE = m.text
@@ -463,8 +477,8 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}external-link'):
               external_link = []
-              RESOURCE = "NULL"
-              URL = "NULL"
+              RESOURCE = ""
+              URL = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}resource'):
                   RESOURCE = m.text
@@ -488,7 +502,7 @@ with open(source_xml_file, encoding = "utf8") as f:
             if(k.tag == '{http://www.drugbank.ca}reaction'):
               reaction = []
               reaction_elements = []
-              REACTION_SEQUENCE = "NULL"
+              REACTION_SEQUENCE = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}sequence'):
                   REACTION_SEQUENCE = m.text
@@ -496,8 +510,8 @@ with open(source_xml_file, encoding = "utf8") as f:
                   reaction_element = []
                   LEFT_ELEMENT = "TRUE"
                   RIGHT_ELEMENT = "FALSE"
-                  REACTION_SECONDARY_DRUGBANK_ID = "NULL"
-                  REACTION_NAME = "NULL"
+                  REACTION_SECONDARY_DRUGBANK_ID = ""
+                  REACTION_NAME = ""
                   for n in m.getchildren():
                     if(n.tag == '{http://www.drugbank.ca}drugbank-id'):
                       REACTION_SECONDARY_DRUGBANK_ID = n.text
@@ -512,8 +526,8 @@ with open(source_xml_file, encoding = "utf8") as f:
                   reaction_element = []
                   RIGHT_ELEMENT = "TRUE"
                   LEFT_ELEMENT = "FALSE"
-                  REACTION_SECONDARY_DRUGBANK_ID = "NULL"
-                  REACTION_NAME = "NULL"
+                  REACTION_SECONDARY_DRUGBANK_ID = ""
+                  REACTION_NAME = ""
                   for n in m.getchildren():
                     if(n.tag == '{http://www.drugbank.ca}drugbank-id'):
                       REACTION_SECONDARY_DRUGBANK_ID = n.text
@@ -529,9 +543,9 @@ with open(source_xml_file, encoding = "utf8") as f:
                   for n in m.getchildren():
                     if(n.tag == '{http://www.drugbank.ca}enzyme'):
                       reaction_enzyme = []
-                      REACTION_ENZYME_DRUGBANK_ID = "NULL"
-                      REACTION_ENZYME_NAME = "NULL"
-                      REACTION_ENZYME_UNIPROT_ID = "NULL"
+                      REACTION_ENZYME_DRUGBANK_ID = ""
+                      REACTION_ENZYME_NAME = ""
+                      REACTION_ENZYME_UNIPROT_ID = ""
                       for p in n.getchildren():
                         if(p.tag == '{http://www.drugbank.ca}drugbank-id'):
                           REACTION_ENZYME_DRUGBANK_ID = p.text
@@ -543,10 +557,12 @@ with open(source_xml_file, encoding = "utf8") as f:
                       reaction_enzyme.append(REACTION_ENZYME_NAME)
                       reaction_enzyme.append(REACTION_ENZYME_UNIPROT_ID)
                       reaction_enzymes.append(reaction_enzyme)
+              reaction.append(reaction_counter)
               reaction.append(REACTION_SEQUENCE)
               reaction.append(reaction_elements)
               reaction.append(reaction_enzymes)
               reactions.append(reaction)
+              reaction_counter += 1
 
 #
 #		GETTING DRUGBANK SNP EFFECTS
@@ -556,14 +572,14 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}effect'):
               effect = []
-              SNP_EFFECT_PROTEIN_NAME = "NULL"
-              SNP_EFFECT_GENE_SYMBOL = "NULL"
-              SNP_EFFECT_UNIPROT_ID = "NULL"
-              SNP_EFFECT_RS_ID = "NULL"
-              SNP_EFFECT_ALLELE = "NULL"
-              SNP_EFFECT_DEFINING_CHANGE = "NULL"
-              SNP_EFFECT_DESCRIPTION = "NULL"
-              SNP_EFFECT_PUBMED_ID = "NULL"
+              SNP_EFFECT_PROTEIN_NAME = ""
+              SNP_EFFECT_GENE_SYMBOL = ""
+              SNP_EFFECT_UNIPROT_ID = ""
+              SNP_EFFECT_RS_ID = ""
+              SNP_EFFECT_ALLELE = ""
+              SNP_EFFECT_DEFINING_CHANGE = ""
+              SNP_EFFECT_DESCRIPTION = ""
+              SNP_EFFECT_PUBMED_ID = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}protein-name'):
                   SNP_EFFECT_PROTEIN_NAME = m.text
@@ -581,6 +597,7 @@ with open(source_xml_file, encoding = "utf8") as f:
                   SNP_EFFECT_DESCRIPTION = m.text
                 if(m.tag == '{http://www.drugbank.ca}pubmed-id'):
                   SNP_EFFECT_PUBMED_ID = m.text
+              effect.append(snp_effect_counter)
               effect.append(SNP_EFFECT_PROTEIN_NAME)
               effect.append(SNP_EFFECT_GENE_SYMBOL)
               effect.append(SNP_EFFECT_UNIPROT_ID)
@@ -590,6 +607,7 @@ with open(source_xml_file, encoding = "utf8") as f:
               effect.append(SNP_EFFECT_DESCRIPTION)
               effect.append(SNP_EFFECT_PUBMED_ID)
               effects.append(effect)
+              snp_effect_counter += 1
 
 #
 #		GETTING DRUGBANK SNP ADVERSE DRUG REACTIONS
@@ -599,14 +617,14 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}reaction'):
               adverse_drug_reaction = []
-              ADVERSE_DRUG_REACTION_PROTEIN_NAME = "NULL"
-              ADVERSE_DRUG_REACTION_GENE_SYMBOL = "NULL"
-              ADVERSE_DRUG_REACTION_UNIPROT_ID = "NULL"
-              ADVERSE_DRUG_REACTION_RS_ID = "NULL"
-              ADVERSE_DRUG_REACTION_ALLELE = "NULL"
-              ADVERSE_DRUG_REACTION_ADVERSE_REACTION = "NULL"
-              ADVERSE_DRUG_REACTION_DESCRIPTION = "NULL"
-              ADVERSE_DRUG_REACTION_PUBMED_ID = "NULL"
+              ADVERSE_DRUG_REACTION_PROTEIN_NAME = ""
+              ADVERSE_DRUG_REACTION_GENE_SYMBOL = ""
+              ADVERSE_DRUG_REACTION_UNIPROT_ID = ""
+              ADVERSE_DRUG_REACTION_RS_ID = ""
+              ADVERSE_DRUG_REACTION_ALLELE = ""
+              ADVERSE_DRUG_REACTION_ADVERSE_REACTION = ""
+              ADVERSE_DRUG_REACTION_DESCRIPTION = ""
+              ADVERSE_DRUG_REACTION_PUBMED_ID = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}protein-name'):
                   ADVERSE_DRUG_REACTION_PROTEIN_NAME = m.text
@@ -624,6 +642,7 @@ with open(source_xml_file, encoding = "utf8") as f:
                   ADVERSE_DRUG_REACTION_DESCRIPTION = m.text
                 if(m.tag == '{http://www.drugbank.ca}pubmed-id'):
                   ADVERSE_DRUG_REACTION_PUBMED_ID = m.text
+              adverse_drug_reaction.append(snp_adverse_effect_counter)
               adverse_drug_reaction.append(ADVERSE_DRUG_REACTION_PROTEIN_NAME)
               adverse_drug_reaction.append(ADVERSE_DRUG_REACTION_GENE_SYMBOL)
               adverse_drug_reaction.append(ADVERSE_DRUG_REACTION_UNIPROT_ID)
@@ -633,6 +652,7 @@ with open(source_xml_file, encoding = "utf8") as f:
               adverse_drug_reaction.append(ADVERSE_DRUG_REACTION_DESCRIPTION)
               adverse_drug_reaction.append(ADVERSE_DRUG_REACTION_PUBMED_ID)
               adverse_drug_reactions.append(adverse_drug_reaction)
+              snp_adverse_effect_counter += 1
 
 #
 #		GETTING DRUGBANK TARGETS
@@ -642,17 +662,17 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}target'):
               target = []
-              POSITION = "NULL"
-              NAME = "NULL"
-              ORGANISM = "NULL"
-              KNOWN_ACTION = "NULL"
-              TARGET_INHIBITION_STRENGTH = "NULL"
-              TARGET_INDUCTION_STRENGTH = "NULL"
+              POSITION = ""
+              NAME = ""
+              ORGANISM = ""
+              KNOWN_ACTION = ""
+              TARGET_INHIBITION_STRENGTH = ""
+              TARGET_INDUCTION_STRENGTH = ""
               actions = []
               target_references = []
               target_polypeptides = []
               if(('position' in k.attrib.keys()) and k.attrib['position'] != ""):
-                POSITION = k.attrib['position'].rstrip()
+                POSITION = k.attrib['position'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}id'):
                   ID = m.text
@@ -672,60 +692,60 @@ with open(source_xml_file, encoding = "utf8") as f:
                       ACTION = n.text
                   actions.append(ACTION)
                 if(m.tag == '{http://www.drugbank.ca}references' and m.text is not None):
-                  temp_target_references = m.text.rstrip()
+                  temp_target_references = m.text.rstrip().replace("'", "''").replace('"', "''''").replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   target_references = temp_target_references.split('#')
                 if(m.tag == '{http://www.drugbank.ca}polypeptide' and m.text is not None):
                   target_polypeptide = []
                   TARGET_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = []
-                  TARGET_AMINO_ACID_SEQUENCE = "NULL"
-                  TARGET_AMINO_ACID_SEQUENCE_FORMAT = "NULL"
-                  TARGET_POLYPEPTIDE_GENERAL_FUNCTION = "NULL"
+                  TARGET_AMINO_ACID_SEQUENCE = ""
+                  TARGET_AMINO_ACID_SEQUENCE_FORMAT = ""
+                  TARGET_POLYPEPTIDE_GENERAL_FUNCTION = ""
                   TARGET_POLYPEPTIDE_SIGNAL_REGIONS = []
-                  TARGET_POLYPEPTIDE_LOCUS = "NULL"
-                  TARGET_POLYPEPTIDE_THEORETICAL_PI = "NULL"
-                  TARGET_POLYPEPTIDE_CHROMOSOME_LOCATION = "NULL"
-                  TARGET_GENE_SEQUENCE = "NULL"
-                  TARGET_GENE_SEQUENCE_FORMAT = "NULL"
-                  TARGET_POLYPEPTIDE_CELLULAR_LOCATION = "NULL"
-                  TARGET_POLYPEPTIDE_SPECIFIC_FUNCTION = "NULL"
-                  TARGET_POLYPEPTIDE_GENE_NAME = "NULL"
-                  TARGET_POLYPEPTIDE_MOLECULAR_WEIGHT = "NULL"
-                  TARGET_POLYPEPTIDE_ORGANISM_NAME = "NULL"
-                  TARGET_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = "NULL"
+                  TARGET_POLYPEPTIDE_LOCUS = ""
+                  TARGET_POLYPEPTIDE_THEORETICAL_PI = ""
+                  TARGET_POLYPEPTIDE_CHROMOSOME_LOCATION = ""
+                  TARGET_GENE_SEQUENCE = ""
+                  TARGET_GENE_SEQUENCE_FORMAT = ""
+                  TARGET_POLYPEPTIDE_CELLULAR_LOCATION = ""
+                  TARGET_POLYPEPTIDE_SPECIFIC_FUNCTION = ""
+                  TARGET_POLYPEPTIDE_GENE_NAME = ""
+                  TARGET_POLYPEPTIDE_MOLECULAR_WEIGHT = ""
+                  TARGET_POLYPEPTIDE_ORGANISM_NAME = ""
+                  TARGET_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = ""
                   if(m.attrib['id'] != ""):
-                    TARGET_POLYPEPTIDE_ID = m.attrib['id'].rstrip()
+                    TARGET_POLYPEPTIDE_ID = m.attrib['id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   if(m.attrib['source'] != ""):
-                    TARGET_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip()
+                    TARGET_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   for n in m.getchildren():
                     if(n.tag == '{http://www.drugbank.ca}name'):
                       TARGET_POLYPEPTIDE_NAME = n.text
                     if(n.tag == '{http://www.drugbank.ca}general-function' and n.text is not None):
-                      TARGET_POLYPEPTIDE_GENERAL_FUNCTION = n.text
+                      TARGET_POLYPEPTIDE_GENERAL_FUNCTION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}specific-function' and n.text is not None):
-                      TARGET_POLYPEPTIDE_SPECIFIC_FUNCTION = n.text
+                      TARGET_POLYPEPTIDE_SPECIFIC_FUNCTION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}gene-name' and n.text is not None):
                       TARGET_POLYPEPTIDE_GENE_NAME = n.text
                     if(n.tag == '{http://www.drugbank.ca}locus' and n.text is not None):
-                      TARGET_POLYPEPTIDE_LOCUS = n.text
+                      TARGET_POLYPEPTIDE_LOCUS = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}cellular-location' and n.text is not None):
                       TARGET_POLYPEPTIDE_CELLULAR_LOCATION = n.text
                     if(n.tag == '{http://www.drugbank.ca}signal-regions' and n.text is not None):
                       temp_polypeptide_signal_regions = n.text
                       TARGET_POLYPEPTIDE_SIGNAL_REGIONS = temp_polypeptide_signal_regions.split('-')
-                      TARGET_POLYPEPTIDE_SIGNAL_REGIONS_LOWER = TARGET_POLYPEPTIDE_SIGNAL_REGIONS[0]
-                      TARGET_POLYPEPTIDE_SIGNAL_REGIONS_UPPER = TARGET_POLYPEPTIDE_SIGNAL_REGIONS[1]
+                      TARGET_POLYPEPTIDE_SIGNAL_REGIONS_LOWER = TARGET_POLYPEPTIDE_SIGNAL_REGIONS[0].replace('\n', '').replace('\r', '').replace('|', '')
+                      TARGET_POLYPEPTIDE_SIGNAL_REGIONS_UPPER = TARGET_POLYPEPTIDE_SIGNAL_REGIONS[1].replace('\n', '').replace('\r', '').replace('|', '')
                     if(n.tag == '{http://www.drugbank.ca}theoretical-pi' and n.text is not None):
-                      TARGET_POLYPEPTIDE_THEORETICAL_PI = n.text
+                      TARGET_POLYPEPTIDE_THEORETICAL_PI = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}molecular-weight' and n.text is not None):
-                      TARGET_POLYPEPTIDE_MOLECULAR_WEIGHT = n.text
+                      TARGET_POLYPEPTIDE_MOLECULAR_WEIGHT = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}chromosome-location' and n.text is not None):
-                      TARGET_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text
+                      TARGET_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}organism' and n.text is not None):
                       TARGET_POLYPEPTIDE_ORGANISM = n.text
                       if(n.attrib['ncbi-taxonomy-id'] != ""):
-                        TARGET_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip()
+                        TARGET_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}transmembrane-regions' and n.text is not None):
-                      temp_polypeptide_transmembrane_regions = n.text
+                      temp_polypeptide_transmembrane_regions = n.text.replace('\n', '').replace('\r', '').replace('|', '')
                       TARGET_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = temp_polypeptide_transmembrane_regions.split('-')
                     if(n.tag == '{http://www.drugbank.ca}external-identifiers'):
                       external_identifiers = []
@@ -747,13 +767,13 @@ with open(source_xml_file, encoding = "utf8") as f:
                           TARGET_SYNONYM = p.text
                           target_synonyms.append(TARGET_SYNONYM)
                     if(n.tag == '{http://www.drugbank.ca}amino-acid-sequence' and n.text is not None):
-                      TARGET_AMINO_ACID_SEQUENCE = n.text
+                      TARGET_AMINO_ACID_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        TARGET_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        TARGET_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}gene-sequence' and n.text is not None):
-                      TARGET_GENE_SEQUENCE = n.text
+                      TARGET_GENE_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        TARGET_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        TARGET_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}pfams'):
                       pfams = []
                       for p in n.getchildren():
@@ -799,13 +819,18 @@ with open(source_xml_file, encoding = "utf8") as f:
                   target_polypeptide.append(TARGET_POLYPEPTIDE_TRANSMEMBRANE_REGIONS)
                   target_polypeptide.append(external_identifiers)
                   target_polypeptide.append(target_synonyms)
+                  target_polypeptide.append(target_amino_acid_counter)
                   target_polypeptide.append(TARGET_AMINO_ACID_SEQUENCE)
                   target_polypeptide.append(TARGET_AMINO_ACID_SEQUENCE_FORMAT)
+                  target_polypeptide.append(target_gene_seq_counter)
                   target_polypeptide.append(TARGET_GENE_SEQUENCE)
                   target_polypeptide.append(TARGET_GENE_SEQUENCE_FORMAT)
                   target_polypeptide.append(pfams)
                   target_polypeptide.append(go_classifiers)
                   target_polypeptides.append(target_polypeptide)
+                  target_amino_acid_counter += 1
+                  target_gene_seq_counter += 1
+              target.append(target_counter)
               target.append(POSITION)
               target.append(ID) 
               target.append(NAME) 
@@ -817,6 +842,7 @@ with open(source_xml_file, encoding = "utf8") as f:
               target.append(target_references) 
               target.append(target_polypeptides)
               targets.append(target)
+              target_counter += 1
 
 #
 #		GETTING DRUGBANK ENZYMES / ENZYME ACTIONS / ENZYME REFERENCES / ENZYME POLYPEPTIDES / ENZYME POLYPEPTIDE TRANSMEMBRANE REGIONS / ENZYME POLYPEPTIDE EXTERNAL IDENTIFIERS / ENZYME POLYPEPTIDE SYNONYMS / ENZYME AMINO ACID SEQUENCES / ENZYME GENE SEQUENCES / ENZYME PFAM / ENZYME GO CLASSIFIERS
@@ -826,17 +852,17 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}enzyme'):
               enzyme = []
-              POSITION = "NULL"
-              NAME = "NULL"
-              ORGANISM = "NULL"
-              KNOWN_ACTION = "NULL"
-              ENZYME_INHIBITION_STRENGTH = "NULL"
-              ENZYME_INDUCTION_STRENGTH = "NULL"
+              POSITION = ""
+              NAME = ""
+              ORGANISM = ""
+              KNOWN_ACTION = ""
+              ENZYME_INHIBITION_STRENGTH = ""
+              ENZYME_INDUCTION_STRENGTH = ""
               actions = []
               enzyme_references = []
               enzyme_polypeptides = []
               if(('position' in k.attrib.keys()) and k.attrib['position'] != ""):
-                POSITION = k.attrib['position'].rstrip()
+                POSITION = k.attrib['position'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}id'):
                   ID = m.text
@@ -852,47 +878,47 @@ with open(source_xml_file, encoding = "utf8") as f:
                   ENZYME_INDUCTION_STRENGTH = m.text
                 if(m.tag == '{http://www.drugbank.ca}actions'):
                   for n in m.getchildren():
-                    if(n.tag == '{http://www.drugbank.ca}action'): 
+                    if(n.tag == '{http://www.drugbank.ca}action' and n.text is not None): 
                       ACTION = n.text
                   actions.append(ACTION)
                 if(m.tag == '{http://www.drugbank.ca}references' and m.text is not None):
-                  temp_enzyme_references = m.text.rstrip()
+                  temp_enzyme_references = m.text.rstrip().replace("'", "''").replace('"', "''''").replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   enzyme_references = temp_enzyme_references.split('#')
                 if(m.tag == '{http://www.drugbank.ca}polypeptide' and m.text is not None):
                   enzyme_polypeptide = []
                   ENZYME_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = []
-                  ENZYME_AMINO_ACID_SEQUENCE = "NULL"
-                  ENZYME_AMINO_ACID_SEQUENCE_FORMAT = "NULL"
-                  ENZYME_POLYPEPTIDE_GENERAL_FUNCTION = "NULL"
+                  ENZYME_AMINO_ACID_SEQUENCE = ""
+                  ENZYME_AMINO_ACID_SEQUENCE_FORMAT = ""
+                  ENZYME_POLYPEPTIDE_GENERAL_FUNCTION = ""
                   ENZYME_POLYPEPTIDE_SIGNAL_REGIONS = []
-                  ENZYME_POLYPEPTIDE_LOCUS = "NULL"
-                  ENZYME_POLYPEPTIDE_THEORETICAL_PI = "NULL"
-                  ENZYME_POLYPEPTIDE_CHROMOSOME_LOCATION = "NULL"
-                  ENZYME_GENE_SEQUENCE = "NULL"
-                  ENZYME_GENE_SEQUENCE_FORMAT = "NULL"
-                  ENZYME_POLYPEPTIDE_CELLULAR_LOCATION = "NULL"
-                  ENZYME_POLYPEPTIDE_SPECIFIC_FUNCTION = "NULL"
-                  ENZYME_POLYPEPTIDE_GENE_NAME = "NULL"
-                  ENZYME_POLYPEPTIDE_MOLECULAR_WEIGHT = "NULL"
-                  ENZYME_POLYPEPTIDE_ORGANISM_NAME = "NULL"
-                  ENZYME_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = "NULL"
+                  ENZYME_POLYPEPTIDE_LOCUS = ""
+                  ENZYME_POLYPEPTIDE_THEORETICAL_PI = ""
+                  ENZYME_POLYPEPTIDE_CHROMOSOME_LOCATION = ""
+                  ENZYME_GENE_SEQUENCE = ""
+                  ENZYME_GENE_SEQUENCE_FORMAT = ""
+                  ENZYME_POLYPEPTIDE_CELLULAR_LOCATION = ""
+                  ENZYME_POLYPEPTIDE_SPECIFIC_FUNCTION = ""
+                  ENZYME_POLYPEPTIDE_GENE_NAME = ""
+                  ENZYME_POLYPEPTIDE_MOLECULAR_WEIGHT = ""
+                  ENZYME_POLYPEPTIDE_ORGANISM_NAME = ""
+                  ENZYME_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = ""
                   if(m.attrib['id'] != ""):
-                    ENZYME_POLYPEPTIDE_ID = m.attrib['id'].rstrip()
+                    ENZYME_POLYPEPTIDE_ID = m.attrib['id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   if(m.attrib['source'] != ""):
-                    ENZYME_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip()
+                    ENZYME_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   for n in m.getchildren():
                     if(n.tag == '{http://www.drugbank.ca}name'):
                       ENZYME_POLYPEPTIDE_NAME = n.text
                     if(n.tag == '{http://www.drugbank.ca}general-function' and n.text is not None):
-                      ENZYME_POLYPEPTIDE_GENERAL_FUNCTION = n.text
+                      ENZYME_POLYPEPTIDE_GENERAL_FUNCTION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}specific-function' and n.text is not None):
-                      ENZYME_POLYPEPTIDE_SPECIFIC_FUNCTION = n.text
+                      ENZYME_POLYPEPTIDE_SPECIFIC_FUNCTION = n.text.replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}gene-name' and n.text is not None):
                       ENZYME_POLYPEPTIDE_GENE_NAME = n.text
                     if(n.tag == '{http://www.drugbank.ca}locus' and n.text is not None):
-                      ENZYME_POLYPEPTIDE_LOCUS = n.text
+                      ENZYME_POLYPEPTIDE_LOCUS = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}cellular-location' and n.text is not None):
-                      ENZYME_POLYPEPTIDE_CELLULAR_LOCATION = n.text
+                      ENZYME_POLYPEPTIDE_CELLULAR_LOCATION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}signal-regions' and n.text is not None):
                       temp_polypeptide_signal_regions = n.text
                       ENZYME_POLYPEPTIDE_SIGNAL_REGIONS = temp_polypeptide_signal_regions.split('-')
@@ -903,11 +929,11 @@ with open(source_xml_file, encoding = "utf8") as f:
                     if(n.tag == '{http://www.drugbank.ca}molecular-weight' and n.text is not None):
                       ENZYME_POLYPEPTIDE_MOLECULAR_WEIGHT = n.text
                     if(n.tag == '{http://www.drugbank.ca}chromosome-location' and n.text is not None):
-                      ENZYME_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text
+                      ENZYME_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}organism' and n.text is not None):
                       ENZYME_POLYPEPTIDE_ORGANISM = n.text
                       if(n.attrib['ncbi-taxonomy-id'] != ""):
-                        ENZYME_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip()
+                        ENZYME_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}transmembrane-regions' and n.text is not None):
                       temp_polypeptide_transmembrane_regions = n.text
                       ENZYME_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = temp_polypeptide_transmembrane_regions.split('-')
@@ -931,13 +957,13 @@ with open(source_xml_file, encoding = "utf8") as f:
                           ENZYME_SYNONYM = p.text
                           enzyme_synonyms.append(ENZYME_SYNONYM)
                     if(n.tag == '{http://www.drugbank.ca}amino-acid-sequence' and n.text is not None):
-                      ENZYME_AMINO_ACID_SEQUENCE = n.text
+                      ENZYME_AMINO_ACID_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        ENZYME_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        ENZYME_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}gene-sequence' and n.text is not None):
-                      ENZYME_GENE_SEQUENCE = n.text
+                      ENZYME_GENE_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        ENZYME_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        ENZYME_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}pfams'):
                       pfams = []
                       for p in n.getchildren():
@@ -1010,17 +1036,17 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}carrier'):
               carrier = []
-              POSITION = "NULL"
-              NAME = "NULL"
-              ORGANISM = "NULL"
-              KNOWN_ACTION = "NULL"
-              CARRIER_INHIBITION_STRENGTH = "NULL"
-              CARRIER_INDUCTION_STRENGTH = "NULL"
+              POSITION = ""
+              NAME = ""
+              ORGANISM = ""
+              KNOWN_ACTION = ""
+              CARRIER_INHIBITION_STRENGTH = ""
+              CARRIER_INDUCTION_STRENGTH = ""
               actions = []
               carrier_references = []
               carrier_polypeptides = []
               if(('position' in k.attrib.keys()) and k.attrib['position'] != ""):
-                POSITION = k.attrib['position'].rstrip()
+                POSITION = k.attrib['position'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}id'):
                   ID = m.text
@@ -1041,30 +1067,30 @@ with open(source_xml_file, encoding = "utf8") as f:
                       ACTION = n.text
                   actions.append(ACTION)
                 if(m.tag == '{http://www.drugbank.ca}references' and m.text is not None):
-                  temp_carrier_references = m.text.rstrip()
+                  temp_carrier_references = m.text.rstrip().replace("'", "''").replace('"', "''''").replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   carrier_references = temp_carrier_references.split('#')
                 if(m.tag == '{http://www.drugbank.ca}polypeptide' and m.text is not None):
                   carrier_polypeptide = []
                   CARRIER_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = []
-                  CARRIER_AMINO_ACID_SEQUENCE = "NULL"
-                  CARRIER_AMINO_ACID_SEQUENCE_FORMAT = "NULL"
-                  CARRIER_POLYPEPTIDE_GENERAL_FUNCTION = "NULL"
+                  CARRIER_AMINO_ACID_SEQUENCE = ""
+                  CARRIER_AMINO_ACID_SEQUENCE_FORMAT = ""
+                  CARRIER_POLYPEPTIDE_GENERAL_FUNCTION = ""
                   CARRIER_POLYPEPTIDE_SIGNAL_REGIONS = []
-                  CARRIER_POLYPEPTIDE_LOCUS = "NULL"
-                  CARRIER_POLYPEPTIDE_THEORETICAL_PI = "NULL"
-                  CARRIER_POLYPEPTIDE_CHROMOSOME_LOCATION = "NULL"
-                  CARRIER_GENE_SEQUENCE = "NULL"
-                  CARRIER_GENE_SEQUENCE_FORMAT = "NULL"
-                  CARRIER_POLYPEPTIDE_CELLULAR_LOCATION = "NULL"
-                  CARRIER_POLYPEPTIDE_SPECIFIC_FUNCTION = "NULL"
-                  CARRIER_POLYPEPTIDE_GENE_NAME = "NULL"
-                  CARRIER_POLYPEPTIDE_MOLECULAR_WEIGHT = "NULL"
-                  CARRIER_POLYPEPTIDE_ORGANISM_NAME = "NULL"
-                  CARRIER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = "NULL"
+                  CARRIER_POLYPEPTIDE_LOCUS = ""
+                  CARRIER_POLYPEPTIDE_THEORETICAL_PI = ""
+                  CARRIER_POLYPEPTIDE_CHROMOSOME_LOCATION = ""
+                  CARRIER_GENE_SEQUENCE = ""
+                  CARRIER_GENE_SEQUENCE_FORMAT = ""
+                  CARRIER_POLYPEPTIDE_CELLULAR_LOCATION = ""
+                  CARRIER_POLYPEPTIDE_SPECIFIC_FUNCTION = ""
+                  CARRIER_POLYPEPTIDE_GENE_NAME = ""
+                  CARRIER_POLYPEPTIDE_MOLECULAR_WEIGHT = ""
+                  CARRIER_POLYPEPTIDE_ORGANISM_NAME = ""
+                  CARRIER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = ""
                   if(m.attrib['id'] != ""):
-                    CARRIER_POLYPEPTIDE_ID = m.attrib['id'].rstrip()
+                    CARRIER_POLYPEPTIDE_ID = m.attrib['id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   if(m.attrib['source'] != ""):
-                    CARRIER_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip()
+                    CARRIER_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   for n in m.getchildren():
                     if(n.tag == '{http://www.drugbank.ca}name'):
                       CARRIER_POLYPEPTIDE_NAME = n.text
@@ -1075,7 +1101,7 @@ with open(source_xml_file, encoding = "utf8") as f:
                     if(n.tag == '{http://www.drugbank.ca}gene-name' and n.text is not None):
                       CARRIER_POLYPEPTIDE_GENE_NAME = n.text
                     if(n.tag == '{http://www.drugbank.ca}locus' and n.text is not None):
-                      CARRIER_POLYPEPTIDE_LOCUS = n.text
+                      CARRIER_POLYPEPTIDE_LOCUS = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}cellular-location' and n.text is not None):
                       CARRIER_POLYPEPTIDE_CELLULAR_LOCATION = n.text
                     if(n.tag == '{http://www.drugbank.ca}signal-regions' and n.text is not None):
@@ -1088,18 +1114,18 @@ with open(source_xml_file, encoding = "utf8") as f:
                     if(n.tag == '{http://www.drugbank.ca}molecular-weight' and n.text is not None):
                       CARRIER_POLYPEPTIDE_MOLECULAR_WEIGHT = n.text
                     if(n.tag == '{http://www.drugbank.ca}chromosome-location' and n.text is not None):
-                      CARRIER_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text
+                      CARRIER_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}organism' and n.text is not None):
                       CARRIER_POLYPEPTIDE_ORGANISM = n.text
                       if(n.attrib['ncbi-taxonomy-id'] != ""):
-                        CARRIER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip()
+                        CARRIER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}inhibition-strength'):
                       print("Does inhibition strength exist in carrier?")
                       CARRIER_POLYPEPTIDE_INHIBITION_STRENGTH = n.text
                     if(n.tag == '{http://www.drugbank.ca}induction-strength'):
                       CARRIER_POLYPEPTIDE_INDUCTION_STRENGTH = n.text
                     if(n.tag == '{http://www.drugbank.ca}transmembrane-regions' and n.text is not None):
-                      temp_polypeptide_transmembrane_regions = n.text
+                      temp_polypeptide_transmembrane_regions = n.text.replace('\n', '').replace('\r', '').replace('|', '')
                       CARRIER_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = temp_polypeptide_transmembrane_regions.split('-')
                     if(n.tag == '{http://www.drugbank.ca}external-identifiers'):
                       external_identifiers = []
@@ -1121,13 +1147,13 @@ with open(source_xml_file, encoding = "utf8") as f:
                           CARRIER_SYNONYM = p.text
                           carrier_synonyms.append(CARRIER_SYNONYM)
                     if(n.tag == '{http://www.drugbank.ca}amino-acid-sequence' and n.text is not None):
-                      CARRIER_AMINO_ACID_SEQUENCE = n.text
+                      CARRIER_AMINO_ACID_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        CARRIER_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        CARRIER_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}gene-sequence' and n.text is not None):
-                      CARRIER_GENE_SEQUENCE = n.text
+                      CARRIER_GENE_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        CARRIER_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        CARRIER_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}pfams'):
                       pfams = []
                       for p in n.getchildren():
@@ -1200,17 +1226,17 @@ with open(source_xml_file, encoding = "utf8") as f:
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}transporter'):
               transporter = []
-              POSITION = "NULL"
-              NAME = "NULL"
-              ORGANISM = "NULL"
-              KNOWN_ACTION = "NULL"
-              TRANSPORTER_INHIBITION_STRENGTH = "NULL"
-              TRANSPORTER_INDUCTION_STRENGTH = "NULL"
+              POSITION = ""
+              NAME = ""
+              ORGANISM = ""
+              KNOWN_ACTION = ""
+              TRANSPORTER_INHIBITION_STRENGTH = ""
+              TRANSPORTER_INDUCTION_STRENGTH = ""
               actions = []
               transporter_references = []
               transporter_polypeptides = []
               if(('position' in k.attrib.keys()) and k.attrib['position'] != ""):
-                POSITION = k.attrib['position'].rstrip()
+                POSITION = k.attrib['position'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}id'):
                   ID = m.text
@@ -1230,32 +1256,32 @@ with open(source_xml_file, encoding = "utf8") as f:
                       ACTION = n.text
                   actions.append(ACTION)
                 if(m.tag == '{http://www.drugbank.ca}references' and m.text is not None):
-                  temp_transporter_references = m.text.rstrip()
+                  temp_transporter_references = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   transporter_references = temp_transporter_references.split('#')
                 if(m.tag == '{http://www.drugbank.ca}polypeptide' and m.text is not None):
                   transporter_polypeptide = []
                   TRANSPORTER_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = []
-                  TRANSPORTER_AMINO_ACID_SEQUENCE = "NULL"
-                  TRANSPORTER_AMINO_ACID_SEQUENCE_FORMAT = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_GENERAL_FUNCTION = "NULL"
+                  TRANSPORTER_AMINO_ACID_SEQUENCE = ""
+                  TRANSPORTER_AMINO_ACID_SEQUENCE_FORMAT = ""
+                  TRANSPORTER_POLYPEPTIDE_GENERAL_FUNCTION = ""
                   TRANSPORTER_POLYPEPTIDE_SIGNAL_REGIONS = []
-                  TRANSPORTER_POLYPEPTIDE_LOCUS = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_THEORETICAL_PI = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_CHROMOSOME_LOCATION = "NULL"
-                  TRANSPORTER_GENE_SEQUENCE = "NULL"
-                  TRANSPORTER_GENE_SEQUENCE_FORMAT = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_CELLULAR_LOCATION = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_SPECIFIC_FUNCTION = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_GENE_NAME = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_MOLECULAR_WEIGHT = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_ORGANISM_NAME = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_SIGNAL_REGIONS_LOWER = "NULL"
-                  TRANSPORTER_POLYPEPTIDE_SIGNAL_REGIONS_UPPER = "NULL"
+                  TRANSPORTER_POLYPEPTIDE_LOCUS = ""
+                  TRANSPORTER_POLYPEPTIDE_THEORETICAL_PI = ""
+                  TRANSPORTER_POLYPEPTIDE_CHROMOSOME_LOCATION = ""
+                  TRANSPORTER_GENE_SEQUENCE = ""
+                  TRANSPORTER_GENE_SEQUENCE_FORMAT = ""
+                  TRANSPORTER_POLYPEPTIDE_CELLULAR_LOCATION = ""
+                  TRANSPORTER_POLYPEPTIDE_SPECIFIC_FUNCTION = ""
+                  TRANSPORTER_POLYPEPTIDE_GENE_NAME = ""
+                  TRANSPORTER_POLYPEPTIDE_MOLECULAR_WEIGHT = ""
+                  TRANSPORTER_POLYPEPTIDE_ORGANISM_NAME = ""
+                  TRANSPORTER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = ""
+                  TRANSPORTER_POLYPEPTIDE_SIGNAL_REGIONS_LOWER = ""
+                  TRANSPORTER_POLYPEPTIDE_SIGNAL_REGIONS_UPPER = ""
                   if(m.attrib['id'] != ""):
-                    TRANSPORTER_POLYPEPTIDE_ID = m.attrib['id'].rstrip()
+                    TRANSPORTER_POLYPEPTIDE_ID = m.attrib['id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   if(m.attrib['source'] != ""):
-                    TRANSPORTER_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip()
+                    TRANSPORTER_POLYPEPTIDE_SOURCE = m.attrib['source'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                   for n in m.getchildren():
                     if(n.tag == '{http://www.drugbank.ca}name'):
                       TRANSPORTER_POLYPEPTIDE_NAME = n.text
@@ -1266,7 +1292,7 @@ with open(source_xml_file, encoding = "utf8") as f:
                     if(n.tag == '{http://www.drugbank.ca}gene-name' and n.text is not None):
                       TRANSPORTER_POLYPEPTIDE_GENE_NAME = n.text
                     if(n.tag == '{http://www.drugbank.ca}locus' and n.text is not None):
-                      TRANSPORTER_POLYPEPTIDE_LOCUS = n.text
+                      TRANSPORTER_POLYPEPTIDE_LOCUS = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}cellular-location' and n.text is not None):
                       TRANSPORTER_POLYPEPTIDE_CELLULAR_LOCATION = n.text
                     if(n.tag == '{http://www.drugbank.ca}signal-regions' and n.text is not None):
@@ -1279,17 +1305,17 @@ with open(source_xml_file, encoding = "utf8") as f:
                     if(n.tag == '{http://www.drugbank.ca}molecular-weight' and n.text is not None):
                       TRANSPORTER_POLYPEPTIDE_MOLECULAR_WEIGHT = n.text
                     if(n.tag == '{http://www.drugbank.ca}chromosome-location' and n.text is not None):
-                      TRANSPORTER_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text
+                      TRANSPORTER_POLYPEPTIDE_CHROMOSOME_LOCATION = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}organism' and n.text is not None):
                       TRANSPORTER_POLYPEPTIDE_ORGANISM = n.text
                       if(n.attrib['ncbi-taxonomy-id'] != ""):
-                        TRANSPORTER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip()
+                        TRANSPORTER_POLYPEPTIDE_ORGANISM_NCBI_TAXONOMY_ID = n.attrib['ncbi-taxonomy-id'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}inhibition-strength'):
                       TRANSPORTER_POLYPEPTIDE_INHIBITION_STRENGTH = n.text
                     if(n.tag == '{http://www.drugbank.ca}induction-strength'):
                       TRANSPORTER_POLYPEPTIDE_INDUCTION_STRENGTH = n.text
                     if(n.tag == '{http://www.drugbank.ca}transmembrane-regions' and n.text is not None):
-                      temp_polypeptide_transmembrane_regions = n.text
+                      temp_polypeptide_transmembrane_regions = n.text.replace('\n', '').replace('\r', '').replace('|', '')
                       TRANSPORTER_POLYPEPTIDE_TRANSMEMBRANE_REGIONS = temp_polypeptide_transmembrane_regions.split('-')
                     if(n.tag == '{http://www.drugbank.ca}external-identifiers'):
                       external_identifiers = []
@@ -1311,13 +1337,13 @@ with open(source_xml_file, encoding = "utf8") as f:
                           TRANSPORTER_SYNONYM = p.text
                           transporter_synonyms.append(TRANSPORTER_SYNONYM)
                     if(n.tag == '{http://www.drugbank.ca}amino-acid-sequence' and n.text is not None):
-                      TRANSPORTER_AMINO_ACID_SEQUENCE = n.text
+                      TRANSPORTER_AMINO_ACID_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        TRANSPORTER_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        TRANSPORTER_AMINO_ACID_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}gene-sequence' and n.text is not None):
-                      TRANSPORTER_GENE_SEQUENCE = n.text
+                      TRANSPORTER_GENE_SEQUENCE = n.text.replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                       if(n.attrib['format'] != ""):
-                        TRANSPORTER_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip()
+                        TRANSPORTER_GENE_SEQUENCE_FORMAT = n.attrib['format'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                     if(n.tag == '{http://www.drugbank.ca}pfams'):
                       pfams = []
                       for p in n.getchildren():
@@ -1363,13 +1389,17 @@ with open(source_xml_file, encoding = "utf8") as f:
                   transporter_polypeptide.append(TRANSPORTER_POLYPEPTIDE_TRANSMEMBRANE_REGIONS)
                   transporter_polypeptide.append(external_identifiers)
                   transporter_polypeptide.append(transporter_synonyms)
+                  transporter_polypeptide.append(transporter_amino_acid_counter)
                   transporter_polypeptide.append(TRANSPORTER_AMINO_ACID_SEQUENCE)
                   transporter_polypeptide.append(TRANSPORTER_AMINO_ACID_SEQUENCE_FORMAT)
+                  transporter_polypeptide.append(transporter_gene_seq_counter)
                   transporter_polypeptide.append(TRANSPORTER_GENE_SEQUENCE)
                   transporter_polypeptide.append(TRANSPORTER_GENE_SEQUENCE_FORMAT)
                   transporter_polypeptide.append(pfams)
                   transporter_polypeptide.append(go_classifiers)
                   transporter_polypeptides.append(transporter_polypeptide)
+                  transporter_amino_acid_counter += 1
+                  transporter_gene_seq_counter += 1
               transporter.append(POSITION)
               transporter.append(ID) 
               transporter.append(NAME) 
@@ -1386,19 +1416,19 @@ with open(source_xml_file, encoding = "utf8") as f:
 #	GETTING DRUGBANK NAMES
 #
         if(j.tag == '{http://www.drugbank.ca}name'):
-          NAME = j.text.rstrip()
+          NAME = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK DESCRIPTIONS
 #
         if(j.tag == '{http://www.drugbank.ca}description' and j.text is not None):
-          DESCRIPTION = j.text.rstrip()
+          DESCRIPTION = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
           
 #
 #	GETTING DRUGBANK CAS NUMBERS
 #
         if(j.tag == '{http://www.drugbank.ca}cas-number' and j.text is not None):
-          CAS_NUMBER = j.text.rstrip()
+          CAS_NUMBER = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK GROUPS
@@ -1407,88 +1437,88 @@ with open(source_xml_file, encoding = "utf8") as f:
           drug_groups = []
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}group'):
-              DRUG_GROUP = k.text.rstrip()
+              DRUG_GROUP = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               drug_groups.append(DRUG_GROUP)
 
 #
 #	GETTING DRUGBANK GENERAL REFERENCES
 #
         if(j.tag == '{http://www.drugbank.ca}general-references' and j.text is not None):
-          temp_drug_references = j.text.rstrip()
+          temp_drug_references = j.text.rstrip().replace('\n', '\\n').replace('\\', '\\\\').replace('\r', '\\r').replace('|', '\|')
           drug_general_references = temp_drug_references.split('#')
 
 #
 #	GETTING DRUGBANK SYNTHESIS REFERENCES
 #
         if(j.tag == '{http://www.drugbank.ca}synthesis-reference' and j.text is not None):
-          SYNTHESIS_REFERENCE = j.text.rstrip()
+          SYNTHESIS_REFERENCE = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK INDICATIONS
 #
         if(j.tag == '{http://www.drugbank.ca}indication' and j.text is not None):
-          INDICATION = j.text.rstrip()
+          INDICATION = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK PHARMACODYNAMICS
 #
         if(j.tag == '{http://www.drugbank.ca}pharmacodynamics' and j.text is not None):
-          PHARMACODYNAMICS = j.text.rstrip()
+          PHARMACODYNAMICS = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK MECHANISMS OF ACTION
 #
         if(j.tag == '{http://www.drugbank.ca}mechanism-of-action' and j.text is not None):
-          MECHANISM_OF_ACTION = j.text.rstrip()
+          MECHANISM_OF_ACTION = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK TOXICITY
 #
         if(j.tag == '{http://www.drugbank.ca}toxicity' and j.text is not None):
-          TOXICITY = j.text.rstrip()
+          TOXICITY = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK METABOLISMS
 #
         if(j.tag == '{http://www.drugbank.ca}metabolism' and j.text is not None):
-          METABOLISM = j.text.rstrip()
+          METABOLISM = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK ABSORPTIONS
 #
         if(j.tag == '{http://www.drugbank.ca}absorption' and j.text is not None):
-          ABSORPTION = j.text.rstrip()
+          ABSORPTION = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK HALF LIVES
 #
         if(j.tag == '{http://www.drugbank.ca}half-life' and j.text is not None):
-          HALF_LIFE = j.text.rstrip()
+          HALF_LIFE = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK PROTEIN BINDINGS
 #
         if(j.tag == '{http://www.drugbank.ca}protein-binding' and j.text is not None):
-          PROTEIN_BINDING = j.text.rstrip()
+          PROTEIN_BINDING = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK ROUTES OF ELIMINATION
 #
         if(j.tag == '{http://www.drugbank.ca}route-of-elimination' and j.text is not None):
-          ROUTE_OF_ELIMINATION = j.text.rstrip()
+          ROUTE_OF_ELIMINATION = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
 
 #
 #	GETTING DRUGBANK VOLUMES OF DISTRIBUTION
 #
         if(j.tag == '{http://www.drugbank.ca}volume-of-distribution' and j.text is not None):
-          temp_volume_of_distribution = j.text.rstrip()
+          temp_volume_of_distribution = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
           volumes_of_distribution = temp_volume_of_distribution.split('*')
 
 #
 #	GETTING DRUGBANK CLEARANCES
 #
         if(j.tag == '{http://www.drugbank.ca}clearance' and j.text is not None):
-          temp_clearances = j.text.rstrip()
+          temp_clearances = j.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
           clearances = temp_clearances.split('*')
 
 #
@@ -1498,25 +1528,25 @@ with open(source_xml_file, encoding = "utf8") as f:
           classification = []
           alternative_parents = []
           substituents = []
-          CLASSIFICATION_DESCRIPTION = "NULL"
-          CLASSIFICATION_DIRECT_PARENT = "NULL"
-          CLASSIFICATION_KINGDOM = "NULL"
-          CLASSIFICATION_SUPERCLASS = "NULL"
-          CLASSIFICATION_DRUG_CLASS = "NULL"
-          CLASSIFICATION_SUBCLASS = "NULL"
+          CLASSIFICATION_DESCRIPTION = ""
+          CLASSIFICATION_DIRECT_PARENT = ""
+          CLASSIFICATION_KINGDOM = ""
+          CLASSIFICATION_SUPERCLASS = ""
+          CLASSIFICATION_DRUG_CLASS = ""
+          CLASSIFICATION_SUBCLASS = ""
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}description' and k.text is not None):
-              CLASSIFICATION_DESCRIPTION = k.text.rstrip()
+              CLASSIFICATION_DESCRIPTION = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
             if(k.tag == '{http://www.drugbank.ca}direct-parent' and k.text is not None):
-              CLASSIFICATION_DIRECT_PARENT = k.text.rstrip()
+              CLASSIFICATION_DIRECT_PARENT = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
             if(k.tag == '{http://www.drugbank.ca}kingdom' and k.text is not None):
-              CLASSIFICATION_KINGDOM = k.text.rstrip()
+              CLASSIFICATION_KINGDOM = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
             if(k.tag == '{http://www.drugbank.ca}superclass' and k.text is not None):
-              CLASSIFICATION_SUPERCLASS = k.text.rstrip()
+              CLASSIFICATION_SUPERCLASS = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
             if(k.tag == '{http://www.drugbank.ca}drug-class' and k.text is not None):
-              CLASSIFICATION_DRUG_CLASS = k.text.rstrip()
+              CLASSIFICATION_DRUG_CLASS = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
             if(k.tag == '{http://www.drugbank.ca}subclass' and k.text is not None):
-              CLASSIFICATION_SUBCLASS = k.text.rstrip()
+              CLASSIFICATION_SUBCLASS = k.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
             if(k.tag == '{http://www.drugbank.ca}alternative-parent' and k.text is not None):
               alternative_parents.append(k.text.rstrip())
             if(k.tag == '{http://www.drugbank.ca}substituent' and k.text is not None):
@@ -1530,19 +1560,19 @@ with open(source_xml_file, encoding = "utf8") as f:
           salts = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}salt'):
-              PRIMARY_DRUGBANK_ID_SALT = "NULL"
-              SALT_NAME = "NULL"
-              SALT_CAS_NUMBER = "NULL"
-              SALT_INCHIKEY = "NULL"
+              PRIMARY_DRUGBANK_ID_SALT = ""
+              SALT_NAME = ""
+              SALT_CAS_NUMBER = ""
+              SALT_INCHIKEY = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}drugbank-id' and m.text is not None):
-                  PRIMARY_DRUGBANK_ID_SALT = m.text.rstrip()
+                  PRIMARY_DRUGBANK_ID_SALT = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}name' and m.text is not None):
-                  SALT_NAME = m.text.rstrip()
+                  SALT_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}cas-number' and m.text is not None):
-                  SALT_CAS_NUMBER = m.text.rstrip()
+                  SALT_CAS_NUMBER = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}inchikey' and m.text is not None):
-                  SALT_INCHIKEY = m.text.rstrip()
+                  SALT_INCHIKEY = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               salts[PRIMARY_DRUGBANK_ID_SALT] = [SALT_NAME, SALT_CAS_NUMBER, SALT_INCHIKEY]
 
 #
@@ -1551,15 +1581,15 @@ with open(source_xml_file, encoding = "utf8") as f:
         if(j.tag == '{http://www.drugbank.ca}synonyms'):
           synonyms = {}
           for k in j.getchildren():
-            SYNONYM = "NULL"
-            SYNONYM_LANGUAGE = "NULL"
-            SYNONYM_CODER = "NULL"
+            SYNONYM = ""
+            SYNONYM_LANGUAGE = ""
+            SYNONYM_CODER = ""
             if(k.tag == '{http://www.drugbank.ca}synonym' and k.text is not None):
-              SYNONYM = k.text.rstrip()
+              SYNONYM = "'" + k.text.rstrip().replace("'", "''").replace('"', "''''").replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|') + "'"
               if(k.attrib['language'] != ""):
-                SYNONYM_LANGUAGE = k.attrib['language'].rstrip()
+                SYNONYM_LANGUAGE = k.attrib['language'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
               if(k.attrib['coder'] != ""):
-                SYNONYM_CODER = k.attrib['coder'].rstrip()
+                SYNONYM_CODER = k.attrib['coder'].rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
             synonyms[SYNONYM] = [SYNONYM_LANGUAGE, SYNONYM_CODER]
 
 #
@@ -1569,43 +1599,43 @@ with open(source_xml_file, encoding = "utf8") as f:
           products = {}
           for k in j.getchildren():
             if(k.tag == '{http://www.drugbank.ca}product'):
-              PRODUCT_NAME = "NULL"
-              PRODUCT_NDC_ID = "NULL"
-              PRODUCT_NDC_PRODUCT_CODE = "NULL"
-              PRODUCT_DPD_ID = "NULL"
-              PRODUCT_STARTED_MARKETING_ON = "NULL"
-              PRODUCT_ENDED_MARKETING_ON = "NULL"
-              PRODUCT_DOSAGE_FORM = "NULL"
-              PRODUCT_STRENGTH = "NULL"
-              PRODUCT_ROUTE = "NULL"
-              PRODUCT_FDA_APPLICATION_NUMBER = "NULL"
-              PRODUCT_GENERIC = "NULL"
-              PRODUCT_OVER_THE_COUNTER = "NULL"
-              PRODUCT_APPROVED = "NULL"
-              PRODUCT_COUNTRY = "NULL"
-              PRODUCT_SOURCE = "NULL"
+              PRODUCT_NAME = ""
+              PRODUCT_NDC_ID = ""
+              PRODUCT_NDC_PRODUCT_CODE = ""
+              PRODUCT_DPD_ID = ""
+              PRODUCT_STARTED_MARKETING_ON = ""
+              PRODUCT_ENDED_MARKETING_ON = ""
+              PRODUCT_DOSAGE_FORM = ""
+              PRODUCT_STRENGTH = ""
+              PRODUCT_ROUTE = ""
+              PRODUCT_FDA_APPLICATION_NUMBER = ""
+              PRODUCT_GENERIC = ""
+              PRODUCT_OVER_THE_COUNTER = ""
+              PRODUCT_APPROVED = ""
+              PRODUCT_COUNTRY = ""
+              PRODUCT_SOURCE = ""
               for m in k.getchildren():
                 if(m.tag == '{http://www.drugbank.ca}name' and m.text is not None):
-                  PRODUCT_NAME = m.text.rstrip()
+                  PRODUCT_NAME = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}ndc-id' and m.text is not None):
                   print("Product NDC ID??")
-                  PRODUCT_NDC_ID = m.text.rstrip()
+                  PRODUCT_NDC_ID = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}ndc-product-code' and m.text is not None):
-                  PRODUCT_NDC_PRODUCT_CODE = m.text.rstrip()
+                  PRODUCT_NDC_PRODUCT_CODE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}dpd-id' and m.text is not None):
-                  PRODUCT_DPD_ID = m.text.rstrip()
+                  PRODUCT_DPD_ID = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}started-marketing-on' and m.text is not None):
-                  PRODUCT_STARTED_MARKETING_ON = m.text.rstrip()
+                  PRODUCT_STARTED_MARKETING_ON = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}ended-marketing-on' and m.text is not None):
-                  PRODUCT_ENDED_MARKETING_ON = m.text.rstrip()
+                  PRODUCT_ENDED_MARKETING_ON = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}dosage-form' and m.text is not None):
-                  PRODUCT_DOSAGE_FORM = m.text.rstrip()
+                  PRODUCT_DOSAGE_FORM = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}strength' and m.text is not None):
-                  PRODUCT_STRENGTH = m.text.rstrip()
+                  PRODUCT_STRENGTH = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}route' and m.text is not None):
-                  PRODUCT_ROUTE = m.text.rstrip()
+                  PRODUCT_ROUTE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}fda-application-number' and m.text is not None):
-                  PRODUCT_FDA_APPLICATION_NUMBER = m.text.rstrip()
+                  PRODUCT_FDA_APPLICATION_NUMBER = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}generic' and m.text is not None):
                   PRODUCT_GENERIC = m.text.rstrip().upper()
                 if(m.tag == '{http://www.drugbank.ca}over-the-counter' and m.text is not None):
@@ -1613,9 +1643,9 @@ with open(source_xml_file, encoding = "utf8") as f:
                 if(m.tag == '{http://www.drugbank.ca}approved' and m.text is not None):
                   PRODUCT_APPROVED = m.text.rstrip().upper()
                 if(m.tag == '{http://www.drugbank.ca}country' and m.text is not None):
-                  PRODUCT_COUNTRY = m.text.rstrip()
+                  PRODUCT_COUNTRY = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 if(m.tag == '{http://www.drugbank.ca}source' and m.text is not None):
-                  PRODUCT_SOURCE = m.text.rstrip()
+                  PRODUCT_SOURCE = m.text.rstrip().replace('\n', '\\n').replace('\r', '\\r').replace('|', '\|')
                 products[PRODUCT_NAME] = [PRODUCT_NDC_ID, PRODUCT_NDC_PRODUCT_CODE, PRODUCT_DPD_ID, PRODUCT_STARTED_MARKETING_ON, PRODUCT_ENDED_MARKETING_ON, PRODUCT_DOSAGE_FORM, PRODUCT_STRENGTH, PRODUCT_ROUTE, PRODUCT_FDA_APPLICATION_NUMBER, PRODUCT_GENERIC, PRODUCT_OVER_THE_COUNTER, PRODUCT_APPROVED, PRODUCT_COUNTRY, PRODUCT_SOURCE]
               
 
@@ -1625,8 +1655,8 @@ with open(source_xml_file, encoding = "utf8") as f:
         outfile_drug_alt_ids.write("%s|%s\n" % (DRUG_ALT_ID, PRIMARY_DRUGBANK_ID))
 
       for key, value in international_brands.items():
-        if(key != "NULL" and value != "NULL"):
-          outfile_drug_international_brands.write("%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, key, value))
+        if(key != "" and value != ""):
+          outfile_drug_international_brands.write("%s|%s|%s\n" % (key, value, PRIMARY_DRUGBANK_ID))
 
       for FOOD_INTERACTION in drug_food_interactions:
         if(FOOD_INTERACTION is not None):
@@ -1641,7 +1671,7 @@ with open(source_xml_file, encoding = "utf8") as f:
           outfile_drug_general_references.write("%s|%s\n" % (GENERAL_REFERENCE.lstrip().rstrip(), PRIMARY_DRUGBANK_ID))
 
       for VOLUME_OF_DISTRIBUTION in volumes_of_distribution:
-        if(VOLUME_OF_DISTRIBUTION is not None and VOLUME_OF_DISTRIBUTION != ""):
+        if(VOLUME_OF_DISTRIBUTION.lstrip().rstrip() is not None and VOLUME_OF_DISTRIBUTION.lstrip().rstrip() != ""):
           outfile_drug_volumes_of_distribution.write("%s|%s\n" % (VOLUME_OF_DISTRIBUTION.lstrip().rstrip(), PRIMARY_DRUGBANK_ID))
 
       for CLEARANCE in clearances:
@@ -1661,50 +1691,51 @@ with open(source_xml_file, encoding = "utf8") as f:
           outfile_drug_classification_substituents.write("%s|%s\n" % (PRIMARY_DRUGBANK_ID, SUBSTITUENT))
 
       for key, value in salts.items():
-        if(key != "NULL" and value != "NULL"):
+        if(key != "" and value != ""):
           outfile_drug_salts.write("%s|%s|%s|%s|%s\n" % (key, PRIMARY_DRUGBANK_ID, value[0], value[1], value[2]))
 
       for key, value in synonyms.items():
-        if(key != "NULL" and value != "NULL"):
+        if(key != "" and value != ""):
           outfile_drug_synonyms.write("%s|%s|%s|%s\n" % (key, value[0], value[1], PRIMARY_DRUGBANK_ID))
 
       for key, value in products.items():
-        if(key != "NULL" and value != "NULL"):
+        if(key != "" and value != ""):
           outfile_drug_products.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (key, value[0], value[1], value[2], value[3], value[4], value[5], value[6], value[7], value[8], value[9], value[10], value[11], value[12], value[13], PRIMARY_DRUGBANK_ID))
 
       for key, value in mixtures.items():
-        if(key != "NULL" and value != "NULL"):
+        if(key != "" and value != ""):
           outfile_drug_mixtures.write("%s|%s|%s\n" % (key, value, PRIMARY_DRUGBANK_ID))
 
       for key, value in packagers.items(): 
-        if(key != "NULL"):
+        if(key != ""):
           outfile_drug_packagers.write("%s|%s|%s\n" % (key, value, PRIMARY_DRUGBANK_ID))
 
       for key, value in manufacturers.items():
-        if(key != "NULL"):
+        if(key != ""):
           outfile_drug_manufacturers.write("%s|%s|%s\n" % (key, value, PRIMARY_DRUGBANK_ID))
 
       for key, value in prices.items():
-        if(key != "NULL" and value != "NULL"):
+        if(key != "" and value != ""):
           outfile_drug_prices.write("%s|%s|%s\n" % (key, value[1], PRIMARY_DRUGBANK_ID))
 
           for key2, value2 in value[0].items():
-            if(key2 != "NULL" and value2 != "NULL"):
+            if(key2 != "" and value2 != ""):
               outfile_drug_costs.write("%s|%s|%s|%s|%s\n" % (key2, value2, key, value[1], PRIMARY_DRUGBANK_ID))
 
       for key, value in categories.items():
-        if(key != "NULL" and value != "NULL"):
+        if(key != "" and value != ""):
           outfile_drug_categories.write("%s|%s\n" % (key, PRIMARY_DRUGBANK_ID))
 
           for mesh_id in value:
-            outfile_drug_mesh_ids.write("%s|%s|%s\n" % (mesh_id, key, PRIMARY_DRUGBANK_ID))
+            if(mesh_id != ""):
+              outfile_drug_mesh_ids.write("%s|%s|%s\n" % (mesh_id, key, PRIMARY_DRUGBANK_ID))
 
       for AFFECTED_ORGANISM in affected_organisms:
         if (AFFECTED_ORGANISM is not None):
           outfile_drug_affected_organisms.write("%s|%s\n" % (AFFECTED_ORGANISM, PRIMARY_DRUGBANK_ID))
 
       for key, value in dosages.items():
-        if(key != "NULL" and value != "NULL"):
+        if(key != "" and value != ""):
           outfile_drug_dosages.write("%s|%s|%s|%s\n" % (key, value[0], value[1], PRIMARY_DRUGBANK_ID))
 
       for ATC_CODE in atc_codes:
@@ -1729,11 +1760,11 @@ with open(source_xml_file, encoding = "utf8") as f:
 
       for PROPERTY in properties:
         if(PROPERTY is not None):
-          outfile_drug_properties.write("%s|%s|%s|%s|%s|%s\n" % (PROPERTY[0], PROPERTY[1], PROPERTY[2], PRIMARY_DRUGBANK_ID, PROPERTY[3], PROPERTY[4]))
+          outfile_drug_properties.write("%s|%s|%s|%s|%s|%s|%s\n" % (PROPERTY[0], PROPERTY[1], PROPERTY[2], PRIMARY_DRUGBANK_ID, PROPERTY[3], PROPERTY[4], PROPERTY[5]))
 
       for SEQUENCE in sequences:
         if(SEQUENCE is not None):
-          outfile_drug_sequences.write("%s|%s|%s\n" % (SEQUENCE[0], SEQUENCE[1], PRIMARY_DRUGBANK_ID))
+          outfile_drug_sequences.write("%s|%s|%s|%s\n" % (SEQUENCE[0], SEQUENCE[1], SEQUENCE[2], PRIMARY_DRUGBANK_ID))
 
       for EXTERNAL_IDENTIFIER in external_identifiers:
         if(EXTERNAL_IDENTIFIER is not None):
@@ -1745,62 +1776,62 @@ with open(source_xml_file, encoding = "utf8") as f:
 
       for REACTION in reactions:
         if(REACTION is not None):
-          outfile_drug_reactions.write("%s|%s\n" % (REACTION[0], PRIMARY_DRUGBANK_ID))
+          outfile_drug_reactions.write("%s|%s|%s\n" % (REACTION[0], REACTION[1], PRIMARY_DRUGBANK_ID))
 
-          for REACTION_ELEMENT in REACTION[1]:
+          for REACTION_ELEMENT in REACTION[2]:
             if(REACTION_ELEMENT is not None):
               outfile_drug_reaction_elements.write("%s|%s|%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, REACTION_ELEMENT[0], REACTION_ELEMENT[1], REACTION_ELEMENT[2], REACTION_ELEMENT[3], REACTION[0]))
 
-          for REACTION_ENZYME in REACTION[2]:
+          for REACTION_ENZYME in REACTION[3]:
             if(REACTION_ENZYME is not None):
               outfile_drug_reaction_enzymes.write("%s|%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, REACTION_ENZYME[0], REACTION[0], REACTION_ENZYME[1], REACTION_ENZYME[2]))
  
       for EFFECT in effects:
         if(EFFECT is not None):
-          outfile_drug_snp_effects.write("%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, EFFECT[0], EFFECT[1], EFFECT[2], EFFECT[3], EFFECT[4], EFFECT[5], EFFECT[6], EFFECT[7]))
+          outfile_drug_snp_effects.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (EFFECT[0], PRIMARY_DRUGBANK_ID, EFFECT[1], EFFECT[2], EFFECT[3], EFFECT[4], EFFECT[5], EFFECT[6], EFFECT[7], EFFECT[8]))
 
       for ADVERSE_DRUG_REACTION in adverse_drug_reactions:
         if(ADVERSE_DRUG_REACTION is not None):
-          outfile_drug_snp_adverse_drug_reactions.write("%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, ADVERSE_DRUG_REACTION[0], ADVERSE_DRUG_REACTION[1], ADVERSE_DRUG_REACTION[2], ADVERSE_DRUG_REACTION[3], ADVERSE_DRUG_REACTION[4], ADVERSE_DRUG_REACTION[5], ADVERSE_DRUG_REACTION[6], ADVERSE_DRUG_REACTION[7]))
+          outfile_drug_snp_adverse_drug_reactions.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (ADVERSE_DRUG_REACTION[0], PRIMARY_DRUGBANK_ID, ADVERSE_DRUG_REACTION[1], ADVERSE_DRUG_REACTION[2], ADVERSE_DRUG_REACTION[3], ADVERSE_DRUG_REACTION[4], ADVERSE_DRUG_REACTION[5], ADVERSE_DRUG_REACTION[6], ADVERSE_DRUG_REACTION[7], ADVERSE_DRUG_REACTION[8]))
 
       for TARGET in targets:
         if(TARGET is not None):
-          outfile_drug_targets.write("%s|%s|%s|%s|%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, TARGET[0], TARGET[1], TARGET[2], TARGET[3], TARGET[4], TARGET[5], TARGET[6]) )
+          outfile_drug_targets.write("%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, TARGET[0], TARGET[1], TARGET[2], TARGET[3], TARGET[4], TARGET[5], TARGET[6], TARGET[7]) )
 
-          for TARGET_ACTION in TARGET[7]:
-            outfile_drug_target_actions.write("%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, TARGET[1], TARGET_ACTION) )
+          for TARGET_ACTION in TARGET[8]:
+            outfile_drug_target_actions.write("%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, TARGET[0], TARGET[2], TARGET_ACTION) )
 
-          for TARGET_REFERENCE in TARGET[8]:
+          for TARGET_REFERENCE in TARGET[9]:
             if(TARGET_REFERENCE != "" and TARGET_REFERENCE is not None):
-              outfile_drug_target_references.write("%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, TARGET[1], TARGET_REFERENCE.lstrip().rstrip()) )
+              outfile_drug_target_references.write("%s|%s|%s|%s\n" % (PRIMARY_DRUGBANK_ID, TARGET[0], TARGET[2], TARGET_REFERENCE.lstrip().rstrip()) )
 
-          for TARGET_POLYPEPTIDE in TARGET[9]:
+          for TARGET_POLYPEPTIDE in TARGET[10]:
             if(TARGET_POLYPEPTIDE != "" and TARGET_POLYPEPTIDE is not None):
-              outfile_drug_target_polypeptides.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET_POLYPEPTIDE[2], TARGET_POLYPEPTIDE[3], TARGET_POLYPEPTIDE[4], TARGET[1], PRIMARY_DRUGBANK_ID, TARGET_POLYPEPTIDE[5], TARGET_POLYPEPTIDE[6], TARGET_POLYPEPTIDE[7], TARGET_POLYPEPTIDE[8], TARGET_POLYPEPTIDE[9], TARGET_POLYPEPTIDE[10], TARGET_POLYPEPTIDE[11], TARGET_POLYPEPTIDE[12], TARGET_POLYPEPTIDE[13], TARGET_POLYPEPTIDE[14]) )
+              outfile_drug_target_polypeptides.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET_POLYPEPTIDE[2], TARGET_POLYPEPTIDE[3], TARGET_POLYPEPTIDE[4], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID, TARGET_POLYPEPTIDE[5], TARGET_POLYPEPTIDE[6], TARGET_POLYPEPTIDE[7], TARGET_POLYPEPTIDE[8], TARGET_POLYPEPTIDE[9], TARGET_POLYPEPTIDE[10], TARGET_POLYPEPTIDE[11], TARGET_POLYPEPTIDE[12], TARGET_POLYPEPTIDE[13], TARGET_POLYPEPTIDE[14]) )
 
               for TARGET_TRANSMEMBRANE_REGION in TARGET_POLYPEPTIDE[15]:
-                if(TARGET_TRANSMEMBRANE_REGION != "" and TARGET_TRANSMEMBRANE_REGION is not None):
-                  outfile_drug_target_polypeptide_transmembrane_regions.write("%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[1], PRIMARY_DRUGBANK_ID, TARGET_TRANSMEMBRANE_REGION.replace('\n', '')) )
+                if(TARGET_TRANSMEMBRANE_REGION != "None" and TARGET_TRANSMEMBRANE_REGION != "" and TARGET_TRANSMEMBRANE_REGION is not None):
+                  outfile_drug_target_polypeptide_transmembrane_regions.write("%s|%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID, TARGET_TRANSMEMBRANE_REGION.replace('\n', '')) )
 
               for TARGET_EXT_IDENTIFIER in TARGET_POLYPEPTIDE[16]:
                 if(TARGET_EXT_IDENTIFIER != "" and TARGET_EXT_IDENTIFIER is not None):
-                  outfile_drug_target_polypeptide_external_identifiers.write("%s|%s|%s|%s|%s|%s\n" % (TARGET_EXT_IDENTIFIER[0], TARGET_EXT_IDENTIFIER[1], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[1], PRIMARY_DRUGBANK_ID) )
+                  outfile_drug_target_polypeptide_external_identifiers.write("%s|%s|%s|%s|%s|%s|%s\n" % (TARGET_EXT_IDENTIFIER[0], TARGET_EXT_IDENTIFIER[1], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID) )
 
               for TARGET_SYNONYM in TARGET_POLYPEPTIDE[17]:
                 if(TARGET_SYNONYM != "" and TARGET_SYNONYM is not None):
-                  outfile_drug_target_polypeptide_synonyms.write("%s|%s|%s|%s|%s\n" % (TARGET_SYNONYM, TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[1], PRIMARY_DRUGBANK_ID) )
+                  outfile_drug_target_polypeptide_synonyms.write("%s|%s|%s|%s|%s|%s\n" % (TARGET_SYNONYM, TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID) )
 
-              outfile_drug_target_polypeptide_amino_acid_sequences.write("%s|%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[18], TARGET_POLYPEPTIDE[19], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[1], PRIMARY_DRUGBANK_ID) )
+              outfile_drug_target_polypeptide_amino_acid_sequences.write("%s|%s|%s|%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[18], TARGET_POLYPEPTIDE[19], TARGET_POLYPEPTIDE[20], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID) )
 
-              outfile_drug_target_polypeptide_gene_sequences.write("%s|%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[20], TARGET_POLYPEPTIDE[21], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[1], PRIMARY_DRUGBANK_ID) )
+              outfile_drug_target_polypeptide_gene_sequences.write("%s|%s|%s|%s|%s|%s|%s|%s\n" % (TARGET_POLYPEPTIDE[21], TARGET_POLYPEPTIDE[22], TARGET_POLYPEPTIDE[23], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID) )
 
-              for TARGET_PFAM in TARGET_POLYPEPTIDE[22]:
+              for TARGET_PFAM in TARGET_POLYPEPTIDE[24]:
                 if(TARGET_PFAM!= "" and TARGET_PFAM is not None):
-                  outfile_drug_target_polypeptide_pfams.write("%s|%s|%s|%s|%s|%s\n" % (TARGET_PFAM[0], TARGET_PFAM[1], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[1], PRIMARY_DRUGBANK_ID) )
+                  outfile_drug_target_polypeptide_pfams.write("%s|%s|%s|%s|%s|%s|%s\n" % (TARGET_PFAM[0], TARGET_PFAM[1], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID) )
 
-              for TARGET_GO_CLASSIFIER in TARGET_POLYPEPTIDE[23]:
+              for TARGET_GO_CLASSIFIER in TARGET_POLYPEPTIDE[25]:
                 if(TARGET_GO_CLASSIFIER != "" and TARGET_GO_CLASSIFIER is not None):
-                  outfile_drug_target_polypeptide_go_classifiers.write("%s|%s|%s|%s|%s|%s\n" % (TARGET_GO_CLASSIFIER[0], TARGET_GO_CLASSIFIER[1], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[1], PRIMARY_DRUGBANK_ID) )
+                  outfile_drug_target_polypeptide_go_classifiers.write("%s|%s|%s|%s|%s|%s|%s\n" % (TARGET_GO_CLASSIFIER[0], TARGET_GO_CLASSIFIER[1], TARGET_POLYPEPTIDE[0], TARGET_POLYPEPTIDE[1], TARGET[0], TARGET[2], PRIMARY_DRUGBANK_ID) )
 
       for CARRIER in carriers:
         if(CARRIER is not None):
@@ -1818,7 +1849,7 @@ with open(source_xml_file, encoding = "utf8") as f:
               outfile_drug_carrier_polypeptides.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (CARRIER_POLYPEPTIDE[0], CARRIER_POLYPEPTIDE[1], CARRIER_POLYPEPTIDE[2], CARRIER_POLYPEPTIDE[3], CARRIER_POLYPEPTIDE[4], CARRIER[1], PRIMARY_DRUGBANK_ID, CARRIER_POLYPEPTIDE[5], CARRIER_POLYPEPTIDE[6], CARRIER_POLYPEPTIDE[7], CARRIER_POLYPEPTIDE[8], CARRIER_POLYPEPTIDE[9], CARRIER_POLYPEPTIDE[10], CARRIER_POLYPEPTIDE[11], CARRIER_POLYPEPTIDE[12], CARRIER_POLYPEPTIDE[13], CARRIER_POLYPEPTIDE[14]) )
 
               for CARRIER_TRANSMEMBRANE_REGION in CARRIER_POLYPEPTIDE[15]:
-                if(CARRIER_TRANSMEMBRANE_REGION != "" and CARRIER_TRANSMEMBRANE_REGION is not None):
+                if(CARRIER_TRANSMEMBRANE_REGION != "None" and CARRIER_TRANSMEMBRANE_REGION != "" and CARRIER_TRANSMEMBRANE_REGION is not None):
                   outfile_drug_carrier_polypeptide_transmembrane_regions.write("%s|%s|%s|%s|%s\n" % (CARRIER_POLYPEPTIDE[0], CARRIER_POLYPEPTIDE[1], CARRIER[1], PRIMARY_DRUGBANK_ID, CARRIER_TRANSMEMBRANE_REGION.replace('\n', '')) )
 
               for CARRIER_EXT_IDENTIFIER in CARRIER_POLYPEPTIDE[16]:
@@ -1857,7 +1888,7 @@ with open(source_xml_file, encoding = "utf8") as f:
               outfile_drug_enzyme_polypeptides.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (ENZYME_POLYPEPTIDE[0], ENZYME_POLYPEPTIDE[1], ENZYME_POLYPEPTIDE[2], ENZYME_POLYPEPTIDE[3], ENZYME_POLYPEPTIDE[4], ENZYME[1], PRIMARY_DRUGBANK_ID, ENZYME_POLYPEPTIDE[5], ENZYME_POLYPEPTIDE[6], ENZYME_POLYPEPTIDE[7], ENZYME_POLYPEPTIDE[8], ENZYME_POLYPEPTIDE[9], ENZYME_POLYPEPTIDE[10], ENZYME_POLYPEPTIDE[11], ENZYME_POLYPEPTIDE[12], ENZYME_POLYPEPTIDE[13], ENZYME_POLYPEPTIDE[14]) )
 
               for ENZYME_TRANSMEMBRANE_REGION in ENZYME_POLYPEPTIDE[15]:
-                if(ENZYME_TRANSMEMBRANE_REGION != "" and ENZYME_TRANSMEMBRANE_REGION is not None):
+                if(ENZYME_TRANSMEMBRANE_REGION != "None" and ENZYME_TRANSMEMBRANE_REGION != "" and ENZYME_TRANSMEMBRANE_REGION is not None):
                   outfile_drug_enzyme_polypeptide_transmembrane_regions.write("%s|%s|%s|%s|%s\n" % (ENZYME_POLYPEPTIDE[0], ENZYME_POLYPEPTIDE[1], ENZYME[1], PRIMARY_DRUGBANK_ID, ENZYME_TRANSMEMBRANE_REGION.replace('\n', '')) )
 
               for ENZYME_EXT_IDENTIFIER in ENZYME_POLYPEPTIDE[16]:
@@ -1896,7 +1927,7 @@ with open(source_xml_file, encoding = "utf8") as f:
               outfile_drug_transporter_polypeptides.write("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER_POLYPEPTIDE[2], TRANSPORTER_POLYPEPTIDE[3], TRANSPORTER_POLYPEPTIDE[4], TRANSPORTER[1], PRIMARY_DRUGBANK_ID, TRANSPORTER_POLYPEPTIDE[5], TRANSPORTER_POLYPEPTIDE[6], TRANSPORTER_POLYPEPTIDE[7], TRANSPORTER_POLYPEPTIDE[8], TRANSPORTER_POLYPEPTIDE[9], TRANSPORTER_POLYPEPTIDE[10], TRANSPORTER_POLYPEPTIDE[11], TRANSPORTER_POLYPEPTIDE[12], TRANSPORTER_POLYPEPTIDE[13], TRANSPORTER_POLYPEPTIDE[14]) )
 
               for TRANSPORTER_TRANSMEMBRANE_REGION in TRANSPORTER_POLYPEPTIDE[15]:
-                if(TRANSPORTER_TRANSMEMBRANE_REGION != "" and TRANSPORTER_TRANSMEMBRANE_REGION is not None):
+                if(TRANSPORTER_TRANSMEMBRANE_REGION != "None" and TRANSPORTER_TRANSMEMBRANE_REGION != "" and TRANSPORTER_TRANSMEMBRANE_REGION is not None):
                   outfile_drug_transporter_polypeptide_transmembrane_regions.write("%s|%s|%s|%s|%s\n" % (TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID, TRANSPORTER_TRANSMEMBRANE_REGION.replace('\n', '')) )
 
               for TRANSPORTER_EXT_IDENTIFIER in TRANSPORTER_POLYPEPTIDE[16]:
@@ -1907,19 +1938,104 @@ with open(source_xml_file, encoding = "utf8") as f:
                 if(TRANSPORTER_SYNONYM != "" and TRANSPORTER_SYNONYM is not None):
                   outfile_drug_transporter_polypeptide_synonyms.write("%s|%s|%s|%s|%s\n" % (TRANSPORTER_SYNONYM, TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
 
-              outfile_drug_transporter_polypeptide_amino_acid_sequences.write("%s|%s|%s|%s|%s|%s\n" % (TRANSPORTER_POLYPEPTIDE[18], TRANSPORTER_POLYPEPTIDE[19], TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
+              outfile_drug_transporter_polypeptide_amino_acid_sequences.write("%s|%s|%s|%s|%s|%s|%s\n" % (TRANSPORTER_POLYPEPTIDE[18], TRANSPORTER_POLYPEPTIDE[19], TRANSPORTER_POLYPEPTIDE[20], TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
 
-              outfile_drug_transporter_polypeptide_gene_sequences.write("%s|%s|%s|%s|%s|%s\n" % (TRANSPORTER_POLYPEPTIDE[20], TRANSPORTER_POLYPEPTIDE[21], TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
+              outfile_drug_transporter_polypeptide_gene_sequences.write("%s|%s|%s|%s|%s|%s|%s\n" % (TRANSPORTER_POLYPEPTIDE[21], TRANSPORTER_POLYPEPTIDE[22], TRANSPORTER_POLYPEPTIDE[23], TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
 
-              for TRANSPORTER_PFAM in TRANSPORTER_POLYPEPTIDE[22]:
+              for TRANSPORTER_PFAM in TRANSPORTER_POLYPEPTIDE[24]:
                 if(TRANSPORTER_PFAM!= "" and TRANSPORTER_PFAM is not None):
                   outfile_drug_transporter_polypeptide_pfams.write("%s|%s|%s|%s|%s|%s\n" % (TRANSPORTER_PFAM[0], TRANSPORTER_PFAM[1], TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
 
-              for TRANSPORTER_GO_CLASSIFIER in TRANSPORTER_POLYPEPTIDE[23]:
+              for TRANSPORTER_GO_CLASSIFIER in TRANSPORTER_POLYPEPTIDE[25]:
                 if(TRANSPORTER_GO_CLASSIFIER != "" and TRANSPORTER_GO_CLASSIFIER is not None):
-                  outfile_drug_transporter_polypeptide_go_classifiers.write("%s|%s|%s|%s|%s|%s\n" % (TRANSPORTER_GO_CLASSIFIER[0], TRANSPORTER_GO_CLASSIFIER[1], TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
+                  outfile_drug_transporter_polypeptide_go_classifiers.write("%s|%s|%s|%s|%s|%s\n\.\n" % (TRANSPORTER_GO_CLASSIFIER[0], TRANSPORTER_GO_CLASSIFIER[1], TRANSPORTER_POLYPEPTIDE[0], TRANSPORTER_POLYPEPTIDE[1], TRANSPORTER[1], PRIMARY_DRUGBANK_ID) )
 
+outfile_drugs.write("\.\n")
+outfile_drug_alt_ids.write("\.\n")
+outfile_drug_groups.write("\.\n")
+outfile_drug_general_references.write("\.\n")
+outfile_drug_volumes_of_distribution.write("\.\n")
+outfile_drug_clearances.write("\.\n")
+outfile_drug_classifications.write("\.\n")
+outfile_drug_classification_alt_parents.write("\.\n")
+outfile_drug_classification_substituents.write("\.\n")
+outfile_drug_salts.write("\.\n")
+outfile_drug_synonyms.write("\.\n")
+outfile_drug_products.write("\.\n")
+outfile_drug_international_brands.write("\.\n")
+outfile_drug_mixtures.write("\.\n")
+outfile_drug_packagers.write("\.\n")
+outfile_drug_manufacturers.write("\.\n")
+outfile_drug_prices.write("\.\n")
+outfile_drug_costs.write("\.\n")
+outfile_drug_categories.write("\.\n")
+outfile_drug_mesh_ids.write("\.\n")
+outfile_drug_affected_organisms.write("\.\n")
+outfile_drug_dosages.write("\.\n")
+outfile_drug_atc_codes.write("\.\n")
+outfile_drug_atc_code_levels.write("\.\n")
+outfile_drug_ahfs_codes.write("\.\n")
+outfile_drug_patents.write("\.\n")
+outfile_drug_food_interactions.write("\.\n")
+outfile_drug_drug_interactions.write("\.\n")
+outfile_drug_sequences.write("\.\n")
+outfile_drug_properties.write("\.\n")
+outfile_drug_external_identifiers.write("\.\n")
+outfile_drug_external_links.write("\.\n")
+outfile_drug_pathways.write("\.\n")
+outfile_drug_reactions.write("\.\n")
+outfile_drug_reaction_elements.write("\.\n")
+outfile_drug_reaction_enzymes.write("\.\n")
+outfile_drug_snp_effects.write("\.\n")
+outfile_drug_snp_adverse_drug_reactions.write("\.\n")
 
+outfile_drug_enzymes.write("\.\n")
+outfile_drug_enzyme_actions.write("\.\n")
+outfile_drug_enzyme_references.write("\.\n")
+outfile_drug_enzyme_polypeptides.write("\.\n")
+outfile_drug_enzyme_polypeptide_transmembrane_regions.write("\.\n")
+outfile_drug_enzyme_polypeptide_external_identifiers.write("\.\n")
+outfile_drug_enzyme_polypeptide_synonyms.write("\.\n")
+outfile_drug_enzyme_polypeptide_amino_acid_sequences.write("\.\n")
+outfile_drug_enzyme_polypeptide_gene_sequences.write("\.\n")
+outfile_drug_enzyme_polypeptide_pfams.write("\.\n")
+outfile_drug_enzyme_polypeptide_go_classifiers.write("\.\n")
+
+outfile_drug_transporters.write("\.\n")
+outfile_drug_transporter_actions.write("\.\n")
+outfile_drug_transporter_references.write("\.\n")
+outfile_drug_transporter_polypeptides.write("\.\n")
+outfile_drug_transporter_polypeptide_transmembrane_regions.write("\.\n")
+outfile_drug_transporter_polypeptide_external_identifiers.write("\.\n")
+outfile_drug_transporter_polypeptide_synonyms.write("\.\n")
+outfile_drug_transporter_polypeptide_amino_acid_sequences.write("\.\n")
+outfile_drug_transporter_polypeptide_gene_sequences.write("\.\n")
+outfile_drug_transporter_polypeptide_pfams.write("\.\n")
+outfile_drug_transporter_polypeptide_go_classifiers.write("\.\n")
+
+outfile_drug_carriers.write("\.\n")
+outfile_drug_carrier_actions.write("\.\n")
+outfile_drug_carrier_references.write("\.\n")
+outfile_drug_carrier_polypeptides.write("\.\n")
+outfile_drug_carrier_polypeptide_transmembrane_regions.write("\.\n")
+outfile_drug_carrier_polypeptide_external_identifiers.write("\.\n")
+outfile_drug_carrier_polypeptide_synonyms.write("\.\n")
+outfile_drug_carrier_polypeptide_amino_acid_sequences.write("\.\n")
+outfile_drug_carrier_polypeptide_gene_sequences.write("\.\n")
+outfile_drug_carrier_polypeptide_pfams.write("\.\n")
+outfile_drug_carrier_polypeptide_go_classifiers.write("\.\n")
+
+outfile_drug_targets.write("\.\n")
+outfile_drug_target_actions.write("\.\n")
+outfile_drug_target_references.write("\.\n")
+outfile_drug_target_polypeptides.write("\.\n")
+outfile_drug_target_polypeptide_transmembrane_regions.write("\.\n")
+outfile_drug_target_polypeptide_external_identifiers.write("\.\n")
+outfile_drug_target_polypeptide_synonyms.write("\.\n")
+outfile_drug_target_polypeptide_amino_acid_sequences.write("\.\n")
+outfile_drug_target_polypeptide_gene_sequences.write("\.\n")
+outfile_drug_target_polypeptide_pfams.write("\.\n")
+outfile_drug_target_polypeptide_go_classifiers.write("\.\n")
 
 outfile_drugs.close()
 outfile_drug_alt_ids.close()
@@ -2007,8 +2123,6 @@ outfile_drug_target_polypeptide_amino_acid_sequences.close()
 outfile_drug_target_polypeptide_gene_sequences.close()
 outfile_drug_target_polypeptide_pfams.close()
 outfile_drug_target_polypeptide_go_classifiers.close()
-
-
 
 
 sys.exit(0)
