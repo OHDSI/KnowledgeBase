@@ -263,7 +263,7 @@ for elt in it:
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsDrug'], ohdsi[imedsDrug]))
     tplL.append((poc[currentAnnotationBody], ohdsi['RxnormDrug'], rxnorm[elt[RxNorm]]))
                         
-    tplL.append((poc[currentAnnotationBody], ohdsi['MeddrraHoi'], meddra[elt[PT_CODE]])) # TODO: consider adding the values as a collection
+    tplL.append((poc[currentAnnotationBody], ohdsi['MeddraHoi'], meddra[elt[PT_CODE]])) # TODO: consider adding the values as a collection
     tplL.append((poc[currentAnnotationBody], ohdsi['ImedsHoi'], ohdsi[imedsHoi])) # TODO: consider adding the values as a collection
 
     # TODO: Define these predicates - preferrably from an ontology
