@@ -1,9 +1,12 @@
 --------------------------------------------------------------------
 -- Initialization script to add to the LAERTES relational model (extension to the OHDSI Standard Vocabulary)
--- Adds tables which originally appeared as RDF
 --
 -- Authors: Charles Kronk, Richard Boyce
 -- 2015 - 2016
+--
+-- Adds tables which originally appeared as RDF as open annotation
+-- data which enables queries of the open annotation data directly
+-- within the relational database - see the README for examples.
 --
 -- 1) Create CSV files to load (see below, this has to be done from the command line).
 -- 2) Load this script
@@ -22,14 +25,16 @@
 ----------------------------
 
 ----------------------------
--- SPARQL QUERIES TO RUN FROM THE COMMAND LINE
+-- HOW TO CREATE THE DATA TO BE LOADED
 ----------------------------
--- 1) Copy each query into /tmp/test.sparql and the run the following two commands:
+-- 1) Copy each SPARQL query below into /tmp/test.sparql and the run the following two commands:
 --
 --   $ isql-vt -H localhost -S 1111  -U <user name> -P <password> errors=stdout < /tmp/test.sparql > /tmp/test.out
 --
---   $ egrep "^http.*|^urn.*" /tmp/test.out | sed 's/\s\s\+/\t/g'  > <NAME OF FILE (SEE BELOW)>
+--   $ egrep "^http.*|^urn.*" /tmp/test.out | sed 's/\s\s\+/\t/g' | sed 's,http://purl.org/net/ohdsi#,,g' | sed 's,http://purl.bioontology.org/ontology/RXNORM/,,g' | sed 's,http://purl.bioontology.org/ontology/MEDDRA/,,g' | sed 's,http://purl.bioontology.org/ontology/MESH/,,g' | sed 's,http://purl.bioontology.org/ontology/SNOMEDCT/,,g' | sed 's,http://linkedlifedata.com/resource/umls/id/,,g' > <NAME OF FILE (SEE BELOW)>
 
+-- 2) Run 'python getLinkoutOADataMapping.py' to create linkouts_to_annotation_ids.dsv (best to run under nohup if remotely logged in)
+-- 
 ---------------------------------
 -- QUERY 1 - to adr-annotation.dsv
 --
@@ -39,7 +44,7 @@
 
 -- QUERY 2 - to adr-body.dsv
 --
--- SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#>  SELECT ?body ?label ?description if(bound(?standardDrug),?standardDrug,ohdsi:0) as ?sdrug if(bound(?standardHoi),?standardHoi,ohdsi:0) as ?shoi WHERE {   ?an oa:hasBody ?body. ?body rdfs:label ?label; dcterms:description ?description. OPTIONAL {?body ohdsi:ImedsDrug ?standardDrug.}  OPTIONAL {?body ohdsi:ImedsHoi ?standardHoi.} };
+-- SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#>  SELECT ?body ?label ?description if(bound(?standardDrug),?standardDrug,ohdsi:0) as ?sdrug if(bound(?standardHoi),?standardHoi,ohdsi:0) as ?shoi if(bound(?rxnormDrug),?rxnormDrug,"\\N") as ?rxnDrug if(bound(?meshDrug),?meshDrug,"\\N") as ?mshDrug if(bound(?UMLSDrug),?UMLSDrug,"\\N") as ?umlsDrug if(bound(?meshHoi),?meshHoi,"\\N") as ?mshHoi if(bound(?snomedHoi),?snomedHoi,"\\N") as ?snmedHoi if(bound(?meddraHoi),?meddraHoi,"\\N") as ?mddraHoi  if(bound(?UMLSHoi),?UMLSHoi,"\\N") as ?umlsHoi WHERE {   ?an oa:hasBody ?body. ?body rdfs:label ?label; dcterms:description ?description. OPTIONAL {?body ohdsi:ImedsDrug ?standardDrug.}  OPTIONAL {?body ohdsi:ImedsHoi ?standardHoi.} OPTIONAL {?body ohdsi:RxnormDrug ?rxnormDrug.} OPTIONAL {?body ohdsi:MeshDrug ?meshDrug.} OPTIONAL {?body ohdsi:UMLSDrug ?UMLSDrug.} OPTIONAL {?body ohdsi:MeshHoi ?meshHoi.} OPTIONAL {?body ohdsi:SnomedHoi ?snomedHoi.} OPTIONAL {?body ohdsi:MeddraHoi ?meddraHoi.} OPTIONAL {?body ohdsi:UMLSHoi ?UMLSHoi.} };
 
 ----------------------------
 
@@ -60,6 +65,7 @@ DROP TABLE IF EXISTS adr_annotation CASCADE;
 DROP TABLE IF EXISTS adr_body CASCADE;
 DROP TABLE IF EXISTS target CASCADE;
 DROP TABLE IF EXISTS selector CASCADE;
+DROP TABLE IF EXISTS linkout_to_adr_annotation CASCADE;
 
 COMMIT;
 
@@ -78,9 +84,15 @@ CREATE TABLE adr_body (
     adr_body_item text UNIQUE,
     adr_body_label text,
     adr_body_description text,
-    rxnorm_drug text,
     standard_drug text,
     standard_hoi text,
+    rxnorm_drug text,
+    mesh_drug text,
+    umls_drug text,
+    mesh_hoi text,
+    snomed_hoi text,
+    meddra_hoi text,
+    umls_hoi text,        
     PRIMARY KEY (adr_body_uid)
 );
 
@@ -102,6 +114,13 @@ CREATE TABLE adr_annotation (
 --     selector_type text,
 --     PRIMARY KEY (selector_uid)
 -- );
+
+CREATE TABLE linkout_to_adr_annotation (
+    linkout_to_adr_uid serial,
+    linkout text ,
+    adr_annotation_item text,
+    PRIMARY KEY (linkout_to_adr_uid)
+);
 
 COMMIT;
 
@@ -136,7 +155,14 @@ START TRANSACTION;
 -- GRANT ALL ON TABLE selector TO developer;
 -- GRANT ALL ON TABLE selector TO administrator;
 
----- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!! 
+-- ALTER TABLE linkout_to_adr_annotation
+--   OWNER TO rich;
+-- GRANT ALL ON TABLE linkout_to_adr_annotation TO public;
+-- GRANT ALL ON TABLE linkout_to_adr_annotation TO ohdsi;
+-- GRANT ALL ON TABLE linkout_to_adr_annotation TO developer;
+-- GRANT ALL ON TABLE linkout_to_adr_annotation TO administrator;
+
+---- !!!! UNCOMMENT THESE PERMISSIONS FOR DEVELOPMENT !!!! 
 ALTER TABLE adr_annotation
   OWNER TO rdb20;
 
@@ -149,11 +175,15 @@ ALTER TABLE target
 -- ALTER TABLE selector
 --   OWNER TO rdb20;
 
+ALTER TABLE linkout_to_adr_annotation
+  OWNER TO rdb20;
+
+
 COMMIT;
 
 \echo 'inserting data for adr_body'
 START TRANSACTION;
-\COPY adr_body (adr_body_item, adr_body_label, adr_body_description, standard_drug, standard_hoi) FROM 'adr-body.dsv' DELIMITER '\t' CSV;
+\COPY adr_body (adr_body_item, adr_body_label, adr_body_description, standard_drug, standard_hoi, rxnorm_drug, mesh_drug, umls_drug, mesh_hoi, snomed_hoi, meddra_hoi, umls_hoi) FROM 'adr-body.dsv' DELIMITER '\t' CSV;
 COMMIT;
 
 \echo 'inserting data for adr_target'
@@ -168,5 +198,11 @@ COMMIT;
 
 
 \echo 'NOTE: not currently inserting data for table selector'
+
+\echo 'inserting data for linkout_to_adr_annotation'
+START TRANSACTION;
+\COPY linkout_to_adr_annotation (linkout,adr_annotation_item) FROM 'linkouts_to_annotation_ids.dsv' DELIMITER '\t' CSV;
+COMMIT;
+
 
 \echo 'All done folks!'
