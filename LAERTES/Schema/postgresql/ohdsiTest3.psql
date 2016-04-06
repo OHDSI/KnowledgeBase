@@ -19,7 +19,8 @@
 --    'mergeCountsFromIntegratedSources.py'. This creates the files
 --    uniq_drug_hoi_relationships.csv and drug-hoi-evidence-data.tsv
 
--- 2) load uniq_drug_hoi_relationships.csv, drug-hoi-evidence-data.tsv,
+-- 2) (if deploying on the release server)
+--    load uniq_drug_hoi_relationships.csv, drug-hoi-evidence-data.tsv,
 --    and ohdsiTest3.psql to the /mnt/vol1/inbound folder on the OHDSI
 --    dev server.
 
@@ -239,9 +240,9 @@ START TRANSACTION;
 \copy  drug_HOI_evidence from 'drug-hoi-evidence-data.tsv' DELIMITER '\t' NULL '\\N' CSV;
 COMMIT;
 
--- creates a view representing a pivot table of the
--- drug_hoi_relationship table. This table is intended to be useful
--- for users of the Standard Vocabulary
+creates a view representing a pivot table of the
+drug_hoi_relationship table. This table is intended to be useful
+for users of the Standard Vocabulary
 \echo 'Starting transaction'
 START TRANSACTION;
 
@@ -249,7 +250,7 @@ START TRANSACTION;
 CREATE MATERIALIZED VIEW drug_HOI_evidence_view AS
 SELECT * 
 FROM 
-        (
+       (
   	 SELECT * FROM drug_hoi_relationship
 	) as drugs
         NATURAL FULL JOIN
@@ -265,8 +266,8 @@ FROM
 			 where supports = true and evidence_source_code_id in (1,5,9,10,11,12,14)
 			 order by 1',
 			'select distinct evidence_type
-			 where evidence_source_code_id in (1,5,9,10,11,12,14)
 			 from drug_hoi_evidence
+ 			 where evidence_source_code_id in (1,5,9,10,11,12,14)
 			 order by 1'
 		  ) as stats (
 			id text,
@@ -294,14 +295,14 @@ FROM
 			 where supports is null and evidence_source_code_id in (6,7,8)
 			 order by 1',
 			'select distinct evidence_type
-			 where  evidence_source_code_id in (6,7,8)
 			 from drug_hoi_evidence
+			 where  evidence_source_code_id in (6,7,8)
 			 order by 1'
 		  ) as stats (
 			id text,
 			medline_mesh_clin_trial_count integer,
 			medline_mesh_case_report_count integer,
-			medline_mesh_other_count integer,		
+			medline_mesh_other_count integer		
 	 	)
  	      ) as stats
   	 ) as null_supports_stats
@@ -342,8 +343,8 @@ FROM
     			 where supports = true and evidence_source_code_id in (1,5,9,10,11,12,14)
     			 order by 1',
     			'select distinct evidence_type
-			where evidence_source_code_id in (1,5,9,10,11,12,14)	
     			from drug_hoi_evidence
+			where evidence_source_code_id in (1,5,9,10,11,12,14)	
     			order by 1'
     	     ) as links (
     			id text,
@@ -359,8 +360,8 @@ FROM
     	  ) as links
        ) AS pos_drill_down_links
        NATURAL FULL JOIN
-    	(
-           SELECT * 
+       (
+	   SELECT * 
     	   FROM
             (select * from crosstab(
     			'select
@@ -371,17 +372,17 @@ FROM
     			 where supports is null and evidence_source_code_id in (6,7,8)
     			 order by 1',
     			'select distinct evidence_type
-			where evidence_source_code_id in (6,7,8)
     			from drug_hoi_evidence
+			where evidence_source_code_id in (6,7,8)
     			order by 1'
     	     ) as links (
     			id text,
     			medline_mesh_clin_trial_link text,
     			medline_mesh_case_report_link text,
-			medline_mesh_other_link text,		 
+			medline_mesh_other_link text		 
     	    )
     	  ) as links
-       ) AS null_drill_down_links
+      ) AS null_drill_down_links
       NATURAL FULL JOIN
       (
        SELECT * 
@@ -411,10 +412,16 @@ COMMIT;
 \echo 'Starting transaction'
 START TRANSACTION;
 \echo 'Altering privileges on drug_HOI_evidence_view'
-GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO administrator;
-GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO public;
-GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO ohdsi;
-GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO developer;
+-- ---- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!! 
+-- GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO administrator;
+-- GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO public;
+-- GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO ohdsi;
+-- GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO developer;
+
+-- ---- !!!! UNCOMMENT THESE PERMISSIONS FOR DEVELOPMENT !!!!
+GRANT ALL PRIVILEGES ON drug_HOI_evidence_view TO rdb20;
+
+
 COMMIT;
 
 
@@ -652,8 +659,8 @@ select
   cast (semmeddb_neg_ct_count as integer),
   cast (semmeddb_neg_case_count as integer),
   cast (semmeddb_neg_other_count as integer),	
-  cast (aers_report_count as integer)
-  cast (prr as numeric), 
+  cast (aers_report_count as integer),
+  cast (prr as numeric) 
   from public.laertes_summary;
 COMMIT;
 \echo 'DONE Copying relevant laertes tables from the public to the OHDSI schema'

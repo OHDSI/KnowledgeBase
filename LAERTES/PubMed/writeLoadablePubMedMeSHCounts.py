@@ -8,12 +8,12 @@
 
 import urllib2, urllib, re, sys
 
-# VT_SERVER="virtuoso.ohdsi.org" # Release 
-VT_SERVER="130.49.206.139"  # Development
+VT_SERVER="virtuoso.ohdsi.org" # Release 
+# VT_SERVER="130.49.206.139"  # Development
 VT_PORT="8890"
 
-# URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
-URL_SHORTENER_URL="http://130.49.206.139/l" # Development
+URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
+# URL_SHORTENER_URL="http://130.49.206.139/l" # Development
 
 DATAFILE = "pubmed-graph-count-query-March2016.txt"
 EVTYPE = "MEDLINE_MeSH"
@@ -74,11 +74,11 @@ for elt in l:
 
     key = "%s-%s" % (drug,hoi)
     if pubType == 'clinical trial (publication type)':
-        print "\t".join([key,EVTYPE + "_ClinTrial",'positive',"7",str(cnt),turl,"COUNT"])
+        print "\t".join([key,EVTYPE + "_ClinTrial",'\N',"7",str(cnt),turl,"COUNT"])
     elif pubType == 'case reports (publication type)':
-        print "\t".join([key,EVTYPE + "_CR",'positive',"6",str(cnt),turl,"COUNT"])
+        print "\t".join([key,EVTYPE + "_CR",'\N',"6",str(cnt),turl,"COUNT"])
     elif pubType == 'other (publication type)':
-        print "\t".join([key,EVTYPE + "_Other",'positive',"8",str(cnt),turl,"COUNT"])
+        print "\t".join([key,EVTYPE + "_Other",'\N',"8",str(cnt),turl,"COUNT"])
     else:
         print "Not continuing because there is a record with un-recognized publication type: %s" % pubType
         sys.exit(1)

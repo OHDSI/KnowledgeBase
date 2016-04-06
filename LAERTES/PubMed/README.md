@@ -292,7 +292,7 @@ TODOs (3/2016):
 LOADING THE RDF DATA INTO VIRTUOSO:
 
 -- FIRST TIME ONLY
-$ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<PATH TO drug-hoi-pubmed-mesh.rdf>', 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc/');
+$ INSERT INTO DB.DBA.load_list (ll_file,ll_graph) values('<PATH TO THE RDF DATA FOR PUBMED>', 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc');
 -- MAKE SURE THAT THE PATH WHERE THE DATA FILE RESIDES IS IN THE DirsAllowed list of virtuoso.ini 
 -- END OF FIRST TIME ONLY
 
@@ -312,7 +312,7 @@ $ rdf_loader_run();
 
 -- ELSE, CLEAR THE GRAPH AND THE SET LL_STATE TO 0
 
-$ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc/' ;
-$ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc/';
+$ SPARQL CLEAR GRAPH 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc' ;
+$ UPDATE DB.DBA.load_list SET ll_state = 0 WHERE ll_graph = 'http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc';
 $ rdf_loader_run();
 

@@ -7,12 +7,12 @@
 #
 import urllib2, urllib, re, sys
 
-# VT_SERVER="virtuoso.ohdsi.org" # Release 
-VT_SERVER="130.49.206.139"  # Development
+VT_SERVER="virtuoso.ohdsi.org" # Release 
+# VT_SERVER="130.49.206.139"  # Development
 VT_PORT="8890"
 
-# URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
-URL_SHORTENER_URL="http://130.49.206.139/l" # Development
+URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
+# URL_SHORTENER_URL="http://130.49.206.139/l" # Development
 
 EVTYPE = "SPL_EU_SPC"
 DATAFILE = "test-query-of-counts-10092015.csv" # NOTE: this data comes a CSV export of the query below

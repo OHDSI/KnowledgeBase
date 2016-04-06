@@ -35,10 +35,8 @@ SELECT count(distinct ?an) ?drug ?hoi
 
 This query gives the counts for records present in SPLs processed by
 SPLICER for all drugs and HOIs present in the database. This data is
-saved into a tab delimitted file (most recently
-test-query-of-counts-09102014.csv) that is loaded by
-writeLoadableSPLICERcounts.py. The script then generates a file (most
-recently drug-hoi-counts-with-linkouts-SPLICER-09102014.tsv) that can
+saved into a tab delimitted file  that is loaded by
+writeLoadableSPLICERcounts.py. The script then generates a file that can
 be loaded into the relational Schema table 'drug_hoi_evidence'. An
 example record:
 
@@ -88,6 +86,34 @@ $ mysql --max_allowed_packet=999M -u <user> -p --local-infile
 ```
 
 Select the database and the source each file
+
+
+------------------------------------------------------------
+CREATING THE RELATIONAL DATABASE EQUIVALENT OF THE DATA IN RDF
+
+Analysts who work closely with the data in the OHDSI framework desire
+more direct ways to examine the data, especially the source vocabulary
+concepts. For this reason, we need to store the essential elements of
+the OA model in relational tables that can be queried using joins with
+the other relational tables in the OHDSI database.
+
+1) Extract a table corresponding to the OA Annotation types
+
+PREFIX ohdsi:<http://purl.org/net/ohdsi#>
+PREFIX oa:<http://www.w3.org/ns/oa#>
+
+SELECT * 
+WHERE {
+ GRAPH <http://purl.org/net/nlprepository/ohdsi-adr-splicer-poc>{
+  ?an a ohdsi:ADRAnnotation;
+    rdf:type ?type;
+    oa:annotatedAt ?annotatedAt;
+    oa:annotatedBy ?annotatedBy;
+    oa:motivatedBy ?motivatedBy;
+    oa:hasTarget ?target;
+    oa:hasBody ?body.
+ }
+}
 
 
 ------------------------------------------------------------

@@ -1,0 +1,195 @@
+--------------------------------------------------------------------
+-- Initialization script to add to the LAERTES relational model (extension to the OHDSI Standard Vocabulary)
+-- Adds tables which originally appeared as RDF
+--
+-- Authors: Charles Kronk
+-- 2015
+--
+-- 1) Create CSV files to load (see below, this has to be done from the command line).
+-- 2) Load this script
+--
+--- (DEVELOPMENT --- NOTE: YOU HAVE TO CHANGE TO TABLE PERMISSIONS STATEMENTS FIRST -- SEE 'Altering table permissions' BELOW)
+-- Within this folder run:
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d laertes_cdm < rdf2relational.psql
+
+--- (RELEASE)
+-- ssh to the OHDSI dev server, change to the /mnt/vol1/inbound folder
+--    and run:
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 < rdf2relational.psql
+--
+--
+--
+----------------------------
+
+----------------------------
+-- SPARQL QUERIES TO RUN FROM THE COMMAND LINE
+----------------------------
+-- 1) Copy each query into /tmp/test.sparql and the run the following two commands:
+--
+--   $ isql-vt -H localhost -S 1111  -U <user name> -P <password> errors=stdout < /tmp/test.sparql > /tmp/test.out
+--
+--   $ egrep "^http.*|^urn.*" /tmp/test.out | sed 's/\s\s\+/\t/g'  > <NAME OF FILE (SEE BELOW)>
+
+---------------------------------
+-- QUERY 1 - to adr-annotation.csv
+--
+-- SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#>  SELECT * WHERE {    ?an a ohdsi:ADRAnnotation;     oa:annotatedAt ?annotatedAt;     oa:annotatedBy ?annotatedBy;     oa:motivatedBy ?motivatedBy;     oa:hasTarget ?target;     oa:hasBody ?body.  };
+
+----------------------------
+
+-- QUERY 2 - to adr-body.csv
+--
+-- SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#>  SELECT * WHERE {   ?an a ohdsi:adrAnnotationBody; rdfs:label ?label; dcterms:description ?description;   ohdsi:RxnormDrug ?rxnormDrug;     ohdsi:ImedsDrug ?standardDrug;     ohdsi:ImedsHoi ?standardHoi. };
+
+----------------------------
+
+-- QUERY 3 -- to adr-target.csv
+--
+-- SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#>  SELECT ?target ?source WHERE {   ?an a ohdsi:ADRAnnotation;     oa:hasTarget ?target.    ?target oa:hasSource ?source. };
+
+----------------------------
+
+\echo 'Setting up transaction'
+START TRANSACTION;
+SET standard_conforming_strings=off;
+SET escape_string_warning=off;
+SET CONSTRAINTS ALL DEFERRED;
+
+\echo 'Dropping tables and views'
+DROP TABLE IF EXISTS adr_annotation CASCADE;
+DROP TABLE IF EXISTS adr_body CASCADE;
+DROP TABLE IF EXISTS target CASCADE;
+DROP TABLE IF EXISTS selector CASCADE;
+
+COMMIT;
+
+\echo 'Creating tables'
+CREATE TABLE selector (
+    selector_uid serial,
+    spl_section text,
+    selector_type text,
+    PRIMARY KEY (selector_uid)
+);
+
+CREATE TABLE adr_body (
+    adr_body_uid serial,
+    adr_body_item text,
+    -- adr_body_type text,
+    adr_body_label text,
+    adr_body_description text,
+    rxnorm_drug text,
+    standard_drug text,
+    --meddra_hoi text,
+    standard_hoi text,
+    PRIMARY KEY (adr_body_uid),
+    UNIQUE (adr_body_uid, adr_body_item)
+);
+
+CREATE TABLE target (
+    target_uid serial,
+    target_item text,
+    has_source text,
+    has_selector integer,
+    PRIMARY KEY (target_uid),
+    FOREIGN KEY (has_selector) REFERENCES selector (selector_uid),
+    UNIQUE (target_uid, target_item)
+);
+
+CREATE TABLE adr_annotation (
+    adr_annotation_uid serial,
+    adr_annotation_item text,
+    --adr_annotation_label text,
+    --was_generated_by text,
+    annotated_at text,
+    annotated_by text,
+    motivated_by text,
+    -- last_saved_on text,
+    has_target text, 
+    has_body text, 
+    PRIMARY KEY (adr_annotation_uid) --,
+--    FOREIGN KEY (has_target) REFERENCES target (target_item),
+--    FOREIGN KEY (has_body) REFERENCES adr_statement (adr_statement_item)
+);
+
+COMMIT;
+
+\echo 'Altering table permissions '
+---- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!! 
+-- ALTER TABLE adr_annotation
+--   OWNER TO rich;
+-- GRANT ALL ON TABLE adr_annotation TO public;
+-- GRANT ALL ON TABLE adr_annotation TO ohdsi;
+-- GRANT ALL ON TABLE adr_annotation TO developer;
+-- GRANT ALL ON TABLE adr_annotation TO administrator;
+
+-- ALTER TABLE adr_body
+--   OWNER TO rich;
+-- GRANT ALL ON TABLE adr_body TO public;
+-- GRANT ALL ON TABLE adr_body TO ohdsi;
+-- GRANT ALL ON TABLE adr_body TO developer;
+-- GRANT ALL ON TABLE adr_body TO administrator;
+
+-- ALTER TABLE target
+--   OWNER TO rich;
+-- GRANT ALL ON TABLE target TO public;
+-- GRANT ALL ON TABLE target TO ohdsi;
+-- GRANT ALL ON TABLE target TO developer;
+-- GRANT ALL ON TABLE target TO administrator;
+
+-- ALTER TABLE selector
+--   OWNER TO rich;
+-- GRANT ALL ON TABLE selector TO public;
+-- GRANT ALL ON TABLE selector TO ohdsi;
+-- GRANT ALL ON TABLE selector TO developer;
+-- GRANT ALL ON TABLE selector TO administrator;
+
+---- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!! 
+ALTER TABLE adr_annotation
+  OWNER TO rdb20;
+
+ALTER TABLE adr_body
+  OWNER TO rdb20;
+
+ALTER TABLE target
+  OWNER TO rdb20;
+
+ALTER TABLE selector
+  OWNER TO rdb20;
+
+COMMIT;
+
+\echo 'inserting data for adr_annotation'
+CREATE TEMP TABLE tmpAnnot AS 
+SELECT adr_annotation_item, annotated_at, annotated_by, motivated_by, has_target, has_body FROM adr_annotation LIMIT 0;
+\COPY tmpAnnot FROM './adr-annotation.csv' DELIMITER AS ',' CSV HEADER;
+
+INSERT INTO adr_annotation (adr_annotation_item, annotated_at, annotated_by, motivated_by, has_target, has_body)
+SELECT adr_annotation_item, annotated_at, annotated_by, motivated_by, has_target, has_body FROM tmpAnnot;
+
+COMMIT;
+
+\echo 'inserting data for adr_body'
+CREATE TEMP TABLE tmpBody AS 
+SELECT adr_body_item, rxnorm_drug, standard_drug, standard_hoi FROM adr_body LIMIT 0;
+\COPY tmpBody FROM 'adr-body.csv' DELIMITER AS ',' CSV HEADER;
+
+INSERT INTO adr_body (adr_body_item, rxnorm_drug, standard_drug, standard_hoi)
+SELECT adr_body_item, rxnorm_drug, standard_drug, standard_hoi FROM tmpBody;
+
+COMMIT;
+
+\echo 'inserting data for adr_target'
+CREATE TEMP TABLE tmpTarg AS 
+SELECT target_item, has_source FROM target LIMIT 0;
+ALTER TABLE tmpTarg ADD COLUMN adr_annotation text;
+\COPY tmpTarg FROM 'adr-target.csv' DELIMITER AS ',' CSV HEADER;
+
+INSERT INTO target (target_item, has_source)
+SELECT target_item, has_source FROM tmpTarg;
+
+COMMIT;
+
+
+\echo 'NOTE: not currently inserting data for table selector'
+
+
