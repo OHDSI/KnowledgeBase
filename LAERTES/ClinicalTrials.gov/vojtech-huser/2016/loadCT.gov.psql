@@ -1,0 +1,65 @@
+--------------------------------------------------------------------
+-- Initialization script to add loadCT.gov.psql to the LAERTES relational model
+--
+-- Authors: Vojtech Huser, Richard Boyce
+-- 2015 - 2016
+--
+--- (DEVELOPMENT --- NOTE: YOU HAVE TO CHANGE TO TABLE PERMISSIONS STATEMENTS FIRST -- SEE 'Altering table permissions' BELOW)
+-- Within this folder run:
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d laertes_cdm < loadCT.gov.psql
+
+--- (RELEASE)
+-- ssh to the OHDSI dev server, change to the /mnt/vol1/inbound folder
+--    and run:
+--    nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 < loadCT.gov.psql
+--
+-- Example Query -- join the drug_hoi_evidence table with CT.gov to set up for comparing previously reported associations with the ones reporte for the new clinical trial
+--
+--  select * from drug_HOI_evidence inner join drug_HOI_relationship on drug_HOI_evidence.drug_HOI_relationship = drug_HOI_relationship.id inner join ctgov_drug_trials on drug_HOI_relationship.drug = ctgov_drug_trials.drug_concept_id limit 10;
+--
+----------------------------
+
+
+\echo 'Setting up transaction'
+START TRANSACTION;
+
+\echo 'Dropping tables and views'
+DROP TABLE IF EXISTS ctgov_drug_trials CASCADE;
+
+COMMIT;
+
+\echo 'Creating tables'
+START TRANSACTION;
+CREATE TABLE ctgov_drug_trials (
+    ctgov_drug_trial_uid serial,
+    drug_concept_id integer,
+    hoi_concept_id integer,
+    nct_id text,
+    intervention_name text,
+    PRIMARY KEY (ctgov_drug_trial_uid)
+);
+
+COMMIT;
+
+\echo 'Altering table permissions '
+START TRANSACTION;
+---- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!! 
+-- ALTER TABLE ctgov_drug_trials
+--   OWNER TO rich;
+-- GRANT ALL ON TABLE ctgov_drug_trials TO public;
+-- GRANT ALL ON TABLE ctgov_drug_trials TO ohdsi;
+-- GRANT ALL ON TABLE ctgov_drug_trials TO developer;
+-- GRANT ALL ON TABLE ctgov_drug_trials TO administrator;
+
+---- !!!! UNCOMMENT THESE PERMISSIONS FOR DEVELOPMENT !!!! 
+ALTER TABLE ctgov_drug_trials
+  OWNER TO rdb20;
+
+COMMIT;
+
+\echo 'inserting data'
+START TRANSACTION;
+\COPY ctgov_drug_trials (drug_concept_id,hoi_concept_id,nct_id,intervention_name) FROM 'ctgov-laertes-2015-12-drug-trial-rows.csv' HEADER DELIMITER '	' CSV;
+COMMIT;
+
+\echo 'TODO: implement copying this data to the OHDSI schema for the WebAPI -- requires updates to flyway'
