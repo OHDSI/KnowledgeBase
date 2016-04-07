@@ -15,6 +15,8 @@ SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
 
+SET SEARCH_PATH TO drugbank;
+
 \echo 'Creating tables'
 DROP TABLE IF EXISTS drugs CASCADE;
 CREATE TABLE drugs

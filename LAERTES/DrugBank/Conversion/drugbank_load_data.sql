@@ -15,6 +15,8 @@
 -- deleted and all \copy statements should have the "\" removed.
 -- 
 
+SET SEARCH_PATH TO drugbank;
+
 \echo 'Starting transaction'
 START TRANSACTION;
 \echo 'Loading data into drugs from file '
@@ -530,7 +532,7 @@ COMMIT;
 \echo 'Starting transaction'
 START TRANSACTION;
 \echo 'Loading data into drugs from file '
-\copy drug_transporter_polypeptide_external_identifiers FROM 'DRUGBANK_DRUG_TRANSPORTER_SYN.rrf' DELIMITER '|' CSV;
+\copy drug_transporter_polypeptide_synonyms FROM 'DRUGBANK_DRUG_TRANSPORTER_SYN.rrf' DELIMITER '|' CSV;
 COMMIT;
 
 \echo 'Starting transaction'
