@@ -19,6 +19,13 @@ SET SEARCH_PATH TO drugbank;
 
 \echo 'Starting transaction'
 START TRANSACTION;
+\echo 'Loading omop to drugbank mapping'
+\copy drugbank_to_omop_mapping FROM 'rxnorm-drugbank-omop-mapping-CLEANED.tsv' (HEADER, DELIMITER '	', FORMAT CSV); -- This file is located in the LAERTES project under terminology-mappings/RxNORM-to-UNII-PreferredName-To-DrugBank/
+COMMIT;
+
+
+\echo 'Starting transaction'
+START TRANSACTION;
 \echo 'Loading data into drugs from file '
 \copy drugs FROM 'DRUGBANK_DRUGS.rrf' (DELIMITER '|', FORMAT TEXT);
 COMMIT;

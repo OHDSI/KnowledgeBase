@@ -18,6 +18,14 @@ SET CONSTRAINTS ALL DEFERRED;
 SET SEARCH_PATH TO drugbank;
 
 \echo 'Creating tables'
+DROP TABLE IF EXISTS drugbank_to_omop_mapping CASCADE;
+CREATE TABLE drugbank_to_omop_mapping
+(
+	rxcui   VARCHAR(15) NOT NULL,
+	concept_id  Integer NOT NULL,
+        primary_drugbank_id		VARCHAR(15) NOT NULL	
+);
+
 DROP TABLE IF EXISTS drugs CASCADE;
 CREATE TABLE drugs
 (
@@ -1138,45 +1146,109 @@ COMMIT;
 -- TABLE PERMISSIONS NOT FINISHED.
 
 \echo 'Altering table permissions '
----- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!! 
--- ALTER TABLE OWNER drugs TO rich;
--- GRANT ALL ON TABLE drugs TO public;
--- GRANT ALL ON TABLE drugs TO ohdsi;
--- GRANT ALL ON TABLE drugs TO developer;
--- GRANT ALL ON TABLE drugs TO administrator;
+---- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!!
+-- ALTER TABLE OWNER  drugbank_to_omop_mapping                           TO rich;
+-- ALTER TABLE OWNER  drug_affected_organisms                            TO rich;
+-- ALTER TABLE OWNER  drug_ahfs_codes                                    TO rich;
+-- ALTER TABLE OWNER  drug_alt_ids                                       TO rich;
+-- ALTER TABLE OWNER  drug_atc_code_levels                               TO rich;
+-- ALTER TABLE OWNER  drug_atc_codes                                     TO rich;
+-- ALTER TABLE OWNER  drug_carrier_actions                               TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptide_amino_acid_sequences      TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptide_external_identifiers      TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptide_gene_sequences            TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptide_go_classifiers            TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptide_pfams                     TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptide_synonyms                  TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptide_transmembrane_regions     TO rich;
+-- ALTER TABLE OWNER  drug_carrier_polypeptides                          TO rich;
+-- ALTER TABLE OWNER  drug_carrier_references                            TO rich;
+-- ALTER TABLE OWNER  drug_carriers                                      TO rich;
+-- ALTER TABLE OWNER  drug_categories                                    TO rich;
+-- ALTER TABLE OWNER  drug_classification_alt_parents                    TO rich;
+-- ALTER TABLE OWNER  drug_classification_substituents                   TO rich;
+-- ALTER TABLE OWNER  drug_classifications                               TO rich;
+-- ALTER TABLE OWNER  drug_clearances                                    TO rich;
+-- ALTER TABLE OWNER  drug_costs                                         TO rich;
+-- ALTER TABLE OWNER  drug_dosages                                       TO rich;
+-- ALTER TABLE OWNER  drug_drug_interactions                             TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_actions                                TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptide_amino_acid_sequences       TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptide_external_identifiers       TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptide_gene_sequences             TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptide_go_classifiers             TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptide_pfams                      TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptide_synonyms                   TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptide_transmembrane_regions      TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_polypeptides                           TO rich;
+-- ALTER TABLE OWNER  drug_enzyme_references                             TO rich;
+-- ALTER TABLE OWNER  drug_enzymes                                       TO rich;
+-- ALTER TABLE OWNER  drug_external_identifiers                          TO rich;
+-- ALTER TABLE OWNER  drug_external_links                                TO rich;
+-- ALTER TABLE OWNER  drug_food_interactions                             TO rich;
+-- ALTER TABLE OWNER  drug_general_references                            TO rich;
+-- ALTER TABLE OWNER  drug_groups                                        TO rich;
+-- ALTER TABLE OWNER  drug_international_brands                          TO rich;
+-- ALTER TABLE OWNER  drug_manufacturers                                 TO rich;
+-- ALTER TABLE OWNER  drug_mesh_ids                                      TO rich;
+-- ALTER TABLE OWNER  drug_mixtures                                      TO rich;
+-- ALTER TABLE OWNER  drug_packagers                                     TO rich;
+-- ALTER TABLE OWNER  drug_patents                                       TO rich;
+-- ALTER TABLE OWNER  drug_pathways                                      TO rich;
+-- ALTER TABLE OWNER  drug_prices                                        TO rich;
+-- ALTER TABLE OWNER  drug_products                                      TO rich;
+-- ALTER TABLE OWNER  drug_properties                                    TO rich;
+-- ALTER TABLE OWNER  drug_reaction_elements                             TO rich;
+-- ALTER TABLE OWNER  drug_reaction_enzymes                              TO rich;
+-- ALTER TABLE OWNER  drug_reactions                                     TO rich;
+-- ALTER TABLE OWNER  drug_salts                                         TO rich;
+-- ALTER TABLE OWNER  drug_sequences                                     TO rich;
+-- ALTER TABLE OWNER  drug_snp_adverse_drug_reactions                    TO rich;
+-- ALTER TABLE OWNER  drug_snp_effects                                   TO rich;
+-- ALTER TABLE OWNER  drug_synonyms                                      TO rich;
+-- ALTER TABLE OWNER  drug_target_actions                                TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_amino_acid_sequences       TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_external_identifiers       TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_gene_sequences             TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_go_classifiers             TO rich;
+-- ALTER TABLE OWNER  drug_reaction_enzymes                              TO rich;
+-- ALTER TABLE OWNER  drug_reactions                                     TO rich;
+-- ALTER TABLE OWNER  drug_salts                                         TO rich;
+-- ALTER TABLE OWNER  drug_sequences                                     TO rich;
+-- ALTER TABLE OWNER  drug_snp_adverse_drug_reactions                    TO rich;
+-- ALTER TABLE OWNER  drug_snp_effects                                   TO rich;
+-- ALTER TABLE OWNER  drug_synonyms                                      TO rich;
+-- ALTER TABLE OWNER  drug_target_actions                                TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_amino_acid_sequences       TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_external_identifiers       TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_gene_sequences             TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_go_classifiers             TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_pfams                      TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_synonyms                   TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptide_transmembrane_regions      TO rich;
+-- ALTER TABLE OWNER  drug_target_polypeptides                           TO rich;
+-- ALTER TABLE OWNER  drug_target_references                             TO rich;
+-- ALTER TABLE OWNER  drug_targets                                       TO rich;
+-- ALTER TABLE OWNER  drug_transporter_actions                           TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptide_amino_acid_sequences  TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptide_external_identifiers  TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptide_gene_sequences        TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptide_go_classifiers        TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptide_pfams                 TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptide_synonyms              TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptide_transmembrane_regions TO rich;
+-- ALTER TABLE OWNER  drug_transporter_polypeptides                      TO rich;
+-- ALTER TABLE OWNER  drug_transporter_references                        TO rich;
+-- ALTER TABLE OWNER  drug_transporters                                  TO rich;
+-- ALTER TABLE OWNER  drug_volumes_of_distribution                       TO rich;
+-- ALTER TABLE OWNER  drugs                                              TO rich;
+--
+-- GRANT ALL ON ALL TABLES IN SCHEMA drugbank TO public;
+-- GRANT ALL ON ALL TABLES IN SCHEMA drugbank TO ohdsi;
+-- GRANT ALL ON ALL TABLES IN SCHEMA drugbank TO developer;
+-- GRANT ALL ON ALL TABLES IN SCHEMA drugbank TO administrator;
 
--- ALTER TABLE OWNER drug_alt_ids TO rich;
--- GRANT ALL ON TABLE drug_alt_ids TO public;
--- GRANT ALL ON TABLE drug_alt_ids TO ohdsi;
--- GRANT ALL ON TABLE drug_alt_ids TO administrator;
--- GRANT ALL ON TABLE drug_alt_ids TO developer;
-
--- ALTER TABLE OWNER drug_groups TO rich;
--- GRANT ALL ON TABLE drug_groups TO public;
--- GRANT ALL ON TABLE drug_groups TO ohdsi;
--- GRANT ALL ON TABLE drug_groups TO administrator;
--- GRANT ALL ON TABLE drug_groups TO developer;
-
--- ALTER TABLE OWNER drug_general_references TO rich;
--- GRANT ALL ON TABLE drug_general_references TO public;
--- GRANT ALL ON TABLE drug_general_references TO ohdsi;
--- GRANT ALL ON TABLE drug_general_references TO administrator;
--- GRANT ALL ON TABLE drug_general_references TO developer;
 
 ---- !!!! UNCOMMENT THESE PERMISSIONS FOR DEVELOPMENT !!!!
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
-ALTER TABLE drug_volumes_of_distribution OWNER TO rdb20;
 
 COMMIT;
