@@ -1,4 +1,26 @@
-This mapping generated on 04/04/2014 using code and data from the swat-4-med-safety project:
+
+This mapping between Omop RxNorm concept IDs and DrugBank was generated on 04/04/2014 using code and data from the swat-4-med-safety project. The data was queried from the LinkedSPLs dataset () using the following SPARQL Query:
+
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX linkedspls_vocabulary: <http://bio2rdf.org/linkedspls_vocabulary:>
+PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX ndfrt: <http://purl.bioontology.org/ontology/NDFRT/>
+
+SELECT DISTINCT ?rxcui ?conceptId ?drugBank
+FROM <http://purl.org/net/nlprepository/spl-active-moiety>
+WHERE {
+?activeMoiety a linkedspls_vocabulary:ActiveMoietyUNII;
+    linkedspls_vocabulary:RxCUI ?rxcui;
+    linkedspls_vocabulary:OMOPConceptId ?conceptId;
+    linkedspls_vocabulary:x-drugbank ?drugBank. FILTER(REGEX(?drugBank,"bio2rdf"))
+}
+	    
+The output of this query was cleaned to remove URLs and double quotes:
+
+$ cat rxnorm-drugbank-omop-mapping-RAW.tsv | sed 's,http://purl.bioontology.org/ontology/RXNORM/,,g' | sed 's,http://purl.org/net/ohdsi#,,g' | sed 's,http://bio2rdf.org/drugbank:,,g' | sed 's,",,g' > rxnorm-drugbank-omop-mapping-CLEANED.tsv
+
+
+For more information on how the mapping was created, see:
 
 https://swat-4-med-safety.googlecode.com/svn/trunk/linkedSPLs/ChEBI-DrugBank-bio2rdf-mapping
 
