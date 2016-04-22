@@ -12,6 +12,7 @@ possible to go from the drug_hoi_evidence table (coded as RxNorm and
 SNOMED) to a) the original drug and HOI concepts (maybe from MeSH or
 MeddRA), and b) the documents that are the target of annotation.
 
+```
 Loading these scripts:
 -(DEVELOPMENT --- NOTE: YOU HAVE TO CHANGE TO TABLE PERMISSIONS STATEMENTS FIRST -- SEE 'Altering table permissions' BELOW)
   Within this folder run:
@@ -64,12 +65,13 @@ With the mapping file loaded, queries can cross from drug_hoi_evidence to the op
     INNER JOIN oa_data ON linkout_to_adr_annotation.adr_annotation_item = oa_data.adr_annotation_item
   WHERE linkout_to_adr_annotation.linkout = 'http://dbmi-icode-01.dbmi.pitt.edu/l/index.php?id=ctd-1';
 --
-
+```
 
 ------------------------------------------------------------
 CATEGORY 2
 ------------------------------------------------------------
 
+```
 Scripts that are useful for analyses that leverage the LAERTES
 evidence base to infer positive and negative controls. These scripts
 depend on a concept called "LAERTES UNIVERSE" which is the set of
@@ -109,10 +111,12 @@ reporting, literature, and product labeling.
     $ nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 < CONDITION_UNIVERSE.sql
     $ nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 <  CONDITIONS_AND_CHILDREN_CONDITIONS.sql
     $ nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 <  POSITIVE_NEGATIVE_CONTROL_BETAS.sql
+```
 
 ------------------------------------------------------------
 CATEGORY 3
 ------------------------------------------------------------
+```
 Scripts that enhance the WebAPI but that depend on the tables in categories 1 or 2 (run these last)
 
 - PENELOPE_WEBAPI.sql -- This creates a table that organizes the
@@ -130,3 +134,4 @@ Scripts that enhance the WebAPI but that depend on the tables in categories 1 or
    and run:
     $ nohup psql -U <user name> -h 127.0.0.1 -W -d vocabularyv5 < PENELOPE_WEBAPI.sql
 
+```
