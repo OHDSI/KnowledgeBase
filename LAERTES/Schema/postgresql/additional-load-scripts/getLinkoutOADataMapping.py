@@ -44,8 +44,8 @@ for rslt in ResultIter(cur):
     (url_suffix,url) = (rslt[0],rslt[1])
 
     ## TEMPORARY FIX TO PICK UP RUN WHERE IT LEFT OFF
-    if url_suffix.find('ctd') != -1 or url_suffix.find('splicer') != -1:
-        continue
+    #if url_suffix.find('ctd') != -1 or url_suffix.find('splicer') != -1:
+    #    continue
     ## END OF TEMP FIX
 
     
