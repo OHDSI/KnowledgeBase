@@ -25,7 +25,11 @@ LOADING THE SCHEMA AND DATA INTO THE OHDSI STANDARD VOCABULARY:
 
 4) Wait - estimated time - more than a couple of hours
 
-5) Run the load scripts in the folder additional-load-scripts using similar commands to (3)
+5) Run the load scripts in the folder additional-load-scripts using
+similar commands to (3) but read rdf2relational.psql for how to create
+the data needed to run that script
+
+
 
 ------------------------------------------------------------------------
 FOLDER LAYOUT
@@ -59,6 +63,10 @@ FOLDER LAYOUT
 - additional-load-scripts/DRUG_UNIVERSE.sql : used to generating negative drug-HOI controls - the universe includes those DRUGS that have at least one evidence item from some evidence source (as defined in the query) 
 
 - additional-load-scripts/PENELOPE_WEBAPI.sql : a table used in the WebAPI to connect roll up and summary drug-HOI data to linkouts
+
+- additional-load-scripts/CONDITIONS_AND_CHILDREN_CONDITIONS.sql : table that assists with roll ups on the conditions table
+
+- additional-load-scripts/POSITIVE_NEGATIVE_CONTROL_BETAS.sql : table that assists with the negative control application
 
 ---------------------------------------------------------------
 NOTES ON April 1 2016 LOAD

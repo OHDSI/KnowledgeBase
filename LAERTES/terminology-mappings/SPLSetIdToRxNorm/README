@@ -1,6 +1,6 @@
 SPL-RxNorm Mappings
 
-Downloaded from DailyMed on 10/01/2015: ftp://public.nlm.nih.gov/nlmdata/.dailymed/rxnorm_mappings.zip
+Downloaded from DailyMed on 3/14/2016: ftp://public.nlm.nih.gov/nlmdata/.dailymed/rxnorm_mappings.zip
 
 This file maps SPLs to the RxNorm concept(s) they represent. SPLs may represent multiple RxNorm concepts.
 COLUMN 	  DESCRIPTION
