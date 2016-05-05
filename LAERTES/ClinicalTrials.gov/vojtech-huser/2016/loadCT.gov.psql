@@ -1,7 +1,7 @@
 --------------------------------------------------------------------
 -- Initialization script to add loadCT.gov.psql to the LAERTES relational model
 --
--- Authors: Vojtech Huser, Richard Boyce
+-- Authors: Vojtech Huser, Richard Boyce, Charles Kronk
 -- 2015 - 2016
 --
 --- (DEVELOPMENT --- NOTE: YOU HAVE TO CHANGE TO TABLE PERMISSIONS STATEMENTS FIRST -- SEE 'Altering table permissions' BELOW)
@@ -25,6 +25,7 @@ START TRANSACTION;
 
 \echo 'Dropping tables and views'
 DROP TABLE IF EXISTS ctgov_drug_trials CASCADE;
+DROP TABLE IF EXISTS ctgov_hoi_trials CASCADE;
 
 COMMIT;
 
@@ -41,6 +42,16 @@ CREATE TABLE ctgov_drug_trials (
 
 COMMIT;
 
+START TRANSACTION;
+CREATE TABLE ctgov_hoi_trials (
+	nct_id text,
+	hoi_concept_id integer,
+	hoi_name text,
+	PRIMARY KEY (nct_id, hoi_concept_id)
+);
+
+COMMIT;
+
 \echo 'Altering table permissions '
 START TRANSACTION;
 ---- !!!! UNCOMMENT THESE PERMISSIONS FOR RELEASE !!!! 
@@ -50,9 +61,17 @@ START TRANSACTION;
 -- GRANT ALL ON TABLE ctgov_drug_trials TO ohdsi;
 -- GRANT ALL ON TABLE ctgov_drug_trials TO developer;
 -- GRANT ALL ON TABLE ctgov_drug_trials TO administrator;
+-- ALTER TABLE ctgov_hoi_trials
+--   OWNER TO rich;
+-- GRANT ALL ON TABLE ctgov_hoi_trials TO public;
+-- GRANT ALL ON TABLE ctgov_hoi_trials TO ohdsi;
+-- GRANT ALL ON TABLE ctgov_hoi_trials TO developer;
+-- GRANT ALL ON TABLE ctgov_hoi_trials TO administrator;
 
 ---- !!!! UNCOMMENT THESE PERMISSIONS FOR DEVELOPMENT !!!! 
 ALTER TABLE ctgov_drug_trials
+  OWNER TO rdb20;
+ALTER TABLE ctgov_hoi_trials
   OWNER TO rdb20;
 
 COMMIT;
@@ -60,6 +79,11 @@ COMMIT;
 \echo 'inserting data'
 START TRANSACTION;
 \COPY ctgov_drug_trials (drug_concept_id,hoi_concept_id,nct_id,intervention_name) FROM 'ctgov-laertes-2015-12-drug-trial-rows.csv' HEADER DELIMITER '	' CSV;
+COMMIT;
+
+START TRANSACTION;
+-- Change the name of the FROM file to whatever the name of the appropriate file is.
+\COPY ctgov_hoi_trials (nct_id, hoi_concept_id, hoi_name) FROM '2016-04-table-2.csv' HEADER DELIMITER ',' CSV;
 COMMIT;
 
 \echo 'TODO: implement copying this data to the OHDSI schema for the WebAPI -- requires updates to flyway'
