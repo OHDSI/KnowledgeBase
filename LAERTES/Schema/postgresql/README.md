@@ -164,9 +164,24 @@ Examining overlap:
 All sources (11 results):
 select * from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null) and ctd_chemical_disease_count is not null and splicer_count is not null and eu_spc_count is not null and (semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (aers_report_count is not null or prr is not null);
 
+Combinations of lit, product labeling, and spontaneous reporting
+
+All three:
+select count(*) from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (splicer_count is not null or eu_spc_count is not null) and (aers_report_count is not null or prr is not null);
+-- 13639
 
 
+Labeling and spontaneous reporting:
+select count(*) from laertes_summary where report_order = 2 and (splicer_count is not null or eu_spc_count is not null) and (aers_report_count is not null or prr is not null);
+-- 87279
 
+Literature and spontaneous reporting:
+select count(*) from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (aers_report_count is not null or prr is not null);
+-- 117190
+
+Literature and labeling:
+select count(*) from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (splicer_count is not null or eu_spc_count is not null);
+-- 14182
 
 -----------------------------------------------------------------------------
 ------------------------------  ARCHIVED NOTES ------------------------------
