@@ -81,15 +81,15 @@ FDA Adverse Event Reporting System
 EU_SPC_ADR
 
 
-* Total rows available:
-PUBMED : 
-SEMMED :
-CTD : 
-SPLICER : 
-FDA Adverse Event Reporting System : 3478558
-EU_SPC_ADR : 23920
+* Total rows available (e.g., cat drug-hoi-counts-with-linkouts-PUBMED-March2016.tsv | cut -f1 | sort | uniq | wc -l):
+PUBMED : 79119
+SEMMED : 5023
+CTD :  503835
+SPLICER : 272436
+FDA Adverse Event Reporting System : 3766382
+EU_SPC_ADR : 26989
 
-TOTAL: 
+TOTAL: 4653784
 
 * Rows dropped because of NULL concept ids: 
 
@@ -97,21 +97,76 @@ PUBMED :
 SEMMED :
 CTD : 
 SPLICER : 
-FDA Adverse Event Reporting System : 1130346 (32.5%)
-EU_SPC_ADR : 0
+FDA Adverse Event Reporting System : 
+EU_SPC_ADR : 
 
 TOTAL:   (%)
 
 * Total number of rows after mapping HOI concepts to SNOMED: 
 
-PUBMED :   (decrease of   (%))
-SEMMED :  (decrease of  (%)) NOTE: Lot's of MeSH concepts not getting mapped
-CTD : 
-SPLICER :  (decrease of  ()) 
-FDA Adverse Event Reporting System : 1174106  (decrease of 2304452 (66.2%)) - due to NULL concept ids
-EU_SPC_ADR : 20806 (decrease of 3114 (13.0%)) ----- WAS (*increase* of 13939 (58.3%)) -- Probably mostly due to one to many mappings from MedDRA to SNOMED
+laertes_cdm=> select evidence_type, count(distinct drug_hoi_relationship) from drug_hoi_evidence group by evidence_type;
+       evidence_type        |  count  
+----------------------------+---------
+ aers_report_count          | 2753078
+ aers_report_prr            | 2753078
+ CTD_ChemicalDisease        |  432850
+ MEDLINE_MeSH_ClinTrial     |   11035
+ MEDLINE_MeSH_CR            |   41229
+ MEDLINE_MeSH_Other         |   67002
+ MEDLINE_SemMedDB_ClinTrial |     636
+ MEDLINE_SemMedDB_CR        |     915
+ MEDLINE_SemMedDB_Other     |    2681
+ SPL_EU_SPC                 |   24537
+ SPL_SPLICER_ADR            |  254738
+(11 rows)
 
-TOTAL:  (decrease of  (%) )
+Grouping by higher level type:
+laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'MEDLINE_MeSH%'; count 
+-------
+ 73024
+
+laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'MEDLINE_SemMedDB%';
+ count 
+-------
+  2813
+
+laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'CTD%';
+ count  
+--------
+ 432850
+
+laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'aers%';
+  count  
+---------
+ 2753078
+
+laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'SPL_EU%';
+ count 
+-------
+ 24537
+
+laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'SPL_SPLICER%';
+ count  
+--------
+ 254738
+
+
+Totals:
+PUBMED : 73024 (decrease of 6095  (7.7%))
+SEMMED : 2813 (decrease of 2210 (44%)) NOTE: Lot's of MeSH concepts not getting mapped
+CTD : 432850 (decrease of 70985  (14.1%)) 
+SPLICER : 254738 (decrease of 17698  (6.5%)) 
+FDA Adverse Event Reporting System : 2753078  (decrease of 1013304 (26.9%)) 
+EU_SPC_ADR : 24537 (decrease of 2452 (9.1%)) 
+
+Examining overlap:
+
+All sources (11 results):
+select * from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null) and ctd_chemical_disease_count is not null and splicer_count is not null and eu_spc_count is not null and (semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (aers_report_count is not null or prr is not null);
+
+
+
+
 
 -----------------------------------------------------------------------------
 ------------------------------  ARCHIVED NOTES ------------------------------
