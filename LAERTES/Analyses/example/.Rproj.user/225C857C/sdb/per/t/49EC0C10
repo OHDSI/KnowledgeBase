@@ -1,0 +1,17 @@
+{
+    "contents" : "COL1\tCOL2\nHELLO\tWORLD\nWORLD\tHELLO\n123\t456\n",
+    "created" : 1467688734374.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1701617029",
+    "id" : "49EC0C10",
+    "lastKnownWriteTime" : 1467688801,
+    "path" : "S:/R/Lili/example/files/TEST_EXAMPLE.txt",
+    "project_path" : "files/TEST_EXAMPLE.txt",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "text"
+}

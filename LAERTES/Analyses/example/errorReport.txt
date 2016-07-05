@@ -1,0 +1,32 @@
+DBMS:
+postgresql
+
+Error:
+execute JDBC update query failed in dbSendUpdate (ERROR: syntax error at or near ".."
+  Position: 32)
+
+SQL:
+CREATE TABLE TEST_EXAMPLE (COL1..COL2 VARCHAR(255))
+
+R version:
+R version 3.2.1 (2015-06-18)
+
+Platform:
+x86_64-w64-mingw32
+
+Attached base packages:
+- stats
+- graphics
+- grDevices
+- utils
+- datasets
+- methods
+- base
+
+Other attached packages:
+- XML (3.98-1.3)
+- SqlRender (1.1.2)
+- DatabaseConnector (1.3.0)
+- RJDBC (0.2-5)
+- rJava (0.9-7)
+- DBI (0.3.1)

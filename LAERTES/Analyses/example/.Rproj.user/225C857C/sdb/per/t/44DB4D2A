@@ -1,0 +1,17 @@
+{
+    "contents" : "#  *-------------------------------------------------------------------------*/\n#   SETUP\n#  *-------------------------------------------------------------------------*/\nlibrary(DatabaseConnector)\nlibrary(SqlRender)\n\n#  *-------------------------------------------------------------------------*/\n#   CONNECTION DETAILS\n#  *-------------------------------------------------------------------------*/\nlaertes = list (\n  dbms = \"postgresql\",\n  user = \"erica\",\n  password = \"erica11172014\",\n  server = \"laertes.ohdsi.org/vocabularyv5\",\n  port = 5432,\n  schema = \"public\"\n)\n\n\ngenConnPG = function(dbms, user, password, server, port, schema){\n  connectionDetails <- createConnectionDetails(dbms=dbms, user=user, password=password, server=server, port=port, schema=schema)\n  conn <- connect(connectionDetails)\n  return(conn)\n}\n\n#  *-------------------------------------------------------------------------*/\n#   PULL LAERTES SPLS\n#  *-------------------------------------------------------------------------*/\n\n## Grabbing from PostGres but should pull from local LAERTES copy\nsummarizeEvidence <- function(db){\n  conn <- genConnPG(dbms=laertes$dbms, user=laertes$user, password=laertes$password, server=laertes$server, port=laertes$port, schema=laertes$schema)\n  sql <- readSql(\"sql/LAERTES_pullSPLs.sql\")\n  evidence <- querySql(conn=conn,sql)\n  dbDisconnect(conn)\n  return(evidence)\n}\nLAERTES_EVIDENCE <- summarizeEvidence(db)\n\n#  *-------------------------------------------------------------------------*/\n#   Post File\n#  *-------------------------------------------------------------------------*/\npostFile <- function(db){\n  conn <- genConnPG(dbms=laertes$dbms, user=laertes$user, password=laertes$password, server=laertes$server, port=laertes$port, schema=laertes$schema)\n  TEST_EXAMPLE <- read.csv(\"files/TEST_EXAMPLE.txt\",header=TRUE, sep=\"\\t\")\n  sql <-paste(\"DROP TABLE IF EXISTS TEST_EXAMPLE;\",sep='')\n  executeSql(conn,sql)\n  insertTable(conn,\"TEST_EXAMPLE\",TEST_EXAMPLE)\n  results <- querySql(conn, \"SELECT * FROM TEST_EXAMPLE\")\n  sql <-paste(\"DROP TABLE IF EXISTS TEST_EXAMPLE;\",sep='')\n  executeSql(conn,sql)\n  dbDisconnect(conn)\n  return(results)\n}\nresult <- postFile(db)\nView(result)\n",
+    "created" : 1467687226854.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "199976405",
+    "id" : "44DB4D2A",
+    "lastKnownWriteTime" : 1467688904,
+    "path" : "S:/R/Lili/example/R/main.R",
+    "project_path" : "R/main.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
