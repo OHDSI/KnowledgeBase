@@ -10,7 +10,8 @@ WHERE A.VOCABULARY_ID = 'MeSH' AND
       CR.CONCEPT_ID_2 = A.CONCEPT_ID AND
       B.CONCEPT_ID = CR.CONCEPT_ID_1 AND
       B.VOCABULARY_ID = 'RxNorm' AND
-      CR.RELATIONSHIP_ID = 'Mapped from')
+      CR.RELATIONSHIP_ID = 'Mapped from' AND 
+	  CR.INVALID_REASON IS NULL)
 TO '/tmp/mesh-to-rxnorm-standard-vocab-v5.csv' DELIMITER '|' CSV HEADER
 
 The format is as follows:

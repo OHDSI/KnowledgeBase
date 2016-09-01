@@ -114,7 +114,8 @@ CREATE TABLE LAERTES_SUMMARY (
 
 \echo 'Inserting evidence_sources data from inline data'
 INSERT INTO evidence_sources 
-VALUES (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','IMI PROTECT','IMI PROTECT','2015-10-09','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2013-12-31'),
+VALUES (0,'LAERTES','Largescale Adverse Effects Related to Treatment Evidence Standardization v3.01.20160909','KnowledgeBase','OHDSI','2016-09-09','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2016-09-09'),
+	   (1,'EU_SPC_ADR','Adverse drug events extracted from European product labeling (SmPCs)','IMI PROTECT','IMI PROTECT','2015-10-09','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','2013-12-31'),
        (2,'US_SPL_ADR',' DEPRECATED (see more specific types) Adverse drug reactions extracted from United States product labeling','SPLICER','Jon Duke','2015-04-29','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','1900-01-01'),
        (3,'MEDLINE_MeSH','DEPRECATED (see more specific types) MeSH tagged titles and abstracts in MEDLINE','Patrick Ryan','National Library of Medicine','2014-06-17','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','1900-01-01'),
        (4,'MEDLINE_SemMedDB','DEPRECATED (see more specific types) Titles and abstracts in MEDLINE processed with Metamap and SemRep','Richard Boyce','National Library of Medicine','2014-06-17','http://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:webapi#the_laertes_evidence_service','','1900-01-01','1900-01-01'), 

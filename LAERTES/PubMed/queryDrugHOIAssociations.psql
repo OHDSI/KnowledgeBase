@@ -43,9 +43,16 @@ from
 ) as ade
 inner join 
 (
-  select pmid, value pub_type_value, ui pub_type_ui
+  select pmid, 
+		CASE 
+		WHEN value IN ('Clinical Trial', 'Controlled Clinical Trial', 'Clinical Trial, Phase I', 'Clinical Trial, Phase II', 'Clinical Trial, Phase III','Clinical Trial, Phase IV', 'Randomized Controlled Trial','Observational Study','Multicenter Study') THEN 'Clinical Trial'
+		WHEN value IN ('Observational Study') THEN 'Comparative Study'
+		ELSE value 
+	END AS pub_type_value, /*This case statement is to allow us to add in new types without needing to update downstream processes*/ 
+	ui pub_type_ui
   from medcit_art_publicationtypelist_publicationtype
-  where value in ('Case Reports','Clinical Trial','Meta-Analysis','Comparative Study','Multicenter Study','Journal Article')
+  where value in ('Case Reports','Clinical Trial','Meta-Analysis','Comparative Study','Multicenter Study','Journal Article','Controlled Clinical Trial',
+	'Clinical Trial, Phase I','Clinical Trial, Phase II','Clinical Trial, Phase III','Clinical Trial, Phase IV', 'Randomized Controlled Trial','Observational Study')
 ) as publicationtype 
 on ade.pmid = publicationtype.pmid 
 )
