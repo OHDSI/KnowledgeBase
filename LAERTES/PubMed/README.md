@@ -27,7 +27,8 @@ NLM assumes no responsibility or liability associated with use of copyrighted ma
 
 The process works as follows:
 
-1. The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase 
+1. The MEDLINE database is loaded into a postgres DBMS using the code from https://github.com/OHDSI/MedlineXmlToDatabase (this can come from updates from the NLM FTP server, e.g., via  ncftpget -R -v -u anonymous -p <user> ftp.nlm.nih.gov <target folder> /nlmdata/.medlease/gz/)
+
 
 2. The MEDLINE database is queried using the script
    queryDrugHOIAssociations.psql for drugs and drug classes associated
@@ -44,10 +45,14 @@ The process works as follows:
    drugs. MeSH pharmacologic entities that represent groups of drugs
    are used quite a bit by MEDLINE. Semmeddb is used to identify any
    specific drugs in a grouping that are mentioned in the pubmed title
-   or abstract.  Drug - HOI evidence provided in the OA graph is
-   limited to only those specific drugs. Prior experience shows that,
-   if we don't do this, we have many drug - HOI evidence items that
-   apply to drugs not relevant to the journal article.
+   or abstract.  Drug - HOI evidence provided in an OA graph where the
+   drug is in 'adeAgents' is limited to only those specific
+   drugs. Collections under 'adeAgentsUnfiltered' hold the drugs
+   within a pharmacologic grouping that were not found in the title or
+   abstract. The negative control use case appears to benefit from the
+   much less specific (and often just incorrect) approach of including
+   inferring the drug-HOI associations apply to all drugs within a
+   pharmacologic grouping.
 
    NOTE: There are all kinds of duplication that occurs in the output
    file mentioned above. Take the following example:

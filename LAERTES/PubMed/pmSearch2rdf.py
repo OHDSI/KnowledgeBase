@@ -21,7 +21,8 @@ import mysql.connector as msql # for mysql connection to Semmeddb
 import psycopg2 # for postgres connection to Medline
 
 ## The result of the query in queryDrugHOIAssociations.psql
-SEARCH_RESULTS = "drug-hoi-associations-from-mesh-April-2016.tsv"
+#SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016.tsv"
+SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016-55831-to-end.tsv"
 
 ## Set up the db connection to the MEDLINE DB. This is used to collect
 ## a bit more data and metadata on the MEDLINE entries
@@ -94,7 +95,12 @@ for elt in l[1:]:
     if elt.strip() == "":
         break
 
-    (mesh,pt,rxcui,concept_name,ohdsiID,conceptClassId) = [x.strip() for x in elt.split("|")]
+    try:
+        (mesh,pt,rxcui,concept_name,ohdsiID,conceptClassId) = [x.strip() for x in elt.split("|")]
+    except ValueError:        
+        print "ERROR: terminology mapping record appears incomplete. Skipping: %s" % elt
+        continue
+    
     if DRUGS_D.get(mesh): # add a synonymn
         DRUGS_D[mesh][1].append(pt)
     else: # create a new record
@@ -219,6 +225,7 @@ pubTypeCache = {} # used because some PMIDs have multiple publication type assig
 drugHoiPMIDCache = {} # used to avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments TODO: determine if a more robust source query is needed
 mshPharmIdToUMLSCache = {} # Used to store mappings from MeSH pharmacological grouping IDs to a list of UMLS MetaThesaurus CUIs for the drug concepts that belong in that group
 mshSubstOfInterestLCache = {} # used to avoid repeated calls to Semmeddb to identify specific drugs mentioned in a title or abstract
+pmidToCuiCache = {} # stores all CUIs mentioned in the s_cui or o_cui columns of semmeddb.PREDICATION_AGGREGATE for a given PMID
 
 currentAnnotation = annotationItemCntr
 
@@ -232,8 +239,8 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-#for elt in recL[0:1000]: # Debugging
-for elt in recL: # Full run
+for elt in recL[0:1000]: # Debugging
+#for elt in recL: # Full run
     ## For now, only process papers tagged as for humans
     ## TODO: expand the evidence types to include non-human studies 
     try:
@@ -385,7 +392,8 @@ for elt in recL: # Full run
     elif elt[ADR_DRUG_UI] in pharmActionMaptD.keys(): # a drug group
         (descriptorName, substancesL) =  (pharmActionMaptD[elt[ADR_DRUG_UI]]['descriptorName'], pharmActionMaptD[elt[ADR_DRUG_UI]]['substancesL'])
         print "INFO: The MeSH drug %s might be a grouping (%s). Attempting to expand to the %d individual drugs mapped in the MeSH pharmacologic action mapping that are mentioned in the title and/or abstract" % (elt[ADR_DRUG_UI], descriptorName, len(substancesL))
-      
+
+        # First see if any of the drugs in the group are mentioned specifically in the title or abstract. 
         mshSubstOfInterestL = []
         if mshSubstOfInterestLCache.has_key(elt[PMID] + elt[ADR_DRUG_UI]):
             mshSubstOfInterestL = mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]]
@@ -419,41 +427,49 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                 # substances and organic chemicals. NOTE: the IN clause is
                 # limited by the MySQL max_allowed_packet configuration
                 # variable so set it to be large (e.g., several megabytes)
-                cuiRsltStr = "','".join([x[0] for x in cuiRsltL]) # UMLS CUIs for the individual drugs
                 print "INFO: checking Semmeddb to see if the title or abstract of PMID %s mentions any of the %s individual drugs" % (elt[PMID], len(cuiRsltL))
-                q = """
-SELECT * 
-FROM 
-(
-SELECT s_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = %s AND s_cui IN ('%s')
-UNION
-SELECT o_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = %s AND o_cui IN ('%s')
-) c_union
-""" % (elt[PMID], cuiRsltStr, elt[PMID], cuiRsltStr)
-                print q
-        
-                smdb_cur.execute(q)
-                substOfInterestL = []
-                for rslt in smdb_cur:
-                    substOfInterestL.append(rslt[0])
-                mshSubstOfInterestL = [x[1] for x in filter(lambda x: x[0] in substOfInterestL, cuiRsltL)]
 
-                if len(mshSubstOfInterestL) > 0:
-                    print "INFO: caching %s specific substances mentioned in the abstract for %s: %s " % (len(mshSubstOfInterestL),elt[PMID],mshSubstOfInterestL)
-                    mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]] = mshSubstOfInterestL
+                # 1. Get the CUIs associated with the PMID in semmeddb
+                pmidCuis = pmidToCuiCache.get(elt[PMID])
+                if pmidCuis == None:
+                    q = """
+ SELECT * 
+ FROM 
+ (
+ SELECT s_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = '%s'
+ UNION
+ SELECT o_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = '%s'
+ ) c_union
+""" % (elt[PMID], elt[PMID])
+
+                    print q 
+
+                    smdb_cur.execute(q)
+                    if smdb_cur.rowcount != -1:
+                        for rslt in smdb_cur:
+                            pmidCuis.append(rslt[0])
+                    else:
+                        smdb_cur.fetchall() # all results (even null ones) need to be retrieved to prevent  "Unread result found" when the curser is used in a later iteraction
+
+                    pmidToCuiCache[elt[PMID]] = pmidCuis
+
+                if pmidCuis != None:
+                    print "pmidCuis: %s" % ",".join(pmidCuis)
+                    # 2. get the MESH identifiers for the returned CUIs that are in the MESH Pharm group cuiRsltL
+                    mshSubstOfInterestL = [x[1] for x in filter(lambda x: x[0] in pmidCuis, cuiRsltL)]
                 
-        # add each substance to a collection in the body
+        # add each specific substance found in the title or abstract to a 'adeAgents' collection in the body
         if len(mshSubstOfInterestL) > 0:
             # first check for duplication, it happens a bunch
             keepers = []
             for substanceMshUI in mshSubstOfInterestL:
                 concat = "%s-%s-%s" % (elt[PMID], substanceMshUI, elt[ADR_HOI_UI])
-            if drugHoiPMIDCache.has_key(concat):
-                print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
-                continue
-            else:
-                drugHoiPMIDCache[concat] = None
-                keepers.append(substanceMshUI)
+                if drugHoiPMIDCache.has_key(concat):
+                    print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
+                    continue
+                else:
+                    drugHoiPMIDCache[concat] = None
+                    keepers.append(substanceMshUI)
 
             if len(keepers) > 0:
                 collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
@@ -467,7 +483,34 @@ SELECT o_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = %s AND 
                     else:
                         print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s belonging to the pharmacologic action mapping %s" % (substanceMshUI, elt[ADR_DRUG_UI])
             else:
-                print "INFO: none of the individual drugs in the drug group %s (%s) were identified in the abstract. Only the drug group MeSH CUI will be noted in the body of this OA annotation" % (elt[ADR_DRUG_UI], descriptorName)
+                print "INFO: none of the individual drugs in the drug group %s (%s) were identified in the abstract. The drug group MeSH CUI will be noted in the body of this OA annotation and all members of the group will be linked to a list under adeAgentsUnfiltered" % (elt[ADR_DRUG_UI], descriptorName)
+
+        # Now, add the rest of the entities in the pharmacologic group to an 'adeAgentsUnfiltered' collection which is useful for two reasons, 1) SemMedDB is a few months behind the current MEDLINE (so, more recent titles and abstracts will not benefit from the processing steps above), and 2)although noisy for inferring positive drug-HOI associaions, having all drugss in a class is helpful for inferring negative controls.
+        keepers = [] # NOTE: we deliberately do not add those triples that have been added to the 'adeAgents' collection to the 'adeAgentsUnfiltered' collection
+        if pmidCuis != None:
+            substOfInterestL = [x[1] for x in filter(lambda x: x[0] not in pmidCuis, cuiRsltL)] # the drug concepts NOT mentioned in the abstract
+        else:
+            substOfInterestL = [x[1] for x in cuiRsltL] # the MESH identifiers all drugs in the MESH pharm grouping
+            
+        for substanceMshUI in substOfInterestL:          
+            concat = "%s-%s-%s" % (elt[PMID], substanceMshUI, elt[ADR_HOI_UI])
+            if drugHoiPMIDCache.has_key(concat):
+                print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
+                continue
+            else:
+                drugHoiPMIDCache[concat] = None
+                keepers.append(substanceMshUI)
+
+        if len(keepers) > 0:
+            collectionHead = URIRef(u"urn:uuid:%s" % uuid.uuid4()) # TODO: give this URI a type
+            tplL.append((poc[currentAnnotationBody], ohdsi['adeAgentsUnfiltered'], collectionHead))
+            for substanceMshUI in keepers:
+                tplL.append((collectionHead, ohdsi['MeshDrug'], mesh[substanceMshUI]))
+                if DRUGS_D.has_key(substanceMshUI):
+                    tplL.append((collectionHead, ohdsi['RxnormDrug'], rxnorm[DRUGS_D[substanceMshUI][0]]))
+                    tplL.append((collectionHead, ohdsi['ImedsDrug'], ohdsi[DRUGS_D[substanceMshUI][2]]))
+                else:
+                    print "WARNING: no RxNorm or IMEDS equivalent to the MeSH drug %s belonging to the pharmacologic action mapping %s" % (substanceMshUI, elt[ADR_DRUG_UI])
                         
     else:
         print "ERROR: no RxNorm equivalent to the MeSH drug %s (%s) and this does not appear in the pharmacologic action mapping (not a grouping?), skipping" % (elt[ADR_DRUG_UI], elt[ADR_DRUG_LABEL])
@@ -504,3 +547,61 @@ f.close
 graph.close()
 conn.close()
 smdb_conn.close()
+
+
+
+#### SCRATCH
+#cuiRsltStr = "','".join([x[0] for x in cuiRsltL]) # UMLS CUIs for the individual drugs in the pharm grouping mentioned as having some drug-HOI association
+# ...                
+#                 q = """
+#  SELECT * 
+#  FROM 
+#  (
+#  SELECT s_cui AS out_cui FROM semmeddb.PRED_AGGR_TO_MRCONSO WHERE PMID = '%s' AND s_SDUI IN ('%s')
+#  UNION
+#  SELECT o_cui AS out_cui FROM semmeddb.PRED_AGGR_TO_MRCONSO WHERE PMID = '%s' AND o_SDUI IN ('%s')
+#  ) c_union
+# """ % (elt[PMID], "','".join(list(mshIdSet)), elt[PMID], "','".join(list(mshIdSet)))
+#                 print q                
+                
+#                 q = """
+#  SELECT * 
+#  FROM 
+#  (
+#  SELECT s_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE INNER JOIN umls.MRCONSO ON semmeddb.PREDICATION_AGGREGATE.s_cui = umls.MRCONSO.CUI WHERE PMID = '%s' AND umls.MRCONSO.SDUI IN ('%s')
+#  UNION
+#  SELECT o_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE INNER JOIN umls.MRCONSO ON semmeddb.PREDICATION_AGGREGATE.o_cui = umls.MRCONSO.CUI WHERE PMID = '%s' AND umls.MRCONSO.SDUI IN ('%s')
+#  ) c_union
+# """ % (elt[PMID], "','".join(list(mshIdSet)), elt[PMID], "','".join(list(mshIdSet)))
+#                 print q
+#                 q = """
+#  SELECT * 
+#  FROM 
+#  (
+#  SELECT s_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = '%s' AND s_cui IN (
+#      SELECT DISTINCT CUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH')
+#  UNION
+#  SELECT o_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = '%s' AND o_cui IN (
+#      SELECT DISTINCT CUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH')
+#  ) c_union
+# """ % (elt[PMID], "','".join(list(mshIdSet)), elt[PMID], "','".join(list(mshIdSet)))
+#                 print q
+#                 q = """
+# SELECT * 
+# FROM 
+# (
+# SELECT s_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = '%s' AND s_cui IN ('%s')
+# UNION
+# SELECT o_cui AS out_cui FROM semmeddb.PREDICATION_AGGREGATE WHERE PMID = '%s' AND o_cui IN ('%s')
+# ) c_union
+# """ % (elt[PMID], cuiRsltStr, elt[PMID], cuiRsltStr)
+#                 print q  
+                # smdb_cur.execute(q)
+                # substOfInterestL = []
+                # for rslt in smdb_cur:
+                #     substOfInterestL.append(rslt[0])
+                # mshSubstOfInterestL = [x[1] for x in filter(lambda x: x[0] in substOfInterestL, cuiRsltL)]
+
+                # if len(mshSubstOfInterestL) > 0:
+                #     print "INFO: caching %s specific substances mentioned in the abstract for %s: %s " % (len(mshSubstOfInterestL),elt[PMID],mshSubstOfInterestL)
+                #     mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]] = mshSubstOfInterestL
