@@ -256,6 +256,7 @@ for elt in recL[0:1000]: # Debugging
         continue 
 
     # get abstract if not already cached
+    # TODO: retrieve the title too
     if not abstractCache.has_key(elt[PMID]):
         try:
             print "INFO: Attempting to retrieve the abstract for PMID %s from the MEDLINE DB" % elt[PMID]
@@ -346,7 +347,8 @@ for elt in recL[0:1000]: # Debugging
             tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
 
 
-        # add the text quote selector but just put the title and abstract in an oa:exact
+        # add the text quote selector but just put the abstract in an oa:exact
+        # TODO: add the title to oa:exact when there is no abstract (or concatenate both)
         textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
         tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
         tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
@@ -445,18 +447,14 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                     print q 
 
                     smdb_cur.execute(q)
-                    if smdb_cur.rowcount != -1:
-                        for rslt in smdb_cur:
-                            pmidCuis.append(rslt[0])
-                    else:
-                        smdb_cur.fetchall() # all results (even null ones) need to be retrieved to prevent  "Unread result found" when the curser is used in a later iteraction
-
-                    pmidToCuiCache[elt[PMID]] = pmidCuis
+                    pmidCuis = fetchall() # all results (even null ones) need to be retrieved to prevent  "Unread result found" when the curser is used in a later iteraction 
 
                 if pmidCuis != None:
-                    print "pmidCuis: %s" % ",".join(pmidCuis)
+                    pmidToCuiCache[elt[PMID]] = pmidCuis
+                    print "INFO: Found individual Semmeddb drug mentions for PMID -- pmidCuis: %s" % ",".join(pmidCuis)
                     # 2. get the MESH identifiers for the returned CUIs that are in the MESH Pharm group cuiRsltL
                     mshSubstOfInterestL = [x[1] for x in filter(lambda x: x[0] in pmidCuis, cuiRsltL)]
+                    mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]] = mshSubstOfInterestL
                 
         # add each specific substance found in the title or abstract to a 'adeAgents' collection in the body
         if len(mshSubstOfInterestL) > 0:
