@@ -54,7 +54,7 @@ The process works as follows:
    drug-HOI associations apply to all drugs within a pharmacologic
    grouping.
 
-*** NOTES BASED ON THE OUTPUT OF pmSearch2rdf.py ON test-drug-hoi-dataset.tsv ***
+*** NOTES BASED ON THE OUTPUT OF pmSearch2rdf.py ON test-drug-hoi-dataset.tsv -- The notes below refer to the graph produced from this dataset which can be loaded into an endpoint and used for testing. Be sure to clear any previous graphs that have the same resources ***
 
    NOTE: There are all kinds of duplication that occur. Take the following example:
 

@@ -21,8 +21,8 @@ import mysql.connector as msql # for mysql connection to Semmeddb
 import psycopg2 # for postgres connection to Medline
 
 ## The result of the query in queryDrugHOIAssociations.psql
-#SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016.tsv"
-SEARCH_RESULTS = "test-drug-hoi-dataset.tsv"
+SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016.tsv"
+#SEARCH_RESULTS = "test-drug-hoi-dataset.tsv"
 
 ## Set up the db connection to the MEDLINE DB. This is used to collect
 ## a bit more data and metadata on the MEDLINE entries
@@ -240,8 +240,8 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-for elt in recL[0:1000]: # Debugging
-#for elt in recL: # Full run
+#for elt in recL[0:1000]: # Debugging
+for elt in recL: # Full run
     ## For now, only process papers tagged as for humans
     ## TODO: expand the evidence types to include non-human studies 
     try:
@@ -463,7 +463,7 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                 # TIAB. NOTE: the IN clause is limited by the MySQL
                 # max_allowed_packet configuration variable so set it
                 # to be large (e.g., several megabytes)
-                print "INFO: checking Semmeddb to see if the title or abstract of PMID %s mentions any of the %s individual drugs" % (elt[PMID], len(cuiRsltL))
+                #print "INFO: checking Semmeddb to see if the title or abstract of PMID %s mentions any of the %s individual drugs" % (elt[PMID], len(cuiRsltL))
 
                 # 1. Get the CUIs associated with the PMID in semmeddb
                 pmidCuis = pmidToCuiCache.get(elt[PMID])
@@ -485,7 +485,7 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
 
                 if pmidCuis != None and pmidCuis != []:
                     pmidToCuiCache[elt[PMID]] = [x[0] for x in pmidCuis]
-                    print "INFO: cuiRsltL - %s " % cuiRsltL
+                    #print "INFO: cuiRsltL - %s " % cuiRsltL
                     print "INFO: Found individual Semmeddb concept mentions (including non-drugs) for PMID %s (from query) -- pmidCuis: %s" % (elt[PMID], pmidToCuiCache[elt[PMID]])
 
                     # 2. get the MESH identifiers for the returned CUIs that are in the MESH Pharm group cuiRsltL
