@@ -21,7 +21,8 @@ import mysql.connector as msql # for mysql connection to Semmeddb
 import psycopg2 # for postgres connection to Medline
 
 ## The result of the query in queryDrugHOIAssociations.psql
-SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016.tsv"
+#SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016.tsv"
+SEARCH_RESULTS = "test-drug-hoi-dataset.tsv"
 
 ## Set up the db connection to the MEDLINE DB. This is used to collect
 ## a bit more data and metadata on the MEDLINE entries
@@ -383,13 +384,28 @@ for elt in recL[0:1000]: # Debugging
     # body contains the MESH drug and condition as a semantic tag
     print "INFO: working on the body for %s" % elt
     
-    # to begin with, avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments
+    # to begin with, avoid duplicating PMID - drug - HOI combos for
+    # PMIDs that have multiple publication type assignments or that
+    # are already picked up because the drug that belonged to a MESH
+    # pharm action group mentioned in MESH tags for a TIAB was
+    # specifically mentioned in the text of the TIAB. If a the drug
+    # that belonged to a MESH pharm action group WAS mentioned in MESH
+    # tags BUT NOT specifically mentioned in the TIAB text then, this
+    # is probably a specific MESH mention of the drug that reqiures a
+    # new body
     concat = "%s-%s-%s" % (elt[PMID], elt[ADR_DRUG_UI], elt[ADR_HOI_UI])
-    if drugHoiPMIDCache.has_key(concat):
-        print "INFO: skipping generation of a new body graph because the PMID, drug, and HOI (%s) have already been processed. Probably a MEDLINE record with multiple pub type assignments" % concat
+    if drugHoiPMIDCache.has_key(concat) and (drugHoiPMIDCache[concat] == "MeshTaggedAgent" or drugHoiPMIDCache[concat] == "FilteredAdeAgent") :
+        print "INFO: skipping generation of a new body graph because the PMID, drug, and HOI (%s) have already been processed. drugHoiPMIDCache[concat]: %s" % (concat, drugHoiPMIDCache[concat])
         continue
     else:
-        drugHoiPMIDCache[concat] = None
+        # This should have two effects: 1) both individual drugs and
+        # drug groupings will be tagged as MESH mentions, and 2)
+        # individual drugs that were previously part of a drug
+        # grouping will be noted as also being MESH tagged. The latter
+        # case creates a duplication, but one that can be addressed
+        # using SPARQL by distinguishing UnfilteredAdeAgent set
+        # members from direct ingredient resources.
+        drugHoiPMIDCache[concat] = "MeshTaggedAgent"
 
     currentAnnotationBody = "ohdsi-pubmed-mesh-annotation-annotation-body-%s" % annotationBodyCntr
     annotationBodyCntr += 1
@@ -488,7 +504,7 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                     print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
                     continue
                 else:
-                    drugHoiPMIDCache[concat] = None
+                    drugHoiPMIDCache[concat] = "FilteredAdeAgent"
                     keepers.append(substanceMshUI)
 
             if len(keepers) > 0:
@@ -518,7 +534,7 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                 print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
                 continue
             else:
-                drugHoiPMIDCache[concat] = None
+                drugHoiPMIDCache[concat] = "UnfilteredAdeAgent"
                 keepers.append(substanceMshUI)
 
         if len(keepers) > 0:
