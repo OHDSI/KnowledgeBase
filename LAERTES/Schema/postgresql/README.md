@@ -69,7 +69,7 @@ FOLDER LAYOUT
 - additional-load-scripts/POSITIVE_NEGATIVE_CONTROL_BETAS.sql : table that assists with the negative control application
 
 ---------------------------------------------------------------
-NOTES ON April 1 2016 LOAD
+NOTES ON April 1 2016 LOAD (NOTE: MEDLINE UPDATED IN SEPTEMBER 2016 TO FIX BUGS - old an new data shown together below)
 ---------------------------------------------------------------
 
 * Sources: 
@@ -110,9 +110,9 @@ laertes_cdm=> select evidence_type, count(distinct drug_hoi_relationship) from d
  aers_report_count          | 2753078
  aers_report_prr            | 2753078
  CTD_ChemicalDisease        |  432850
- MEDLINE_MeSH_ClinTrial     |   11035
- MEDLINE_MeSH_CR            |   41229
- MEDLINE_MeSH_Other         |   67002
+ MEDLINE_MeSH_ClinTrial     |   11035 (April) 15540 (September)
+ MEDLINE_MeSH_CR            |   41229 (April) 43506 (September)
+ MEDLINE_MeSH_Other         |   67002 (April) 71150 (September)
  MEDLINE_SemMedDB_ClinTrial |     636
  MEDLINE_SemMedDB_CR        |     915
  MEDLINE_SemMedDB_Other     |    2681
@@ -121,14 +121,15 @@ laertes_cdm=> select evidence_type, count(distinct drug_hoi_relationship) from d
 (11 rows)
 
 Grouping by higher level type:
-laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'MEDLINE_MeSH%'; count 
+laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'MEDLINE_MeSH%';
+count 
 -------
- 73024
+ 73024 (April) 77395 (September)
 
 laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'MEDLINE_SemMedDB%';
  count 
 -------
-  2813
+  2813 
 
 laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'CTD%';
  count  
@@ -148,11 +149,17 @@ laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidenc
 laertes_cdm=> select count(distinct drug_hoi_relationship) from drug_hoi_evidence  where evidence_type like 'SPL_SPLICER%';
  count  
 --------
- 254738
+ 254738 -- Clinical Drug Level
+
+laertes_cdm=> select count(*) from (select distinct ingredient_id, hoi_id  from laertes_summary where report_order = 2 and splicer_count is not null) sub1;
+ count
+ -------
+  89498 -- Ingredient level
+  
 
 
 Totals:
-PUBMED : 73024 (decrease of 6095  (7.7%))
+PUBMED : APRIL -- 73024 (decrease of 6095  (7.7%)) ; SEPTEMBER -- 77395 (decrease of 1724 (2.2%))
 SEMMED : 2813 (decrease of 2210 (44%)) NOTE: Lot's of MeSH concepts not getting mapped
 CTD : 432850 (decrease of 70985  (14.1%)) 
 SPLICER : 254738 (decrease of 17698  (6.5%)) 
@@ -161,27 +168,59 @@ EU_SPC_ADR : 24537 (decrease of 2452 (9.1%))
 
 Examining overlap:
 
+Denominators:
+Literature vs spontaneous reporting --
+-- denominator
+select count(*) from (select distinct ingredient_id, hoi_id from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) or (aers_report_count is not null)) sub1; -- 3049743
+
+
+-- numerator
+select count(*) from (select distinct ingredient_id, hoi_id from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (aers_report_count is not null)) sub1; -- 119293
+
+
+Product labeling vs spontaneous reporting --
+-- denominator:
+select count(*) from (select distinct ingredient_id, hoi_id  from laertes_summary where report_order = 2 and (aers_report_count is not null) or (splicer_count is not null or eu_spc_count is not null)) sub1; -- 2702577
+
+-- numerator
+select count(*) from (select distinct ingredient_id, hoi_id  from laertes_summary where report_order = 2 and (aers_report_count is not null) and (splicer_count is not null or eu_spc_count is not null)) sub1; -- 87279
+
+
+
+Literature vs product labeling --
+-- denominator:
+select count(*) from (select distinct ingredient_id, hoi_id  from laertes_summary where report_order = 2 and (semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null or medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null) or (splicer_count is not null or eu_spc_count is not null)) sub1; -- 566379
+
+-- numerator
+select count(*) from (select distinct ingredient_id, hoi_id  from laertes_summary where report_order = 2 and (semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null or medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null) and (splicer_count is not null or eu_spc_count is not null)) sub1; -- 14838
+
+
 All sources (11 results):
 select * from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null) and ctd_chemical_disease_count is not null and splicer_count is not null and eu_spc_count is not null and (semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (aers_report_count is not null or prr is not null);
 
 Combinations of lit, product labeling, and spontaneous reporting
 
 All three:
-select count(*) from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (splicer_count is not null or eu_spc_count is not null) and (aers_report_count is not null or prr is not null);
--- 13639
+-- denominator
+select count(*) from (select distinct ingredient_id, hoi_id  from laertes_summary where report_order = 2 and ((medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) or (splicer_count is not null or eu_spc_count is not null) or (aers_report_count is not null))) sub1; -- 3057406
+
+--numerator
+select count(*) from (select distinct ingredient_id, hoi_id  from laertes_summary where report_order = 2 and ((medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (splicer_count is not null or eu_spc_count is not null) and (aers_report_count is not null))) sub1; -- 14295
 
 
-Labeling and spontaneous reporting:
-select count(*) from laertes_summary where report_order = 2 and (splicer_count is not null or eu_spc_count is not null) and (aers_report_count is not null or prr is not null);
--- 87279
 
-Literature and spontaneous reporting:
+------------------
+DEPRECATED (does not use distinct, uses PRR which is unnecessary): Literature and spontaneous reporting:
 select count(*) from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (aers_report_count is not null or prr is not null);
--- 117190
+-- 117190 (April)  -- 119293 (September)
 
-Literature and labeling:
+DEPRECATED (does not use distinct, uses PRR which is unnecessary): Literature and labeling:
 select count(*) from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (splicer_count is not null or eu_spc_count is not null);
--- 14182
+-- 14182 (April) -- 14838 (September)
+
+DEPRECATED (does not use distinct, uses PRR which is unnecessary): All
+select count(*) from laertes_summary where report_order = 2 and (medline_ct_count is not null or medline_case_count is not null or medline_other_count is not null or ctd_chemical_disease_count is not null or semmeddb_ct_count is not null or semmeddb_case_count is not null or semmeddb_other_count is not null) and (splicer_count is not null or eu_spc_count is not null) and (aers_report_count is not null or prr is not null);
+-- 13639 (April) -- 14295 (September)
 
 -----------------------------------------------------------------------------
 ------------------------------  ARCHIVED NOTES ------------------------------
