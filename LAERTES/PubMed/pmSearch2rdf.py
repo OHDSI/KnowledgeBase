@@ -21,8 +21,8 @@ import mysql.connector as msql # for mysql connection to Semmeddb
 import psycopg2 # for postgres connection to Medline
 
 ## The result of the query in queryDrugHOIAssociations.psql
-#SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016.tsv"
-SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016-55831-to-end.tsv"
+SEARCH_RESULTS = "drug-hoi-associations-from-mesh-September-2016.tsv"
+#SEARCH_RESULTS = "test-drug-hoi-dataset.tsv"
 
 ## Set up the db connection to the MEDLINE DB. This is used to collect
 ## a bit more data and metadata on the MEDLINE entries
@@ -221,6 +221,7 @@ annotationEvidenceCntr = 1
 
 annotatedCache = {} # indexes annotation ids by pmid
 abstractCache = {} # cache for abstract text
+titleCache = {} # cache for title text
 pubTypeCache = {} # used because some PMIDs have multiple publication type assignments TODO: determine pub types should be assigned to a Collection under the target's graph 
 drugHoiPMIDCache = {} # used to avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments TODO: determine if a more robust source query is needed
 mshPharmIdToUMLSCache = {} # Used to store mappings from MeSH pharmacological grouping IDs to a list of UMLS MetaThesaurus CUIs for the drug concepts that belong in that group
@@ -239,8 +240,8 @@ f = codecs.open(OUTPUT_FILE,"w","utf8")
 s = graph.serialize(format="n3",encoding="utf8", errors="replace")
 f.write(s)
 
-for elt in recL[0:1000]: # Debugging
-#for elt in recL: # Full run
+#for elt in recL[0:1000]: # Debugging
+for elt in recL: # Full run
     ## For now, only process papers tagged as for humans
     ## TODO: expand the evidence types to include non-human studies 
     try:
@@ -255,8 +256,24 @@ for elt in recL[0:1000]: # Debugging
         print "WARNING: PMID %s not tagged as involving humans. Skipping this record." % elt[PMID]
         continue 
 
+    # get title if not already cached
+    if not titleCache.has_key(elt[PMID]):
+        try:
+            print "INFO: Attempting to retrieve the title for PMID %s from the MEDLINE DB" % elt[PMID]
+            cur.execute("""select art_arttitle from medcit where pmid = %s and pmid_version = 1""" % elt[PMID])
+        except Exception as e:
+            print "ERROR: Attempt to get the title for PMID failed. Error string: %s" % e
+            sys.exit(1)
+
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            titleCache[elt[PMID]] = ""
+            print "INFO: No title found for PMID %s." % elt[PMID]
+        else:
+            print "INFO: Title found for PMID %s : %s " % (elt[PMID], rows[0][0])
+            titleCache[elt[PMID]] = rows[0][0]
+            
     # get abstract if not already cached
-    # TODO: retrieve the title too
     if not abstractCache.has_key(elt[PMID]):
         try:
             print "INFO: Attempting to retrieve the abstract for PMID %s from the MEDLINE DB" % elt[PMID]
@@ -347,12 +364,14 @@ for elt in recL[0:1000]: # Debugging
             tplL.append((currentAnnotTargetUuid, ohdsi["MeshStudyType"], Literal("other (publication type)")))
 
 
-        # add the text quote selector but just put the abstract in an oa:exact
-        # TODO: add the title to oa:exact when there is no abstract (or concatenate both)
+        # add the text quote selector but just put the title and
+        # abstract in an oa:exact using the pipe delimiter to separate
+        # them
         textConstraintUuid = URIRef("urn:uuid:%s" % uuid.uuid4())
         tplL.append((currentAnnotTargetUuid, oa["hasSelector"], textConstraintUuid))         
         tplL.append((textConstraintUuid, RDF.type, oa["TextQuoteSelector"]))
-        abstractTxt = unicode(abstractCache[elt[PMID]], 'utf-8', 'replace')
+        tiab = "|".join(["TITLE: " + titleCache[elt[PMID]], "ABSTRACT: " + abstractCache[elt[PMID]]])
+        abstractTxt = unicode(tiab, 'utf-8', 'replace')
         tplL.append((textConstraintUuid, oa["exact"], Literal(abstractTxt)))
         
     s = u""
@@ -365,13 +384,28 @@ for elt in recL[0:1000]: # Debugging
     # body contains the MESH drug and condition as a semantic tag
     print "INFO: working on the body for %s" % elt
     
-    # to begin with, avoid duplicating PMID - drug  - HOI combos for PMIDs that have multiple publication type assignments
+    # to begin with, avoid duplicating PMID - drug - HOI combos for
+    # PMIDs that have multiple publication type assignments or that
+    # are already picked up because the drug that belonged to a MESH
+    # pharm action group mentioned in MESH tags for a TIAB was
+    # specifically mentioned in the text of the TIAB. If a the drug
+    # that belonged to a MESH pharm action group WAS mentioned in MESH
+    # tags BUT NOT specifically mentioned in the TIAB text then, this
+    # is probably a specific MESH mention of the drug that reqiures a
+    # new body
     concat = "%s-%s-%s" % (elt[PMID], elt[ADR_DRUG_UI], elt[ADR_HOI_UI])
-    if drugHoiPMIDCache.has_key(concat):
-        print "INFO: skipping generation of a new body graph because the PMID, drug, and HOI (%s) have already been processed. Probably a MEDLINE record with multiple pub type assignments" % concat
+    if drugHoiPMIDCache.has_key(concat) and (drugHoiPMIDCache[concat] == "MeshTaggedAgent" or drugHoiPMIDCache[concat] == "FilteredAdeAgent") :
+        print "INFO: skipping generation of a new body graph because the PMID, drug, and HOI (%s) have already been processed. drugHoiPMIDCache[concat]: %s" % (concat, drugHoiPMIDCache[concat])
         continue
     else:
-        drugHoiPMIDCache[concat] = None
+        # This should have two effects: 1) both individual drugs and
+        # drug groupings will be tagged as MESH mentions, and 2)
+        # individual drugs that were previously part of a drug
+        # grouping will be noted as also being MESH tagged. The latter
+        # case creates a duplication, but one that can be addressed
+        # using SPARQL by distinguishing UnfilteredAdeAgent set
+        # members from direct ingredient resources.
+        drugHoiPMIDCache[concat] = "MeshTaggedAgent"
 
     currentAnnotationBody = "ohdsi-pubmed-mesh-annotation-annotation-body-%s" % annotationBodyCntr
     annotationBodyCntr += 1
@@ -425,11 +459,11 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
             if len(cuiRsltL) == 0:
                 print "ERROR: very strange that none of the drug concepts in the MeSH pharmacological grouping is able to map to any UMLS MetaThesaurus CUI: %s -- %s" % (descriptorName,mshIdSet)
             else:
-                # query Semmeddb to get the CUIs for tagged pharmacologic
-                # substances and organic chemicals. NOTE: the IN clause is
-                # limited by the MySQL max_allowed_packet configuration
-                # variable so set it to be large (e.g., several megabytes)
-                print "INFO: checking Semmeddb to see if the title or abstract of PMID %s mentions any of the %s individual drugs" % (elt[PMID], len(cuiRsltL))
+                # query Semmeddb to get the CUIs tagged for this
+                # TIAB. NOTE: the IN clause is limited by the MySQL
+                # max_allowed_packet configuration variable so set it
+                # to be large (e.g., several megabytes)
+                #print "INFO: checking Semmeddb to see if the title or abstract of PMID %s mentions any of the %s individual drugs" % (elt[PMID], len(cuiRsltL))
 
                 # 1. Get the CUIs associated with the PMID in semmeddb
                 pmidCuis = pmidToCuiCache.get(elt[PMID])
@@ -447,16 +481,20 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                     print q 
 
                     smdb_cur.execute(q)
-                    pmidCuis = fetchall() # all results (even null ones) need to be retrieved to prevent  "Unread result found" when the curser is used in a later iteraction 
+                    pmidCuis = smdb_cur.fetchall() # all results (even null ones) need to be retrieved to prevent  "Unread result found" when the curser is used in a later iteraction 
 
-                if pmidCuis != None:
-                    pmidToCuiCache[elt[PMID]] = pmidCuis
-                    print "INFO: Found individual Semmeddb drug mentions for PMID -- pmidCuis: %s" % ",".join(pmidCuis)
+                if pmidCuis != None and pmidCuis != []:
+                    pmidToCuiCache[elt[PMID]] = [x[0] for x in pmidCuis]
+                    #print "INFO: cuiRsltL - %s " % cuiRsltL
+                    print "INFO: Found individual Semmeddb concept mentions (including non-drugs) for PMID %s (from query) -- pmidCuis: %s" % (elt[PMID], pmidToCuiCache[elt[PMID]])
+
                     # 2. get the MESH identifiers for the returned CUIs that are in the MESH Pharm group cuiRsltL
-                    mshSubstOfInterestL = [x[1] for x in filter(lambda x: x[0] in pmidCuis, cuiRsltL)]
-                    mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]] = mshSubstOfInterestL
+                    mshSubstOfInterestL = [x[1] for x in filter(lambda x: x[0] in pmidToCuiCache[elt[PMID]], cuiRsltL)]
+                    if len(mshSubstOfInterestL) > 0:
+                        print "INFO: Mesh drug identifiers being added to cache: %s " % mshSubstOfInterestL
+                        mshSubstOfInterestLCache[elt[PMID] + elt[ADR_DRUG_UI]] = mshSubstOfInterestL
                 
-        # add each specific substance found in the title or abstract to a 'adeAgents' collection in the body
+        # add each *specific* substance found in the title or abstract to a 'adeAgents' collection in the body
         if len(mshSubstOfInterestL) > 0:
             # first check for duplication, it happens a bunch
             keepers = []
@@ -466,7 +504,7 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                     print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
                     continue
                 else:
-                    drugHoiPMIDCache[concat] = None
+                    drugHoiPMIDCache[concat] = "FilteredAdeAgent"
                     keepers.append(substanceMshUI)
 
             if len(keepers) > 0:
@@ -485,8 +523,8 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
 
         # Now, add the rest of the entities in the pharmacologic group to an 'adeAgentsUnfiltered' collection which is useful for two reasons, 1) SemMedDB is a few months behind the current MEDLINE (so, more recent titles and abstracts will not benefit from the processing steps above), and 2)although noisy for inferring positive drug-HOI associaions, having all drugss in a class is helpful for inferring negative controls.
         keepers = [] # NOTE: we deliberately do not add those triples that have been added to the 'adeAgents' collection to the 'adeAgentsUnfiltered' collection
-        if pmidCuis != None:
-            substOfInterestL = [x[1] for x in filter(lambda x: x[0] not in pmidCuis, cuiRsltL)] # the drug concepts NOT mentioned in the abstract
+        if pmidToCuiCache.get(elt[PMID]) != None:
+            substOfInterestL = [x[1] for x in filter(lambda x: x[0] not in pmidToCuiCache[elt[PMID]], cuiRsltL)] # the drug concepts NOT mentioned in the abstract
         else:
             substOfInterestL = [x[1] for x in cuiRsltL] # the MESH identifiers all drugs in the MESH pharm grouping
             
@@ -496,7 +534,7 @@ SELECT DISTINCT CUI,SDUI FROM umls.MRCONSO WHERE SDUI IN ('%s') AND SAB = 'MSH'
                 print "INFO: skipping addition of a PMID, drug, and HOI (%s) that have already been processed (probably duplication of pharmacologic entity mapping because of drug groupings)." % concat
                 continue
             else:
-                drugHoiPMIDCache[concat] = None
+                drugHoiPMIDCache[concat] = "UnfilteredAdeAgent"
                 keepers.append(substanceMshUI)
 
         if len(keepers) > 0:

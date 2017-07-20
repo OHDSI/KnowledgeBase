@@ -50,12 +50,13 @@ The process works as follows:
    drugs. Collections under 'adeAgentsUnfiltered' hold the drugs
    within a pharmacologic grouping that were not found in the title or
    abstract. The negative control use case appears to benefit from the
-   much less specific (and often just incorrect) approach of including
-   inferring the drug-HOI associations apply to all drugs within a
-   pharmacologic grouping.
+   much less specific (and often incorrect) approach of inferring that
+   drug-HOI associations apply to all drugs within a pharmacologic
+   grouping.
 
-   NOTE: There are all kinds of duplication that occurs in the output
-   file mentioned above. Take the following example:
+*** NOTES BASED ON THE OUTPUT OF pmSearch2rdf.py ON test-drug-hoi-dataset.tsv -- The notes below refer to the graph produced from this dataset which can be loaded into an endpoint and used for testing. Be sure to clear any previous graphs that have the same resources ***
+
+   NOTE: There are all kinds of duplication that occur. Take the following example:
 
 17766   Adrenergic beta-Antagonists     D000319 Arrhythmias, Cardiac    D001145 Journal Article D016428
 17766   Adrenergic beta-Antagonists     D000319 Diarrhea        D003967 Journal Article D016428
@@ -72,10 +73,19 @@ The process works as follows:
 17766   Practolol       D011217 Muscle Cramp    D009120 Journal Article D016428
 17766   Practolol       D011217 Skin Diseases   D012871 Journal Article D016428
 
+
+   (See
+   <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#ohdsi-pubmed-mesh-annotation-item-15>
+   in the faceted browser.)
+
    In this case, the MEDLINE record was tagged with both a drug
    grouping and an individual drug causing duplication. The OA
    generation script attempts to remove duplication and create only
-   one OA body for each PMID-drug-HOI triple.
+   one OA body for each PMID-drug-HOI triple (seven total). Also
+   notice that only one specific drug is identified in the title or
+   abstract (Practolol).  This drug is placed under ohdsi:adeAgents
+   while the rest of the drugs in the class are placed under
+   ohdsi:adeAgentsUnfiltered.
 
    Another kind of duplication is shown in this example:
 
@@ -84,12 +94,15 @@ The process works as follows:
 311     Methyl Ethers   D008738 Jaundice        D007565 Case Reports    D002363
 311     Methyl Ethers   D008738 Jaundice        D007565 Journal Article D016428
 
+   (See http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#ohdsi-pubmed-mesh-annotation-item-12 in the faceted browser)
+
    In this case, a single OA target will be created with multiple
    objects assigned to http://purl.org/net/ohdsi#MeshStudyType (one
    for case reports and one for journal articles (mapped to
    'Other')). A single OA body for Enflurane is created. Then, the
-   Methyl Esters group is checked for individual drugs. Because none
-   are found, no additional body is created.
+   individual drug concepts in te Methyl Esters group are checked for
+   mention in the title and abstract. drugs. Because none are found,
+   no additional body is created.
 
    Yet another example:
 
@@ -110,12 +123,21 @@ The process works as follows:
 658     Phenethylamines D010627 Hallucinations  D006212 Journal Article D016428
 658     Phenethylamines D010627 Hallucinations  D006212 Case Reports    D002363
 
+   (See http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#ohdsi-pubmed-mesh-annotation-item-13 in the faceted browser)
+
    In this case, a single target is created with two objects assigned
    to http://purl.org/net/ohdsi#MeshStudyType. Two bodies are created
-   for the Adrenergic beta-Agonists.The MeSH pharmacologic grouping
-   file contains the drug group and so Semmedb is checked for mentions
-   involving specific drugs within the group. None are found. Then,
-   two bodies are created for Albuterol and Isoxsuprine. No body is
+   for the Adrenergic beta-Agonists (Depression and
+   Hallucinations).The MeSH pharmacologic grouping file contains the
+   drug group and so Semmedb is checked for mentions involving
+   specific drugs within the group. None are found. Albuterol and
+   Isoxsuprine are called out specificaly in the MeSH tags but not the
+   title and abstract. New bodies are created specifically for these
+   drugs with the two HOIs. That makes a total of 6 bodies. There is
+   duplication of the drug-HOI associations for abuterol and
+   isoxsuprine if one combines directly mapped drugs (directly under
+   the body resource) with drugs present in an adeAgentsUnfiltered
+   list within a nother bode for this annotation resource. No body is
    created for Phenethylamines because the MeSH pharmacologic grouping
    file does not list the group
 
@@ -131,6 +153,8 @@ The process works as follows:
 5066    Benztropine     D001590 Basal Ganglia Diseases  D001480 Comparative Study       D003160
 5066    Benztropine     D001590 Basal Ganglia Diseases  D001480 Journal Article D016428
 
+   (See http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#ohdsi-pubmed-mesh-annotation-item-14 in the faceted browser)
+
    In this case, a single OA target is created with two objects
    assigned to http://purl.org/net/ohdsi#MeshStudyType (the
    Comparative Study and Journal Article are both mapped to
@@ -141,37 +165,7 @@ The process works as follows:
    found. A single body is created for Benztropine.
 
 
-   Yet another example:
-
-17766   Adrenergic beta-Antagonists     D000319 Arrhythmias, Cardiac    D001145 Journal Article D016428
-17766   Adrenergic beta-Antagonists     D000319 Diarrhea        D003967 Journal Article D016428
-17766   Adrenergic beta-Antagonists     D000319 Heart Failure   D006333 Journal Article D016428
-17766   Adrenergic beta-Antagonists     D000319 Hypoglycemia    D007003 Journal Article D016428
-17766   Adrenergic beta-Antagonists     D000319 Hypotension     D007022 Journal Article D016428
-17766   Adrenergic beta-Antagonists     D000319 Muscle Cramp    D009120 Journal Article D016428
-17766   Adrenergic beta-Antagonists     D000319 Skin Diseases   D012871 Journal Article D016428
-17766   Practolol       D011217 Arrhythmias, Cardiac    D001145 Journal Article D016428
-17766   Practolol       D011217 Diarrhea        D003967 Journal Article D016428
-17766   Practolol       D011217 Heart Failure   D006333 Journal Article D016428
-17766   Practolol       D011217 Hypoglycemia    D007003 Journal Article D016428
-17766   Practolol       D011217 Hypotension     D007022 Journal Article D016428
-17766   Practolol       D011217 Muscle Cramp    D009120 Journal Article D016428
-17766   Practolol       D011217 Skin Diseases   D012871 Journal Article D016428
-
-   A single target is created with only on value assigned to
-   http://purl.org/net/ohdsi#MeshStudyType. The MeSH pharmacologic
-   grouping file contains the drug group Adrenergic beta-Antagonists
-   and so Semmedb is checked for mentions involving specific
-   drugs. Practolol is found within the abstract so a body is created
-   for each Adrenergic beta-Antagonists - HOI association and each
-   body has a http://purl.org/net/ohdsi#adeAgents predicate with three
-   resources, one each for the practolol identifier in rxnorm, OHDSI,
-   and MeSH. This sums up to 7 bodies. No additional OA bodies are
-   created for the Practol records shown above because that
-   information is already captured by the bodies for Adrenergic
-   beta-Antagonists.
-
-   A final example:
+   Anoter example:
 
 17162   Adrenergic beta-Antagonists     D000319 Asthma  D001249 Journal Article D016428
 17162   Adrenergic beta-Antagonists     D000319 Hypercalcemia   D006934 Journal Article D016428
@@ -201,11 +195,180 @@ The process works as follows:
 17162   Propranolol     D011433 Placental Insufficiency D010927 Journal Article D016428
 17162   Propranolol     D011433 Vomiting        D014839 Journal Article D016428
 
+   (See http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#ohdsi-pubmed-mesh-annotation-item-16 in the faceted browser)
+
    A single target and 27 bodies are created. This happens because
    none of the individual drugs MeSH assignes to Adrenergic
    beta-Antagonists is found in the title or abstract and so the 9
    HOIs are repeated for the group and then practolol and propranolol.
-   
+
+
+   NOTE: Querying for counts examples:
+
+   1) Counts for directly mapped ingredients - This works because the
+   drugs that belong to groupings are ONLY mapped to ohdsi:imedsDrugs
+   under adeAgents and adeAgentsUnfiltered collections. This
+   query does not include those collections. Notice that the results
+   often have the same drug and HOI but different publication
+   type. This is because lots of TIABS are assigned multiple study
+   types.
+
+```
+PREFIX ohdsi:<http://purl.org/net/ohdsi#> 
+PREFIX oa:<http://www.w3.org/ns/oa#> 
+PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> 
+PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX poc: <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#>  
+
+SELECT count(?an) ?drug ?hoi ?studyType  
+FROM <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc> 
+WHERE {       
+  ?an a ohdsi:PubMedDrugHOIAnnotation;                
+   oa:hasTarget ?target;       
+   oa:hasBody ?body.           
+   ?target ohdsi:MeshStudyType ?studyType.            
+
+  {?body ohdsi:ImedsDrug ?drug.}         
+  {?body ohdsi:ImedsHoi ?hoi.}        
+ }
+```
+
+```
+callret-0	drug	hoi	studyType
+1	http://purl.org/net/ohdsi#751347	http://purl.org/net/ohdsi#45610470	other (publication type)
+1	http://purl.org/net/ohdsi#19009405	http://purl.org/net/ohdsi#45610470	other (publication type)
+1	http://purl.org/net/ohdsi#704984	http://purl.org/net/ohdsi#45619234	other (publication type)
+1	http://purl.org/net/ohdsi#704984	http://purl.org/net/ohdsi#45619234	case reports (publication type)
+1	http://purl.org/net/ohdsi#789578	http://purl.org/net/ohdsi#45610388	other (publication type)
+1	http://purl.org/net/ohdsi#789578	http://purl.org/net/ohdsi#45610388	clinical trial (publication type)
+1	http://purl.org/net/ohdsi#743196	http://purl.org/net/ohdsi#45617949	other (publication type)
+1	http://purl.org/net/ohdsi#743196	http://purl.org/net/ohdsi#45617949	case reports (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45614157	other (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45615483	other (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45615483	other (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45614157	other (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45614157	case reports (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45615483	case reports (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45615483	case reports (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45614157	case reports (publication type)
+1	http://purl.org/net/ohdsi#19087090	http://purl.org/net/ohdsi#45610388	other (publication type)
+1	http://purl.org/net/ohdsi#719174	http://purl.org/net/ohdsi#45610388	other (publication type)
+1	http://purl.org/net/ohdsi#19087090	http://purl.org/net/ohdsi#45610388	clinical trial (publication type)
+1	http://purl.org/net/ohdsi#719174	http://purl.org/net/ohdsi#45610388	clinical trial (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45613051	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45618023	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45615605	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45619256	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45614609	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45618023	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45615605	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45612832	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45617919	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45611821	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45612832	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45617919	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45611821	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45613051	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45610671	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45619256	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45614609	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45610671	other (publication type)
+```
+
+   2) Counts for all directly mapped ingredients and those coming from
+   MESH pharm groups where the drug entity is mentioned in the TIAB -
+   This works because the query includes ohdsi:imedsDrug resources
+   directly under a body and under adeAgents (but not
+   adeAgentsFiltered collections). The additional records come from
+   the mention of practolol in the relevant TIAB
+   (http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#ohdsi-pubmed-mesh-annotation-item-15)
+   Notice that the results often have the same drug and HOI but
+   different publication type. This is because lots of TIABS are
+   assigned multiple study types.
+
+```
+callret-0	drug	hoi	studyType
+1	http://purl.org/net/ohdsi#751347	http://purl.org/net/ohdsi#45610470	other (publication type)
+1	http://purl.org/net/ohdsi#19009405	http://purl.org/net/ohdsi#45610470	other (publication type)
+1	http://purl.org/net/ohdsi#704984	http://purl.org/net/ohdsi#45619234	other (publication type)
+1	http://purl.org/net/ohdsi#704984	http://purl.org/net/ohdsi#45619234	case reports (publication type)
+1	http://purl.org/net/ohdsi#789578	http://purl.org/net/ohdsi#45610388	other (publication type)
+1	http://purl.org/net/ohdsi#789578	http://purl.org/net/ohdsi#45610388	clinical trial (publication type)
+1	http://purl.org/net/ohdsi#743196	http://purl.org/net/ohdsi#45617949	other (publication type)
+1	http://purl.org/net/ohdsi#743196	http://purl.org/net/ohdsi#45617949	case reports (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45614157	other (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45615483	other (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45615483	other (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45614157	other (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45614157	case reports (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45615483	case reports (publication type)
+1	http://purl.org/net/ohdsi#1154343	http://purl.org/net/ohdsi#45615483	case reports (publication type)
+1	http://purl.org/net/ohdsi#1384360	http://purl.org/net/ohdsi#45614157	case reports (publication type)
+1	http://purl.org/net/ohdsi#19087090	http://purl.org/net/ohdsi#45610388	other (publication type)
+1	http://purl.org/net/ohdsi#719174	http://purl.org/net/ohdsi#45610388	other (publication type)
+1	http://purl.org/net/ohdsi#19087090	http://purl.org/net/ohdsi#45610388	clinical trial (publication type)
+1	http://purl.org/net/ohdsi#719174	http://purl.org/net/ohdsi#45610388	clinical trial (publication type)
+2	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45613051	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45618023	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45615605	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45619256	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45614609	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45618023	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45615605	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45612832	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45617919	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45611821	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45612832	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45617919	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45611821	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45613051	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45610671	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45619256	other (publication type)
+1	http://purl.org/net/ohdsi#1353766	http://purl.org/net/ohdsi#45614609	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45610671	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45614042	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45618962	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45614267	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45617930	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45614379	other (publication type)
+1	http://purl.org/net/ohdsi#19135791	http://purl.org/net/ohdsi#45613288	other (publication type)
+```
+
+   3) Counts for all INDIRECTLY mapped ingredients -- those coming
+   from MESH pharm groups where the drug entity is NOT mentioned in
+   the TIAB - This works because the query includes ohdsi:imedsDrug
+   resources directly under a body and under adeAgentsUnfilterd (but
+   not directly under the body or under the adeAgents
+   collections). There are too many results to show here because of
+   the combinatorial explosion that happens.
+
+```
+PREFIX ohdsi:<http://purl.org/net/ohdsi#> 
+PREFIX oa:<http://www.w3.org/ns/oa#> 
+PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> 
+PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX poc: <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#>  
+
+
+SELECT count(?an) ?drug ?hoi ?studyType  
+FROM <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc> 
+WHERE {       
+  ?an a ohdsi:PubMedDrugHOIAnnotation;                
+   oa:hasTarget ?target;       
+   oa:hasBody ?body.           
+   ?target ohdsi:MeshStudyType ?studyType.            
+
+
+  {?body ohdsi:adeAgentsUnfiltered ?agents.          
+   ?agents ohdsi:ImedsDrug ?drug.       }         
+  
+  {?body ohdsi:ImedsHoi ?hoi.}        
+ }  
+```
+
+------------------------------------------------------------------------------------------------------------------------
 
    NOTE: if the output has to be transferred to a remote location, the
    following approach is recommended (set up .ssh/config if using public/private keys): 

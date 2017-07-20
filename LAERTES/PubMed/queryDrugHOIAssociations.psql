@@ -45,7 +45,7 @@ inner join
 (
   select pmid, 
 		CASE 
-		WHEN value IN ('Clinical Trial', 'Controlled Clinical Trial', 'Clinical Trial, Phase I', 'Clinical Trial, Phase II', 'Clinical Trial, Phase III','Clinical Trial, Phase IV', 'Randomized Controlled Trial','Observational Study','Multicenter Study') THEN 'Clinical Trial'
+		WHEN value IN ('Clinical Trial', 'Controlled Clinical Trial', 'Clinical Trial, Phase I', 'Clinical Trial, Phase II', 'Clinical Trial, Phase III','Clinical Trial, Phase IV', 'Randomized Controlled Trial','Multicenter Study') THEN 'Clinical Trial'
 		WHEN value IN ('Observational Study') THEN 'Comparative Study'
 		ELSE value 
 	END AS pub_type_value, /*This case statement is to allow us to add in new types without needing to update downstream processes*/ 

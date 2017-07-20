@@ -8,45 +8,69 @@
 
 import urllib2, urllib, re, sys
 
-#VT_SERVER="virtuoso.ohdsi.org" # Release 
-VT_SERVER="130.49.206.139"  # Development
+
 VT_PORT="8890"
 
+#VT_SERVER="virtuoso.ohdsi.org" # Release 
 #URL_SHORTENER_URL="http://dbmi-icode-01.dbmi.pitt.edu/l" # Release
+
+VT_SERVER="130.49.206.139"  # Development
 URL_SHORTENER_URL="http://130.49.206.139/l" # Development
 
-DATAFILE = "pubmed-graph-count-query-March2016.txt"
+#TEMPLATE_TYPE = "SENSITIVE"
+#DATAFILE = "count-query-SENSITIVE-drug-hois-09082016.txt"
+
+TEMPLATE_TYPE = "PRECISE"
+DATAFILE = "count-query-PRECISE-drug-hois-09082016.txt"
+
 EVTYPE = "MEDLINE_MeSH"
-URL_ID_PREFIX = "pm-mesh-"
+URL_ID_PREFIX = "pm-mesh-" + TEMPLATE_TYPE + "-"
 URL_PREFIX = "%s/index.php?id=" % URL_SHORTENER_URL
 SQL_INSERT_OUTFILE = "insertShortURLs-ALL.txt"
 
-## count data retrieved from the Virtuoso SPARQL endpoint using the
-## following  query. 
+## Count data retrieved from the Virtuoso SPARQL endpoint using one of
+## the following queries depending on your goals.
 ##
 ## NOTE: that the ohdsi:MeddrraHoi is misleading because its actually
 ## the HOI concept code from OMOP.
 ##
-## NOTE: run the query using the following isql command because
-## queries from curl or the virtuoso sparql web form truncate the
-## results:
+## NOTE: run the selected query using the following isql command
+## because queries from curl or the virtuoso sparql web form truncate
+## the results:
 ##
 ## $ isql-vt -H localhost -S 1111  -U <user name> -P <password> errors=stdout < /tmp/test.sparql > /tmp/test.out
 ## $ egrep "^[0-9]+ +http.*" /tmp/test.out | sed 's/.(/\_(/g' | sed 's/.type/\_type/g' | sed 's/e r/e_r/g' | sed 's/l t/l_t/g' | tr -s '  *' ',' > sample-summary-query.txt
 ##
-## QUERY (paste into /tmp/test.sparql):
-# SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#> PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX poc: <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#>  SELECT count(distinct ?an) ?drug ?hoi ?studyType  FROM <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc> WHERE {       ?an a ohdsi:PubMedDrugHOIAnnotation;               oa:hasTarget ?target;           oa:hasBody ?body.           ?target ohdsi:MeshStudyType ?studyType.            {?body ohdsi:ImedsDrug ?drug.}    UNION        {?body ohdsi:adeAgents ?agents.          ?agents ohdsi:ImedsDrug ?drug.       }          {?body ohdsi:ImedsHoi ?hoi.}        UNION    {?body ohdsi:adeEffects ?effects.          ?effects ohdsi:ImedsHoi ?hoi.    }  };
+##
+## QUERY 1 (more specific) - evidence for drug-HOI associations where the drug is either
+##
+## 1) a MeSH ingredient that is directly mapped from MeSH to
+## RxNorm or,
+##
+## 2) a MeSH ingredient that is a member of a MeSH Pharmacologic Action Group that is identified as being associated with the HOI AND the ingredient was found to be mentioned in the relevant title and abstract by SemMed
+##
+##(uncomment and paste into /tmp/test.sparql):
+# SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#> PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX poc: <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#>  SELECT count(distinct ?an) ?drug ?hoi ?studyType  FROM <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc> WHERE {       ?an a ohdsi:PubMedDrugHOIAnnotation;               oa:hasTarget ?target;           oa:hasBody ?body.           ?target ohdsi:MeshStudyType ?studyType.            {?body ohdsi:ImedsDrug ?drug.}    UNION        {?body ohdsi:adeAgents ?agents.          ?agents ohdsi:ImedsDrug ?drug.       }          {?body ohdsi:ImedsHoi ?hoi.} };
+##
+##
+## QUERY 2 (way more sensitive but also very noise) - evidence for drug-HOI associations where the drug is a MeSH ingredient that is a member of a MeSH Pharmacologic Action Group that is identified as being associated with the HOI BUT NOT found to be mentioned in the relevant title and abstract by SemMed
+##
+##(uncomment and paste into /tmp/test.sparql):
+# SPARQL PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#> PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX poc: <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc#>  SELECT count(distinct ?an) ?drug ?hoi ?studyType  FROM <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc> WHERE {       ?an a ohdsi:PubMedDrugHOIAnnotation;               oa:hasTarget ?target;           oa:hasBody ?body.           ?target ohdsi:MeshStudyType ?studyType.            {?body ohdsi:ImedsDrug ?drug.}    UNION        {?body ohdsi:adeAgentsUnfiltered ?agents.          ?agents ohdsi:ImedsDrug ?drug.       }          {?body ohdsi:ImedsHoi ?hoi.} };
 
-## The old query (deprecated)
-# PREFIX ohdsi:<http://purl.org/net/ohdsi#> PREFIX oa:<http://www.w3.org/ns/oa#> PREFIX meddra:<http://purl.bioontology.org/ontology/MEDDRA/> PREFIX ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX dailymed:<http://dbmi-icode-01.dbmi.pitt.edu/linkedSPLs/vocab/resource/>  SELECT ?an ?drug ?hoi ?studyType FROM <http://purl.org/net/nlprepository/ohdsi-pubmed-mesh-poc> WHERE {  ?an a ohdsi:PubMedDrugHOIAnnotation;    oa:hasBody ?body;    oa:hasTarget ?target.   ?body ohdsi:ImedsDrug ?drug.  ?body ohdsi:ImedsHoi ?hoi.  ?target ohdsi:MeshStudyType ?studyType.  };
 
 ############################################################
 
 
 # replace the @IMEDS_DRUG@, @IMEDS_HOI@, @STUDY_TYPE@ strings with the appropriate values
-TEMPLATE = "http://@VT_SERVER@:@VT_PORT@/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E+%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E+%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E+%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E+%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+%0D%0APREFIX+poc%3A+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%23%3E++%0D%0A%0D%0ASELECT+%3Fan+%3Fpmid+%3Fexact%0D%0AFROM+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%3E%0D%0AWHERE+%7B%0D%0A++%3Fan+a+ohdsi%3APubMedDrugHOIAnnotation%3B++++%0D%0A++++oa%3AhasTarget+%3Ftarget%3B%0D%0A++++oa%3AhasBody+%3Fbody.%0D%0A%0D%0A++%3Ftarget+ohdsi%3AMeshStudyType+@STUDY_TYPE@%3B%0D%0A+++++++++oa%3AhasSource+%3Fpmid%3B%0D%0A+++++++++oa%3AhasSelector+%3Fsel.%0D%0A++%3Fsel+oa%3Aexact+%3Fexact.%0D%0A%0D%0A++%7B%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%7D+%0D%0A++UNION+%0D%0A++%7B%0D%0A++++%3Fbody+ohdsi%3AadeAgents+%3Fagents.%0D%0A++++%3Fagents+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A++%7D%0D%0A%0D%0A++%7B%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%7D+%0D%0A++UNION+%0D%0A++%7B%0D%0A++++%3Fbody+ohdsi%3AadeEffects+%3Feffects.%0D%0A++++%3Feffects+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A++%7D%0D%0A%7D&format=json&timeout=0&debug=on"
+TEMPLATE_PRECISE = "http://@VT_SERVER@:@VT_PORT@/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E+%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E+%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E+%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E+%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+%0D%0APREFIX+poc%3A+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%23%3E++%0D%0A%0D%0ASELECT+%3Fan+%3Fpmid+%3Fexact%0D%0AFROM+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%3E%0D%0AWHERE+%7B%0D%0A++%3Fan+a+ohdsi%3APubMedDrugHOIAnnotation%3B++++%0D%0A++++oa%3AhasTarget+%3Ftarget%3B%0D%0A++++oa%3AhasBody+%3Fbody.%0D%0A%0D%0A++%3Ftarget+ohdsi%3AMeshStudyType+@STUDY_TYPE@%3B%0D%0A+++++++++oa%3AhasSource+%3Fpmid%3B%0D%0A+++++++++oa%3AhasSelector+%3Fsel.%0D%0A++%3Fsel+oa%3Aexact+%3Fexact.%0D%0A%0D%0A++%7B%3Fbody+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%7D+%0D%0A++UNION+%0D%0A++%7B%0D%0A++++%3Fbody+ohdsi%3AadeAgents+%3Fagents.%0D%0A++++%3Fagents+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A++%7D%0D%0A%0D%0A++%7B%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%7D+%0D%0A++UNION+%0D%0A++%7B%0D%0A++++%3Fbody+ohdsi%3AadeEffects+%3Feffects.%0D%0A++++%3Feffects+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A++%7D%0D%0A%7D&format=json&timeout=0&debug=on"
 
-TEMPLATE = TEMPLATE.replace('@VT_SERVER@', VT_SERVER).replace('@VT_PORT@',VT_PORT)
+TEMPLATE_SENSITIVE = "http://@VT_SERVER@:@VT_PORT@/sparql?default-graph-uri=&query=PREFIX+ohdsi%3A%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fohdsi%23%3E+%0D%0APREFIX+oa%3A%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Foa%23%3E+%0D%0APREFIX+meddra%3A%3Chttp%3A%2F%2Fpurl.bioontology.org%2Fontology%2FMEDDRA%2F%3E+%0D%0APREFIX+ncbit%3A+%3Chttp%3A%2F%2Fncicb.nci.nih.gov%2Fxml%2Fowl%2FEVS%2FThesaurus.owl%23%3E+%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+%0D%0APREFIX+poc%3A+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%23%3E++%0D%0A%0D%0ASELECT+%3Fan+%3Fpmid+%3Fexact%0D%0AFROM+%3Chttp%3A%2F%2Fpurl.org%2Fnet%2Fnlprepository%2Fohdsi-pubmed-mesh-poc%3E%0D%0AWHERE+%7B%0D%0A++%3Fan+a+ohdsi%3APubMedDrugHOIAnnotation%3B++++%0D%0A++++oa%3AhasTarget+%3Ftarget%3B%0D%0A++++oa%3AhasBody+%3Fbody.%0D%0A%0D%0A++%3Ftarget+ohdsi%3AMeshStudyType+@STUDY_TYPE@%3B%0D%0A+++++++++oa%3AhasSource+%3Fpmid%3B%0D%0A+++++++++oa%3AhasSelector+%3Fsel.%0D%0A++%3Fsel+oa%3Aexact+%3Fexact.%0D%0A%0D%0A++%7B%0D%0A++++%3Fbody+ohdsi%3AadeAgentsUnfiltered+%3Fagents.%0D%0A++++%3Fagents+ohdsi%3AImedsDrug+ohdsi%3A@IMEDS_DRUG@.%0D%0A++%7D%0D%0A%0D%0A++%7B%3Fbody+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%7D+%0D%0A++UNION+%0D%0A++%7B%0D%0A++++%3Fbody+ohdsi%3AadeEffects+%3Feffects.%0D%0A++++%3Feffects+ohdsi%3AImedsHoi+ohdsi%3A@IMEDS_HOI@.%0D%0A++%7D%0D%0A%7D&format=json&timeout=0&debug=on"
+
+if TEMPLATE_TYPE == "PRECISE":
+    TEMPLATE = TEMPLATE_PRECISE.replace('@VT_SERVER@', VT_SERVER).replace('@VT_PORT@',VT_PORT)
+elif TEMPLATE_TYPE == "SENSITIVE":
+    TEMPLATE = TEMPLATE_SENSITIVE.replace('@VT_SERVER@', VT_SERVER).replace('@VT_PORT@',VT_PORT)
 
 f = open(DATAFILE)
 buf = f.read()
